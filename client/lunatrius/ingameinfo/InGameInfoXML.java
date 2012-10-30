@@ -14,6 +14,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -378,6 +379,10 @@ public class InGameInfoXML {
 				type = "div";
 			} else if (attributeType.matches("(?i)(round)")) {
 				type = "round";
+			} else if (attributeType.matches("(?i)(mod|modulo)")) {
+				type = "mod";
+			} else if (attributeType.matches("(?i)(imod|intmod|imodulo|intmodulo)")) {
+				type = "imod";
 			} else {
 				continue;
 			}
@@ -497,9 +502,26 @@ public class InGameInfoXML {
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
 				double dec = Math.pow(10, arg1);
 				if (arg1 > 0) {
-					return String.format("%." + arg1 + "f", arg0);
+					return String.format(Locale.ENGLISH, "%." + arg1 + "f", arg0);
 				}
 				return Integer.toString((int) (Math.round(arg0 * dec) / dec));
+			} catch (Exception e2) {
+				return "0";
+			}
+		} else if (value.type == "mod" && value.values.size() == 2) {
+			try {
+				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
+				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
+				return Double.toString(Math.round((arg0 % arg1) * 10e6) / 10e6);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+				return "0";
+			}
+		} else if (value.type == "imod" && value.values.size() == 2) {
+			try {
+				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
+				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
+				return Integer.toString(arg0 % arg1);
 			} catch (Exception e2) {
 				return "0";
 			}
@@ -511,12 +533,12 @@ public class InGameInfoXML {
 	private String getVarValue(String var) {
 		try {
 			if (var.equalsIgnoreCase("day")) {
-				return String.format("%d", this.world.getWorldTime() / 24000);
+				return String.format(Locale.ENGLISH, "%d", this.world.getWorldTime() / 24000);
 			} else if (var.equalsIgnoreCase("mctime")) {
 				long time = this.world.getWorldTime();
 				long hour = (time / 1000 + 6) % 24;
 				long minute = (time % 1000) * 60 / 1000;
-				return String.format("%02d:%02d", hour, minute);
+				return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
 			} else if (var.equalsIgnoreCase("rltime")) {
 				return (new SimpleDateFormat("HH:mm")).format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
@@ -550,13 +572,13 @@ public class InGameInfoXML {
 					return "0";
 				}
 			} else if (var.equalsIgnoreCase("x")) {
-				return String.format("%.1f", this.player.posX);
+				return String.format(Locale.ENGLISH, "%.1f", this.player.posX);
 			} else if (var.equalsIgnoreCase("y")) {
-				return String.format("%.1f", this.player.posY);
+				return String.format(Locale.ENGLISH, "%.1f", this.player.posY);
 			} else if (var.equalsIgnoreCase("yfeet")) {
-				return String.format("%.1f", this.player.boundingBox.minY);
+				return String.format(Locale.ENGLISH, "%.1f", this.player.boundingBox.minY);
 			} else if (var.equalsIgnoreCase("z")) {
-				return String.format("%.1f", this.player.posZ);
+				return String.format(Locale.ENGLISH, "%.1f", this.player.posZ);
 			} else if (var.equalsIgnoreCase("xi")) {
 				return Integer.toString(this.playerPosition[0]);
 			} else if (var.equalsIgnoreCase("yi")) {
@@ -586,7 +608,7 @@ public class InGameInfoXML {
 			} else if (var.equalsIgnoreCase("worldsize")) {
 				return Long.toString(this.world.getWorldInfo().getSizeOnDisk());
 			} else if (var.equalsIgnoreCase("worldsizemb")) {
-				return String.format("%.1f", this.world.getWorldInfo().getSizeOnDisk() / 1048576.0);
+				return String.format(Locale.ENGLISH, "%.1f", this.world.getWorldInfo().getSizeOnDisk() / 1048576.0);
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("gamemode")) {
@@ -633,7 +655,7 @@ public class InGameInfoXML {
 			} else if (var.equalsIgnoreCase("equippedname")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + arrowsInInventory(this.player) + ")" : "";
-				return item != null ? item.getItem().getItemDisplayName(item) + arrows : "";
+				return item != null ? item.func_82833_r() + arrows : "";
 			} else if (var.equalsIgnoreCase("equippeddamage")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getItemDamage() : 0);
@@ -657,7 +679,7 @@ public class InGameInfoXML {
 
 				ItemStack item = this.player.inventory.armorItemInSlot(slot);
 				if (var.endsWith("name")) {
-					return item != null ? item.getItem().getItemDisplayName(item) : "";
+					return item != null ? item.func_82833_r() : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
 				} else if (var.endsWith("damage")) {
@@ -687,7 +709,7 @@ public class InGameInfoXML {
 				int index = Integer.parseInt(var.substring(14));
 				if (this.potionEffects.length > index) {
 					int duration = (this.potionEffects[index]).getDuration() / 20;
-					return String.format("%d:%02d", duration / 60, duration % 60);
+					return String.format(Locale.ENGLISH, "%d:%02d", duration / 60, duration % 60);
 				}
 				return "0:00";
 			} else if (var.matches("potiondurationticks\\d+")) {

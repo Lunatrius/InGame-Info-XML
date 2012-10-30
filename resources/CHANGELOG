@@ -1,3 +1,9 @@
+ * 30.10.2012 (2.2.0.8)
+    - Items that are renamed using an anvil now show the custom name.
+    - Added mod and imod utility tags (real number modulo, integer modulo).
+    - Added old sample config files, updated the default config.
+    - Changed the default String.format locale to English.
+
  * 26.10.2012 (2.2.0.7)
     - updated for minecraft 1.4.2
 

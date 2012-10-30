@@ -1,0 +1,349 @@
+<?xml version="1.0"?>
+<config>
+	<lines at="topleft">
+		<line>
+			<value type="str">Day {day}, {mctime} (</value>
+			<value type="if">
+				<value type="var">daytime</value>
+				<value type="str">$eDay</value>
+				<value type="str">$8Night</value>
+			</value>
+			<value type="str"> time$f)</value>
+		</line>
+		<line>
+			<value type="str">Biome: $e{biome}$f</value>
+			<value type="if">
+				<value type="var">slimes</value>
+				<value type="str"> ($aSlime$f)</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="str">Light: </value>
+			<value type="max">
+				<value type="var">light</value>
+				<value type="num">7.5</value>
+				<value type="str">$e</value>
+				<value type="str">$c</value>
+			</value>
+			<value type="var">light</value>
+			<value type="str">$r (feet: </value>
+			<value type="max">
+				<value type="var">lightfeet</value>
+				<value type="num">7.5</value>
+				<value type="str">$e</value>
+				<value type="str">$c</value>
+			</value>
+			<value type="var">lightfeet</value>
+			<value type="str">$r)</value>
+		</line>
+		<line>
+			<value type="str">$fEXP: $e{xpthislevel}$f / $e{xpcap}$f ($e</value>
+			<value type="round">
+				<value type="pct">
+					<value type="var">xpthislevel</value>
+					<value type="var">xpcap</value>
+				</value>
+				<value type="num">0</value>
+			</value>
+			<value type="str">%$f)</value>
+		</line>
+		<line>
+			<value type="str">FPS: </value>
+			<value type="max">
+				<value type="var">fps</value>
+				<value type="num">30</value>
+				<value type="str">$a</value>
+				<value type="str">$c</value>
+			</value>
+			<value type="var">fps</value>
+		</line>
+		<line>
+			<value type="str">Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</value>
+		</line>
+	</lines>
+	<lines at="topcenter">
+		<line>
+			<value type="str">$b{username}$f</value>
+		</line>
+	</lines>
+	<lines at="bottomleft">
+		<line>
+			<value type="var">equippedname</value>
+			<value type="max">
+				<value type="var">equippeddamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">: </value>
+				<value type="str"> </value>
+			</value>
+			<value type="max">
+				<value type="pct">
+					<value type="var">equippeddamageleft</value>
+					<value type="var">equippedmaxdamage</value>
+				</value>
+				<value type="num">10</value>
+				<value type="max">
+					<value type="pct">
+						<value type="var">equippeddamageleft</value>
+						<value type="var">equippedmaxdamage</value>
+					</value>
+					<value type="num">20</value>
+					<value type="max">
+						<value type="pct">
+							<value type="var">equippeddamageleft</value>
+							<value type="var">equippedmaxdamage</value>
+						</value>
+						<value type="num">50</value>
+						<value type="str">$e</value>
+						<value type="str">$6</value>
+					</value>
+					<value type="str">$c</value>
+				</value>
+				<value type="str">$4</value>
+			</value>
+			<value type="max">
+				<value type="var">equippeddamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">{equippeddamageleft}$f / $e{equippedmaxdamage}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="str"> </value>
+		</line>
+	</lines>
+	<lines at="bottomright">
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks0</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect0}: {potionduration0}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks1</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect1}: {potionduration1}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks2</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect2}: {potionduration2}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks3</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect3}: {potionduration3}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks4</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect4}: {potionduration4}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks5</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect5}: {potionduration5}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks6</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect6}: {potionduration6}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks7</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect7}: {potionduration7}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="max">
+				<value type="var">potiondurationticks8</value>
+				<value type="num">0.5</value>
+				<value type="str">{potioneffect8}: {potionduration8}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="var">helmetname</value>
+			<value type="max">
+				<value type="var">helmetdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">: </value>
+				<value type="str"> </value>
+			</value>
+			<value type="max">
+				<value type="pct">
+					<value type="var">helmetdamageleft</value>
+					<value type="var">helmetmaxdamage</value>
+				</value>
+				<value type="num">10</value>
+				<value type="max">
+					<value type="pct">
+						<value type="var">helmetdamageleft</value>
+						<value type="var">helmetmaxdamage</value>
+					</value>
+					<value type="num">20</value>
+					<value type="max">
+						<value type="pct">
+							<value type="var">helmetdamageleft</value>
+							<value type="var">helmetmaxdamage</value>
+						</value>
+						<value type="num">50</value>
+						<value type="str">$e</value>
+						<value type="str">$6</value>
+					</value>
+					<value type="str">$c</value>
+				</value>
+				<value type="str">$4</value>
+			</value>
+			<value type="max">
+				<value type="var">helmetdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">{helmetdamageleft}$f / $e{helmetmaxdamage}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="var">chestplatename</value>
+			<value type="max">
+				<value type="var">chestplatedamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">: </value>
+				<value type="str"> </value>
+			</value>
+			<value type="max">
+				<value type="pct">
+					<value type="var">chestplatedamageleft</value>
+					<value type="var">chestplatemaxdamage</value>
+				</value>
+				<value type="num">10</value>
+				<value type="max">
+					<value type="pct">
+						<value type="var">chestplatedamageleft</value>
+						<value type="var">chestplatemaxdamage</value>
+					</value>
+					<value type="num">20</value>
+					<value type="max">
+						<value type="pct">
+							<value type="var">chestplatedamageleft</value>
+							<value type="var">chestplatemaxdamage</value>
+						</value>
+						<value type="num">50</value>
+						<value type="str">$e</value>
+						<value type="str">$6</value>
+					</value>
+					<value type="str">$c</value>
+				</value>
+				<value type="str">$4</value>
+			</value>
+			<value type="max">
+				<value type="var">chestplatedamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">{chestplatedamageleft}$f / $e{chestplatemaxdamage}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="var">leggingsname</value>
+			<value type="max">
+				<value type="var">leggingsdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">: </value>
+				<value type="str"> </value>
+			</value>
+			<value type="max">
+				<value type="pct">
+					<value type="var">leggingsdamageleft</value>
+					<value type="var">leggingsmaxdamage</value>
+				</value>
+				<value type="num">10</value>
+				<value type="max">
+					<value type="pct">
+						<value type="var">leggingsdamageleft</value>
+						<value type="var">leggingsmaxdamage</value>
+					</value>
+					<value type="num">20</value>
+					<value type="max">
+						<value type="pct">
+							<value type="var">leggingsdamageleft</value>
+							<value type="var">leggingsmaxdamage</value>
+						</value>
+						<value type="num">50</value>
+						<value type="str">$e</value>
+						<value type="str">$6</value>
+					</value>
+					<value type="str">$c</value>
+				</value>
+				<value type="str">$4</value>
+			</value>
+			<value type="max">
+				<value type="var">leggingsdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">{leggingsdamageleft}$f / $e{leggingsmaxdamage}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+		<line>
+			<value type="var">bootsname</value>
+			<value type="max">
+				<value type="var">bootsdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">: </value>
+				<value type="str"> </value>
+			</value>
+			<value type="max">
+				<value type="pct">
+					<value type="var">bootsdamageleft</value>
+					<value type="var">bootsmaxdamage</value>
+				</value>
+				<value type="num">10</value>
+				<value type="max">
+					<value type="pct">
+						<value type="var">bootsdamageleft</value>
+						<value type="var">bootsmaxdamage</value>
+					</value>
+					<value type="num">20</value>
+					<value type="max">
+						<value type="pct">
+							<value type="var">bootsdamageleft</value>
+							<value type="var">bootsmaxdamage</value>
+						</value>
+						<value type="num">50</value>
+						<value type="str">$e</value>
+						<value type="str">$6</value>
+					</value>
+					<value type="str">$c</value>
+				</value>
+				<value type="str">$4</value>
+			</value>
+			<value type="max">
+				<value type="var">bootsdamageleft</value>
+				<value type="num">0.5</value>
+				<value type="str">{bootsdamageleft}$f / $e{bootsmaxdamage}</value>
+				<value type="str"> </value>
+			</value>
+		</line>
+	</lines>
+</config>
