@@ -612,12 +612,12 @@ public class InGameInfoXML {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("gamemode")) {
-				switch (this.world.getWorldInfo().getGameType().getID()) {
-				case 0:
+				switch (this.world.getWorldInfo().getGameType()) {
+				case SURVIVAL:
 					return "Survival";
-				case 1:
+				case CREATIVE:
 					return "Creative";
-				case 2:
+				case ADVENTURE:
 					return "Adventure";
 				default:
 					return "???";
@@ -655,7 +655,7 @@ public class InGameInfoXML {
 			} else if (var.equalsIgnoreCase("equippedname")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + arrowsInInventory(this.player) + ")" : "";
-				return item != null ? item.func_82833_r() + arrows : "";
+				return item != null ? item.getDisplayName() + arrows : "";
 			} else if (var.equalsIgnoreCase("equippeddamage")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getItemDamage() : 0);
@@ -679,7 +679,7 @@ public class InGameInfoXML {
 
 				ItemStack item = this.player.inventory.armorItemInSlot(slot);
 				if (var.endsWith("name")) {
-					return item != null ? item.func_82833_r() : "";
+					return item != null ? item.getDisplayName() : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
 				} else if (var.endsWith("damage")) {
