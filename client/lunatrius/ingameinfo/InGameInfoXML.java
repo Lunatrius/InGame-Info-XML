@@ -539,6 +539,12 @@ public class InGameInfoXML {
 				long hour = (time / 1000 + 6) % 24;
 				long minute = (time % 1000) * 60 / 1000;
 				return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
+			} else if (var.equalsIgnoreCase("mctimeh")) {
+				long hour = (this.world.getWorldTime() / 1000 + 6) % 24;
+				return String.format(Locale.ENGLISH, "%02d", hour);
+			} else if (var.equalsIgnoreCase("mctimem")) {
+				long minute = (this.world.getWorldTime() % 1000) * 60 / 1000;
+				return String.format(Locale.ENGLISH, "%02d", minute);
 			} else if (var.equalsIgnoreCase("rltime")) {
 				return (new SimpleDateFormat("HH:mm")).format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
