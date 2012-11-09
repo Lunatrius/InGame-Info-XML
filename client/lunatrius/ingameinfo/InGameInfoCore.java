@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,10 +43,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-
 public class InGameInfoCore {
 	private final static InGameInfoCore instance = new InGameInfoCore();
+	private Logger logger = null;
 
 	private Minecraft minecraftClient = null;
 	private MinecraftServer minecraftServer = null;
@@ -81,8 +81,12 @@ public class InGameInfoCore {
 		return instance;
 	}
 
-	protected void init(File file) {
+	public void init(File file) {
 		this.configFile = file;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
 	}
 
 	public void setServer(MinecraftServer server) {
@@ -99,10 +103,6 @@ public class InGameInfoCore {
 
 	public void setClient(Minecraft client) {
 		this.minecraftClient = client;
-	}
-
-	public void setSeed(int seed) {
-		this.seed = seed;
 	}
 
 	public void onTickClient() {
@@ -198,7 +198,7 @@ public class InGameInfoCore {
 		}
 	}
 
-	protected boolean loadConfig() {
+	public boolean loadConfig() {
 		try {
 			this.format.clear();
 
@@ -220,7 +220,7 @@ public class InGameInfoCore {
 					out.write(defaultConfig);
 					out.close();
 				} catch (Exception e) {
-					FMLCommonHandler.instance().getFMLLogger().log(Level.SEVERE, "Could not extract default configuration - corrupted installation detected!", e);
+					this.logger.log(Level.SEVERE, "Could not extract default configuration - corrupted installation detected!", e);
 					throw new RuntimeException(e);
 				}
 			}

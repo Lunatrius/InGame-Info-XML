@@ -5,6 +5,7 @@ import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.GuiChat;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -37,6 +38,7 @@ public class InGameInfoXML {
 	public void init(FMLInitializationEvent event) {
 		TickRegistry.registerTickHandler(new Ticker(EnumSet.of(TickType.CLIENT, TickType.RENDER)), Side.CLIENT);
 
+		this.core.setLogger(FMLCommonHandler.instance().getFMLLogger());
 		this.core.setClient(this.minecraftClient = Minecraft.getMinecraft());
 	}
 
