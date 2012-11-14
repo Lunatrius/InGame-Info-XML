@@ -541,7 +541,7 @@ public class InGameInfoCore {
 				}
 			} else if (var.equalsIgnoreCase("score")) {
 				try {
-					return Integer.toString(this.player.score);
+					return Integer.toString(this.player.getScore());
 				} catch (Exception var12) {
 					return "0";
 				}
