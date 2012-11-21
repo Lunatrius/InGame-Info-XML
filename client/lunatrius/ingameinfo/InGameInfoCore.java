@@ -514,7 +514,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mctimem")) {
 				long minute = (this.world.getWorldTime() % 1000) * 60 / 1000;
 				return String.format(Locale.ENGLISH, "%02d", minute);
-			} else if (var.equalsIgnoreCase("rltime")) {
+			} else if (var.equalsIgnoreCase("rltime") || var.equalsIgnoreCase("irltime")) {
 				return (new SimpleDateFormat("HH:mm")).format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
 				try {
@@ -645,6 +645,21 @@ public class InGameInfoCore {
 				return Boolean.toString(this.world.getRainStrength(1.0f) > 0.2f && this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).canSpawnLightningBolt());
 			} else if (var.equalsIgnoreCase("thundering")) {
 				return Boolean.toString(this.world.getWorldInfo().isThundering() && this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).canSpawnLightningBolt());
+			} else if (var.equalsIgnoreCase("snowing")) {
+				BiomeGenBase biome = this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]);
+				return Boolean.toString(this.world.isRaining() && !biome.canSpawnLightningBolt() && !biome.equals(BiomeGenBase.desert) && !biome.equals(BiomeGenBase.desertHills));
+			} else if (var.equalsIgnoreCase("nextrain")) {
+				if (this.minecraftServer == null) {
+					return "?";
+				}
+
+				int seconds = this.minecraftServer.worldServers[0].getWorldInfo().getRainTime() / 20;
+				if (seconds < 60) {
+					return String.format(Locale.ENGLISH, "%ds", seconds);
+				} else if (seconds < 3600) {
+					return String.format(Locale.ENGLISH, "%dm", seconds / 60);
+				}
+				return String.format(Locale.ENGLISH, "%dh", seconds / 3600);
 			} else if (var.equalsIgnoreCase("slimes")) {
 				return Boolean.toString(isSlimeChunk(this.playerPosition[0] >> 4, this.playerPosition[2] >> 4) || this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID == BiomeGenBase.swampland.biomeID);
 			} else if (var.equalsIgnoreCase("hardcore")) {
