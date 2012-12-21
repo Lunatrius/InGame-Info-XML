@@ -26,18 +26,18 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.src.BiomeGenBase;
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EnumSkyBlock;
-import net.minecraft.src.FontRenderer;
-import net.minecraft.src.Item;
-import net.minecraft.src.ItemStack;
-import net.minecraft.src.MathHelper;
-import net.minecraft.src.PotionEffect;
-import net.minecraft.src.ScaledResolution;
-import net.minecraft.src.StringTranslate;
-import net.minecraft.src.World;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.StringTranslate;
+import net.minecraft.world.EnumSkyBlock;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -45,7 +45,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class InGameInfoCore {
-	private final static InGameInfoCore instance = new InGameInfoCore();
+	private static final InGameInfoCore instance = new InGameInfoCore();
 	private Logger logger = null;
 
 	private Minecraft minecraftClient = null;
