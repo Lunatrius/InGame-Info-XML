@@ -663,34 +663,28 @@ public class InGameInfoCore {
 				return Boolean.toString(this.world.getWorldInfo().isHardcoreModeEnabled());
 			} else if (var.equalsIgnoreCase("underwater")) {
 				return Boolean.toString(this.player.isInsideOfMaterial(Material.water));
-			} else if (var.equalsIgnoreCase("equippedname")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
-				return item != null ? item.getDisplayName() + arrows : "";
-			} else if (var.equalsIgnoreCase("equippeddamage")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getItemDamage() : 0);
-			} else if (var.equalsIgnoreCase("equippeddamageleft")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 - item.getItemDamage() : 0);
-			} else if (var.equalsIgnoreCase("equippedmaxdamage")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
-			} else if (var.matches("(helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
-				int slot = -1;
-				if (var.startsWith("helmet")) {
-					slot = 3;
-				} else if (var.startsWith("chestplate")) {
-					slot = 2;
-				} else if (var.startsWith("leggings")) {
-					slot = 1;
-				} else if (var.startsWith("boots")) {
-					slot = 0;
+			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
+				ItemStack item;
+
+				if (var.startsWith("equipped")) {
+					item = this.player.getCurrentEquippedItem();
+				} else {
+					int slot = -1;
+					if (var.startsWith("helmet")) {
+						slot = 3;
+					} else if (var.startsWith("chestplate")) {
+						slot = 2;
+					} else if (var.startsWith("leggings")) {
+						slot = 1;
+					} else if (var.startsWith("boots")) {
+						slot = 0;
+					}
+					item = this.player.inventory.armorItemInSlot(slot);
 				}
 
-				ItemStack item = this.player.inventory.armorItemInSlot(slot);
 				if (var.endsWith("name")) {
-					return item != null ? item.getDisplayName() : "";
+					String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
+					return item != null ? item.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
 				} else if (var.endsWith("damage")) {
