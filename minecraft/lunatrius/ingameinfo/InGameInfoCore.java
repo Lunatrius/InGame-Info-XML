@@ -35,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
@@ -57,6 +58,9 @@ public class InGameInfoCore {
 	private final StringTranslate strTranslate = StringTranslate.getInstance();
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
+	private final String[] difficulties = new String[] {
+			"options.difficulty.peaceful", "options.difficulty.easy", "options.difficulty.normal", "options.difficulty.hard"
+	};
 	private final String[] roughdirection = {
 			"South", "West", "North", "East"
 	};
@@ -588,28 +592,10 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
-				switch (this.minecraftClient.gameSettings.difficulty) {
-				case 0:
-					return "Peaceful";
-				case 1:
-					return "Easy";
-				case 2:
-					return "Normal";
-				case 3:
-					return "Hard";
-				}
-				return "???";
+				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
+				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
 			} else if (var.equalsIgnoreCase("gamemode")) {
-				switch (this.world.getWorldInfo().getGameType()) {
-				case SURVIVAL:
-					return "Survival";
-				case CREATIVE:
-					return "Creative";
-				case ADVENTURE:
-					return "Adventure";
-				default:
-					return "???";
-				}
+				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
 				return Integer.toString(this.player.getHealth());
 			} else if (var.equalsIgnoreCase("armorpoints")) {
@@ -629,15 +615,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("xpcap")) {
 				return Integer.toString(this.player.xpBarCap());
 			} else if (var.equalsIgnoreCase("dimension")) {
-				switch (this.player.dimension) {
-				case -1:
-					return "Nether";
-				case 0:
-					return "Overworld";
-				case 1:
-					return "The End";
-				}
-				return "???";
+				return this.world.provider.getDimensionName();
 			} else if (var.equalsIgnoreCase("biome")) {
 				return this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeName;
 			} else if (var.equalsIgnoreCase("username")) {
