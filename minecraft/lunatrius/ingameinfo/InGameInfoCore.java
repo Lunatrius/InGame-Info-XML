@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -609,6 +610,16 @@ public class InGameInfoCore {
 				default:
 					return "???";
 				}
+			} else if (var.equalsIgnoreCase("healthpoints")) {
+				return Integer.toString(this.player.getHealth());
+			} else if (var.equalsIgnoreCase("armorpoints")) {
+				return Integer.toString(this.player.getTotalArmorValue());
+			} else if (var.equalsIgnoreCase("foodpoints")) {
+				return Integer.toString(this.player.getFoodStats().getFoodLevel());
+			} else if (var.equalsIgnoreCase("foodsaturation")) {
+				return Float.toString(this.player.getFoodStats().getSaturationLevel());
+			} else if (var.equalsIgnoreCase("airticks")) {
+				return Integer.toString(this.player.getAir());
 			} else if (var.equalsIgnoreCase("playerlevel")) {
 				return Integer.toString(this.player.experienceLevel);
 			} else if (var.equalsIgnoreCase("xpthislevel")) {
@@ -664,6 +675,8 @@ public class InGameInfoCore {
 				return Boolean.toString(isSlimeChunk(this.playerPosition[0] >> 4, this.playerPosition[2] >> 4) || this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID == BiomeGenBase.swampland.biomeID);
 			} else if (var.equalsIgnoreCase("hardcore")) {
 				return Boolean.toString(this.world.getWorldInfo().isHardcoreModeEnabled());
+			} else if (var.equalsIgnoreCase("underwater")) {
+				return Boolean.toString(this.player.isInsideOfMaterial(Material.water));
 			} else if (var.equalsIgnoreCase("equippedname")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
