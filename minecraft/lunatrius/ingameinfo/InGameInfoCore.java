@@ -387,13 +387,14 @@ public class InGameInfoCore {
 			return value.value;
 		} else if (value.type == "var") {
 			return getVariableValue(value.value);
-		} else if (value.type == "if" && value.values.size() == 3) {
+		} else if (value.type == "if" && (value.values.size() == 2 || value.values.size() == 3)) {
 			try {
-				Boolean isTrue = Boolean.parseBoolean(getValue(value.values.get(0)));
-				if (isTrue.booleanValue()) {
+				if (Boolean.parseBoolean(getValue(value.values.get(0)))) {
 					return getValue(value.values.get(1));
 				}
-				return getValue(value.values.get(2));
+				if (value.values.size() > 2) {
+					return getValue(value.values.get(2));
+				}
 			} catch (Exception e) {
 				return "?";
 			}
