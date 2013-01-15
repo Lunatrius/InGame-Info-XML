@@ -480,7 +480,15 @@ public class InGameInfoCore {
 				}
 				return Boolean.toString(true);
 			} catch (Exception e) {
-				return "?";
+				String current = getValue(value.values.get(0));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					String next = getValue(operand);
+					if (!current.equals(next)) {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
 			}
 		} else if (value.type == "pct" && value.values.size() == 2) {
 			try {
