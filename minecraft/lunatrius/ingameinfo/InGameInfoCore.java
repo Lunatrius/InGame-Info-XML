@@ -405,21 +405,23 @@ public class InGameInfoCore {
 			}
 		} else if (value.type == "and") {
 			try {
-				boolean result = true;
 				for (Value operand : value.values) {
-					result = result && Boolean.parseBoolean(getValue(operand));
+					if (!Boolean.parseBoolean(getValue(operand))) {
+						return Boolean.toString(false);
+					}
 				}
-				return Boolean.toString(result);
+				return Boolean.toString(true);
 			} catch (Exception e) {
 				return "?";
 			}
 		} else if (value.type == "or") {
 			try {
-				boolean result = false;
 				for (Value operand : value.values) {
-					result = result || Boolean.parseBoolean(getValue(operand));
+					if (Boolean.parseBoolean(getValue(operand))) {
+						return Boolean.toString(true);
+					}
 				}
-				return Boolean.toString(result);
+				return Boolean.toString(false);
 			} catch (Exception e) {
 				return "?";
 			}
