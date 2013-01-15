@@ -594,8 +594,12 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("difficulty")) {
 				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
 				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
+			} else if (var.equalsIgnoreCase("difficultyid")) {
+				return Integer.toString(this.minecraftClient.gameSettings.difficulty);
 			} else if (var.equalsIgnoreCase("gamemode")) {
 				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
+			} else if (var.equalsIgnoreCase("gamemodeid")) {
+				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
 				return Integer.toString(this.player.getHealth());
 			} else if (var.equalsIgnoreCase("armorpoints")) {
@@ -616,8 +620,12 @@ public class InGameInfoCore {
 				return Integer.toString(this.player.xpBarCap());
 			} else if (var.equalsIgnoreCase("dimension")) {
 				return this.world.provider.getDimensionName();
+			} else if (var.equalsIgnoreCase("dimensionid")) {
+				return Integer.toString(this.player.dimension);
 			} else if (var.equalsIgnoreCase("biome")) {
 				return this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeName;
+			} else if (var.equalsIgnoreCase("biomeid")) {
+				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.username;
 			} else if (var.equalsIgnoreCase("texturepack")) {
