@@ -435,27 +435,49 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "greater" && value.values.size() == 2) {
+		} else if (value.type == "greater" && value.values.size() > 1) {
 			try {
-				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
-				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
-				return Boolean.toString(arg0 > arg1);
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current > next) {
+						current = next;
+					} else {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "less" && value.values.size() == 2) {
+		} else if (value.type == "less" && value.values.size() > 1) {
 			try {
-				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
-				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
-				return Boolean.toString(arg0 < arg1);
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current < next) {
+						current = next;
+					} else {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "equal" && value.values.size() == 2) {
+		} else if (value.type == "equal" && value.values.size() > 1) {
 			try {
-				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
-				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
-				return Boolean.toString(arg0 == arg1);
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current != next) {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
 			} catch (Exception e) {
 				return "?";
 			}
