@@ -395,6 +395,7 @@ public class InGameInfoCore {
 				if (value.values.size() > 2) {
 					return getValue(value.values.get(2));
 				}
+				return "";
 			} catch (Exception e) {
 				return "?";
 			}
