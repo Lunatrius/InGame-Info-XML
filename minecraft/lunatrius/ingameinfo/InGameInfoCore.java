@@ -25,6 +25,7 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -34,6 +35,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
@@ -56,6 +58,9 @@ public class InGameInfoCore {
 	private final StringTranslate strTranslate = StringTranslate.getInstance();
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
+	private final String[] difficulties = new String[] {
+			"options.difficulty.peaceful", "options.difficulty.easy", "options.difficulty.normal", "options.difficulty.hard"
+	};
 	private final String[] roughdirection = {
 			"South", "West", "North", "East"
 	};
@@ -587,28 +592,24 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
-				switch (this.minecraftClient.gameSettings.difficulty) {
-				case 0:
-					return "Peaceful";
-				case 1:
-					return "Easy";
-				case 2:
-					return "Normal";
-				case 3:
-					return "Hard";
-				}
-				return "???";
+				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
+				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
+			} else if (var.equalsIgnoreCase("difficultyid")) {
+				return Integer.toString(this.minecraftClient.gameSettings.difficulty);
 			} else if (var.equalsIgnoreCase("gamemode")) {
-				switch (this.world.getWorldInfo().getGameType()) {
-				case SURVIVAL:
-					return "Survival";
-				case CREATIVE:
-					return "Creative";
-				case ADVENTURE:
-					return "Adventure";
-				default:
-					return "???";
-				}
+				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
+			} else if (var.equalsIgnoreCase("gamemodeid")) {
+				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
+			} else if (var.equalsIgnoreCase("healthpoints")) {
+				return Integer.toString(this.player.getHealth());
+			} else if (var.equalsIgnoreCase("armorpoints")) {
+				return Integer.toString(this.player.getTotalArmorValue());
+			} else if (var.equalsIgnoreCase("foodpoints")) {
+				return Integer.toString(this.player.getFoodStats().getFoodLevel());
+			} else if (var.equalsIgnoreCase("foodsaturation")) {
+				return Float.toString(this.player.getFoodStats().getSaturationLevel());
+			} else if (var.equalsIgnoreCase("airticks")) {
+				return Integer.toString(this.player.getAir());
 			} else if (var.equalsIgnoreCase("playerlevel")) {
 				return Integer.toString(this.player.experienceLevel);
 			} else if (var.equalsIgnoreCase("xpthislevel")) {
@@ -618,17 +619,13 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("xpcap")) {
 				return Integer.toString(this.player.xpBarCap());
 			} else if (var.equalsIgnoreCase("dimension")) {
-				switch (this.player.dimension) {
-				case -1:
-					return "Nether";
-				case 0:
-					return "Overworld";
-				case 1:
-					return "The End";
-				}
-				return "???";
+				return this.world.provider.getDimensionName();
+			} else if (var.equalsIgnoreCase("dimensionid")) {
+				return Integer.toString(this.player.dimension);
 			} else if (var.equalsIgnoreCase("biome")) {
 				return this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeName;
+			} else if (var.equalsIgnoreCase("biomeid")) {
+				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.username;
 			} else if (var.equalsIgnoreCase("texturepack")) {
@@ -664,34 +661,30 @@ public class InGameInfoCore {
 				return Boolean.toString(isSlimeChunk(this.playerPosition[0] >> 4, this.playerPosition[2] >> 4) || this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID == BiomeGenBase.swampland.biomeID);
 			} else if (var.equalsIgnoreCase("hardcore")) {
 				return Boolean.toString(this.world.getWorldInfo().isHardcoreModeEnabled());
-			} else if (var.equalsIgnoreCase("equippedname")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
-				return item != null ? item.getDisplayName() + arrows : "";
-			} else if (var.equalsIgnoreCase("equippeddamage")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getItemDamage() : 0);
-			} else if (var.equalsIgnoreCase("equippeddamageleft")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 - item.getItemDamage() : 0);
-			} else if (var.equalsIgnoreCase("equippedmaxdamage")) {
-				ItemStack item = this.player.getCurrentEquippedItem();
-				return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
-			} else if (var.matches("(helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
-				int slot = -1;
-				if (var.startsWith("helmet")) {
-					slot = 3;
-				} else if (var.startsWith("chestplate")) {
-					slot = 2;
-				} else if (var.startsWith("leggings")) {
-					slot = 1;
-				} else if (var.startsWith("boots")) {
-					slot = 0;
+			} else if (var.equalsIgnoreCase("underwater")) {
+				return Boolean.toString(this.player.isInsideOfMaterial(Material.water));
+			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
+				ItemStack item;
+
+				if (var.startsWith("equipped")) {
+					item = this.player.getCurrentEquippedItem();
+				} else {
+					int slot = -1;
+					if (var.startsWith("helmet")) {
+						slot = 3;
+					} else if (var.startsWith("chestplate")) {
+						slot = 2;
+					} else if (var.startsWith("leggings")) {
+						slot = 1;
+					} else if (var.startsWith("boots")) {
+						slot = 0;
+					}
+					item = this.player.inventory.armorItemInSlot(slot);
 				}
 
-				ItemStack item = this.player.inventory.armorItemInSlot(slot);
 				if (var.endsWith("name")) {
-					return item != null ? item.getDisplayName() : "";
+					String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
+					return item != null ? item.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
 				} else if (var.endsWith("damage")) {
