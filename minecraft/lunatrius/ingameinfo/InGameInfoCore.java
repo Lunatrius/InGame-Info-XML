@@ -335,6 +335,20 @@ public class InGameInfoCore {
 				type = "var";
 			} else if (attributeType.matches("(?i)(if)")) {
 				type = "if";
+			} else if (attributeType.matches("(?i)(not)")) {
+				type = "not";
+			} else if (attributeType.matches("(?i)(and)")) {
+				type = "and";
+			} else if (attributeType.matches("(?i)(or)")) {
+				type = "or";
+			} else if (attributeType.matches("(?i)(xor)")) {
+				type = "xor";
+			} else if (attributeType.matches("(?i)(greater)")) {
+				type = "greater";
+			} else if (attributeType.matches("(?i)(less|lesser)")) {
+				type = "less";
+			} else if (attributeType.matches("(?i)(equals?)")) {
+				type = "equal";
 			} else if (attributeType.matches("(?i)(pct|percent|percentage)")) {
 				type = "pct";
 			} else if (attributeType.matches("(?i)(concat)")) {
@@ -378,15 +392,109 @@ public class InGameInfoCore {
 			return value.value;
 		} else if (value.type == "var") {
 			return getVariableValue(value.value);
-		} else if (value.type == "if" && value.values.size() == 3) {
+		} else if (value.type == "if" && (value.values.size() == 2 || value.values.size() == 3)) {
 			try {
-				Boolean isTrue = Boolean.parseBoolean(getValue(value.values.get(0)));
-				if (isTrue.booleanValue()) {
+				if (Boolean.parseBoolean(getValue(value.values.get(0)))) {
 					return getValue(value.values.get(1));
 				}
-				return getValue(value.values.get(2));
+				if (value.values.size() > 2) {
+					return getValue(value.values.get(2));
+				}
+				return "";
 			} catch (Exception e) {
 				return "?";
+			}
+		} else if (value.type == "not" && value.values.size() == 1) {
+			try {
+				return Boolean.toString(!Boolean.parseBoolean(getValue(value.values.get(0))));
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "and") {
+			try {
+				for (Value operand : value.values) {
+					if (!Boolean.parseBoolean(getValue(operand))) {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "or") {
+			try {
+				for (Value operand : value.values) {
+					if (Boolean.parseBoolean(getValue(operand))) {
+						return Boolean.toString(true);
+					}
+				}
+				return Boolean.toString(false);
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "xor") {
+			try {
+				boolean result = false;
+				for (Value operand : value.values) {
+					result = result ^ Boolean.parseBoolean(getValue(operand));
+				}
+				return Boolean.toString(result);
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "greater" && value.values.size() > 1) {
+			try {
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current > next) {
+						current = next;
+					} else {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "less" && value.values.size() > 1) {
+			try {
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current < next) {
+						current = next;
+					} else {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
+			} catch (Exception e) {
+				return "?";
+			}
+		} else if (value.type == "equal" && value.values.size() > 1) {
+			try {
+				double current = Double.parseDouble(getValue(value.values.get(0)));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					double next = Double.parseDouble(getValue(operand));
+					if (current != next) {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
+			} catch (Exception e) {
+				String current = getValue(value.values.get(0));
+
+				for (Value operand : value.values.subList(1, value.values.size())) {
+					String next = getValue(operand);
+					if (!current.equals(next)) {
+						return Boolean.toString(false);
+					}
+				}
+				return Boolean.toString(true);
 			}
 		} else if (value.type == "pct" && value.values.size() == 2) {
 			try {
