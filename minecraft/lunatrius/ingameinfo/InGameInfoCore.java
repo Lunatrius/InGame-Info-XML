@@ -35,7 +35,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
-import net.minecraft.util.StatCollector;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
@@ -593,11 +592,11 @@ public class InGameInfoCore {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
 				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
-				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
+				return this.strTranslate.translateKey(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
 			} else if (var.equalsIgnoreCase("difficultyid")) {
 				return Integer.toString(this.minecraftClient.gameSettings.difficulty);
 			} else if (var.equalsIgnoreCase("gamemode")) {
-				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
+				return this.strTranslate.translateKey("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
 				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
@@ -683,7 +682,7 @@ public class InGameInfoCore {
 				}
 
 				if (var.endsWith("name")) {
-					String arrows = item != null && item.itemID == Item.bow.shiftedIndex ? " (" + getArrowsInInventory(this.player) + ")" : "";
+					String arrows = item != null && item.itemID == Item.bow.itemID ? " (" + getArrowsInInventory(this.player) + ")" : "";
 					return item != null ? item.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
@@ -740,11 +739,11 @@ public class InGameInfoCore {
 	}
 
 	private int getArrowsInInventory(EntityPlayer entityPlayer) {
-		if (entityPlayer.inventory.hasItem(Item.arrow.shiftedIndex)) {
+		if (entityPlayer.inventory.hasItem(Item.arrow.itemID)) {
 			int count = 0;
 
 			for (int i = 0; ++i < entityPlayer.inventory.mainInventory.length;) {
-				if (entityPlayer.inventory.mainInventory[i] != null && entityPlayer.inventory.mainInventory[i].itemID == Item.arrow.shiftedIndex) {
+				if (entityPlayer.inventory.mainInventory[i] != null && entityPlayer.inventory.mainInventory[i].itemID == Item.arrow.itemID) {
 					count += entityPlayer.inventory.mainInventory[i].stackSize;
 				}
 			}
