@@ -370,6 +370,8 @@ public class InGameInfoCore {
 				type = "mod";
 			} else if (attributeType.matches("(?i)(imod|intmod|imodulo|intmodulo|modi|modint|moduloi|moduloint)")) {
 				type = "modi";
+			} else if (attributeType.matches("(?i)(itemquantity)")) {
+				type = "itemquantity";
 			} else {
 				continue;
 			}
@@ -606,6 +608,17 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
+		} else if (value.type == "itemquantity" && (value.values.size() == 1 || value.values.size() == 2)) {
+			try {
+				int itemID = 0, itemDamage = -1;
+				itemID = Integer.parseInt(getValue(value.values.get(0)));
+				if (value.values.size() == 2) {
+					itemDamage = Integer.parseInt(getValue(value.values.get(1)));
+				}
+				return Integer.toString(getItemCountInInventory(this.player, itemID, itemDamage));
+			} catch (Exception e2) {
+				return "0";
+			}
 		}
 
 		return "";
@@ -790,7 +803,7 @@ public class InGameInfoCore {
 				}
 
 				if (var.endsWith("name")) {
-					String arrows = item != null && item.itemID == Item.bow.itemID ? " (" + getArrowsInInventory(this.player) + ")" : "";
+					String arrows = item != null && item.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
 					return item != null ? item.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
@@ -799,6 +812,12 @@ public class InGameInfoCore {
 				} else if (var.endsWith("damageleft")) {
 					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 - item.getItemDamage() : 0);
 				}
+			} else if (var.equalsIgnoreCase("equippedquantity")) {
+				ItemStack item = this.player.getCurrentEquippedItem();
+				if (item != null) {
+					return Integer.toString(getItemCountInInventory(this.player, item.itemID, item.getItemDamage()));
+				}
+				return "0";
 			} else if (var.matches("potioneffect\\d+")) {
 				int index = Integer.parseInt(var.substring(12));
 				if (this.potionEffects.length > index) {
@@ -846,13 +865,15 @@ public class InGameInfoCore {
 		return "{" + var + "}";
 	}
 
-	private int getArrowsInInventory(EntityPlayer entityPlayer) {
-		if (entityPlayer.inventory.hasItem(Item.arrow.itemID)) {
+	private int getItemCountInInventory(EntityPlayer entityPlayer, int itemID, int itemDamage) {
+		if (entityPlayer.inventory.hasItem(itemID)) {
 			int count = 0;
+			ItemStack itemStack = null;
 
-			for (int i = 0; ++i < entityPlayer.inventory.mainInventory.length;) {
-				if (entityPlayer.inventory.mainInventory[i] != null && entityPlayer.inventory.mainInventory[i].itemID == Item.arrow.itemID) {
-					count += entityPlayer.inventory.mainInventory[i].stackSize;
+			for (int i = 0; i < entityPlayer.inventory.mainInventory.length; i++) {
+				itemStack = entityPlayer.inventory.mainInventory[i];
+				if (itemStack != null && itemStack.itemID == itemID && (itemDamage == -1 || itemStack.getItemDamage() == itemDamage)) {
+					count += itemStack.stackSize;
 				}
 			}
 
