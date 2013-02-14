@@ -372,6 +372,8 @@ public class InGameInfoCore {
 				type = "modi";
 			} else if (attributeType.matches("(?i)(itemquantity)")) {
 				type = "itemquantity";
+			} else if (attributeType.matches("(?i)(trans|translate)")) {
+				type = "trans";
 			} else {
 				continue;
 			}
@@ -618,6 +620,12 @@ public class InGameInfoCore {
 				return Integer.toString(getItemCountInInventory(this.player, itemID, itemDamage));
 			} catch (Exception e2) {
 				return "0";
+			}
+		} else if (value.type == "trans") {
+			try {
+				return this.strTranslate.translateKey(value.value);
+			} catch (Exception e) {
+				return "?";
 			}
 		}
 
