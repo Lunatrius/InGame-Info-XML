@@ -1,17 +1,8 @@
 package lunatrius.ingameinfo;
 
-import java.io.File;
-import java.util.EnumSet;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PreInit;
-import cpw.mods.fml.common.Mod.ServerStarting;
-import cpw.mods.fml.common.Mod.ServerStopping;
+import cpw.mods.fml.common.Mod.*;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -19,6 +10,11 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
+
+import java.io.File;
+import java.util.EnumSet;
 
 @Mod(modid = "InGameInfoXML")
 public class InGameInfoXML {

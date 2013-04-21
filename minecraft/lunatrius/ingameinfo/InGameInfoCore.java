@@ -389,13 +389,13 @@ public class InGameInfoCore {
 	}
 
 	private String getValue(Value value) {
-		if (value.type == "str") {
+		if (value.type.equals("str")) {
 			return value.value;
-		} else if (value.type == "num") {
+		} else if (value.type.equals("num")) {
 			return value.value;
-		} else if (value.type == "var") {
+		} else if (value.type.equals("var")) {
 			return getVariableValue(value.value);
-		} else if (value.type == "if" && (value.values.size() == 2 || value.values.size() == 3)) {
+		} else if (value.type.equals("if") && (value.values.size() == 2 || value.values.size() == 3)) {
 			try {
 				if (Boolean.parseBoolean(getValue(value.values.get(0)))) {
 					return getValue(value.values.get(1));
@@ -407,13 +407,13 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "not" && value.values.size() == 1) {
+		} else if (value.type.equals("not") && value.values.size() == 1) {
 			try {
 				return Boolean.toString(!Boolean.parseBoolean(getValue(value.values.get(0))));
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "and") {
+		} else if (value.type.equals("and")) {
 			try {
 				for (Value operand : value.values) {
 					if (!Boolean.parseBoolean(getValue(operand))) {
@@ -424,7 +424,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "or") {
+		} else if (value.type.equals("or")) {
 			try {
 				for (Value operand : value.values) {
 					if (Boolean.parseBoolean(getValue(operand))) {
@@ -435,7 +435,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "xor") {
+		} else if (value.type.equals("xor")) {
 			try {
 				boolean result = false;
 				for (Value operand : value.values) {
@@ -445,7 +445,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "greater" && value.values.size() > 1) {
+		} else if (value.type.equals("greater") && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -461,7 +461,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "less" && value.values.size() > 1) {
+		} else if (value.type.equals("less") && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -477,7 +477,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type == "equal" && value.values.size() > 1) {
+		} else if (value.type.equals("equal") && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -499,7 +499,7 @@ public class InGameInfoCore {
 				}
 				return Boolean.toString(true);
 			}
-		} else if (value.type == "pct" && value.values.size() == 2) {
+		} else if (value.type.equals("pct") && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -507,13 +507,13 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type == "concat") {
+		} else if (value.type.equals("concat")) {
 			String str = "";
 			for (Value val : value.values) {
 				str += getValue(val);
 			}
 			return str;
-		} else if (value.type == "max" && (value.values.size() == 2 || value.values.size() == 4)) {
+		} else if (value.type.equals("max") && (value.values.size() == 2 || value.values.size() == 4)) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -522,7 +522,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type == "min" && (value.values.size() == 2 || value.values.size() == 4)) {
+		} else if (value.type.equals("min") && (value.values.size() == 2 || value.values.size() == 4)) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -531,7 +531,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type == "add" && value.values.size() == 2) {
+		} else if (value.type.equals("add") && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -545,7 +545,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type == "sub" && value.values.size() == 2) {
+		} else if (value.type.equals("sub") && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -559,7 +559,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type == "mul" && value.values.size() == 2) {
+		} else if (value.type.equals("mul") && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -573,7 +573,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type == "div" && value.values.size() == 2) {
+		} else if (value.type.equals("div") && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -581,7 +581,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type == "round" && value.values.size() == 2) {
+		} else if (value.type.equals("round") && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -593,7 +593,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type == "mod" && value.values.size() == 2) {
+		} else if (value.type.equals("mod") && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -602,7 +602,7 @@ public class InGameInfoCore {
 				e2.printStackTrace();
 				return "0";
 			}
-		} else if (value.type == "modi" && value.values.size() == 2) {
+		} else if (value.type.equals("modi") && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -610,7 +610,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type == "itemquantity" && (value.values.size() == 1 || value.values.size() == 2)) {
+		} else if (value.type.equals("itemquantity") && (value.values.size() == 1 || value.values.size() == 2)) {
 			try {
 				int itemID = 0, itemDamage = -1;
 				itemID = Integer.parseInt(getValue(value.values.get(0)));
@@ -621,7 +621,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type == "trans") {
+		} else if (value.type.equals("trans")) {
 			try {
 				return this.strTranslate.translateKey(value.value);
 			} catch (Exception e) {
@@ -891,7 +891,7 @@ public class InGameInfoCore {
 	}
 
 	private boolean isSlimeChunk(int x, int z) {
-		return this.seed != 0 ? (new Random(this.seed + x * x * 4987142 + x * 5947611 + z * z * 4392871 + z * 389711 ^ 987234911)).nextInt(10) == 0 : false;
+		return (this.seed != 0) && ((new Random(this.seed + x * x * 4987142 + x * 5947611 + z * z * 4392871 + z * 389711 ^ 987234911)).nextInt(10) == 0);
 	}
 
 	private void drawLeftAlignedString(FontRenderer fontRenderer, String str, int x, int y, int color) {
