@@ -1,30 +1,5 @@
 package lunatrius.ingameinfo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -39,11 +14,21 @@ import net.minecraft.util.StringTranslate;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-
+import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InGameInfoCore {
 	private static final InGameInfoCore instance = new InGameInfoCore();
@@ -58,7 +43,10 @@ public class InGameInfoCore {
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
 	private final String[] difficulties = new String[] {
-			"options.difficulty.peaceful", "options.difficulty.easy", "options.difficulty.normal", "options.difficulty.hard"
+			"options.difficulty.peaceful",
+			"options.difficulty.easy",
+			"options.difficulty.normal",
+			"options.difficulty.hard"
 	};
 	private final String[] roughdirection = {
 			"South", "West", "North", "East"
@@ -154,6 +142,9 @@ public class InGameInfoCore {
 	public void onTickRender() {
 		int x = 0, y = 0, type = -1;
 
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		minecraftClient.renderEngine.resetBoundTexture();
+
 		Set<String> keys = this.valuePairs.keySet();
 		for (String key : keys) {
 			List<String> lines = this.valuePairs.get(key);
@@ -201,6 +192,8 @@ public class InGameInfoCore {
 				y += 10;
 			}
 		}
+
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
 	public boolean loadConfig() {
