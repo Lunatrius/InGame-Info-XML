@@ -1,6 +1,6 @@
 package lunatrius.ingameinfo;
 
-import net.minecraft.block.material.Material;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -9,11 +9,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StringTranslate;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -34,6 +37,7 @@ public class InGameInfoCore {
 	private static final InGameInfoCore instance = new InGameInfoCore();
 	private Logger logger = null;
 
+	private boolean isLoaded = false;
 	private Minecraft minecraftClient = null;
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
@@ -91,7 +95,6 @@ public class InGameInfoCore {
 				this.seed = 0;
 			}
 		}
-
 	}
 
 	public void setClient(Minecraft client) {
@@ -99,6 +102,13 @@ public class InGameInfoCore {
 	}
 
 	public void onTickClient() {
+		if (!isLoaded && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_R)) {
+			loadConfig();
+			isLoaded = true;
+		} else {
+			isLoaded = false;
+		}
+
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
 
@@ -198,6 +208,7 @@ public class InGameInfoCore {
 
 	public boolean loadConfig() {
 		try {
+			this.valuePairs.clear();
 			this.format.clear();
 
 			if (!this.configFile.exists()) {
@@ -704,6 +715,19 @@ public class InGameInfoCore {
 				return "\u00a7r  " + "   " + this.abrfinedirection[(direction / 2 + this.abrfinedirection.length) % this.abrfinedirection.length] + "   " + this.abrfinedirection[(direction / 2 + this.abrfinedirection.length + 1) % this.abrfinedirection.length] + "   ";
 			} else if (var.equalsIgnoreCase("fps")) {
 				return this.minecraftClient.debug.substring(0, this.minecraftClient.debug.indexOf(" fps"));
+			} else if (var.equalsIgnoreCase("mouseover")) {
+				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
+						return objectMouseOver.entityHit.getEntityName();
+					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+						Block block = Block.blocksList[world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						if (block != null) {
+							return block.getLocalizedName();
+						}
+					}
+				}
+				return "";
 			} else if (var.equalsIgnoreCase("worldname")) {
 				return this.world.getWorldInfo().getWorldName();
 			} else if (var.equalsIgnoreCase("worldsize")) {
@@ -782,8 +806,26 @@ public class InGameInfoCore {
 				return Boolean.toString(isSlimeChunk(this.playerPosition[0] >> 4, this.playerPosition[2] >> 4) || this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID == BiomeGenBase.swampland.biomeID);
 			} else if (var.equalsIgnoreCase("hardcore")) {
 				return Boolean.toString(this.world.getWorldInfo().isHardcoreModeEnabled());
-			} else if (var.equalsIgnoreCase("underwater")) {
-				return Boolean.toString(this.player.isInsideOfMaterial(Material.water));
+			} else if (var.equalsIgnoreCase("underwater") || var.equalsIgnoreCase("inwater")) {
+				return Boolean.toString(this.player.isInWater());
+			} else if (var.equalsIgnoreCase("wet")) {
+				return Boolean.toString(this.player.isWet());
+			} else if (var.equalsIgnoreCase("alive")) {
+				return Boolean.toString(this.player.isEntityAlive());
+			} else if (var.equalsIgnoreCase("burning")) {
+				return Boolean.toString(this.player.isBurning());
+			} else if (var.equalsIgnoreCase("riding")) {
+				return Boolean.toString(this.player.isRiding());
+			} else if (var.equalsIgnoreCase("sneaking")) {
+				return Boolean.toString(this.player.isSneaking());
+			} else if (var.equalsIgnoreCase("sprinting")) {
+				return Boolean.toString(this.player.isSprinting());
+			} else if (var.equalsIgnoreCase("invisible")) {
+				return Boolean.toString(this.player.isInvisible());
+			} else if (var.equalsIgnoreCase("eating")) {
+				return Boolean.toString(this.player.isEating());
+			} else if (var.equalsIgnoreCase("invulnerable")) {
+				return Boolean.toString(this.player.isEntityInvulnerable());
 			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
 				ItemStack item;
 
