@@ -12,7 +12,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StringTranslate;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
@@ -43,7 +43,6 @@ public class InGameInfoCore {
 	private World world = null;
 	private EntityPlayer player = null;
 	private ScaledResolution scaledResolution = null;
-	private final StringTranslate strTranslate = StringTranslate.getInstance();
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
 	private final String[] difficulties = new String[] {
@@ -153,7 +152,8 @@ public class InGameInfoCore {
 		int x = 0, y = 0, type = -1;
 
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		minecraftClient.renderEngine.resetBoundTexture();
+		// TODO: remove if there are no issues
+		// minecraftClient.renderEngine.resetBoundTexture();
 
 		Set<String> keys = this.valuePairs.keySet();
 		for (String key : keys) {
@@ -627,7 +627,7 @@ public class InGameInfoCore {
 			}
 		} else if (value.type.equals("trans")) {
 			try {
-				return this.strTranslate.translateKey(value.value);
+				return StatCollector.translateToLocal(value.value);
 			} catch (Exception e) {
 				return "?";
 			}
@@ -738,15 +738,15 @@ public class InGameInfoCore {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
 				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
-				return this.strTranslate.translateKey(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
+				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
 			} else if (var.equalsIgnoreCase("difficultyid")) {
 				return Integer.toString(this.minecraftClient.gameSettings.difficulty);
 			} else if (var.equalsIgnoreCase("gamemode")) {
-				return this.strTranslate.translateKey("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
+				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
 				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
-				return Integer.toString(this.player.getHealth());
+				return Float.toString(this.player.func_110143_aJ());
 			} else if (var.equalsIgnoreCase("armorpoints")) {
 				return Integer.toString(this.player.getTotalArmorValue());
 			} else if (var.equalsIgnoreCase("foodpoints")) {
@@ -773,8 +773,8 @@ public class InGameInfoCore {
 				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.username;
-			} else if (var.equalsIgnoreCase("texturepack")) {
-				return this.minecraftClient.texturePackList.getSelectedTexturePack().getTexturePackFileName();
+			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
+				return this.minecraftClient.func_110438_M().func_110610_d();
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
@@ -864,7 +864,7 @@ public class InGameInfoCore {
 			} else if (var.matches("potioneffect\\d+")) {
 				int index = Integer.parseInt(var.substring(12));
 				if (this.potionEffects.length > index) {
-					String str = this.strTranslate.translateKey(this.potionEffects[index].getEffectName());
+					String str = StatCollector.translateToLocal(this.potionEffects[index].getEffectName());
 					switch (this.potionEffects[index].getAmplifier()) {
 					case 1:
 						str += " II";
