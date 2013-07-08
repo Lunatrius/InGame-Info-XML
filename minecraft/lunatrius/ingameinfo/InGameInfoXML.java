@@ -2,7 +2,8 @@ package lunatrius.ingameinfo;
 
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.*;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -24,13 +25,13 @@ public class InGameInfoXML {
 	private final InGameInfoCore core = InGameInfoCore.instance();
 	private Minecraft minecraftClient = null;
 
-	@PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		this.core.init(new File(event.getModConfigurationDirectory(), "InGameInfo.xml"));
 		this.core.loadConfig();
 	}
 
-	@Init
+	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		TickRegistry.registerTickHandler(new Ticker(EnumSet.of(TickType.CLIENT, TickType.RENDER)), Side.CLIENT);
 
@@ -38,12 +39,12 @@ public class InGameInfoXML {
 		this.core.setClient(this.minecraftClient = Minecraft.getMinecraft());
 	}
 
-	@ServerStarting
+	@EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
 		this.core.setServer(event.getServer());
 	}
 
-	@ServerStopping
+	@EventHandler
 	public void serverStopping(FMLServerStoppingEvent event) {
 		this.core.setServer(null);
 	}
