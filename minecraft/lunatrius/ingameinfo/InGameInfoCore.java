@@ -772,7 +772,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("biomeid")) {
 				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
-				return this.player.username;
+				return this.player.getEntityName();
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
 				return this.minecraftClient.func_110438_M().func_110610_d();
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
