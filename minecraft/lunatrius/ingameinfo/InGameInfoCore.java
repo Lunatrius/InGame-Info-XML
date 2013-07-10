@@ -740,7 +740,7 @@ public class InGameInfoCore {
 						}
 					}
 				}
-				return "";
+				return "0";
 			} else if (var.equalsIgnoreCase("worldname")) {
 				return this.world.getWorldInfo().getWorldName();
 			} else if (var.equalsIgnoreCase("worldsize")) {
