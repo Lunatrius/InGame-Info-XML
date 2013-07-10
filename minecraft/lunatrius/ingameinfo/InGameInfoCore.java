@@ -728,6 +728,19 @@ public class InGameInfoCore {
 					}
 				}
 				return "";
+			} else if (var.equalsIgnoreCase("mouseoverid")) {
+				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
+						return Integer.toString(objectMouseOver.entityHit.entityId);
+					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+						Block block = Block.blocksList[world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						if (block != null) {
+							return Integer.toString(block.blockID);
+						}
+					}
+				}
+				return "";
 			} else if (var.equalsIgnoreCase("worldname")) {
 				return this.world.getWorldInfo().getWorldName();
 			} else if (var.equalsIgnoreCase("worldsize")) {
