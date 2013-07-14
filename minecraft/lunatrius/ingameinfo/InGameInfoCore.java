@@ -716,31 +716,73 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("fps")) {
 				return this.minecraftClient.debug.substring(0, this.minecraftClient.debug.indexOf(" fps"));
 			} else if (var.equalsIgnoreCase("mouseover")) {
-				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
 						return objectMouseOver.entityHit.getEntityName();
 					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
 						if (block != null) {
+							ItemStack pickBlock = block.getPickBlock(objectMouseOver, this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+							if (pickBlock != null) {
+								return pickBlock.getDisplayName();
+							}
 							return block.getLocalizedName();
 						}
 					}
 				}
 				return "";
 			} else if (var.equalsIgnoreCase("mouseoverid")) {
-				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
 						return Integer.toString(objectMouseOver.entityHit.entityId);
 					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
 						if (block != null) {
 							return Integer.toString(block.blockID);
 						}
 					}
 				}
 				return "0";
+			} else if (var.equalsIgnoreCase("mouseoverpowerweak")) {
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						if (block != null) {
+							int power = -1;
+							for (int side = 0; side < 6; side++) {
+								power = Math.max(power, block.isProvidingWeakPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+							}
+							return Integer.toString(power);
+						}
+					}
+				}
+				return "-1";
+			} else if (var.equalsIgnoreCase("mouseoverpowerstrong")) {
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+						if (block != null) {
+							int power = -1;
+							for (int side = 0; side < 6; side++) {
+								power = Math.max(power, block.isProvidingStrongPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+							}
+							return Integer.toString(power);
+						}
+					}
+				}
+				return "-1";
+			} else if (var.equalsIgnoreCase("mouseoverpowerinput")) {
+				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+						return Integer.toString(this.world.getBlockPowerInput(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ));
+					}
+				}
+				return "-1";
 			} else if (var.equalsIgnoreCase("worldname")) {
 				return this.world.getWorldInfo().getWorldName();
 			} else if (var.equalsIgnoreCase("worldsize")) {
