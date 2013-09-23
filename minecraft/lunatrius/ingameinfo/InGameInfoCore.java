@@ -882,10 +882,11 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("invulnerable")) {
 				return Boolean.toString(this.player.isEntityInvulnerable());
 			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
-				ItemStack item;
+				ItemStack itemStack;
+				Item item;
 
 				if (var.startsWith("equipped")) {
-					item = this.player.getCurrentEquippedItem();
+					itemStack = this.player.getCurrentEquippedItem();
 				} else {
 					int slot = -1;
 					if (var.startsWith("helmet")) {
@@ -897,18 +898,24 @@ public class InGameInfoCore {
 					} else if (var.startsWith("boots")) {
 						slot = 0;
 					}
-					item = this.player.inventory.armorItemInSlot(slot);
+					itemStack = this.player.inventory.armorItemInSlot(slot);
 				}
 
-				if (var.endsWith("name")) {
-					String arrows = item != null && item.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
-					return item != null ? item.getDisplayName() + arrows : "";
-				} else if (var.endsWith("maxdamage")) {
-					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 : 0);
-				} else if (var.endsWith("damage")) {
-					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getItemDamage() : 0);
-				} else if (var.endsWith("damageleft")) {
-					return Integer.toString(item != null && item.isItemStackDamageable() ? item.getMaxDamage() + 1 - item.getItemDamage() : 0);
+				if (itemStack != null) {
+					item = itemStack.getItem();
+
+					if (item != null) {
+						if (var.endsWith("name")) {
+							String arrows = itemStack.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
+							return itemStack.getDisplayName() + arrows;
+						} else if (var.endsWith("maxdamage")) {
+							return Integer.toString(item.isDamageable() ? item.getMaxDamage(itemStack) + 1 : 0);
+						} else if (var.endsWith("damage")) {
+							return Integer.toString(item.isDamageable() ? item.getDamage(itemStack) : 0);
+						} else if (var.endsWith("damageleft")) {
+							return Integer.toString(item.isDamageable() ? item.getMaxDamage(itemStack) + 1 - item.getDamage(itemStack) : 0);
+						}
+					}
 				}
 			} else if (var.equalsIgnoreCase("equippedquantity")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
