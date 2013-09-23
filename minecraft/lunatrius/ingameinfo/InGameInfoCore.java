@@ -801,7 +801,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
 				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
-				return Float.toString(this.player.func_110143_aJ());
+				return Float.toString(this.player.getHealth());
 			} else if (var.equalsIgnoreCase("armorpoints")) {
 				return Integer.toString(this.player.getTotalArmorValue());
 			} else if (var.equalsIgnoreCase("foodpoints")) {
@@ -829,7 +829,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.getEntityName();
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
-				return this.minecraftClient.func_110438_M().func_110610_d();
+				return this.minecraftClient.getResourcePackRepository().getResourcePackName();
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
