@@ -883,7 +883,6 @@ public class InGameInfoCore {
 				return Boolean.toString(this.player.isEntityInvulnerable());
 			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
 				ItemStack itemStack;
-				Item item;
 
 				if (var.startsWith("equipped")) {
 					itemStack = this.player.getCurrentEquippedItem();
@@ -901,21 +900,15 @@ public class InGameInfoCore {
 					itemStack = this.player.inventory.armorItemInSlot(slot);
 				}
 
-				if (itemStack != null) {
-					item = itemStack.getItem();
-
-					if (item != null) {
-						if (var.endsWith("name")) {
-							String arrows = itemStack.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
-							return itemStack.getDisplayName() + arrows;
-						} else if (var.endsWith("maxdamage")) {
-							return Integer.toString(item.isDamageable() ? item.getMaxDamage(itemStack) + 1 : 0);
-						} else if (var.endsWith("damage")) {
-							return Integer.toString(item.isDamageable() ? item.getDamage(itemStack) : 0);
-						} else if (var.endsWith("damageleft")) {
-							return Integer.toString(item.isDamageable() ? item.getMaxDamage(itemStack) + 1 - item.getDamage(itemStack) : 0);
-						}
-					}
+				if (var.endsWith("name")) {
+					String arrows = itemStack != null && itemStack.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
+					return itemStack != null ? itemStack.getDisplayName() + arrows : "";
+				} else if (var.endsWith("maxdamage")) {
+					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
+				} else if (var.endsWith("damage")) {
+					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamageForDisplay() : 0);
+				} else if (var.endsWith("damageleft")) {
+					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamageForDisplay() : 0);
 				}
 			} else if (var.equalsIgnoreCase("equippedquantity")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
