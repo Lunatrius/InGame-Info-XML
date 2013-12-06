@@ -1,41 +1,36 @@
 package lunatrius.ingameinfo;
 
+import lunatrius.ingameinfo.parser.IParser;
+import lunatrius.ingameinfo.parser.text.TextParser;
+import lunatrius.ingameinfo.parser.xml.XmlParser;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.resources.Resource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static lunatrius.ingameinfo.Value.ValueType;
+
 public class InGameInfoCore {
 	private static final InGameInfoCore instance = new InGameInfoCore();
-	private Logger logger = null;
+	private IParser parser;
 
 	private boolean isLoaded = false;
 	private Minecraft minecraftClient = null;
@@ -43,6 +38,7 @@ public class InGameInfoCore {
 	private World world = null;
 	private EntityPlayer player = null;
 	private ScaledResolution scaledResolution = null;
+	private File configDirectory = null;
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
 	private final String[] difficulties = new String[] {
@@ -77,12 +73,16 @@ public class InGameInfoCore {
 		return instance;
 	}
 
-	public void init(File file) {
-		this.configFile = file;
-	}
+	public void init(File directory, String type) {
+		this.configDirectory = directory;
 
-	public void setLogger(Logger logger) {
-		this.logger = logger;
+		if (type.equalsIgnoreCase("xml")) {
+			this.configFile = new File(directory, "InGameInfo.xml");
+			this.parser = new XmlParser();
+		} else if (type.equalsIgnoreCase("text")) {
+			this.configFile = new File(directory, "InGameInfo.txt");
+			this.parser = new TextParser();
+		}
 	}
 
 	public void setServer(MinecraftServer server) {
@@ -102,7 +102,7 @@ public class InGameInfoCore {
 
 	public void onTickClient() {
 		if (!isLoaded && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_R)) {
-			loadConfig();
+			reloadConfig();
 			isLoaded = true;
 		} else {
 			isLoaded = false;
@@ -117,14 +117,13 @@ public class InGameInfoCore {
 		this.playerPosition[1] = (int) Math.floor(this.player.posY);
 		this.playerPosition[2] = (int) Math.floor(this.player.posZ);
 
-		Collection potionEffectCollection = this.player.getActivePotionEffects();
+		Collection<PotionEffect> potionEffectCollection = this.player.getActivePotionEffects();
 		this.potionEffects = new PotionEffect[potionEffectCollection.size()];
 		if (potionEffectCollection.size() > 0) {
 			int index = 0;
 
-			Iterator<PotionEffect> iterator = potionEffectCollection.iterator();
-			while (iterator.hasNext()) {
-				this.potionEffects[index++] = iterator.next();
+			for (PotionEffect potionEffect : potionEffectCollection) {
+				this.potionEffects[index++] = potionEffect;
 			}
 		}
 
@@ -152,8 +151,6 @@ public class InGameInfoCore {
 		int x = 0, y = 0, type = -1;
 
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		// TODO: remove if there are no issues
-		// minecraftClient.renderEngine.resetBoundTexture();
 
 		Set<String> keys = this.valuePairs.keySet();
 		for (String key : keys) {
@@ -206,100 +203,46 @@ public class InGameInfoCore {
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
-	public boolean loadConfig() {
-		try {
-			this.valuePairs.clear();
-			this.format.clear();
+	public void copyDefaultConfig() {
+		File configFile = new File(this.configDirectory, "InGameInfo.xml");
 
-			if (!this.configFile.exists()) {
-				try {
-					String assetsDir = "lunatrius/ingameinfo/assets/";
-					InputStream stream = InGameInfoCore.class.getClassLoader().getResourceAsStream(assetsDir + this.configFile.getName());
+		if (!configFile.exists()) {
+			try {
+				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", "InGameInfo.xml");
+				Resource resource = this.minecraftClient.getResourceManager().getResource(resourceLocation);
+				InputStream inputStream = resource.getInputStream();
 
-					BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-					String defaultConfig = "";
-					String line = null;
+				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+				String defaultConfig = "";
+				String line;
 
-					while ((line = reader.readLine()) != null) {
-						defaultConfig += line + System.getProperty("line.separator");
-					}
-
-					FileWriter fstream = new FileWriter(this.configFile);
-					BufferedWriter out = new BufferedWriter(fstream);
-					out.write(defaultConfig);
-					out.close();
-				} catch (Exception e) {
-					this.logger.log(Level.SEVERE, "Could not extract default configuration - corrupted installation detected!", e);
-					throw new RuntimeException(e);
+				while ((line = reader.readLine()) != null) {
+					defaultConfig += line + System.getProperty("line.separator");
 				}
+
+				inputStream.close();
+
+				FileWriter fileWriter = new FileWriter(configFile);
+				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+				bufferedWriter.write(defaultConfig);
+				bufferedWriter.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(this.configFile);
-			doc.getDocumentElement().normalize();
-
-			NodeList nodeListLines = doc.getDocumentElement().getChildNodes();
-			for (int i = 0; i < nodeListLines.getLength(); i++) {
-				if (nodeListLines.item(i).getNodeType() != Node.ELEMENT_NODE) {
-					continue;
-				}
-
-				Element elementLines = (Element) nodeListLines.item(i);
-
-				if (!elementLines.getNodeName().matches("(?i)^lines$")) {
-					continue;
-				}
-
-				List<List<Value>> listLines = new ArrayList<List<Value>>();
-
-				String attributeAt = elementLines.getAttribute("at");
-				String at = "";
-
-				if (attributeAt.matches("(?i).*(top).*")) {
-					at = "top";
-				} else if (attributeAt.matches("(?i).*(mid).*")) {
-					at = "mid";
-				} else if (attributeAt.matches("(?i).*(bot).*")) {
-					at = "bot";
-				} else {
-					continue;
-				}
-
-				if (attributeAt.matches("(?i).*(left).*")) {
-					at += "left";
-				} else if (attributeAt.matches("(?i).*(center).*")) {
-					at += "center";
-				} else if (attributeAt.matches("(?i).*(right).*")) {
-					at += "right";
-				} else {
-					continue;
-				}
-
-				NodeList nodeListLine = elementLines.getChildNodes();
-				for (int j = 0; j < nodeListLine.getLength(); j++) {
-					if (nodeListLine.item(j).getNodeType() != Node.ELEMENT_NODE) {
-						continue;
-					}
-
-					Element elementLine = (Element) nodeListLine.item(j);
-
-					if (!elementLine.getNodeName().matches("(?i)^line$")) {
-						continue;
-					}
-
-					listLines.add(getValues(elementLine));
-				}
-
-				this.format.put(at, listLines);
-			}
-
-			return true;
-		} catch (Exception e) {
-			this.format.clear();
-			e.printStackTrace();
 		}
-		return false;
+	}
+
+	public boolean reloadConfig() {
+		this.valuePairs.clear();
+		this.format.clear();
+
+		this.parser.load(this.configFile);
+		if (!this.parser.parse(this.format)) {
+			this.format.clear();
+			return false;
+		}
+
+		return true;
 	}
 
 	private String replaceVariables(String str) {
@@ -312,94 +255,14 @@ public class InGameInfoCore {
 		return str;
 	}
 
-	private List<Value> getValues(Element element) {
-		List<Value> values = new ArrayList<Value>();
-
-		NodeList nodeListValues = element.getChildNodes();
-		for (int i = 0; i < nodeListValues.getLength(); i++) {
-			if (nodeListValues.item(i).getNodeType() != Node.ELEMENT_NODE) {
-				continue;
-			}
-
-			Element elementValue = (Element) nodeListValues.item(i);
-
-			if (!elementValue.getNodeName().matches("(?i)^value$")) {
-				continue;
-			}
-
-			String attributeType = elementValue.getAttribute("type");
-			String type = "";
-
-			if (attributeType.matches("(?i)(str|string)")) {
-				type = "str";
-			} else if (attributeType.matches("(?i)(num|number|int|integer|float)")) {
-				type = "num";
-			} else if (attributeType.matches("(?i)(var|variable)")) {
-				type = "var";
-			} else if (attributeType.matches("(?i)(if)")) {
-				type = "if";
-			} else if (attributeType.matches("(?i)(not)")) {
-				type = "not";
-			} else if (attributeType.matches("(?i)(and)")) {
-				type = "and";
-			} else if (attributeType.matches("(?i)(or)")) {
-				type = "or";
-			} else if (attributeType.matches("(?i)(xor)")) {
-				type = "xor";
-			} else if (attributeType.matches("(?i)(greater)")) {
-				type = "greater";
-			} else if (attributeType.matches("(?i)(less|lesser)")) {
-				type = "less";
-			} else if (attributeType.matches("(?i)(equals?)")) {
-				type = "equal";
-			} else if (attributeType.matches("(?i)(pct|percent|percentage)")) {
-				type = "pct";
-			} else if (attributeType.matches("(?i)(concat)")) {
-				type = "concat";
-			} else if (attributeType.matches("(?i)(max|maximum)")) {
-				type = "max";
-			} else if (attributeType.matches("(?i)(min|minimum)")) {
-				type = "min";
-			} else if (attributeType.matches("(?i)(add)")) {
-				type = "add";
-			} else if (attributeType.matches("(?i)(sub)")) {
-				type = "sub";
-			} else if (attributeType.matches("(?i)(mul)")) {
-				type = "mul";
-			} else if (attributeType.matches("(?i)(div)")) {
-				type = "div";
-			} else if (attributeType.matches("(?i)(round)")) {
-				type = "round";
-			} else if (attributeType.matches("(?i)(mod|modulo)")) {
-				type = "mod";
-			} else if (attributeType.matches("(?i)(imod|intmod|imodulo|intmodulo|modi|modint|moduloi|moduloint)")) {
-				type = "modi";
-			} else if (attributeType.matches("(?i)(itemquantity)")) {
-				type = "itemquantity";
-			} else if (attributeType.matches("(?i)(trans|translate)")) {
-				type = "trans";
-			} else {
-				continue;
-			}
-
-			String value = elementValue.getTextContent().replaceAll("\\$(?=[0-9a-fk-or])", "\u00a7");
-
-			Value val = new Value(type, value);
-			val.values = getValues(elementValue);
-			values.add(val);
-		}
-
-		return values;
-	}
-
 	private String getValue(Value value) {
-		if (value.type.equals("str")) {
+		if (value.type.equals(ValueType.STR)) {
 			return value.value;
-		} else if (value.type.equals("num")) {
+		} else if (value.type.equals(ValueType.NUM)) {
 			return value.value;
-		} else if (value.type.equals("var")) {
+		} else if (value.type.equals(ValueType.VAR)) {
 			return getVariableValue(value.value);
-		} else if (value.type.equals("if") && (value.values.size() == 2 || value.values.size() == 3)) {
+		} else if (value.type.equals(ValueType.IF) && (value.values.size() == 2 || value.values.size() == 3)) {
 			try {
 				if (Boolean.parseBoolean(getValue(value.values.get(0)))) {
 					return getValue(value.values.get(1));
@@ -411,13 +274,13 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("not") && value.values.size() == 1) {
+		} else if (value.type.equals(ValueType.NOT) && value.values.size() == 1) {
 			try {
 				return Boolean.toString(!Boolean.parseBoolean(getValue(value.values.get(0))));
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("and")) {
+		} else if (value.type.equals(ValueType.AND)) {
 			try {
 				for (Value operand : value.values) {
 					if (!Boolean.parseBoolean(getValue(operand))) {
@@ -428,7 +291,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("or")) {
+		} else if (value.type.equals(ValueType.OR)) {
 			try {
 				for (Value operand : value.values) {
 					if (Boolean.parseBoolean(getValue(operand))) {
@@ -439,7 +302,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("xor")) {
+		} else if (value.type.equals(ValueType.XOR)) {
 			try {
 				boolean result = false;
 				for (Value operand : value.values) {
@@ -449,7 +312,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("greater") && value.values.size() > 1) {
+		} else if (value.type.equals(ValueType.GREATER) && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -465,7 +328,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("less") && value.values.size() > 1) {
+		} else if (value.type.equals(ValueType.LESSER) && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -481,7 +344,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
-		} else if (value.type.equals("equal") && value.values.size() > 1) {
+		} else if (value.type.equals(ValueType.EQUAL) && value.values.size() > 1) {
 			try {
 				double current = Double.parseDouble(getValue(value.values.get(0)));
 
@@ -503,7 +366,7 @@ public class InGameInfoCore {
 				}
 				return Boolean.toString(true);
 			}
-		} else if (value.type.equals("pct") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.PCT) && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -511,13 +374,13 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type.equals("concat")) {
+		} else if (value.type.equals(ValueType.CONCAT)) {
 			String str = "";
 			for (Value val : value.values) {
 				str += getValue(val);
 			}
 			return str;
-		} else if (value.type.equals("max") && (value.values.size() == 2 || value.values.size() == 4)) {
+		} else if (value.type.equals(ValueType.MAX) && (value.values.size() == 2 || value.values.size() == 4)) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -526,7 +389,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type.equals("min") && (value.values.size() == 2 || value.values.size() == 4)) {
+		} else if (value.type.equals(ValueType.MIN) && (value.values.size() == 2 || value.values.size() == 4)) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -535,7 +398,7 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "0";
 			}
-		} else if (value.type.equals("add") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.ADD) && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -549,7 +412,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type.equals("sub") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.SUB) && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -563,7 +426,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type.equals("mul") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.MUL) && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -577,7 +440,7 @@ public class InGameInfoCore {
 					return "0";
 				}
 			}
-		} else if (value.type.equals("div") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.DIV) && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -585,7 +448,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type.equals("round") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.ROUND) && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -597,7 +460,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type.equals("mod") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.MOD) && value.values.size() == 2) {
 			try {
 				double arg0 = Double.parseDouble(getValue(value.values.get(0)));
 				double arg1 = Double.parseDouble(getValue(value.values.get(1)));
@@ -606,7 +469,7 @@ public class InGameInfoCore {
 				e2.printStackTrace();
 				return "0";
 			}
-		} else if (value.type.equals("modi") && value.values.size() == 2) {
+		} else if (value.type.equals(ValueType.MODI) && value.values.size() == 2) {
 			try {
 				int arg0 = Integer.parseInt(getValue(value.values.get(0)));
 				int arg1 = Integer.parseInt(getValue(value.values.get(1)));
@@ -614,7 +477,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type.equals("itemquantity") && (value.values.size() == 1 || value.values.size() == 2)) {
+		} else if (value.type.equals(ValueType.ITEMQUANTITY) && (value.values.size() == 1 || value.values.size() == 2)) {
 			try {
 				int itemID = 0, itemDamage = -1;
 				itemID = Integer.parseInt(getValue(value.values.get(0)));
@@ -625,7 +488,7 @@ public class InGameInfoCore {
 			} catch (Exception e2) {
 				return "0";
 			}
-		} else if (value.type.equals("trans")) {
+		} else if (value.type.equals(ValueType.TRANS)) {
 			try {
 				return StatCollector.translateToLocal(value.value);
 			} catch (Exception e) {
