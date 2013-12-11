@@ -818,6 +818,50 @@ public class InGameInfoCore {
 				return Long.toString(Runtime.getRuntime().freeMemory());
 			} else if (var.equalsIgnoreCase("memused")) {
 				return Long.toString(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+			} else if (var.equalsIgnoreCase("black")) {
+				return "\u00a70";
+			} else if (var.equalsIgnoreCase("darkblue") || var.equalsIgnoreCase("navy")) {
+				return "\u00a71";
+			} else if (var.equalsIgnoreCase("darkgreen") || var.equalsIgnoreCase("green")) {
+				return "\u00a72";
+			} else if (var.equalsIgnoreCase("darkaqua") || var.equalsIgnoreCase("darkcyan") || var.equalsIgnoreCase("turquoise")) {
+				return "\u00a73";
+			} else if (var.equalsIgnoreCase("darkred")) {
+				return "\u00a74";
+			} else if (var.equalsIgnoreCase("purple") || var.equalsIgnoreCase("violet")) {
+				return "\u00a75";
+			} else if (var.equalsIgnoreCase("orange") || var.equalsIgnoreCase("gold")) {
+				return "\u00a76";
+			} else if (var.equalsIgnoreCase("lightgrey") || var.equalsIgnoreCase("lightgray") || var.equalsIgnoreCase("grey") || var.equalsIgnoreCase("gray")) {
+				return "\u00a77";
+			} else if (var.equalsIgnoreCase("darkgrey") || var.equalsIgnoreCase("darkgray") || var.equalsIgnoreCase("charcoal")) {
+				return "\u00a78";
+			} else if (var.equalsIgnoreCase("blue") || var.equalsIgnoreCase("lightblue") || var.equalsIgnoreCase("indigo")) {
+				return "\u00a79";
+			} else if (var.equalsIgnoreCase("brightgreen") || var.equalsIgnoreCase("lightgreen") || var.equalsIgnoreCase("lime")) {
+				return "\u00a7a";
+			} else if (var.equalsIgnoreCase("aqua") || var.equalsIgnoreCase("cyan") || var.equalsIgnoreCase("celeste") || var.equalsIgnoreCase("diamond")) {
+				return "\u00a7b";
+			} else if (var.equalsIgnoreCase("red") || var.equalsIgnoreCase("lightred") || var.equalsIgnoreCase("salmon")) {
+				return "\u00a7c";
+			} else if (var.equalsIgnoreCase("magenta") || var.equalsIgnoreCase("pink")) {
+				return "\u00a7d";
+			} else if (var.equalsIgnoreCase("yellow")) {
+				return "\u00a7e";
+			} else if (var.equalsIgnoreCase("white")) {
+				return "\u00a7f";
+			} else if (var.equalsIgnoreCase("random")) {
+				return "\u00a7k";
+			} else if (var.equalsIgnoreCase("bold") || var.equalsIgnoreCase("b")) {
+				return "\u00a7l";
+			} else if (var.equalsIgnoreCase("strikethrough") || var.equalsIgnoreCase("strike") || var.equalsIgnoreCase("s")) {
+				return "\u00a7m";
+			} else if (var.equalsIgnoreCase("underline") || var.equalsIgnoreCase("u")) {
+				return "\u00a7n";
+			} else if (var.equalsIgnoreCase("italic") || var.equalsIgnoreCase("italics") || var.equalsIgnoreCase("i")) {
+				return "\u00a7o";
+			} else if (var.equalsIgnoreCase("reset") || var.equalsIgnoreCase("r")) {
+				return "\u00a7r";
 			}
 		} catch (Exception e) {
 			return "null";
