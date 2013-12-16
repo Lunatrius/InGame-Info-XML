@@ -17,7 +17,6 @@ import net.minecraft.util.*;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import java.io.*;
@@ -29,10 +28,10 @@ import java.util.regex.Pattern;
 import static lunatrius.ingameinfo.Value.ValueType;
 
 public class InGameInfoCore {
-	private static final InGameInfoCore instance = new InGameInfoCore();
+	public static final InGameInfoCore instance = new InGameInfoCore();
+
 	private IParser parser;
 
-	private boolean isLoaded = false;
 	private Minecraft minecraftClient = null;
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
@@ -63,34 +62,46 @@ public class InGameInfoCore {
 			0, 0, 0
 	};
 	private PotionEffect[] potionEffects = null;
+	private boolean hasSeed;
 	private long seed = 0;
 	private final Map<String, List<String>> valuePairs = new HashMap<String, List<String>>();
 
 	private InGameInfoCore() {
 	}
 
-	public static InGameInfoCore instance() {
-		return instance;
+	public boolean setConfigDirectory(File directory) {
+		this.configDirectory = directory;
+		return true;
 	}
 
-	public void init(File directory, String type) {
-		this.configDirectory = directory;
+	public File getConfigDirectory() {
+		return this.configDirectory;
+	}
 
-		if (type.equalsIgnoreCase("xml")) {
-			this.configFile = new File(directory, "InGameInfo.xml");
-			this.parser = new XmlParser();
-		} else if (type.equalsIgnoreCase("text")) {
-			this.configFile = new File(directory, "InGameInfo.txt");
-			this.parser = new TextParser();
+	public boolean setConfigFile(String filename) {
+		File file = new File(this.configDirectory, filename);
+		if (file.exists()) {
+			if (filename.endsWith(".xml")) {
+				this.configFile = file;
+				this.parser = new XmlParser();
+				return true;
+			} else if (filename.endsWith(".txt")) {
+				this.configFile = file;
+				this.parser = new TextParser();
+				return true;
+			}
 		}
+		return false;
 	}
 
 	public void setServer(MinecraftServer server) {
 		this.minecraftServer = server;
 		if (this.minecraftServer != null) {
 			try {
-				this.seed = this.minecraftServer.worldServers[0].getSeed();
+				this.hasSeed = true;
+				this.seed = this.minecraftServer.worldServerForDimension(0).getSeed();
 			} catch (Exception e) {
+				this.hasSeed = false;
 				this.seed = 0;
 			}
 		}
@@ -101,13 +112,6 @@ public class InGameInfoCore {
 	}
 
 	public void onTickClient() {
-		if (!isLoaded && Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_R)) {
-			reloadConfig();
-			isLoaded = true;
-		} else {
-			isLoaded = false;
-		}
-
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
 
@@ -230,6 +234,10 @@ public class InGameInfoCore {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public boolean loadConfig(String filename) {
+		return setConfigFile(filename) && reloadConfig();
 	}
 
 	public boolean reloadConfig() {
@@ -888,7 +896,7 @@ public class InGameInfoCore {
 	}
 
 	private boolean isSlimeChunk(int x, int z) {
-		return (this.seed != 0) && ((new Random(this.seed + x * x * 4987142 + x * 5947611 + z * z * 4392871 + z * 389711 ^ 987234911)).nextInt(10) == 0);
+		return this.hasSeed && (new Random(this.seed + x * x * 4987142 + x * 5947611 + z * z * 4392871 + z * 389711 ^ 987234911).nextInt(10) == 0);
 	}
 
 	private void drawLeftAlignedString(FontRenderer fontRenderer, String str, int x, int y, int color) {

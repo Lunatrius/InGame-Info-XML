@@ -11,12 +11,11 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
+import lunatrius.ingameinfo.command.InGameInfoCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.client.ClientCommandHandler;
 
-import java.io.File;
 import java.util.EnumSet;
 import java.util.logging.Logger;
 
@@ -26,27 +25,29 @@ public class InGameInfoXML {
 	public static InGameInfoXML instance;
 	public static final Logger LOGGER = FMLCommonHandler.instance().getFMLLogger();
 
-	private final InGameInfoCore core = InGameInfoCore.instance();
+	private final InGameInfoCore core = InGameInfoCore.instance;
 	private Minecraft minecraftClient = null;
 	private boolean showInChat;
 
+	public Config config = null;
+	public boolean enabled = true;
+
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		File configurationFile = event.getSuggestedConfigurationFile();
-		Configuration configuration = new Configuration(configurationFile);
+		this.config = new Config(event.getSuggestedConfigurationFile());
+		this.config.load();
+		this.showInChat = this.config.getShowInChat();
+		this.config.save();
 
-		configuration.load();
-		Property configType = configuration.get(Configuration.CATEGORY_GENERAL, "type", "xml", "Configuration type (xml or text). The default file that will be read will be InGameInfo.xml or InGameInfo.txt.");
-		Property showInChat = configuration.get(Configuration.CATEGORY_GENERAL, "showInChat", true, "Displays the overlay in chat.");
-		this.showInChat = showInChat.getBoolean(true);
-		configuration.save();
-
-		this.core.init(event.getModConfigurationDirectory(), configType.getString());
+		this.core.setConfigDirectory(event.getModConfigurationDirectory());
+		this.core.setConfigFile(this.config.getConfigName());
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		TickRegistry.registerTickHandler(new Ticker(EnumSet.of(TickType.CLIENT, TickType.RENDER)), Side.CLIENT);
+
+		ClientCommandHandler.instance.registerCommand(new InGameInfoCommand(this.core));
 
 		this.core.setClient(this.minecraftClient = Minecraft.getMinecraft());
 		this.core.copyDefaultConfig();
@@ -68,7 +69,7 @@ public class InGameInfoXML {
 			return true;
 		}
 
-		if (this.minecraftClient != null && this.minecraftClient.gameSettings != null && !this.minecraftClient.gameSettings.showDebugInfo) {
+		if (this.enabled && this.minecraftClient != null && this.minecraftClient.gameSettings != null && !this.minecraftClient.gameSettings.showDebugInfo) {
 			if (this.minecraftClient.currentScreen == null || this.showInChat && this.minecraftClient.currentScreen instanceof GuiChat) {
 				if (tick == TickType.CLIENT) {
 					this.core.onTickClient();
