@@ -58,7 +58,7 @@ public class TextSerializer implements ISerializer {
 	private void writeValue(BufferedWriter writer, Value value) throws IOException {
 		List<Value> values = value.values;
 		int size = values.size();
-		String type = value.type.toString();
+		String type = value.type.toString().toLowerCase();
 
 		if (size == 0) {
 			if (value.type == ValueType.STR || value.type == ValueType.NUM) {
