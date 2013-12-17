@@ -1,9 +1,9 @@
 package lunatrius.ingameinfo.parser.xml;
 
 import lunatrius.ingameinfo.InGameInfoXML;
+import lunatrius.ingameinfo.Utils;
 import lunatrius.ingameinfo.Value;
 import lunatrius.ingameinfo.parser.IParser;
-import lunatrius.ingameinfo.parser.ParserUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -42,7 +42,7 @@ public class XmlParser implements IParser {
 		for (int i = 0; i < nodeListLines.getLength(); i++) {
 			Element elementLines = getElement(nodeListLines.item(i), "lines");
 			if (elementLines != null) {
-				String position = ParserUtils.getPosition(elementLines.getAttribute("at"));
+				String position = Utils.getPosition(elementLines.getAttribute("at"));
 				if (position != null) {
 					format.put(position, getLines(elementLines));
 				}
@@ -90,7 +90,7 @@ public class XmlParser implements IParser {
 
 				String value = "";
 				if ((type == ValueType.STR) || (type == ValueType.NUM) || (type == ValueType.VAR) || (type == ValueType.TRANS)) {
-					value = elementValue.getTextContent().replaceAll("\\$(?=[0-9a-fk-or])", "\u00a7");
+					value = Utils.unescapeValue(elementValue.getTextContent());
 				}
 
 				Value val = new Value(type, value);

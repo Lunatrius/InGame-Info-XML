@@ -42,6 +42,8 @@ public class InGameInfoCommand extends CommandBase {
 		} else if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("load")) {
 				return getListOfStringsFromIterableMatchingLastWord(args, getFilenames());
+			} else if (args[0].equalsIgnoreCase("save")) {
+				return CommandBase.getListOfStringsMatchingLastWord(args, "InGameInfo.xml", "InGameInfo.txt");
 			}
 		}
 
@@ -81,7 +83,7 @@ public class InGameInfoCommand extends CommandBase {
 				return;
 			} else if (args[0].equalsIgnoreCase("save")) {
 				commandSender.sendChatToPlayer(ChatMessageComponent.createFromTranslationWithSubstitutions("commands.igi.save", args[1]));
-				commandSender.sendChatToPlayer(ChatMessageComponent.createFromText("Not yet implemented! :("));
+				this.core.saveConfig(args[1]);
 				return;
 			} else if (args[0].equalsIgnoreCase("enable")) {
 				commandSender.sendChatToPlayer(ChatMessageComponent.createFromTranslationKey("commands.igi.enable"));

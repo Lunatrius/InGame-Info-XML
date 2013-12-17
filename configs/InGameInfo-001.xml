@@ -1,73 +1,73 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <config>
-	<lines at="topleft">
-		<line>
-			<value type="str">$fDay {day}, {mctime} (</value>
-			<value type="if">
-				<value type="var">daytime</value>
-				<value type="str">$eDay</value>
-				<value type="str">$8Night</value>
-			</value>
-			<value type="str"> time$f)</value>
-		</line>
-		<line>
-			<value type="str">Biome: $e{biome}$f</value>
-			<value type="if">
-				<value type="var">slimes</value>
-				<value type="str"> ($aSlime$f)</value>
-				<value type="str"/>
-			</value>
-		</line>
-		<line>
-			<value type="str">Score: $e{score}$f</value>
-		</line>
-		<line>
-			<value type="str">Light: </value>
-			<value type="max">
-				<value type="var">light</value>
-				<value type="num">6.5</value>
-				<value type="str">$e</value>
-				<value type="str">$c</value>
-			</value>
-			<value type="var">light</value>
-		</line>
-		<line>
-			<value type="str">$fEXP: $e{xpthislevel}$f / $e{xpcap}$f</value>
-		</line>
-		<line>
-			<value type="str">FPS: </value>
-			<value type="max">
-				<value type="var">fps</value>
-				<value type="num">30</value>
-				<value type="str">$a</value>
-				<value type="str">$c</value>
-			</value>
-			<value type="var">fps</value>
-		</line>
-		<line>
-			<value type="str">Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</value>
-		</line>
-	</lines>
-	<lines at="topcenter">
-		<line>
-			<value type="str">$b{username}$f</value>
-		</line>
-		<line>
-			<value type="max">
-				<value type="pct">
-					<value type="var">equippeddamageleft</value>
-					<value type="var">equippedmaxdamage</value>
-				</value>
-				<value type="num">10</value>
-				<value type="str">$e</value>
-				<value type="str">$c</value>
-			</value>
-			<value type="max">
-				<value type="var">equippeddamageleft</value>
-				<value type="num">0.5</value>
-				<value type="str">{equippeddamageleft}$f / $e{equippedmaxdamage}</value>
-				<value type="str"/>
-			</value>
-		</line>
-	</lines>
+    <lines at="topleft">
+        <line>
+            <str>$fDay {day}, {mctime} (</str>
+            <if>
+                <var>daytime</var>
+                <str>$eDay</str>
+                <str>$8Night</str>
+            </if>
+            <str> time$f)</str>
+        </line>
+        <line>
+            <str>Biome: $e{biome}$f</str>
+            <if>
+                <var>slimes</var>
+                <str> ($aSlime$f)</str>
+                <str/>
+            </if>
+        </line>
+        <line>
+            <str>Score: $e{score}$f</str>
+        </line>
+        <line>
+            <str>Light: </str>
+            <max>
+                <var>light</var>
+                <num>6.5</num>
+                <str>$e</str>
+                <str>$c</str>
+            </max>
+            <var>light</var>
+        </line>
+        <line>
+            <str>$fEXP: $e{xpthislevel}$f \/ $e{xpcap}$f</str>
+        </line>
+        <line>
+            <str>FPS: </str>
+            <max>
+                <var>fps</var>
+                <num>30</num>
+                <str>$a</str>
+                <str>$c</str>
+            </max>
+            <var>fps</var>
+        </line>
+        <line>
+            <str>Entities: $e{entitiesrendered}$f \/ $e{entitiestotal}$f</str>
+        </line>
+    </lines>
+    <lines at="topcenter">
+        <line>
+            <str>$b{username}$f</str>
+        </line>
+        <line>
+            <max>
+                <pct>
+                    <var>equippeddamageleft</var>
+                    <var>equippedmaxdamage</var>
+                </pct>
+                <num>10</num>
+                <str>$e</str>
+                <str>$c</str>
+            </max>
+            <max>
+                <var>equippeddamageleft</var>
+                <num>0.5</num>
+                <str>{equippeddamageleft}$f \/ $e{equippedmaxdamage}</str>
+                <str/>
+            </max>
+        </line>
+    </lines>
 </config>

@@ -13,7 +13,7 @@ public class Token {
 		ARGS_SEPARATOR("/"),
 		ARGS_TAIL("\\]"),
 		NEWLINE("\\n+"),
-		STRING("[^<>\\[/\\]\\n]+");
+		STRING("(\\\\[<>\\[/\\]\\\\]|[^<>\\[/\\]\\n])+");
 
 		public final static EnumSet<TokenType> EXCEPTIONS = EnumSet.of(FUNC_TAIL, ARGS_HEAD, ARGS_SEPARATOR, ARGS_TAIL);
 		private final Pattern pattern;

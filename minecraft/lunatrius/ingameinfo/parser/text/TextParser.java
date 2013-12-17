@@ -1,11 +1,9 @@
 package lunatrius.ingameinfo.parser.text;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import lunatrius.ingameinfo.InGameInfoCore;
 import lunatrius.ingameinfo.InGameInfoXML;
+import lunatrius.ingameinfo.Utils;
 import lunatrius.ingameinfo.Value;
 import lunatrius.ingameinfo.parser.IParser;
-import lunatrius.ingameinfo.parser.ParserUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +48,7 @@ public class TextParser implements IParser {
 
 				tokenizer.tokenize(content);
 			} catch (Exception e) {
-		InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read text configuration file!", e);
+				InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read text configuration file!", e);
 			}
 		}
 
@@ -92,20 +90,27 @@ public class TextParser implements IParser {
 			lines = new ArrayList<List<Value>>();
 		}
 
-		expr = lines(lines);
+		try {
+			expr = lines(lines);
 
-		if (expr) {
+			if (expr) {
+				format.put(this.position, lines);
+			}
+		} catch (AlignmentException e) {
 			format.put(this.position, lines);
+
+			this.position = e.getPosition();
+			expr = e.isValid();
 		}
 
 		return expr;
 	}
 
-	private boolean lines(List<List<Value>> lines) {
+	private boolean lines(List<List<Value>> lines) throws AlignmentException {
 		return line(lines) && linesTail(lines);
 	}
 
-	private boolean linesTail(List<List<Value>> lines) {
+	private boolean linesTail(List<List<Value>> lines) throws AlignmentException {
 		if (line(lines)) {
 			linesTail(lines);
 		}
@@ -113,7 +118,7 @@ public class TextParser implements IParser {
 		return true;
 	}
 
-	private boolean line(List<List<Value>> lines) {
+	private boolean line(List<List<Value>> lines) throws AlignmentException {
 		boolean expr;
 		List<Value> values = new ArrayList<Value>();
 
@@ -130,11 +135,11 @@ public class TextParser implements IParser {
 		return expr;
 	}
 
-	private boolean values(List<Value> values) {
+	private boolean values(List<Value> values) throws AlignmentException {
 		return value(values) && valuesTail(values);
 	}
 
-	private boolean valuesTail(List<Value> values) {
+	private boolean valuesTail(List<Value> values) throws AlignmentException {
 		if (value(values)) {
 			valuesTail(values);
 		}
@@ -142,7 +147,7 @@ public class TextParser implements IParser {
 		return true;
 	}
 
-	private boolean value(List<Value> values) {
+	private boolean value(List<Value> values) throws AlignmentException {
 		boolean expr;
 
 		if (this.token.getType().equals(TokenType.STRING)) {
@@ -162,11 +167,11 @@ public class TextParser implements IParser {
 	}
 
 	private boolean string(List<Value> values, String lexem) {
-		values.add(new Value(ValueType.STR, lexem.replaceAll("\\$(?=[0-9a-fk-or])", "\u00a7")));
+		values.add(new Value(ValueType.STR, Utils.unescapeValue(lexem)));
 		return true;
 	}
 
-	private boolean function(List<Value> values, String lexem) {
+	private boolean function(List<Value> values, String lexem) throws AlignmentException {
 		boolean expr;
 
 		this.level++;
@@ -188,19 +193,19 @@ public class TextParser implements IParser {
 			expr = false;
 		}
 
-		String position = ParserUtils.getPosition(lexem);
+		this.level--;
+
+		String position = Utils.getPosition(lexem);
 		if (position != null) {
-			this.position = position;
+			throw new AlignmentException(position, expr);
 		} else if (expr) {
 			values.add(value);
 		}
 
-		this.level--;
-
 		return expr;
 	}
 
-	private boolean argumentGroupA(Value value) {
+	private boolean argumentGroupA(Value value) throws AlignmentException {
 		boolean expr;
 
 		if (this.token.getType().equals(TokenType.ARGS_HEAD)) {
@@ -222,11 +227,11 @@ public class TextParser implements IParser {
 		return expr;
 	}
 
-	private boolean argumentsA(Value value) {
+	private boolean argumentsA(Value value) throws AlignmentException {
 		return argument(value) && argumentsATail(value);
 	}
 
-	private boolean argumentsATail(Value value) {
+	private boolean argumentsATail(Value value) throws AlignmentException {
 		if (this.token.getType().equals(TokenType.ARGS_SEPARATOR)) {
 			nextToken();
 
@@ -238,7 +243,7 @@ public class TextParser implements IParser {
 		return true;
 	}
 
-	private boolean argument(Value value) {
+	private boolean argument(Value value) throws AlignmentException {
 		boolean expr;
 
 		if (this.token.getType().equals(TokenType.STRING)) {
@@ -254,7 +259,7 @@ public class TextParser implements IParser {
 		return expr;
 	}
 
-	private boolean argumentGroupB(Value value) {
+	private boolean argumentGroupB(Value value) throws AlignmentException {
 		boolean expr;
 
 		if (this.token.getType().equals(TokenType.ARGS_HEAD)) {
@@ -274,11 +279,11 @@ public class TextParser implements IParser {
 		return expr;
 	}
 
-	private boolean argumentsB(Value value) {
+	private boolean argumentsB(Value value) throws AlignmentException {
 		return argument(value) && argumentsBTail(value);
 	}
 
-	private boolean argumentsBTail(Value value) {
+	private boolean argumentsBTail(Value value) throws AlignmentException {
 		if (this.token.getType().equals(TokenType.ARGS_SEPARATOR)) {
 			nextToken();
 

@@ -3,6 +3,9 @@ package lunatrius.ingameinfo;
 import lunatrius.ingameinfo.parser.IParser;
 import lunatrius.ingameinfo.parser.text.TextParser;
 import lunatrius.ingameinfo.parser.xml.XmlParser;
+import lunatrius.ingameinfo.serializer.ISerializer;
+import lunatrius.ingameinfo.serializer.text.TextSerializer;
+import lunatrius.ingameinfo.serializer.xml.XmlSerializer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -251,6 +254,19 @@ public class InGameInfoCore {
 		}
 
 		return true;
+	}
+
+	public boolean saveConfig(String filename) {
+		ISerializer serializer = null;
+		File file = new File(this.configDirectory, filename);
+		if (filename.endsWith(".xml")) {
+			serializer = new XmlSerializer();
+		} else if (filename.endsWith(".txt")) {
+			serializer = new TextSerializer();
+		}
+
+		return serializer != null && serializer.save(file, this.format);
+
 	}
 
 	private String replaceVariables(String str) {
