@@ -1,9 +1,11 @@
 package lunatrius.ingameinfo;
 
 import lunatrius.ingameinfo.parser.IParser;
+import lunatrius.ingameinfo.parser.json.JsonParser;
 import lunatrius.ingameinfo.parser.text.TextParser;
 import lunatrius.ingameinfo.parser.xml.XmlParser;
 import lunatrius.ingameinfo.serializer.ISerializer;
+import lunatrius.ingameinfo.serializer.json.JsonSerializer;
 import lunatrius.ingameinfo.serializer.text.TextSerializer;
 import lunatrius.ingameinfo.serializer.xml.XmlSerializer;
 import net.minecraft.block.Block;
@@ -87,6 +89,10 @@ public class InGameInfoCore {
 			if (filename.endsWith(".xml")) {
 				this.configFile = file;
 				this.parser = new XmlParser();
+				return true;
+			} else if (filename.endsWith(".json")) {
+				this.configFile = file;
+				this.parser = new JsonParser();
 				return true;
 			} else if (filename.endsWith(".txt")) {
 				this.configFile = file;
@@ -261,6 +267,8 @@ public class InGameInfoCore {
 		File file = new File(this.configDirectory, filename);
 		if (filename.endsWith(".xml")) {
 			serializer = new XmlSerializer();
+		} else if (filename.endsWith(".json")) {
+			serializer = new JsonSerializer();
 		} else if (filename.endsWith(".txt")) {
 			serializer = new TextSerializer();
 		}
@@ -663,7 +671,7 @@ public class InGameInfoCore {
 				}
 				return "-1";
 			} else if (var.equalsIgnoreCase("mouseoverpowerinput")) {
-				MovingObjectPosition objectMouseOver = minecraftClient.objectMouseOver;
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
 						return Integer.toString(this.world.getBlockPowerInput(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ));

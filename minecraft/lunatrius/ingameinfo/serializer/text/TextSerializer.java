@@ -35,10 +35,12 @@ public class TextSerializer implements ISerializer {
 	}
 
 	private void writeLines(BufferedWriter writer, Map<String, List<List<Value>>> format) throws IOException {
-		for (Map.Entry<String, List<List<Value>>> entry : format.entrySet()) {
-			writer.write(String.format("<%s>", entry.getKey()));
+		for (String alignment : Utils.ALIGNEMENTS) {
+			if (format.containsKey(alignment)) {
+				writer.write(String.format("<%s>", alignment));
 
-			writeLine(writer, entry.getValue());
+				writeLine(writer, format.get(alignment));
+			}
 		}
 	}
 
@@ -62,7 +64,7 @@ public class TextSerializer implements ISerializer {
 
 		if (size == 0) {
 			if (value.type == ValueType.STR || value.type == ValueType.NUM) {
-				writer.write(Utils.escapeValue(value.value));
+				writer.write(Utils.escapeValue(value.value, true));
 			} else if (value.type == ValueType.VAR) {
 				writer.write(String.format("<%s>", value.value));
 			}

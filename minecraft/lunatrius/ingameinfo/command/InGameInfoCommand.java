@@ -43,7 +43,7 @@ public class InGameInfoCommand extends CommandBase {
 			if (args[0].equalsIgnoreCase("load")) {
 				return getListOfStringsFromIterableMatchingLastWord(args, getFilenames());
 			} else if (args[0].equalsIgnoreCase("save")) {
-				return CommandBase.getListOfStringsMatchingLastWord(args, "InGameInfo.xml", "InGameInfo.txt");
+				return CommandBase.getListOfStringsMatchingLastWord(args, "InGameInfo.xml", "InGameInfo.json", "InGameInfo.txt");
 			}
 		}
 
@@ -54,7 +54,7 @@ public class InGameInfoCommand extends CommandBase {
 		File[] files = this.core.getConfigDirectory().listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return name.startsWith("InGameInfo") && (name.endsWith(".xml") || name.endsWith(".txt"));
+				return name.startsWith("InGameInfo") && (name.endsWith(".xml") || name.endsWith(".json") || name.endsWith(".txt"));
 			}
 		});
 

@@ -50,13 +50,15 @@ public class XmlSerializer implements ISerializer {
 	}
 
 	private void appendLines(Document doc, Element config, Map<String, List<List<Value>>> format) {
-		for (Map.Entry<String, List<List<Value>>> entry : format.entrySet()) {
-			Element elementLines = doc.createElement("lines");
-			elementLines.setAttribute("at", entry.getKey());
+		for (String alignment : Utils.ALIGNEMENTS) {
+			if (format.containsKey(alignment)) {
+				Element elementLines = doc.createElement("lines");
+				elementLines.setAttribute("at", alignment);
 
-			appendLine(doc, elementLines, entry.getValue());
+				appendLine(doc, elementLines, format.get(alignment));
 
-			config.appendChild(elementLines);
+				config.appendChild(elementLines);
+			}
 		}
 	}
 
@@ -74,7 +76,7 @@ public class XmlSerializer implements ISerializer {
 		for (Value value : values) {
 			Element elementValue = doc.createElement(value.type.toString().toLowerCase());
 
-			elementValue.setTextContent(Utils.escapeValue(value.value));
+			elementValue.setTextContent(Utils.escapeValue(value.value, false));
 			if (value.values.size() > 0) {
 				appendValues(doc, elementValue, value.values);
 			}

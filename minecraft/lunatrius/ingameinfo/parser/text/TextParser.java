@@ -46,7 +46,7 @@ public class TextParser implements IParser {
 				reader.close();
 				fileReader.close();
 
-				tokenizer.tokenize(content);
+				this.tokenizer.tokenize(content);
 			} catch (Exception e) {
 				InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read text configuration file!", e);
 			}
@@ -167,7 +167,7 @@ public class TextParser implements IParser {
 	}
 
 	private boolean string(List<Value> values, String lexem) {
-		values.add(new Value(ValueType.STR, Utils.unescapeValue(lexem)));
+		values.add(new Value(ValueType.STR, Utils.unescapeValue(lexem, true)));
 		return true;
 	}
 

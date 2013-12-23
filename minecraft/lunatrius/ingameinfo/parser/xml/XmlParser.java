@@ -90,7 +90,7 @@ public class XmlParser implements IParser {
 
 				String value = "";
 				if ((type == ValueType.STR) || (type == ValueType.NUM) || (type == ValueType.VAR) || (type == ValueType.TRANS)) {
-					value = Utils.unescapeValue(elementValue.getTextContent());
+					value = Utils.unescapeValue(elementValue.getTextContent(), false);
 				}
 
 				Value val = new Value(type, value);
