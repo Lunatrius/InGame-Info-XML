@@ -535,19 +535,34 @@ public class InGameInfoCore {
 		try {
 			if (var.equalsIgnoreCase("day")) {
 				return String.format(Locale.ENGLISH, "%d", this.world.getWorldTime() / 24000);
-			} else if (var.equalsIgnoreCase("mctime")) {
+			} else if (var.equalsIgnoreCase("mctime") || var.equalsIgnoreCase("mctime24")) {
 				long time = this.world.getWorldTime();
 				long hour = (time / 1000 + 6) % 24;
 				long minute = (time % 1000) * 60 / 1000;
 				return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
+			} else if (var.equalsIgnoreCase("mctime12")) {
+				long time = this.world.getWorldTime();
+				long hour = (time / 1000 + 6) % 24;
+				long minute = (time % 1000) * 60 / 1000;
+				String ampm = "AM";
+				if (hour >= 12) {
+					hour -= 12;
+					ampm = "PM";
+				}
+				if (hour == 0) {
+					hour += 12;
+				}
+				return String.format(Locale.ENGLISH, "%02d:%02d %s", hour, minute, ampm);
 			} else if (var.equalsIgnoreCase("mctimeh")) {
 				long hour = (this.world.getWorldTime() / 1000 + 6) % 24;
 				return String.format(Locale.ENGLISH, "%02d", hour);
 			} else if (var.equalsIgnoreCase("mctimem")) {
 				long minute = (this.world.getWorldTime() % 1000) * 60 / 1000;
 				return String.format(Locale.ENGLISH, "%02d", minute);
-			} else if (var.equalsIgnoreCase("rltime") || var.equalsIgnoreCase("irltime")) {
+			} else if (var.equalsIgnoreCase("rltime") || var.equalsIgnoreCase("irltime") || var.equalsIgnoreCase("rltime24") || var.equalsIgnoreCase("irltime24")) {
 				return (new SimpleDateFormat("HH:mm")).format(new Date());
+			} else if (var.equalsIgnoreCase("rltime12") || var.equalsIgnoreCase("irltime12")) {
+				return (new SimpleDateFormat("hh:mm a")).format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
 				try {
 					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition[0], this.playerPosition[2]).getBlockLightValue(this.playerPosition[0] & 15, this.playerPosition[1], this.playerPosition[2] & 15, this.world.calculateSkylightSubtracted(1.0f)));
