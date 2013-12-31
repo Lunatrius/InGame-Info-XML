@@ -39,8 +39,11 @@ public class InGameInfoXML {
 		this.showInChat = this.config.getShowInChat();
 		this.config.save();
 
+		this.core.setClient(this.minecraftClient = Minecraft.getMinecraft());
 		this.core.setConfigDirectory(event.getModConfigurationDirectory());
+		this.core.copyDefaultConfig();
 		this.core.setConfigFile(this.config.getConfigName());
+		this.core.reloadConfig();
 	}
 
 	@EventHandler
@@ -48,10 +51,6 @@ public class InGameInfoXML {
 		TickRegistry.registerTickHandler(new Ticker(EnumSet.of(TickType.CLIENT, TickType.RENDER)), Side.CLIENT);
 
 		ClientCommandHandler.instance.registerCommand(new InGameInfoCommand(this.core));
-
-		this.core.setClient(this.minecraftClient = Minecraft.getMinecraft());
-		this.core.copyDefaultConfig();
-		this.core.reloadConfig();
 	}
 
 	@EventHandler
