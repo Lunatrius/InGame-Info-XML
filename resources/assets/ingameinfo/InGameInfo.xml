@@ -38,7 +38,7 @@
             <str>$r)</str>
         </line>
         <line>
-            <str>$fEXP: $e{xpthislevel}$f \/ $e{xpcap}$f ($e</str>
+            <str>$fEXP: $e{xpthislevel}$f / $e{xpcap}$f ($e</str>
             <round>
                 <pct>
                     <var>xpthislevel</var>
@@ -59,7 +59,7 @@
             <var>fps</var>
         </line>
         <line>
-            <str>Entities: $e{entitiesrendered}$f \/ $e{entitiestotal}$f</str>
+            <str>Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</str>
         </line>
     </lines>
     <lines at="topcenter">
@@ -104,7 +104,7 @@
             <max>
                 <var>equippeddamageleft</var>
                 <num>0.5</num>
-                <str>{equippeddamageleft}$f \/ $e{equippedmaxdamage}</str>
+                <str>{equippeddamageleft}$f / $e{equippedmaxdamage}</str>
                 <str> </str>
             </max>
         </line>
@@ -221,7 +221,7 @@
             <max>
                 <var>helmetdamageleft</var>
                 <num>0.5</num>
-                <str>{helmetdamageleft}$f \/ $e{helmetmaxdamage}</str>
+                <str>{helmetdamageleft}$f / $e{helmetmaxdamage}</str>
                 <str> </str>
             </max>
         </line>
@@ -261,7 +261,7 @@
             <max>
                 <var>chestplatedamageleft</var>
                 <num>0.5</num>
-                <str>{chestplatedamageleft}$f \/ $e{chestplatemaxdamage}</str>
+                <str>{chestplatedamageleft}$f / $e{chestplatemaxdamage}</str>
                 <str> </str>
             </max>
         </line>
@@ -301,7 +301,7 @@
             <max>
                 <var>leggingsdamageleft</var>
                 <num>0.5</num>
-                <str>{leggingsdamageleft}$f \/ $e{leggingsmaxdamage}</str>
+                <str>{leggingsdamageleft}$f / $e{leggingsmaxdamage}</str>
                 <str> </str>
             </max>
         </line>
@@ -341,7 +341,7 @@
             <max>
                 <var>bootsdamageleft</var>
                 <num>0.5</num>
-                <str>{bootsdamageleft}$f \/ $e{bootsmaxdamage}</str>
+                <str>{bootsdamageleft}$f / $e{bootsmaxdamage}</str>
                 <str> </str>
             </max>
         </line>

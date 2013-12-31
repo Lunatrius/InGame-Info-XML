@@ -32,7 +32,7 @@
             <var>light</var>
         </line>
         <line>
-            <str>$fEXP: $e{xpthislevel}$f \/ $e{xpcap}$f</str>
+            <str>$fEXP: $e{xpthislevel}$f / $e{xpcap}$f</str>
         </line>
         <line>
             <str>FPS: </str>
@@ -45,7 +45,7 @@
             <var>fps</var>
         </line>
         <line>
-            <str>Entities: $e{entitiesrendered}$f \/ $e{entitiestotal}$f</str>
+            <str>Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</str>
         </line>
     </lines>
     <lines at="topcenter">
@@ -65,7 +65,7 @@
             <max>
                 <var>equippeddamageleft</var>
                 <num>0.5</num>
-                <str>{equippeddamageleft}$f \/ $e{equippedmaxdamage}</str>
+                <str>{equippeddamageleft}$f / $e{equippedmaxdamage}</str>
                 <str/>
             </max>
         </line>

@@ -16,6 +16,7 @@ import net.minecraft.client.resources.Resource;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
@@ -847,8 +848,7 @@ public class InGameInfoCore {
 			} else if (var.matches("potionduration\\d+")) {
 				int index = Integer.parseInt(var.substring(14));
 				if (this.potionEffects.length > index) {
-					int duration = (this.potionEffects[index]).getDuration() / 20;
-					return String.format(Locale.ENGLISH, "%d:%02d", duration / 60, duration % 60);
+					return Potion.getDurationString(this.potionEffects[index]);
 				}
 				return "0:00";
 			} else if (var.matches("potiondurationticks\\d+")) {

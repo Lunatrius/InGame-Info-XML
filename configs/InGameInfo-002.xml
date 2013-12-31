@@ -41,7 +41,7 @@
             <str>$r)</str>
         </line>
         <line>
-            <str>$fEXP: $e{xpthislevel}$f \/ $e{xpcap}$f ($e</str>
+            <str>$fEXP: $e{xpthislevel}$f / $e{xpcap}$f ($e</str>
             <round>
                 <pct>
                     <var>xpthislevel</var>
@@ -62,7 +62,7 @@
             <var>fps</var>
         </line>
         <line>
-            <str>Entities: $e{entitiesrendered}$f \/ $e{entitiestotal}$f</str>
+            <str>Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</str>
         </line>
     </lines>
     <lines at="topcenter">
@@ -107,7 +107,7 @@
             <max>
                 <var>equippeddamageleft</var>
                 <num>0.5</num>
-                <str>{equippeddamageleft}$f \/ $e{equippedmaxdamage}</str>
+                <str>{equippeddamageleft}$f / $e{equippedmaxdamage}</str>
                 <str/>
             </max>
         </line>
