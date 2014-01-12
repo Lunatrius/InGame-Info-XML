@@ -254,6 +254,10 @@ public class InGameInfoCore {
 		this.valuePairs.clear();
 		this.format.clear();
 
+		if (this.parser == null) {
+			return false;
+		}
+
 		this.parser.load(this.configFile);
 		if (!this.parser.parse(this.format)) {
 			this.format.clear();
