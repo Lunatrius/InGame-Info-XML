@@ -1,0 +1,25 @@
+{
+	"modListVersion": 2,
+	"modList": [
+		{
+			"modid": "InGameInfoXML",
+			"name": "InGame Info XML",
+			"description": "Display extra information on top of your ingame screen.",
+			"mcversion": "${mcversion}",
+			"version": "${version}",
+			"authorList": [
+				"Lunatrius"
+			],
+			"credits": "DaftPVF, bspkrs",
+			"dependants": [  ],
+			"dependencies": [  ],
+			"parent": "",
+			"requiredMods": [  ],
+			"logoFile": "",
+			"screenshots": [  ],
+			"updateUrl": "http://mc.lunatri.us/",
+			"url": "http://mc.lunatri.us/",
+			"useDependencyInformation": true
+		}
+	]
+}
