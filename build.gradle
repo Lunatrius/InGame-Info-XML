@@ -32,10 +32,6 @@ minecraft {
     assetDir = "run/assets"
 }
 
-jar {
-    appendix = "universal"
-}
-
 processResources {
     from (sourceSets.main.resources.srcDirs) {
         include "mcmod.info"
