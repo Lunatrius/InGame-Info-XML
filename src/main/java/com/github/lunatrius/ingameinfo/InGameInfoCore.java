@@ -24,6 +24,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.util.vector.Vector3f;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -67,6 +68,7 @@ public class InGameInfoCore {
 	private final int[] playerPosition = new int[] {
 			0, 0, 0
 	};
+	private final Vector3f playerMotion = new Vector3f();
 	private PotionEffect[] potionEffects = null;
 	private boolean hasSeed;
 	private long seed = 0;
@@ -130,6 +132,7 @@ public class InGameInfoCore {
 		this.playerPosition[0] = (int) Math.floor(this.player.posX);
 		this.playerPosition[1] = (int) Math.floor(this.player.posY);
 		this.playerPosition[2] = (int) Math.floor(this.player.posZ);
+		this.playerMotion.set((float) (this.player.posX - this.player.prevPosX), (float) (this.player.posY - this.player.prevPosY), (float) (this.player.posZ - this.player.prevPosZ));
 
 		Collection<PotionEffect> potionEffectCollection = this.player.getActivePotionEffects();
 		this.potionEffects = new PotionEffect[potionEffectCollection.size()];
@@ -599,13 +602,13 @@ public class InGameInfoCore {
 					return "0";
 				}
 			} else if (var.equalsIgnoreCase("x")) {
-				return String.format(Locale.ENGLISH, "%.1f", this.player.posX);
+				return String.format(Locale.ENGLISH, "%.2f", this.player.posX);
 			} else if (var.equalsIgnoreCase("y")) {
-				return String.format(Locale.ENGLISH, "%.1f", this.player.posY);
+				return String.format(Locale.ENGLISH, "%.2f", this.player.posY);
 			} else if (var.equalsIgnoreCase("yfeet")) {
-				return String.format(Locale.ENGLISH, "%.1f", this.player.boundingBox.minY);
+				return String.format(Locale.ENGLISH, "%.2f", this.player.boundingBox.minY);
 			} else if (var.equalsIgnoreCase("z")) {
-				return String.format(Locale.ENGLISH, "%.1f", this.player.posZ);
+				return String.format(Locale.ENGLISH, "%.2f", this.player.posZ);
 			} else if (var.equalsIgnoreCase("xi")) {
 				return Integer.toString(this.playerPosition[0]);
 			} else if (var.equalsIgnoreCase("yi")) {
@@ -614,6 +617,16 @@ public class InGameInfoCore {
 				return Integer.toString((int) Math.floor(this.player.boundingBox.minY));
 			} else if (var.equalsIgnoreCase("zi")) {
 				return Integer.toString(this.playerPosition[2]);
+			} else if (var.equalsIgnoreCase("speed")) {
+				return String.format("%.2f", Math.sqrt(this.playerMotion.x * this.playerMotion.x + this.playerMotion.y * this.playerMotion.y + this.playerMotion.z * this.playerMotion.z));
+			} else if (var.equalsIgnoreCase("speedx")) {
+				return String.format("%.2f", Math.abs(this.playerMotion.x));
+			} else if (var.equalsIgnoreCase("speedy")) {
+				return String.format("%.2f", Math.abs(this.playerMotion.y));
+			} else if (var.equalsIgnoreCase("speedz")) {
+				return String.format("%.2f", Math.abs(this.playerMotion.z));
+			} else if (var.equalsIgnoreCase("speedxz")) {
+				return String.format("%.2f", Math.sqrt(this.playerMotion.x * this.playerMotion.x + this.playerMotion.z * this.playerMotion.z));
 			} else if (var.equalsIgnoreCase("roughdirection")) {
 				return this.roughdirection[MathHelper.floor_double(this.player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
 			} else if (var.equalsIgnoreCase("finedirection")) {
