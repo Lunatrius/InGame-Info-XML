@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo;
 
+import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -11,7 +12,6 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
 import net.minecraftforge.client.ClientCommandHandler;
