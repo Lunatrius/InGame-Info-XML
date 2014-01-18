@@ -960,10 +960,10 @@ public class InGameInfoCore {
 	}
 
 	private void drawCenteredString(FontRenderer fontRenderer, String str, int x, int y, int color) {
-		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str.replaceAll("(?i)\u00a7[0-9a-fklmnor]", "")) / 2, y, color);
+		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str) / 2, y, color);
 	}
 
 	private void drawRightAlignedString(FontRenderer fontRenderer, String str, int x, int y, int color) {
-		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str.replaceAll("(?i)\u00a7[0-9a-fklmnor]", "")), y, color);
+		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str), y, color);
 	}
 }
