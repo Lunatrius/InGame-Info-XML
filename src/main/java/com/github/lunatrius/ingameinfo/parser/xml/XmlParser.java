@@ -4,6 +4,7 @@ import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.parser.IParser;
+import org.apache.logging.log4j.Level;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +16,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
@@ -30,7 +30,7 @@ public class XmlParser implements IParser {
 			this.document = dBuilder.parse(file);
 			this.document.getDocumentElement().normalize();
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read xml configuration file!", e);
+			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read xml configuration file!", e);
 		}
 		return true;
 	}

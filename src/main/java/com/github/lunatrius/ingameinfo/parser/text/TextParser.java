@@ -4,6 +4,7 @@ import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.parser.IParser;
+import org.apache.logging.log4j.Level;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,7 +12,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 import static com.github.lunatrius.ingameinfo.Value.ValueType;
 import static com.github.lunatrius.ingameinfo.parser.text.Token.TokenType;
@@ -48,7 +48,7 @@ public class TextParser implements IParser {
 
 				this.tokenizer.tokenize(content);
 			} catch (Exception e) {
-				InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read text configuration file!", e);
+				InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read text configuration file!", e);
 			}
 		}
 

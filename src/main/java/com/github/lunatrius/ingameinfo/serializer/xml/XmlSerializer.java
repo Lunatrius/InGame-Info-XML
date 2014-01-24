@@ -4,6 +4,7 @@ import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.serializer.ISerializer;
+import org.apache.logging.log4j.Level;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,7 +18,6 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 public class XmlSerializer implements ISerializer {
 	@Override
@@ -43,7 +43,7 @@ public class XmlSerializer implements ISerializer {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not save xml configuration file!", e);
+			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not save xml configuration file!", e);
 		}
 
 		return false;

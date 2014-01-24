@@ -1,5 +1,10 @@
 package com.github.lunatrius.ingameinfo;
 
+import com.github.lunatrius.core.client.gui.FontRendererHelper;
+import com.github.lunatrius.core.entity.EntityHelper;
+import com.github.lunatrius.core.util.vector.Vector3f;
+import com.github.lunatrius.core.util.vector.Vector3i;
+import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
@@ -8,23 +13,27 @@ import com.github.lunatrius.ingameinfo.serializer.ISerializer;
 import com.github.lunatrius.ingameinfo.serializer.json.JsonSerializer;
 import com.github.lunatrius.ingameinfo.serializer.text.TextSerializer;
 import com.github.lunatrius.ingameinfo.serializer.xml.XmlSerializer;
+import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.Resource;
+import net.minecraft.client.resources.IResource;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.*;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.vector.Vector3f;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -39,7 +48,7 @@ public class InGameInfoCore {
 
 	private IParser parser;
 
-	private Minecraft minecraftClient = null;
+	private Minecraft minecraftClient = Minecraft.getMinecraft();
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
 	private EntityPlayer player = null;
@@ -47,12 +56,6 @@ public class InGameInfoCore {
 	private File configDirectory = null;
 	private File configFile = null;
 	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
-	private final String[] difficulties = new String[] {
-			"options.difficulty.peaceful",
-			"options.difficulty.easy",
-			"options.difficulty.normal",
-			"options.difficulty.hard"
-	};
 	private final String[] roughdirection = {
 			"South", "West", "North", "East"
 	};
@@ -65,9 +68,7 @@ public class InGameInfoCore {
 	private final String[] abrfinedirection = {
 			"S", "SW", "W", "NW", "N", "NE", "E", "SE"
 	};
-	private final int[] playerPosition = new int[] {
-			0, 0, 0
-	};
+	private final Vector3i playerPosition = new Vector3i();
 	private final Vector3f playerMotion = new Vector3f();
 	private PotionEffect[] potionEffects = null;
 	private boolean hasSeed;
@@ -119,19 +120,15 @@ public class InGameInfoCore {
 		}
 	}
 
-	public void setClient(Minecraft client) {
-		this.minecraftClient = client;
-	}
-
 	public void onTickClient() {
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
 
 		this.scaledResolution = new ScaledResolution(this.minecraftClient.gameSettings, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
 
-		this.playerPosition[0] = (int) Math.floor(this.player.posX);
-		this.playerPosition[1] = (int) Math.floor(this.player.posY);
-		this.playerPosition[2] = (int) Math.floor(this.player.posZ);
+		this.playerPosition.setX((int) Math.floor(this.player.posX));
+		this.playerPosition.setY((int) Math.floor(this.player.posY));
+		this.playerPosition.setZ((int) Math.floor(this.player.posZ));
 		this.playerMotion.set((float) (this.player.posX - this.player.prevPosX), (float) (this.player.posY - this.player.prevPosY), (float) (this.player.posZ - this.player.prevPosZ));
 
 		Collection<PotionEffect> potionEffectCollection = this.player.getActivePotionEffects();
@@ -203,13 +200,13 @@ public class InGameInfoCore {
 			for (String line : lines) {
 				switch (type) {
 				case 0:
-					drawLeftAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
+					FontRendererHelper.drawLeftAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
 					break;
 				case 1:
-					drawCenteredString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
+					FontRendererHelper.drawCenteredString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
 					break;
 				case 2:
-					drawRightAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
+					FontRendererHelper.drawRightAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
 					break;
 				}
 
@@ -226,7 +223,7 @@ public class InGameInfoCore {
 		if (!configFile.exists()) {
 			try {
 				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", "InGameInfo.xml");
-				Resource resource = this.minecraftClient.getResourceManager().getResource(resourceLocation);
+				IResource resource = this.minecraftClient.getResourceManager().getResource(resourceLocation);
 				InputStream inputStream = resource.getInputStream();
 
 				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
@@ -282,7 +279,6 @@ public class InGameInfoCore {
 		}
 
 		return serializer != null && serializer.save(file, this.format);
-
 	}
 
 	private String replaceVariables(String str) {
@@ -524,7 +520,7 @@ public class InGameInfoCore {
 				if (value.values.size() == 2) {
 					itemDamage = Integer.parseInt(getValue(value.values.get(1)));
 				}
-				return Integer.toString(getItemCountInInventory(this.player, itemID, itemDamage));
+				return Integer.toString(EntityHelper.getItemCountInInventory(this.player.inventory, GameData.itemRegistry.get(itemID), itemDamage));
 			} catch (Exception e2) {
 				return "0";
 			}
@@ -573,25 +569,25 @@ public class InGameInfoCore {
 				return (new SimpleDateFormat("hh:mm a")).format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
 				try {
-					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition[0], this.playerPosition[2]).getBlockLightValue(this.playerPosition[0] & 15, this.playerPosition[1], this.playerPosition[2] & 15, this.world.calculateSkylightSubtracted(1.0f)));
+					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition.x, this.playerPosition.z).getBlockLightValue(this.playerPosition.x & 15, this.playerPosition.y, this.playerPosition.z & 15, this.world.calculateSkylightSubtracted(1.0f)));
 				} catch (Exception e) {
 					return "0";
 				}
 			} else if (var.equalsIgnoreCase("lightfeet")) {
 				try {
-					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition[0], this.playerPosition[2]).getBlockLightValue(this.playerPosition[0] & 15, (int) Math.round(this.player.boundingBox.minY), this.playerPosition[2] & 15, this.world.calculateSkylightSubtracted(1.0f)));
+					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition.x, this.playerPosition.z).getBlockLightValue(this.playerPosition.x & 15, (int) Math.round(this.player.boundingBox.minY), this.playerPosition.z & 15, this.world.calculateSkylightSubtracted(1.0f)));
 				} catch (Exception e) {
 					return "0";
 				}
 			} else if (var.equalsIgnoreCase("lightnosun")) {
 				try {
-					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition[0], this.playerPosition[2]).getSavedLightValue(EnumSkyBlock.Block, this.playerPosition[0] & 15, this.playerPosition[1], this.playerPosition[2] & 15));
+					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition.x, this.playerPosition.z).getSavedLightValue(EnumSkyBlock.Block, this.playerPosition.x & 15, this.playerPosition.y, this.playerPosition.z & 15));
 				} catch (Exception e) {
 					return "0";
 				}
 			} else if (var.equalsIgnoreCase("lightnosunfeet")) {
 				try {
-					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition[0], this.playerPosition[2]).getSavedLightValue(EnumSkyBlock.Block, this.playerPosition[0] & 15, (int) Math.round(this.player.boundingBox.minY), this.playerPosition[2] & 15));
+					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition.x, this.playerPosition.z).getSavedLightValue(EnumSkyBlock.Block, this.playerPosition.x & 15, (int) Math.round(this.player.boundingBox.minY), this.playerPosition.z & 15));
 				} catch (Exception e) {
 					return "0";
 				}
@@ -610,13 +606,13 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("z")) {
 				return String.format(Locale.ENGLISH, "%.2f", this.player.posZ);
 			} else if (var.equalsIgnoreCase("xi")) {
-				return Integer.toString(this.playerPosition[0]);
+				return Integer.toString(this.playerPosition.x);
 			} else if (var.equalsIgnoreCase("yi")) {
-				return Integer.toString(this.playerPosition[1]);
+				return Integer.toString(this.playerPosition.y);
 			} else if (var.equalsIgnoreCase("yfeeti")) {
 				return Integer.toString((int) Math.floor(this.player.boundingBox.minY));
 			} else if (var.equalsIgnoreCase("zi")) {
-				return Integer.toString(this.playerPosition[2]);
+				return Integer.toString(this.playerPosition.z);
 			} else if (var.equalsIgnoreCase("speed")) {
 				return String.format("%.2f", Math.sqrt(this.playerMotion.x * this.playerMotion.x + this.playerMotion.y * this.playerMotion.y + this.playerMotion.z * this.playerMotion.z));
 			} else if (var.equalsIgnoreCase("speedx")) {
@@ -646,16 +642,16 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mouseover")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
-					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
-						return objectMouseOver.entityHit.getEntityName();
-					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
+						return objectMouseOver.entityHit.func_145748_c_().func_150254_d();
+					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
+						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							ItemStack pickBlock = block.getPickBlock(objectMouseOver, this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 							if (pickBlock != null) {
 								return pickBlock.getDisplayName();
 							}
-							return block.getLocalizedName();
+							return block.func_149732_F();
 						}
 					}
 				}
@@ -663,12 +659,12 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mouseoverid")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
-					if (objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY) {
-						return Integer.toString(objectMouseOver.entityHit.entityId);
-					} else if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
+						return Integer.toString(objectMouseOver.entityHit.func_145782_y());
+					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
+						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
-							return Integer.toString(block.blockID);
+							return Integer.toString(GameData.blockRegistry.getId(block));
 						}
 					}
 				}
@@ -676,12 +672,12 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mouseoverpowerweak")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
-					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+					if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
+						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							int power = -1;
 							for (int side = 0; side < 6; side++) {
-								power = Math.max(power, block.isProvidingWeakPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+								power = Math.max(power, block.func_149709_b(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
 							}
 							return Integer.toString(power);
 						}
@@ -691,12 +687,12 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mouseoverpowerstrong")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
-					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
-						Block block = Block.blocksList[this.world.getBlockId(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ)];
+					if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
+						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							int power = -1;
 							for (int side = 0; side < 6; side++) {
-								power = Math.max(power, block.isProvidingStrongPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+								power = Math.max(power, block.func_149748_c(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
 							}
 							return Integer.toString(power);
 						}
@@ -706,7 +702,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("mouseoverpowerinput")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
-					if (objectMouseOver.typeOfHit == EnumMovingObjectType.TILE) {
+					if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
 						return Integer.toString(this.world.getBlockPowerInput(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ));
 					}
 				}
@@ -720,10 +716,9 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
-				// this should use GameSettings.DIFFICULTIES, but it isn't exposed
-				return StatCollector.translateToLocal(this.difficulties[this.minecraftClient.gameSettings.difficulty]);
+				return StatCollector.translateToLocal(this.minecraftClient.gameSettings.difficulty.func_151526_b());
 			} else if (var.equalsIgnoreCase("difficultyid")) {
-				return Integer.toString(this.minecraftClient.gameSettings.difficulty);
+				return Integer.toString(this.minecraftClient.gameSettings.difficulty.func_151525_a());
 			} else if (var.equalsIgnoreCase("gamemode")) {
 				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
@@ -751,13 +746,14 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("dimensionid")) {
 				return Integer.toString(this.player.dimension);
 			} else if (var.equalsIgnoreCase("biome")) {
-				return this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeName;
+				return this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeName;
 			} else if (var.equalsIgnoreCase("biomeid")) {
-				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID);
+				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
-				return this.player.getEntityName();
+				return this.player.func_146103_bH().getName();
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
-				return this.minecraftClient.getResourcePackRepository().getResourcePackName();
+				// TODO: remove or figure out a way to display all resource packs
+				// return this.minecraftClient.getResourcePackRepository().getResourcePackName();
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
@@ -767,11 +763,11 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("daytime")) {
 				return Boolean.toString(this.world.calculateSkylightSubtracted(1.0f) < 4);
 			} else if (var.equalsIgnoreCase("raining")) {
-				return Boolean.toString(this.world.getRainStrength(1.0f) > 0.2f && this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).canSpawnLightningBolt());
+				return Boolean.toString(this.world.getRainStrength(1.0f) > 0.2f && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
 			} else if (var.equalsIgnoreCase("thundering")) {
-				return Boolean.toString(this.world.getWorldInfo().isThundering() && this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).canSpawnLightningBolt());
+				return Boolean.toString(this.world.getWorldInfo().isThundering() && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
 			} else if (var.equalsIgnoreCase("snowing")) {
-				BiomeGenBase biome = this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]);
+				BiomeGenBase biome = this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z);
 				return Boolean.toString(this.world.isRaining() && !biome.canSpawnLightningBolt() && !biome.equals(BiomeGenBase.desert) && !biome.equals(BiomeGenBase.desertHills));
 			} else if (var.equalsIgnoreCase("nextrain")) {
 				if (this.minecraftServer == null) {
@@ -786,7 +782,7 @@ public class InGameInfoCore {
 				}
 				return String.format(Locale.ENGLISH, "%dh", seconds / 3600);
 			} else if (var.equalsIgnoreCase("slimes")) {
-				return Boolean.toString(isSlimeChunk(this.playerPosition[0] >> 4, this.playerPosition[2] >> 4) || this.world.getBiomeGenForCoords(this.playerPosition[0], this.playerPosition[2]).biomeID == BiomeGenBase.swampland.biomeID);
+				return Boolean.toString(this.hasSeed && ChunkHelper.isSlimeChunk(this.seed, this.playerPosition.x >> 4, this.playerPosition.z >> 4) || this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeID == BiomeGenBase.swampland.biomeID);
 			} else if (var.equalsIgnoreCase("hardcore")) {
 				return Boolean.toString(this.world.getWorldInfo().isHardcoreModeEnabled());
 			} else if (var.equalsIgnoreCase("underwater") || var.equalsIgnoreCase("inwater")) {
@@ -829,7 +825,7 @@ public class InGameInfoCore {
 				}
 
 				if (var.endsWith("name")) {
-					String arrows = itemStack != null && itemStack.itemID == Item.bow.itemID ? " (" + getItemCountInInventory(this.player, Item.arrow.itemID, -1) + ")" : "";
+					String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(this.player.inventory, Items.arrow) + ")" : "";
 					return itemStack != null ? itemStack.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
 					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
@@ -841,7 +837,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("equippedquantity")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
 				if (item != null) {
-					return Integer.toString(getItemCountInInventory(this.player, item.itemID, item.getItemDamage()));
+					return Integer.toString(EntityHelper.getItemCountInInventory(this.player.inventory, item.getItem(), item.getItemDamage()));
 				}
 				return "0";
 			} else if (var.matches("potioneffect\\d+")) {
@@ -932,38 +928,5 @@ public class InGameInfoCore {
 		}
 
 		return "{" + var + "}";
-	}
-
-	private int getItemCountInInventory(EntityPlayer entityPlayer, int itemID, int itemDamage) {
-		if (entityPlayer.inventory.hasItem(itemID)) {
-			int count = 0;
-			ItemStack itemStack = null;
-
-			for (int i = 0; i < entityPlayer.inventory.mainInventory.length; i++) {
-				itemStack = entityPlayer.inventory.mainInventory[i];
-				if (itemStack != null && itemStack.itemID == itemID && (itemDamage == -1 || itemStack.getItemDamage() == itemDamage)) {
-					count += itemStack.stackSize;
-				}
-			}
-
-			return count;
-		}
-		return 0;
-	}
-
-	private boolean isSlimeChunk(int x, int z) {
-		return this.hasSeed && (new Random(this.seed + x * x * 4987142 + x * 5947611 + z * z * 4392871 + z * 389711 ^ 987234911).nextInt(10) == 0);
-	}
-
-	private void drawLeftAlignedString(FontRenderer fontRenderer, String str, int x, int y, int color) {
-		fontRenderer.drawStringWithShadow(str, x, y, color);
-	}
-
-	private void drawCenteredString(FontRenderer fontRenderer, String str, int x, int y, int color) {
-		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str) / 2, y, color);
-	}
-
-	private void drawRightAlignedString(FontRenderer fontRenderer, String str, int x, int y, int color) {
-		fontRenderer.drawStringWithShadow(str, x - fontRenderer.getStringWidth(str), y, color);
 	}
 }

@@ -7,6 +7,7 @@ import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.io.FileReader;
@@ -14,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Level;
 
 import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
@@ -33,7 +33,7 @@ public class JsonParser implements IParser {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not read json configuration file!", e);
+			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read json configuration file!", e);
 		}
 
 		return false;

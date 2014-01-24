@@ -8,13 +8,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import org.apache.logging.log4j.Level;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 public class JsonSerializer implements ISerializer {
 	@Override
@@ -34,7 +34,7 @@ public class JsonSerializer implements ISerializer {
 			fileWriter.close();
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.SEVERE, "Could not save json configuration file!", e);
+			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not save json configuration file!", e);
 		}
 
 		return false;
