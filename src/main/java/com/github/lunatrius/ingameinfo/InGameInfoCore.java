@@ -21,6 +21,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -515,12 +516,19 @@ public class InGameInfoCore {
 			}
 		} else if (value.type.equals(ValueType.ITEMQUANTITY) && (value.values.size() == 1 || value.values.size() == 2)) {
 			try {
-				int itemID = 0, itemDamage = -1;
-				itemID = Integer.parseInt(getValue(value.values.get(0)));
+				Item item;
+				int itemDamage = -1;
+				try {
+					String itemName = getValue(value.values.get(0));
+					item = GameData.itemRegistry.get(itemName);
+				} catch (Exception e3) {
+					int itemID = Integer.parseInt(getValue(value.values.get(0)));
+					item = GameData.itemRegistry.get(itemID);
+				}
 				if (value.values.size() == 2) {
 					itemDamage = Integer.parseInt(getValue(value.values.get(1)));
 				}
-				return Integer.toString(EntityHelper.getItemCountInInventory(this.player.inventory, GameData.itemRegistry.get(itemID), itemDamage));
+				return Integer.toString(EntityHelper.getItemCountInInventory(this.player.inventory, item, itemDamage));
 			} catch (Exception e2) {
 				return "0";
 			}
@@ -639,7 +647,7 @@ public class InGameInfoCore {
 				return "\u00a7r  " + "   " + this.abrfinedirection[(direction / 2 + this.abrfinedirection.length) % this.abrfinedirection.length] + "   " + this.abrfinedirection[(direction / 2 + this.abrfinedirection.length + 1) % this.abrfinedirection.length] + "   ";
 			} else if (var.equalsIgnoreCase("fps")) {
 				return this.minecraftClient.debug.substring(0, this.minecraftClient.debug.indexOf(" fps"));
-			} else if (var.equalsIgnoreCase("mouseover")) {
+			} else if (var.equalsIgnoreCase("mouseovername")) {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
@@ -652,6 +660,19 @@ public class InGameInfoCore {
 								return pickBlock.getDisplayName();
 							}
 							return block.func_149732_F();
+						}
+					}
+				}
+				return "";
+			} else if (var.equalsIgnoreCase("mouseoveruniquename")) {
+				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
+				if (objectMouseOver != null) {
+					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
+						return EntityList.getEntityString(objectMouseOver.entityHit);
+					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
+						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						if (block != null) {
+							return GameData.blockRegistry.func_148750_c(block);
 						}
 					}
 				}
@@ -805,7 +826,7 @@ public class InGameInfoCore {
 				return Boolean.toString(this.player.isEating());
 			} else if (var.equalsIgnoreCase("invulnerable")) {
 				return Boolean.toString(this.player.isEntityInvulnerable());
-			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(name|maxdamage|damage|damageleft)")) {
+			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(uniquename|name|maxdamage|damage|damageleft)")) {
 				ItemStack itemStack;
 
 				if (var.startsWith("equipped")) {
@@ -824,7 +845,10 @@ public class InGameInfoCore {
 					itemStack = this.player.inventory.armorItemInSlot(slot);
 				}
 
-				if (var.endsWith("name")) {
+				if (var.endsWith("uniquename")) {
+					Item item = itemStack != null ? itemStack.getItem() : null;
+					return item != null ? GameData.itemRegistry.func_148750_c(item) : "";
+				} else if (var.endsWith("name")) {
 					String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(this.player.inventory, Items.arrow) + ")" : "";
 					return itemStack != null ? itemStack.getDisplayName() + arrows : "";
 				} else if (var.endsWith("maxdamage")) {
