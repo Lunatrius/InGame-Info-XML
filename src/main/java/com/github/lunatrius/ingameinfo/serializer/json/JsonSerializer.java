@@ -34,7 +34,7 @@ public class JsonSerializer implements ISerializer {
 			fileWriter.close();
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not save json configuration file!", e);
+			InGameInfoXML.logger.log(Level.FATAL, "Could not save json configuration file!", e);
 		}
 
 		return false;

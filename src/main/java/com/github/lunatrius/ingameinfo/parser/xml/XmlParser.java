@@ -30,7 +30,7 @@ public class XmlParser implements IParser {
 			this.document = dBuilder.parse(file);
 			this.document.getDocumentElement().normalize();
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read xml configuration file!", e);
+			InGameInfoXML.logger.log(Level.FATAL, "Could not read xml configuration file!", e);
 		}
 		return true;
 	}

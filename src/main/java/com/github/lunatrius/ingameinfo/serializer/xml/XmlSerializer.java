@@ -43,7 +43,7 @@ public class XmlSerializer implements ISerializer {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not save xml configuration file!", e);
+			InGameInfoXML.logger.log(Level.FATAL, "Could not save xml configuration file!", e);
 		}
 
 		return false;

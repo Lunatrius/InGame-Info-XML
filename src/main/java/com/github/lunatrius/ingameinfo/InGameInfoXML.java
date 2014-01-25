@@ -19,7 +19,7 @@ import org.apache.logging.log4j.Logger;
 public class InGameInfoXML {
 	@Instance(Reference.MODID)
 	public static InGameInfoXML instance;
-	public static final Logger LOGGER = FMLCommonHandler.instance().getFMLLogger();
+	public static Logger logger = null;
 
 	private final InGameInfoCore core = InGameInfoCore.instance;
 
@@ -28,6 +28,8 @@ public class InGameInfoXML {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		VersionChecker.registerMod(event.getModMetadata());
+
+		logger = event.getModLog();
 
 		this.config = new Config(event.getSuggestedConfigurationFile());
 		Ticker.showInChat = this.config.getShowInChat();

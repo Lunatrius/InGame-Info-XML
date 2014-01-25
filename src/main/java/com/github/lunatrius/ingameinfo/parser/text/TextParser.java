@@ -48,7 +48,7 @@ public class TextParser implements IParser {
 
 				this.tokenizer.tokenize(content);
 			} catch (Exception e) {
-				InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read text configuration file!", e);
+				InGameInfoXML.logger.log(Level.FATAL, "Could not read text configuration file!", e);
 			}
 		}
 

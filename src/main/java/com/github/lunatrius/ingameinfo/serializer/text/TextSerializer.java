@@ -28,7 +28,7 @@ public class TextSerializer implements ISerializer {
 			fileWriter.close();
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not save text configuration file!", e);
+			InGameInfoXML.logger.log(Level.FATAL, "Could not save text configuration file!", e);
 		}
 
 		return false;

@@ -33,7 +33,7 @@ public class JsonParser implements IParser {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.LOGGER.log(Level.FATAL, "Could not read json configuration file!", e);
+			InGameInfoXML.logger.log(Level.FATAL, "Could not read json configuration file!", e);
 		}
 
 		return false;
