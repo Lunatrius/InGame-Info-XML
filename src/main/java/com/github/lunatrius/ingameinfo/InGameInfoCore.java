@@ -16,10 +16,10 @@ import com.github.lunatrius.ingameinfo.serializer.xml.XmlSerializer;
 import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -52,7 +52,7 @@ public class InGameInfoCore {
 	private Minecraft minecraftClient = Minecraft.getMinecraft();
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
-	private EntityPlayer player = null;
+	private EntityClientPlayerMP player = null;
 	private ScaledResolution scaledResolution = null;
 	private File configDirectory = null;
 	private File configFile = null;
@@ -902,6 +902,40 @@ public class InGameInfoCore {
 				return Long.toString(Runtime.getRuntime().freeMemory());
 			} else if (var.equalsIgnoreCase("memused")) {
 				return Long.toString(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
+			} else if (var.equalsIgnoreCase("server")) {
+				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				int i = str.indexOf("/");
+				int j = str.indexOf(":");
+				if (i < 0) {
+					return "localhost";
+				}
+
+				String name = (i == 0) ? str.substring(i + 1, j) : str.substring(0, i);
+				String port = str.substring(j + 1);
+				return name + (port.equals("25565") ? "" : ":" + port);
+			} else if (var.equalsIgnoreCase("servername")) {
+				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				int i = str.indexOf("/");
+				if (i < 0) {
+					return "localhost";
+				} else if (i == 0) {
+					return str.substring(i + 1, str.indexOf(":"));
+				}
+				return str.substring(0, i);
+			} else if (var.equalsIgnoreCase("serverip")) {
+				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				int i = str.indexOf("/");
+				if (i < 0) {
+					return "127.0.0.1";
+				}
+				return str.substring(i + 1, str.indexOf(":"));
+			} else if (var.equalsIgnoreCase("serverport")) {
+				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				int i = str.indexOf("/");
+				if (i < 0) {
+					return "-1";
+				}
+				return str.substring(str.indexOf(":") + 1);
 			} else if (var.equalsIgnoreCase("black")) {
 				return "\u00a70";
 			} else if (var.equalsIgnoreCase("darkblue") || var.equalsIgnoreCase("navy")) {
