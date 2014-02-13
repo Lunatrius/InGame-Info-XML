@@ -1,10 +1,12 @@
 package com.github.lunatrius.ingameinfo;
 
-import com.github.lunatrius.core.client.gui.FontRendererHelper;
 import com.github.lunatrius.core.entity.EntityHelper;
 import com.github.lunatrius.core.util.vector.Vector3f;
 import com.github.lunatrius.core.util.vector.Vector3i;
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
+import com.github.lunatrius.ingameinfo.client.gui.Info;
+import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
+import com.github.lunatrius.ingameinfo.client.gui.InfoText;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
@@ -17,6 +19,7 @@ import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.EntityList;
@@ -53,7 +56,6 @@ public class InGameInfoCore {
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
 	private EntityClientPlayerMP player = null;
-	private ScaledResolution scaledResolution = null;
 	private File configDirectory = null;
 	private File configFile = null;
 	private final Map<Alignment, List<List<Value>>> format = new HashMap<Alignment, List<List<Value>>>();
@@ -74,7 +76,8 @@ public class InGameInfoCore {
 	private PotionEffect[] potionEffects = null;
 	private boolean hasSeed;
 	private long seed = 0;
-	private final Map<Alignment, List<String>> valuePairs = new HashMap<Alignment, List<String>>();
+	private final List<Info> info = new ArrayList<Info>();
+	private final List<Info> infoItemQueue = new ArrayList<Info>();
 
 	private InGameInfoCore() {
 	}
@@ -122,10 +125,10 @@ public class InGameInfoCore {
 	}
 
 	public void onTickClient() {
+		ScaledResolution scaledResolution = new ScaledResolution(this.minecraftClient.gameSettings, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
+
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
-
-		this.scaledResolution = new ScaledResolution(this.minecraftClient.gameSettings, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
 
 		this.playerPosition.setX((int) Math.floor(this.player.posX));
 		this.playerPosition.setY((int) Math.floor(this.player.posY));
@@ -142,6 +145,9 @@ public class InGameInfoCore {
 			}
 		}
 
+		this.info.clear();
+		int x, y;
+
 		for (Alignment alignment : Alignment.values()) {
 			List<List<Value>> lines = this.format.get(alignment);
 
@@ -149,40 +155,58 @@ public class InGameInfoCore {
 				continue;
 			}
 
-			List<String> stringLines = new ArrayList<String>();
-			this.valuePairs.put(alignment, stringLines);
+			FontRenderer fontRenderer = this.minecraftClient.fontRenderer;
+			List<Info> queue = new ArrayList<Info>();
 
 			for (List<Value> line : lines) {
 				String str = "";
-				for (int i = 0; i < line.size(); i++) {
-					str += getValue(line.get(i));
+
+				this.infoItemQueue.clear();
+				for (Value value : line) {
+					str += getValue(value);
 				}
 
 				if (!str.isEmpty()) {
-					stringLines.add(replaceVariables(str));
+					str = replaceVariables(str);
+
+					String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
+
+					x = alignment.getX(scaledResolution.getScaledWidth(), fontRenderer.getStringWidth(processed));
+					InfoText text = new InfoText(fontRenderer, processed, x, 0);
+
+					if (this.infoItemQueue.size() > 0) {
+						Pattern pattern = Pattern.compile("\\{ICON\\|( *)\\}", Pattern.CASE_INSENSITIVE);
+						Matcher matcher = pattern.matcher(str);
+
+						for (int i = 0; i < this.infoItemQueue.size() && matcher.find(); i++) {
+							Info item = this.infoItemQueue.get(i);
+							item.x = fontRenderer.getStringWidth(str.substring(0, matcher.start()));
+							text.children.add(item);
+
+							str = str.replaceFirst(Pattern.quote(matcher.group(0)), matcher.group(1));
+							matcher.reset(str);
+						}
+					}
+					queue.add(text);
 				}
 			}
+
+			y = alignment.getY(scaledResolution.getScaledHeight(), queue.size() * (fontRenderer.FONT_HEIGHT + 1));
+			for (Info item : queue) {
+				item.y = y;
+				this.info.add(item);
+				y += fontRenderer.FONT_HEIGHT + 1;
+			}
+
+			this.info.addAll(queue);
 		}
 	}
 
 	public void onTickRender() {
-		int x = 0, y = 0, type = -1;
-
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-		for (Alignment alignment : Alignment.values()) {
-			List<String> lines = this.valuePairs.get(alignment);
-
-			if (lines == null) {
-				continue;
-			}
-
-			y = alignment.getY(this.scaledResolution.getScaledHeight(), lines.size() * (this.minecraftClient.fontRenderer.FONT_HEIGHT + 1));
-			for (String line : lines) {
-				x = alignment.getX(this.scaledResolution.getScaledWidth(), this.minecraftClient.fontRenderer.getStringWidth(line));
-				FontRendererHelper.drawLeftAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
-				y += this.minecraftClient.fontRenderer.FONT_HEIGHT + 1;
-			}
+		for (Info info : this.info) {
+			info.draw();
 		}
 
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -222,7 +246,8 @@ public class InGameInfoCore {
 	}
 
 	public boolean reloadConfig() {
-		this.valuePairs.clear();
+		this.info.clear();
+		this.infoItemQueue.clear();
 		this.format.clear();
 
 		if (this.parser == null) {
@@ -796,7 +821,7 @@ public class InGameInfoCore {
 				return Boolean.toString(this.player.isEating());
 			} else if (var.equalsIgnoreCase("invulnerable")) {
 				return Boolean.toString(this.player.isEntityInvulnerable());
-			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(uniquename|name|maxdamage|damage|damageleft)")) {
+			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(uniquename|name|maxdamage|damage|damageleft|icon)")) {
 				ItemStack itemStack;
 
 				if (var.startsWith("equipped")) {
@@ -827,6 +852,14 @@ public class InGameInfoCore {
 					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamageForDisplay() : 0);
 				} else if (var.endsWith("damageleft")) {
 					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamageForDisplay() : 0);
+				} else if (var.endsWith("icon")) {
+					InfoItem item = new InfoItem(this.minecraftClient.fontRenderer, itemStack);
+					this.infoItemQueue.add(item);
+					String str = "";
+					for (int i = 0; i < 16 && this.minecraftClient.fontRenderer.getStringWidth(str) < item.getWidth(); i++) {
+						str += " ";
+					}
+					return "{ICON|" + str + "}";
 				}
 			} else if (var.equalsIgnoreCase("equippedquantity")) {
 				ItemStack item = this.player.getCurrentEquippedItem();
