@@ -651,15 +651,15 @@ public class InGameInfoCore {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
-						return objectMouseOver.entityHit.func_145748_c_().func_150254_d();
+						return objectMouseOver.entityHit.func_145748_c_().getFormattedText();
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
-						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							ItemStack pickBlock = block.getPickBlock(objectMouseOver, this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 							if (pickBlock != null) {
 								return pickBlock.getDisplayName();
 							}
-							return block.func_149732_F();
+							return block.getLocalizedName();
 						}
 					}
 				}
@@ -670,9 +670,9 @@ public class InGameInfoCore {
 					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
 						return EntityList.getEntityString(objectMouseOver.entityHit);
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
-						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
-							return GameData.blockRegistry.func_148750_c(block);
+							return GameData.blockRegistry.getNameForObject(block);
 						}
 					}
 				}
@@ -681,9 +681,9 @@ public class InGameInfoCore {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
-						return Integer.toString(objectMouseOver.entityHit.func_145782_y());
+						return Integer.toString(objectMouseOver.entityHit.getEntityId());
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
-						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							return Integer.toString(GameData.blockRegistry.getId(block));
 						}
@@ -694,11 +694,11 @@ public class InGameInfoCore {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
-						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							int power = -1;
 							for (int side = 0; side < 6; side++) {
-								power = Math.max(power, block.func_149709_b(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+								power = Math.max(power, block.isProvidingWeakPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
 							}
 							return Integer.toString(power);
 						}
@@ -709,11 +709,11 @@ public class InGameInfoCore {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
-						Block block = this.world.func_147439_a(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
 							int power = -1;
 							for (int side = 0; side < 6; side++) {
-								power = Math.max(power, block.func_149748_c(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+								power = Math.max(power, block.isProvidingStrongPower(this.world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
 							}
 							return Integer.toString(power);
 						}
@@ -737,9 +737,9 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
-				return StatCollector.translateToLocal(this.minecraftClient.gameSettings.difficulty.func_151526_b());
+				return StatCollector.translateToLocal(this.minecraftClient.gameSettings.difficulty.getDifficultyResourceKey());
 			} else if (var.equalsIgnoreCase("difficultyid")) {
-				return Integer.toString(this.minecraftClient.gameSettings.difficulty.func_151525_a());
+				return Integer.toString(this.minecraftClient.gameSettings.difficulty.getDifficultyId());
 			} else if (var.equalsIgnoreCase("gamemode")) {
 				return StatCollector.translateToLocal("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
@@ -771,7 +771,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("biomeid")) {
 				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeID);
 			} else if (var.equalsIgnoreCase("username")) {
-				return this.player.func_146103_bH().getName();
+				return this.player.getGameProfile().getName();
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
 				// TODO: remove or figure out a way to display all resource packs
 				// return this.minecraftClient.getResourcePackRepository().getResourcePackName();
@@ -847,7 +847,7 @@ public class InGameInfoCore {
 
 				if (var.endsWith("uniquename")) {
 					Item item = itemStack != null ? itemStack.getItem() : null;
-					return item != null ? GameData.itemRegistry.func_148750_c(item) : "";
+					return item != null ? GameData.itemRegistry.getNameForObject(item) : "";
 				} else if (var.endsWith("name")) {
 					String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(this.player.inventory, Items.arrow) + ")" : "";
 					return itemStack != null ? itemStack.getDisplayName() + arrows : "";
@@ -903,7 +903,7 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("memused")) {
 				return Long.toString(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
 			} else if (var.equalsIgnoreCase("server")) {
-				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				String str = this.player.sendQueue.getNetworkManager().getSocketAddress().toString();
 				int i = str.indexOf("/");
 				int j = str.indexOf(":");
 				if (i < 0) {
@@ -914,7 +914,7 @@ public class InGameInfoCore {
 				String port = str.substring(j + 1);
 				return name + (port.equals("25565") ? "" : ":" + port);
 			} else if (var.equalsIgnoreCase("servername")) {
-				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				String str = this.player.sendQueue.getNetworkManager().getSocketAddress().toString();
 				int i = str.indexOf("/");
 				if (i < 0) {
 					return "localhost";
@@ -923,14 +923,14 @@ public class InGameInfoCore {
 				}
 				return str.substring(0, i);
 			} else if (var.equalsIgnoreCase("serverip")) {
-				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				String str = this.player.sendQueue.getNetworkManager().getSocketAddress().toString();
 				int i = str.indexOf("/");
 				if (i < 0) {
 					return "127.0.0.1";
 				}
 				return str.substring(i + 1, str.indexOf(":"));
 			} else if (var.equalsIgnoreCase("serverport")) {
-				String str = this.player.sendQueue.func_147298_b().getSocketAddress().toString();
+				String str = this.player.sendQueue.getNetworkManager().getSocketAddress().toString();
 				int i = str.indexOf("/");
 				if (i < 0) {
 					return "-1";
