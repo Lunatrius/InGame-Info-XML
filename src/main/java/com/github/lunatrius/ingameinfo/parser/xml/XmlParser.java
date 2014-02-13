@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.parser.xml;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -36,15 +37,15 @@ public class XmlParser implements IParser {
 	}
 
 	@Override
-	public boolean parse(Map<String, List<List<Value>>> format) {
+	public boolean parse(Map<Alignment, List<List<Value>>> format) {
 		Element documentElement = this.document.getDocumentElement();
 		NodeList nodeListLines = documentElement.getChildNodes();
 		for (int i = 0; i < nodeListLines.getLength(); i++) {
 			Element elementLines = getElement(nodeListLines.item(i), "lines");
 			if (elementLines != null) {
-				String position = Utils.getPosition(elementLines.getAttribute("at"));
-				if (position != null) {
-					format.put(position, getLines(elementLines));
+				Alignment alignment = Alignment.parse(elementLines.getAttribute("at"));
+				if (alignment != null) {
+					format.put(alignment, getLines(elementLines));
 				}
 			}
 		}

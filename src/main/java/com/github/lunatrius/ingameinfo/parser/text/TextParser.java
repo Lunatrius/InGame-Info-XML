@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -20,7 +21,7 @@ public class TextParser implements IParser {
 	private final Tokenizer tokenizer;
 	private Token token;
 	private int level = 0;
-	private String position = "topleft";
+	private Alignment alignment = Alignment.TOPLEFT;
 
 	public TextParser() {
 		this.tokenizer = new Tokenizer();
@@ -56,7 +57,7 @@ public class TextParser implements IParser {
 	}
 
 	@Override
-	public boolean parse(Map<String, List<List<Value>>> format) {
+	public boolean parse(Map<Alignment, List<List<Value>>> format) {
 		boolean expr;
 
 		try {
@@ -70,11 +71,11 @@ public class TextParser implements IParser {
 		return expr;
 	}
 
-	private boolean alignments(Map<String, List<List<Value>>> format) {
+	private boolean alignments(Map<Alignment, List<List<Value>>> format) {
 		return alignment(format) && alignmentsTail(format);
 	}
 
-	private boolean alignmentsTail(Map<String, List<List<Value>>> format) {
+	private boolean alignmentsTail(Map<Alignment, List<List<Value>>> format) {
 		if (alignment(format)) {
 			alignmentsTail(format);
 		}
@@ -82,9 +83,9 @@ public class TextParser implements IParser {
 		return true;
 	}
 
-	private boolean alignment(Map<String, List<List<Value>>> format) {
+	private boolean alignment(Map<Alignment, List<List<Value>>> format) {
 		boolean expr;
-		List<List<Value>> lines = format.get(this.position);
+		List<List<Value>> lines = format.get(this.alignment);
 
 		if (lines == null) {
 			lines = new ArrayList<List<Value>>();
@@ -94,12 +95,12 @@ public class TextParser implements IParser {
 			expr = lines(lines);
 
 			if (expr) {
-				format.put(this.position, lines);
+				format.put(this.alignment, lines);
 			}
 		} catch (AlignmentException e) {
-			format.put(this.position, lines);
+			format.put(this.alignment, lines);
 
-			this.position = e.getPosition();
+			this.alignment = e.getAlignment();
 			expr = e.isValid();
 		}
 
@@ -195,9 +196,9 @@ public class TextParser implements IParser {
 
 		this.level--;
 
-		String position = Utils.getPosition(lexem);
-		if (position != null) {
-			throw new AlignmentException(position, expr);
+		Alignment alignment = Alignment.parse(lexem);
+		if (alignment != null) {
+			throw new AlignmentException(alignment, expr);
 		} else if (expr) {
 			values.add(value);
 		}

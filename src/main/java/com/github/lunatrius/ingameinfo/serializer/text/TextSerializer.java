@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.serializer.text;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -17,7 +18,7 @@ import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
 public class TextSerializer implements ISerializer {
 	@Override
-	public boolean save(File file, Map<String, List<List<Value>>> format) {
+	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
 		try {
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -34,10 +35,10 @@ public class TextSerializer implements ISerializer {
 		return false;
 	}
 
-	private void writeLines(BufferedWriter writer, Map<String, List<List<Value>>> format) throws IOException {
-		for (String alignment : Utils.ALIGNEMENTS) {
+	private void writeLines(BufferedWriter writer, Map<Alignment, List<List<Value>>> format) throws IOException {
+		for (Alignment alignment : Alignment.values()) {
 			if (format.containsKey(alignment)) {
-				writer.write(String.format("<%s>", alignment));
+				writer.write(String.format("<%s>", alignment.toString().toLowerCase()));
 
 				writeLine(writer, format.get(alignment));
 			}

@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.serializer.xml;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 public class XmlSerializer implements ISerializer {
 	@Override
-	public boolean save(File file, Map<String, List<List<Value>>> format) {
+	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {
@@ -49,11 +50,11 @@ public class XmlSerializer implements ISerializer {
 		return false;
 	}
 
-	private void appendLines(Document doc, Element config, Map<String, List<List<Value>>> format) {
-		for (String alignment : Utils.ALIGNEMENTS) {
+	private void appendLines(Document doc, Element config, Map<Alignment, List<List<Value>>> format) {
+		for (Alignment alignment : Alignment.values()) {
 			if (format.containsKey(alignment)) {
 				Element elementLines = doc.createElement("lines");
-				elementLines.setAttribute("at", alignment);
+				elementLines.setAttribute("at", alignment.toString().toLowerCase());
 
 				appendLine(doc, elementLines, format.get(alignment));
 

@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.serializer.json;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 public class JsonSerializer implements ISerializer {
 	@Override
-	public boolean save(File file, Map<String, List<List<Value>>> format) {
+	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
 		try {
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileWriter);
@@ -40,14 +41,14 @@ public class JsonSerializer implements ISerializer {
 		return false;
 	}
 
-	private void appendLines(JsonObject jsonConfig, Map<String, List<List<Value>>> format) {
-		for (String alignment : Utils.ALIGNEMENTS) {
+	private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
+		for (Alignment alignment : Alignment.values()) {
 			if (format.containsKey(alignment)) {
 				JsonArray array = new JsonArray();
 
 				appendLine(array, format.get(alignment));
 
-				jsonConfig.add(alignment, array);
+				jsonConfig.add(alignment.toString().toLowerCase(), array);
 			}
 		}
 	}

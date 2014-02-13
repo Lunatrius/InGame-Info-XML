@@ -56,7 +56,7 @@ public class InGameInfoCore {
 	private ScaledResolution scaledResolution = null;
 	private File configDirectory = null;
 	private File configFile = null;
-	private final Map<String, List<List<Value>>> format = new HashMap<String, List<List<Value>>>();
+	private final Map<Alignment, List<List<Value>>> format = new HashMap<Alignment, List<List<Value>>>();
 	private final String[] roughdirection = {
 			"South", "West", "North", "East"
 	};
@@ -74,7 +74,7 @@ public class InGameInfoCore {
 	private PotionEffect[] potionEffects = null;
 	private boolean hasSeed;
 	private long seed = 0;
-	private final Map<String, List<String>> valuePairs = new HashMap<String, List<String>>();
+	private final Map<Alignment, List<String>> valuePairs = new HashMap<Alignment, List<String>>();
 
 	private InGameInfoCore() {
 	}
@@ -142,12 +142,15 @@ public class InGameInfoCore {
 			}
 		}
 
-		Set<String> keys = this.format.keySet();
-		for (String key : keys) {
-			List<List<Value>> lines = this.format.get(key);
+		for (Alignment alignment : Alignment.values()) {
+			List<List<Value>> lines = this.format.get(alignment);
+
+			if (lines == null) {
+				continue;
+			}
 
 			List<String> stringLines = new ArrayList<String>();
-			this.valuePairs.put(key, stringLines);
+			this.valuePairs.put(alignment, stringLines);
 
 			for (List<Value> line : lines) {
 				String str = "";
@@ -167,51 +170,18 @@ public class InGameInfoCore {
 
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-		Set<String> keys = this.valuePairs.keySet();
-		for (String key : keys) {
-			List<String> lines = this.valuePairs.get(key);
+		for (Alignment alignment : Alignment.values()) {
+			List<String> lines = this.valuePairs.get(alignment);
 
 			if (lines == null) {
 				continue;
 			}
 
-			if (key.contains("top")) {
-				y = 2;
-			} else if (key.contains("mid")) {
-				y = this.scaledResolution.getScaledHeight() / 2 - lines.size() * 10 / 2;
-			} else if (key.contains("bot")) {
-				y = this.scaledResolution.getScaledHeight() - lines.size() * 10 - 2;
-			} else {
-				continue;
-			}
-
-			if (key.contains("left")) {
-				x = 2;
-				type = 0;
-			} else if (key.contains("center")) {
-				x = this.scaledResolution.getScaledWidth() / 2;
-				type = 1;
-			} else if (key.contains("right")) {
-				x = this.scaledResolution.getScaledWidth() - 2;
-				type = 2;
-			} else {
-				continue;
-			}
-
+			y = alignment.getY(this.scaledResolution.getScaledHeight(), lines.size() * (this.minecraftClient.fontRenderer.FONT_HEIGHT + 1));
 			for (String line : lines) {
-				switch (type) {
-				case 0:
-					FontRendererHelper.drawLeftAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
-					break;
-				case 1:
-					FontRendererHelper.drawCenteredString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
-					break;
-				case 2:
-					FontRendererHelper.drawRightAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
-					break;
-				}
-
-				y += 10;
+				x = alignment.getX(this.scaledResolution.getScaledWidth(), this.minecraftClient.fontRenderer.getStringWidth(line));
+				FontRendererHelper.drawLeftAlignedString(this.minecraftClient.fontRenderer, line, x, y, 0x00FFFFFF);
+				y += this.minecraftClient.fontRenderer.FONT_HEIGHT + 1;
 			}
 		}
 

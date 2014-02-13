@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.parser.json;
 
+import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
@@ -40,14 +41,14 @@ public class JsonParser implements IParser {
 	}
 
 	@Override
-	public boolean parse(Map<String, List<List<Value>>> format) {
+	public boolean parse(Map<Alignment, List<List<Value>>> format) {
 		JsonObject config = this.element.getAsJsonObject();
 		Set<Map.Entry<String, JsonElement>> entries = config.entrySet();
 
 		for (Map.Entry<String, JsonElement> entry : entries) {
-			String position = Utils.getPosition(entry.getKey());
-			if (position != null) {
-				format.put(position, getLines(entry.getValue()));
+			Alignment alignment = Alignment.parse(entry.getKey());
+			if (alignment != null) {
+				format.put(alignment, getLines(entry.getValue()));
 			}
 		}
 

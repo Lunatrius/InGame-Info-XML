@@ -1,16 +1,18 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
+import com.github.lunatrius.ingameinfo.Alignment;
+
 public class AlignmentException extends Exception {
-	private final String position;
+	private final Alignment alignment;
 	private final boolean valid;
 
-	public AlignmentException(String position, boolean valid) {
-		this.position = position;
+	public AlignmentException(Alignment alignment, boolean valid) {
+		this.alignment = alignment;
 		this.valid = valid;
 	}
 
-	public String getPosition() {
-		return this.position;
+	public Alignment getAlignment() {
+		return this.alignment;
 	}
 
 	public boolean isValid() {
