@@ -23,6 +23,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.EntityList;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -49,6 +50,7 @@ import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
 public class InGameInfoCore {
 	public static final InGameInfoCore instance = new InGameInfoCore();
+	private final Comparator<EntityPlayer> playerDistanceComparator;
 
 	private IParser parser;
 
@@ -74,12 +76,38 @@ public class InGameInfoCore {
 	private final Vector3i playerPosition = new Vector3i();
 	private final Vector3f playerMotion = new Vector3f();
 	private PotionEffect[] potionEffects = null;
+	private EntityPlayer[] nearbyPlayers = null;
 	private boolean hasSeed;
 	private long seed = 0;
 	private final List<Info> info = new ArrayList<Info>();
 	private final List<Info> infoItemQueue = new ArrayList<Info>();
 
 	private InGameInfoCore() {
+		this.playerDistanceComparator = new Comparator<EntityPlayer>() {
+			@Override
+			public int compare(EntityPlayer playerA, EntityPlayer playerB) {
+				EntityPlayer player = InGameInfoCore.this.player;
+				if (player == null) {
+					return 0;
+				}
+
+				double distanceA = player.getDistanceSqToEntity(playerA);
+				double distanceB = player.getDistanceSqToEntity(playerB);
+				if (distanceA > distanceB) {
+					return 1;
+				} else if (distanceA < distanceB) {
+					return -1;
+				}
+				return 0;
+			}
+		};
+	}
+
+	public void reset() {
+		this.world = null;
+		this.player = null;
+		this.potionEffects = null;
+		this.nearbyPlayers = null;
 	}
 
 	public boolean setConfigDirectory(File directory) {
@@ -135,15 +163,8 @@ public class InGameInfoCore {
 		this.playerPosition.setZ((int) Math.floor(this.player.posZ));
 		this.playerMotion.set((float) (this.player.posX - this.player.prevPosX), (float) (this.player.posY - this.player.prevPosY), (float) (this.player.posZ - this.player.prevPosZ));
 
-		Collection<PotionEffect> potionEffectCollection = this.player.getActivePotionEffects();
-		this.potionEffects = new PotionEffect[potionEffectCollection.size()];
-		if (potionEffectCollection.size() > 0) {
-			int index = 0;
-
-			for (PotionEffect potionEffect : potionEffectCollection) {
-				this.potionEffects[index++] = potionEffect;
-			}
-		}
+		this.potionEffects = null;
+		this.nearbyPlayers = null;
 
 		this.info.clear();
 		int x, y;
@@ -600,6 +621,14 @@ public class InGameInfoCore {
 				} catch (Exception var12) {
 					return "0";
 				}
+			} else if (var.equalsIgnoreCase("chunkx")) {
+				return Integer.toString(this.playerPosition.x >> 4);
+			} else if (var.equalsIgnoreCase("chunkz")) {
+				return Integer.toString(this.playerPosition.z >> 4);
+			} else if (var.equalsIgnoreCase("chunkoffsetx")) {
+				return Integer.toString(this.playerPosition.x & 0x0F);
+			} else if (var.equalsIgnoreCase("chunkoffsetz")) {
+				return Integer.toString(this.playerPosition.z & 0x0F);
 			} else if (var.equalsIgnoreCase("x")) {
 				return String.format(Locale.ENGLISH, "%.2f", this.player.posX);
 			} else if (var.equalsIgnoreCase("y")) {
@@ -626,6 +655,14 @@ public class InGameInfoCore {
 				return String.format("%.2f", Math.abs(this.playerMotion.z));
 			} else if (var.equalsIgnoreCase("speedxz")) {
 				return String.format("%.2f", Math.sqrt(this.playerMotion.x * this.playerMotion.x + this.playerMotion.z * this.playerMotion.z));
+			} else if (var.equalsIgnoreCase("direction")) {
+				float direction = this.player.rotationYaw % 360;
+				if (direction >= 180) {
+					direction -= 360;
+				} else if (direction < -180) {
+					direction += 360;
+				}
+				return String.format("%.2f", direction);
 			} else if (var.equalsIgnoreCase("roughdirection")) {
 				return this.roughdirection[MathHelper.floor_double(this.player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
 			} else if (var.equalsIgnoreCase("finedirection")) {
@@ -663,7 +700,10 @@ public class InGameInfoCore {
 				MovingObjectPosition objectMouseOver = this.minecraftClient.objectMouseOver;
 				if (objectMouseOver != null) {
 					if (objectMouseOver.typeOfHit == MovingObjectType.ENTITY) {
-						return EntityList.getEntityString(objectMouseOver.entityHit);
+						String name = EntityList.getEntityString(objectMouseOver.entityHit);
+						if (name != null) {
+							return name;
+						}
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
 						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
@@ -770,6 +810,20 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
 				// TODO: remove or figure out a way to display all resource packs
 				// return this.minecraftClient.getResourcePackRepository().getResourcePackName();
+			} else if (var.matches("nearbyplayername\\d+")) {
+				updateNearbyPlayers();
+				int index = Integer.parseInt(var.substring(16));
+				if (this.nearbyPlayers.length > index) {
+					return this.nearbyPlayers[index].func_145748_c_().getFormattedText();
+				}
+				return "";
+			} else if (var.matches("nearbyplayerdistance\\d+")) {
+				updateNearbyPlayers();
+				int index = Integer.parseInt(var.substring(20));
+				if (this.nearbyPlayers.length > index) {
+					return String.format("%.2f", this.nearbyPlayers[index].getDistanceToEntity(this.player));
+				}
+				return "";
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
@@ -868,6 +922,7 @@ public class InGameInfoCore {
 				}
 				return "0";
 			} else if (var.matches("potioneffect\\d+")) {
+				updatePotionEffects();
 				int index = Integer.parseInt(var.substring(12));
 				if (this.potionEffects.length > index) {
 					String str = StatCollector.translateToLocal(this.potionEffects[index].getEffectName());
@@ -886,12 +941,14 @@ public class InGameInfoCore {
 				}
 				return "";
 			} else if (var.matches("potionduration\\d+")) {
+				updatePotionEffects();
 				int index = Integer.parseInt(var.substring(14));
 				if (this.potionEffects.length > index) {
 					return Potion.getDurationString(this.potionEffects[index]);
 				}
 				return "0:00";
 			} else if (var.matches("potiondurationticks\\d+")) {
+				updatePotionEffects();
 				int index = Integer.parseInt(var.substring(19));
 				if (this.potionEffects.length > index) {
 					return Integer.toString((this.potionEffects[index]).getDuration());
@@ -989,5 +1046,33 @@ public class InGameInfoCore {
 		}
 
 		return "{" + var + "}";
+	}
+
+	private void updatePotionEffects() {
+		if (this.potionEffects == null) {
+			Collection<PotionEffect> potionEffectCollection = this.player.getActivePotionEffects();
+			this.potionEffects = new PotionEffect[potionEffectCollection.size()];
+			if (potionEffectCollection.size() > 0) {
+				int index = 0;
+
+				for (PotionEffect potionEffect : potionEffectCollection) {
+					this.potionEffects[index++] = potionEffect;
+				}
+			}
+		}
+	}
+
+	private void updateNearbyPlayers() {
+		if (this.nearbyPlayers == null) {
+			List<EntityPlayer> playerList = new ArrayList<EntityPlayer>();
+			for (EntityPlayer player : (List<EntityPlayer>) this.world.playerEntities) {
+				if (player != this.player && !player.isSneaking()) {
+					playerList.add(player);
+				}
+			}
+
+			Collections.sort(playerList, this.playerDistanceComparator);
+			this.nearbyPlayers = playerList.toArray(new EntityPlayer[playerList.size()]);
+		}
 	}
 }

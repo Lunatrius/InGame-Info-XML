@@ -41,6 +41,8 @@ public class Ticker {
 						this.core.onTickRender();
 					}
 				}
+			} else {
+				this.core.reset();
 			}
 		}
 	}
