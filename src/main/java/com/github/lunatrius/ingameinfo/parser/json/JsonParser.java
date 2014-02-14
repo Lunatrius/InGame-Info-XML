@@ -1,14 +1,13 @@
 package com.github.lunatrius.ingameinfo.parser.json;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.apache.logging.log4j.Level;
 
 import java.io.File;
 import java.io.FileReader;
@@ -34,7 +33,7 @@ public class JsonParser implements IParser {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.logger.log(Level.FATAL, "Could not read json configuration file!", e);
+			Reference.logger.fatal("Could not read json configuration file!", e);
 		}
 
 		return false;

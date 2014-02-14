@@ -1,11 +1,10 @@
 package com.github.lunatrius.ingameinfo.serializer.xml;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.serializer.ISerializer;
-import org.apache.logging.log4j.Level;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -44,7 +43,7 @@ public class XmlSerializer implements ISerializer {
 
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.logger.log(Level.FATAL, "Could not save xml configuration file!", e);
+			Reference.logger.fatal("Could not save xml configuration file!", e);
 		}
 
 		return false;
@@ -58,7 +57,9 @@ public class XmlSerializer implements ISerializer {
 
 				appendLine(doc, elementLines, format.get(alignment));
 
-				config.appendChild(elementLines);
+				if (elementLines.hasChildNodes()) {
+					config.appendChild(elementLines);
+				}
 			}
 		}
 	}
@@ -69,12 +70,18 @@ public class XmlSerializer implements ISerializer {
 
 			appendValues(doc, elementLine, line);
 
-			elementLines.appendChild(elementLine);
+			if (elementLine.hasChildNodes()) {
+				elementLines.appendChild(elementLine);
+			}
 		}
 	}
 
 	private void appendValues(Document doc, Element elementValues, List<Value> values) {
 		for (Value value : values) {
+			if (value.value.matches("^-?\\d+(\\.\\d+)?$")) {
+				value.type = Value.ValueType.NUM;
+			}
+
 			Element elementValue = doc.createElement(value.type.toString().toLowerCase());
 
 			elementValue.setTextContent(Utils.escapeValue(value.value, false));

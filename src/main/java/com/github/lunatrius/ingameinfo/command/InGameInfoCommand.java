@@ -1,9 +1,8 @@
 package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
-import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Ticker;
-import com.github.lunatrius.ingameinfo.config.Config;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -77,9 +76,8 @@ public class InGameInfoCommand extends CommandBase {
 			} else if (args[0].equalsIgnoreCase("load")) {
 				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.load", args[1]));
 				if (this.core.loadConfig(args[1])) {
-					Config config = InGameInfoXML.instance.config;
-					config.setConfigName(args[1]);
-					config.save();
+					Reference.config.setConfigName(args[1]);
+					Reference.config.save();
 				}
 				return;
 			} else if (args[0].equalsIgnoreCase("save")) {

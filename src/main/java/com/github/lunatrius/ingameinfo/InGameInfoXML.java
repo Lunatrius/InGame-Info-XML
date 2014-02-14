@@ -13,31 +13,28 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.client.ClientCommandHandler;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME)
 public class InGameInfoXML {
 	@Instance(Reference.MODID)
 	public static InGameInfoXML instance;
-	public static Logger logger = null;
 
 	private final InGameInfoCore core = InGameInfoCore.instance;
-
-	public Config config = null;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		VersionChecker.registerMod(event.getModMetadata());
 
-		logger = event.getModLog();
+		Reference.logger = event.getModLog();
 
-		this.config = new Config(event.getSuggestedConfigurationFile());
-		Ticker.showInChat = this.config.getShowInChat();
-		this.config.save();
+		Reference.config = new Config(event.getSuggestedConfigurationFile());
+		Reference.config.save();
+
+		Ticker.showInChat = Reference.config.getShowInChat();
 
 		this.core.setConfigDirectory(event.getModConfigurationDirectory());
 		this.core.copyDefaultConfig();
-		this.core.setConfigFile(this.config.getConfigName());
+		this.core.setConfigFile(Reference.config.getConfigName());
 		this.core.reloadConfig();
 	}
 

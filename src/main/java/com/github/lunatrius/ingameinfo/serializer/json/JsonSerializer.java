@@ -1,15 +1,14 @@
 package com.github.lunatrius.ingameinfo.serializer.json;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.serializer.ISerializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.apache.logging.log4j.Level;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -35,7 +34,7 @@ public class JsonSerializer implements ISerializer {
 			fileWriter.close();
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.logger.log(Level.FATAL, "Could not save json configuration file!", e);
+			Reference.logger.fatal("Could not save json configuration file!", e);
 		}
 
 		return false;
@@ -44,22 +43,26 @@ public class JsonSerializer implements ISerializer {
 	private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
 		for (Alignment alignment : Alignment.values()) {
 			if (format.containsKey(alignment)) {
-				JsonArray array = new JsonArray();
+				JsonArray arrayLines = new JsonArray();
 
-				appendLine(array, format.get(alignment));
+				appendLine(arrayLines, format.get(alignment));
 
-				jsonConfig.add(alignment.toString().toLowerCase(), array);
+				if (arrayLines.size() > 0) {
+					jsonConfig.add(alignment.toString().toLowerCase(), arrayLines);
+				}
 			}
 		}
 	}
 
 	private void appendLine(JsonArray jsonLines, List<List<Value>> lines) {
 		for (List<Value> line : lines) {
-			JsonArray elementLine = new JsonArray();
+			JsonArray arrayLine = new JsonArray();
 
-			appendValues(elementLine, line);
+			appendValues(arrayLine, line);
 
-			jsonLines.add(elementLine);
+			if (arrayLine.size() > 0) {
+				jsonLines.add(arrayLine);
+			}
 		}
 	}
 
@@ -74,7 +77,7 @@ public class JsonSerializer implements ISerializer {
 				obj.add(type, array);
 			} else {
 				String val = Utils.escapeValue(value.value, false);
-				if (val.matches("^\\d+(\\.\\d+)?$")) {
+				if (val.matches("^-?\\d+(\\.\\d+)?$")) {
 					obj.addProperty(type, Double.valueOf(val));
 				} else {
 					obj.addProperty(type, val);

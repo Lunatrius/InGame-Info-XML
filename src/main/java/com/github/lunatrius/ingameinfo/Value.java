@@ -1,8 +1,6 @@
 package com.github.lunatrius.ingameinfo;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class Value {
 	public static enum ValueType {
@@ -10,27 +8,42 @@ public class Value {
 		STR,
 		NUM,
 		VAR,
-		IF,
-		NOT,
-		AND,
-		OR,
-		XOR,
-		GREATER,
-		LESSER,
-		EQUAL,
-		PCT,
-		CONCAT,
-		MAX,
-		MIN,
-		ADD,
-		SUB,
-		MUL,
-		DIV,
-		ROUND,
-		MOD,
-		MODI,
-		ITEMQUANTITY,
-		TRANS;
+		IF(-1, 2, 3),
+		NOT(-1, 1),
+		AND(2),
+		OR(2),
+		XOR(2),
+		GREATER(2),
+		LESSER(2),
+		EQUAL(2),
+		PCT(-1, 2),
+		CONCAT(2),
+		MAX(-1, 2, 4),
+		MIN(-1, 2, 4),
+		ADD(-1, 2),
+		SUB(-1, 2),
+		MUL(-1, 2),
+		DIV(-1, 2),
+		ROUND(-1, 2),
+		MOD(-1, 2),
+		MODI(-1, 2),
+		ITEMQUANTITY(-1, 1, 2),
+		TRANS(1),
+		ICON(-1, 1, 2, 5, 7, 11);
+
+		private int min = -1;
+		private Set<Integer> validSizes;
+
+		ValueType() {}
+
+		ValueType(int min, Integer... validSizes) {
+			this.min = min;
+			this.validSizes = new HashSet<Integer>(Arrays.asList(validSizes));
+		}
+
+		public boolean validSize(int size) {
+			return this.validSizes == null || this.validSizes.contains(size) || this.validSizes.size() <= 0 && size >= this.min;
+		}
 
 		public static ValueType fromString(String str) {
 			if (str.matches("(?i)(str|string)")) {
@@ -81,6 +94,8 @@ public class Value {
 				return ITEMQUANTITY;
 			} else if (str.matches("(?i)(trans|translate)")) {
 				return TRANS;
+			} else if (str.matches("(?i)(icon|img|image)")) {
+				return ICON;
 			}
 
 			return NONE;

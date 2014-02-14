@@ -1,11 +1,10 @@
 package com.github.lunatrius.ingameinfo.serializer.text;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.InGameInfoXML;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.serializer.ISerializer;
-import org.apache.logging.log4j.Level;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -29,7 +28,7 @@ public class TextSerializer implements ISerializer {
 			fileWriter.close();
 			return true;
 		} catch (Exception e) {
-			InGameInfoXML.logger.log(Level.FATAL, "Could not save text configuration file!", e);
+			Reference.logger.fatal("Could not save text configuration file!", e);
 		}
 
 		return false;
@@ -69,85 +68,98 @@ public class TextSerializer implements ISerializer {
 			} else if (value.type == ValueType.VAR) {
 				writer.write(String.format("<%s>", value.value));
 			}
-		} else {
-			if (value.type == ValueType.IF) {
-				if (size == 2 || size == 3) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
-					writer.write("[");
-					writeValue(writer, values.get(1));
-					if (size == 3) {
-						writer.write("/");
-						writeValue(writer, values.get(2));
-					}
-					writer.write("]");
+		} else if (value.type.validSize(size)) {
+			switch (value.type) {
+			case IF:
+				writer.write(String.format("<%s[", type));
+				writeValue(writer, values.get(0));
+				writer.write("[");
+				writeValue(writer, values.get(1));
+				if (size == 3) {
+					writer.write("/");
+					writeValue(writer, values.get(2));
+				}
+				writer.write("]");
 
-					writer.write("]>");
-				}
-			} else if (value.type == ValueType.NOT) {
-				if (size == 1) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
-					writer.write("]>");
-				}
-			} else if (value.type == ValueType.AND || value.type == ValueType.OR || value.type == ValueType.XOR || value.type == ValueType.CONCAT) {
+				writer.write("]>");
+				break;
+
+			case NOT:
 				writer.write(String.format("<%s[", type));
 				writeValue(writer, values.get(0));
-				if (size > 1) {
-					for (int i = 1; i < size; i++) {
-						writer.write("/");
-						writeValue(writer, values.get(i));
-					}
+				writer.write("]>");
+				break;
+
+			case AND:
+			case OR:
+			case XOR:
+			case GREATER:
+			case LESSER:
+			case EQUAL:
+			case CONCAT:
+			case ICON:
+				writer.write(String.format("<%s[", type));
+				writeValue(writer, values.get(0));
+				for (int i = 1; i < size; i++) {
+					writer.write("/");
+					writeValue(writer, values.get(i));
 				}
 				writer.write("]>");
-			} else if (value.type == ValueType.GREATER || value.type == ValueType.LESSER || value.type == ValueType.EQUAL) {
-				if (size > 1) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
-					for (int i = 1; i < size; i++) {
-						writer.write("/");
-						writeValue(writer, values.get(i));
-					}
-					writer.write("]>");
+				break;
+
+			case PCT:
+			case ADD:
+			case SUB:
+			case MUL:
+			case DIV:
+			case ROUND:
+			case MOD:
+			case MODI:
+				writer.write(String.format("<%s[", type));
+				writeValue(writer, values.get(0));
+				writer.write("/");
+				writeValue(writer, values.get(1));
+				writer.write("]>");
+				break;
+
+			case MAX:
+			case MIN:
+				writer.write(String.format("<%s[", type));
+				writeValue(writer, values.get(0));
+				writer.write("/");
+				writeValue(writer, values.get(1));
+				if (size == 4) {
+					writer.write("[");
+					writeValue(writer, values.get(2));
+					writer.write("/");
+					writeValue(writer, values.get(3));
+					writer.write("]");
 				}
-			} else if (value.type == ValueType.PCT || value.type == ValueType.ADD || value.type == ValueType.SUB || value.type == ValueType.MUL || value.type == ValueType.DIV || value.type == ValueType.ROUND || value.type == ValueType.MOD || value.type == ValueType.MODI) {
+				writer.write("]>");
+				break;
+
+			case ITEMQUANTITY:
+				writer.write(String.format("<%s[", type));
+				writeValue(writer, values.get(0));
 				if (size == 2) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
 					writer.write("/");
 					writeValue(writer, values.get(1));
-					writer.write("]>");
 				}
-			} else if (value.type == ValueType.MAX || value.type == ValueType.MIN) {
-				if (size == 2 || size == 4) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
-					writer.write("/");
-					writeValue(writer, values.get(1));
-					if (size == 4) {
-						writer.write("[");
-						writeValue(writer, values.get(2));
-						writer.write("/");
-						writeValue(writer, values.get(3));
-						writer.write("]");
-					}
-					writer.write("]>");
-				}
-			} else if (value.type == ValueType.ITEMQUANTITY) {
-				if (size == 1 || size == 2) {
-					writer.write(String.format("<%s[", type));
-					writeValue(writer, values.get(0));
-					if (size == 2) {
-						writer.write("/");
-						writeValue(writer, values.get(1));
-					}
-					writer.write("]>");
-				}
-			} else if (value.type == ValueType.TRANS) {
+				writer.write("]>");
+				break;
+
+			case TRANS:
 				writer.write(String.format("<%s[", type));
 				writeValue(writer, values.get(0));
 				writer.write("]>");
+				break;
+
+			default:
+				Reference.logger.fatal(String.format("Unknown value type %s! This is a bug!", type));
+				break;
 			}
+		} else {
+			Reference.logger.fatal(String.format("Invalid size %d for value type %s!", size, type));
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package com.github.lunatrius.ingameinfo.lib;
 
+import com.github.lunatrius.ingameinfo.config.Config;
 import com.google.common.base.Throwables;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -29,4 +31,7 @@ public class Reference {
 	public static final String MINECRAFT;
 	public static final String PROXY_COMMON = "com.github.lunatrius.ingameinfo.CommonProxy";
 	public static final String PROXY_CLIENT = "com.github.lunatrius.ingameinfo.client.ClientProxy";
+
+	public static Logger logger = null;
+	public static Config config = null;
 }
