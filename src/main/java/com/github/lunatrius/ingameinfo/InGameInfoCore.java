@@ -921,7 +921,7 @@ public class InGameInfoCore {
 				if (this.nearbyPlayers.length > index) {
 					return String.format("%.2f", this.nearbyPlayers[index].getDistanceToEntity(this.player));
 				}
-				return "";
+				return "-1";
 			} else if (var.equalsIgnoreCase("entitiesrendered")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
