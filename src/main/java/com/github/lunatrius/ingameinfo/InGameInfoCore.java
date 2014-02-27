@@ -8,6 +8,7 @@ import com.github.lunatrius.ingameinfo.client.gui.Info;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
 import com.github.lunatrius.ingameinfo.client.gui.InfoText;
+import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
@@ -17,11 +18,13 @@ import com.github.lunatrius.ingameinfo.serializer.json.JsonSerializer;
 import com.github.lunatrius.ingameinfo.serializer.text.TextSerializer;
 import com.github.lunatrius.ingameinfo.serializer.xml.XmlSerializer;
 import cpw.mods.fml.common.registry.GameData;
+import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResource;
 import net.minecraft.entity.EntityList;
@@ -38,10 +41,14 @@ import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.WorldSettings;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.DimensionManager;
 import org.lwjgl.opengl.GL11;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -53,6 +60,7 @@ public class InGameInfoCore {
 	public static final InGameInfoCore instance = new InGameInfoCore();
 	private final Comparator<EntityPlayer> playerDistanceComparator;
 
+	private Field fieldGameType = null;
 	private IParser parser;
 
 	private Minecraft minecraftClient = Minecraft.getMinecraft();
@@ -102,6 +110,13 @@ public class InGameInfoCore {
 				return 0;
 			}
 		};
+
+		try {
+			this.fieldGameType = ReflectionHelper.findField(PlayerControllerMP.class, "k", "field_78779_k", "currentGameType");
+		} catch (Exception ex) {
+			Reference.logger.error(ex);
+			this.fieldGameType = null;
+		}
 	}
 
 	public void reset() {
@@ -870,12 +885,38 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("seed")) {
 				return Long.toString(this.seed);
 			} else if (var.equalsIgnoreCase("difficulty")) {
+				if (this.minecraftServer != null) {
+					WorldServer worldServer = DimensionManager.getWorld(this.player.dimension);
+					if (worldServer != null) {
+						return I18n.format(worldServer.difficultySetting.getDifficultyResourceKey());
+					}
+				}
 				return I18n.format(this.minecraftClient.gameSettings.difficulty.getDifficultyResourceKey());
 			} else if (var.equalsIgnoreCase("difficultyid")) {
+				if (this.minecraftServer != null) {
+					WorldServer worldServer = DimensionManager.getWorld(this.player.dimension);
+					if (worldServer != null) {
+						return Integer.toString(worldServer.difficultySetting.getDifficultyId());
+					}
+				}
 				return Integer.toString(this.minecraftClient.gameSettings.difficulty.getDifficultyId());
 			} else if (var.equalsIgnoreCase("gamemode")) {
+				if (this.fieldGameType != null) {
+					try {
+						WorldSettings.GameType gameType = (WorldSettings.GameType) this.fieldGameType.get(this.minecraftClient.playerController);
+						return I18n.format("selectWorld.gameMode." + gameType.getName());
+					} catch (Exception ignored) {
+					}
+				}
 				return I18n.format("selectWorld.gameMode." + this.world.getWorldInfo().getGameType().getName());
 			} else if (var.equalsIgnoreCase("gamemodeid")) {
+				if (this.fieldGameType != null) {
+					try {
+						WorldSettings.GameType gameType = (WorldSettings.GameType) this.fieldGameType.get(this.minecraftClient.playerController);
+						return Integer.toString(gameType.getID());
+					} catch (Exception ignored) {
+					}
+				}
 				return Integer.toString(this.world.getWorldInfo().getGameType().getID());
 			} else if (var.equalsIgnoreCase("healthpoints")) {
 				return Float.toString(this.player.getHealth());
