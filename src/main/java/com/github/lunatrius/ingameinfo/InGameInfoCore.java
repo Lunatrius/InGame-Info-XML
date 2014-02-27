@@ -34,6 +34,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.profiler.Profiler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -63,7 +64,8 @@ public class InGameInfoCore {
 	private Field fieldGameType = null;
 	private IParser parser;
 
-	private Minecraft minecraftClient = Minecraft.getMinecraft();
+	private final Minecraft minecraftClient = Minecraft.getMinecraft();
+	private final Profiler profiler = this.minecraftClient.mcProfiler;
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
 	private EntityClientPlayerMP player = null;
@@ -185,7 +187,10 @@ public class InGameInfoCore {
 		this.info.clear();
 		int x, y;
 
+		this.profiler.startSection("alignment");
+		this.profiler.startSection("none");
 		for (Alignment alignment : Alignment.values()) {
+			this.profiler.endStartSection(alignment.toString().toLowerCase());
 			List<List<Value>> lines = this.format.get(alignment);
 
 			if (lines == null) {
@@ -237,6 +242,8 @@ public class InGameInfoCore {
 
 			this.info.addAll(queue);
 		}
+		this.profiler.endSection();
+		this.profiler.endSection();
 	}
 
 	public void onTickRender() {

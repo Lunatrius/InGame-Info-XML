@@ -32,8 +32,9 @@ public class Ticker {
 	}
 
 	private void onTick(TickEvent event) {
+		this.client.mcProfiler.startSection("ingameinfo");
 		if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
-			if (enabled && this.client != null && this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo) {
+			if (enabled && (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo || this.client.mcProfiler.profilingEnabled)) {
 				if (this.client.currentScreen == null || showInChat && this.client.currentScreen instanceof GuiChat) {
 					if (event.type == TickEvent.Type.CLIENT) {
 						this.core.onTickClient();
@@ -45,5 +46,6 @@ public class Ticker {
 				this.core.reset();
 			}
 		}
+		this.client.mcProfiler.endSection();
 	}
 }
