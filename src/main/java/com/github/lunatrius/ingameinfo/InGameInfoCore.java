@@ -48,10 +48,24 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.DimensionManager;
 import org.lwjgl.opengl.GL11;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -205,12 +219,10 @@ public class InGameInfoCore {
 
 				this.infoItemQueue.clear();
 				for (Value value : line) {
-					str += getValue(value);
+					str += getReplacedValue(value);
 				}
 
 				if (!str.isEmpty()) {
-					str = replaceVariables(str);
-
 					String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
 
 					x = alignment.getX(scaledResolution.getScaledWidth(), fontRenderer.getStringWidth(processed));
@@ -440,7 +452,7 @@ public class InGameInfoCore {
 				String current = getValue(value, 0);
 
 				for (Value operand : value.values.subList(1, size)) {
-					String next = getValue(operand);
+					String next = getReplacedValue(operand);
 					if (!current.equals(next)) {
 						return Boolean.toString(false);
 					}
@@ -458,7 +470,7 @@ public class InGameInfoCore {
 		} else if (value.type.equals(ValueType.CONCAT)) {
 			String str = "";
 			for (Value val : value.values) {
-				str += getValue(val);
+				str += getReplacedValue(val);
 			}
 			return str;
 		} else if (value.type.equals(ValueType.MAX)) {
@@ -643,12 +655,16 @@ public class InGameInfoCore {
 		return "";
 	}
 
+	private String getReplacedValue(Value value) {
+		return replaceVariables(getValue(value));
+	}
+
 	private String getValue(Value value, int index) {
-		return getValue(value.values.get(index));
+		return getReplacedValue(value.values.get(index));
 	}
 
 	private int getIntValue(Value value) {
-		return Integer.parseInt(getValue(value));
+		return Integer.parseInt(getReplacedValue(value));
 	}
 
 	private int getIntValue(Value value, int index) {
@@ -656,7 +672,7 @@ public class InGameInfoCore {
 	}
 
 	private double getDoubleValue(Value value) {
-		return Double.parseDouble(getValue(value));
+		return Double.parseDouble(getReplacedValue(value));
 	}
 
 	private double getDoubleValue(Value value, int index) {
@@ -664,7 +680,7 @@ public class InGameInfoCore {
 	}
 
 	private boolean getBooleanValue(Value value) {
-		return Boolean.parseBoolean(getValue(value));
+		return Boolean.parseBoolean(getReplacedValue(value));
 	}
 
 	private boolean getBooleanValue(Value value, int index) {
@@ -951,6 +967,10 @@ public class InGameInfoCore {
 				return this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeName;
 			} else if (var.equalsIgnoreCase("biomeid")) {
 				return Integer.toString(this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).biomeID);
+			} else if (var.equalsIgnoreCase("temperature")) {
+				return String.format(Locale.ENGLISH, "%.0f", this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).temperature * 100);
+			} else if (var.equalsIgnoreCase("humidity")) {
+				return String.format(Locale.ENGLISH, "%.0f", this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).rainfall * 100);
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.getGameProfile().getName();
 			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
