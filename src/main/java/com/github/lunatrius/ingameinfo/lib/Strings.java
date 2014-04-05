@@ -11,5 +11,8 @@ public class Strings {
 	public static final String CONFIG_SHOWINCHAT = "showInChat";
 	public static final String CONFIG_SHOWINCHAT_DESC = "Displays the overlay in chat.";
 
+	public static final String CONFIG_SHOWONPLAYERLIST = "showOnPlayerList";
+	public static final String CONFIG_SHOWONPLAYERLIST_DESC = "Displays the overlay on the player list.";
+
 	public static final String CONFIG_ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 }

@@ -12,6 +12,7 @@ import static cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 public class Ticker {
 	public static boolean enabled = true;
 	public static boolean showInChat = true;
+	public static boolean showOnPlayerList = true;
 
 	private final Minecraft client;
 	private final InGameInfoCore core;
@@ -31,21 +32,45 @@ public class Ticker {
 		onTick(event);
 	}
 
-	private void onTick(TickEvent event) {
-		this.client.mcProfiler.startSection("ingameinfo");
-		if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
-			if (enabled && (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo || this.client.mcProfiler.profilingEnabled)) {
-				if (this.client.currentScreen == null || showInChat && this.client.currentScreen instanceof GuiChat) {
-					if (event.type == TickEvent.Type.CLIENT) {
-						this.core.onTickClient();
-					} else if (event.type == TickEvent.Type.RENDER) {
-						this.core.onTickRender();
-					}
+	private boolean isRunning() {
+		if (enabled) {
+			if (this.client.mcProfiler.profilingEnabled) {
+				return true;
+			}
+
+			if (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo) {
+				if (!showOnPlayerList && this.client.gameSettings.keyBindPlayerList.getIsKeyPressed()) {
+					return false;
 				}
-			} else {
-				this.core.reset();
+
+				if (this.client.currentScreen == null) {
+					return true;
+				}
+
+				if (showInChat && this.client.currentScreen instanceof GuiChat) {
+					return true;
+				}
 			}
 		}
-		this.client.mcProfiler.endSection();
+
+		return false;
+	}
+
+	private void onTick(TickEvent event) {
+		if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
+			this.client.mcProfiler.startSection("ingameinfo");
+			if (isRunning()) {
+				if (event.type == TickEvent.Type.CLIENT) {
+					this.core.onTickClient();
+				} else if (event.type == TickEvent.Type.RENDER) {
+					this.core.onTickRender();
+				}
+			}
+
+			if ((!enabled || this.client.gameSettings == null) && event.type == TickEvent.Type.CLIENT) {
+				this.core.reset();
+			}
+			this.client.mcProfiler.endSection();
+		}
 	}
 }

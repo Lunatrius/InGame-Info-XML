@@ -31,6 +31,7 @@ public class InGameInfoXML {
 		Reference.config.save();
 
 		Ticker.showInChat = Reference.config.getShowInChat();
+		Ticker.showOnPlayerList = Reference.config.getShowOnPlayerList();
 
 		this.core.setConfigDirectory(event.getModConfigurationDirectory());
 		this.core.copyDefaultConfig();
