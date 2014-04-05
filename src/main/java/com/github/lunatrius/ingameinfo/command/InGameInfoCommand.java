@@ -71,6 +71,7 @@ public class InGameInfoCommand extends CommandBase {
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.reload"));
+				Reference.config.reload();
 				this.core.reloadConfig();
 				return;
 			} else if (args[0].equalsIgnoreCase("load")) {
