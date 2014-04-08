@@ -70,7 +70,7 @@ This section assumes that you're using the command-line version of Git.
 
 1. Open up your command line.
 2. Navigate to a place where you want to download InGame Info XML's source (eg `C:\Development\Github\Minecraft\`) by executing `cd [folder location]`. This location is known as `mcdev` from now on.
-3. Execute `git clone git@github.com:Lunatrius/InGame Info XML.git`. This will download InGame Info XML's source into `mcdev`.
+3. Execute `git clone git@github.com:Lunatrius/InGame-Info-XML.git`. This will download InGame Info XML's source into `mcdev`.
 4. Right now, you should have a directory that looks something like:
 
 ***
