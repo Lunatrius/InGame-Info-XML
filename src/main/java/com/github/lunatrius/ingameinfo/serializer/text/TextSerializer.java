@@ -97,6 +97,7 @@ public class TextSerializer implements ISerializer {
 			case LESSER:
 			case EQUAL:
 			case CONCAT:
+			case OPERATION:
 			case ICON:
 				writer.write(String.format("<%s[", type));
 				writeValue(writer, values.get(0));

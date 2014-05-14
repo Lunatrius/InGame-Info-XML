@@ -473,6 +473,65 @@ public class InGameInfoCore {
 				str += getReplacedValue(val);
 			}
 			return str;
+		} else if (value.type.equals(ValueType.OPERATION)) {
+			try {
+				Operation operation = Operation.fromString(getValue(value, 0));
+				double base = getDoubleValue(value, 1);
+				int operandCount = (size - 2) / 2;
+				if (operation.equals(Operation.GT)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base > operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				} else if (operation.equals(Operation.LT)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base < operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				} else if (operation.equals(Operation.GE)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base >= operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				} else if (operation.equals(Operation.LE)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base <= operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				} else if (operation.equals(Operation.EQ)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base == operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				} else if (operation.equals(Operation.NE)) {
+					for (int i = 2; i < 2 + operandCount; i++) {
+						double operand = getDoubleValue(value, i);
+						if (base != operand) {
+							return getValue(value, operandCount + i);
+						}
+					}
+					return size % 2 == 0 ? "" : getValue(value, size - 1);
+				}
+
+				return "";
+			} catch (Exception e) {
+				return "";
+			}
 		} else if (value.type.equals(ValueType.MAX)) {
 			try {
 				double arg0 = getDoubleValue(value, 0);

@@ -23,6 +23,7 @@ public class Value {
 		EQUAL(2),
 		PCT(-1, 2),
 		CONCAT(2),
+		OPERATION(2),
 		MAX(-1, 2, 4),
 		MIN(-1, 2, 4),
 		ADD(-1, 2),
@@ -77,6 +78,8 @@ public class Value {
 				return PCT;
 			} else if (str.matches("(?i)(concat)")) {
 				return CONCAT;
+			} else if (str.matches("(?i)(op|operation)")) {
+				return OPERATION;
 			} else if (str.matches("(?i)(max|maximum)")) {
 				return MAX;
 			} else if (str.matches("(?i)(min|minimum)")) {
