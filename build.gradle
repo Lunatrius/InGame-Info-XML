@@ -59,7 +59,7 @@ minecraft {
 }
 
 jar {
-    classifier = "client"
+    classifier = "universal"
 }
 
 processResources {
