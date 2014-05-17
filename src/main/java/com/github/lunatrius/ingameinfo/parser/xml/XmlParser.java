@@ -37,6 +37,10 @@ public class XmlParser implements IParser {
 
 	@Override
 	public boolean parse(Map<Alignment, List<List<Value>>> format) {
+		if (this.document == null) {
+			return false;
+		}
+
 		Element documentElement = this.document.getDocumentElement();
 		NodeList nodeListLines = documentElement.getChildNodes();
 		for (int i = 0; i < nodeListLines.getLength(); i++) {
