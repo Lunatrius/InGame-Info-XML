@@ -478,9 +478,10 @@ public class InGameInfoCore {
 		} else if (value.type.equals(ValueType.OPERATION)) {
 			try {
 				Operation operation = Operation.fromString(getValue(value, 0));
-				double base = getDoubleValue(value, 1);
+				double base;
 				int operandCount = (size - 2) / 2;
 				if (operation.equals(Operation.GT)) {
+					base = getDoubleValue(value, 1);
 					for (int i = 2; i < 2 + operandCount; i++) {
 						double operand = getDoubleValue(value, i);
 						if (base > operand) {
@@ -489,6 +490,7 @@ public class InGameInfoCore {
 					}
 					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				} else if (operation.equals(Operation.LT)) {
+					base = getDoubleValue(value, 1);
 					for (int i = 2; i < 2 + operandCount; i++) {
 						double operand = getDoubleValue(value, i);
 						if (base < operand) {
@@ -497,6 +499,7 @@ public class InGameInfoCore {
 					}
 					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				} else if (operation.equals(Operation.GE)) {
+					base = getDoubleValue(value, 1);
 					for (int i = 2; i < 2 + operandCount; i++) {
 						double operand = getDoubleValue(value, i);
 						if (base >= operand) {
@@ -505,6 +508,7 @@ public class InGameInfoCore {
 					}
 					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				} else if (operation.equals(Operation.LE)) {
+					base = getDoubleValue(value, 1);
 					for (int i = 2; i < 2 + operandCount; i++) {
 						double operand = getDoubleValue(value, i);
 						if (base <= operand) {
@@ -513,21 +517,45 @@ public class InGameInfoCore {
 					}
 					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				} else if (operation.equals(Operation.EQ)) {
-					for (int i = 2; i < 2 + operandCount; i++) {
-						double operand = getDoubleValue(value, i);
-						if (base == operand) {
-							return getValue(value, operandCount + i);
+					try {
+						base = getDoubleValue(value, 1);
+						for (int i = 2; i < 2 + operandCount; i++) {
+							double operand = getDoubleValue(value, i);
+							if (base == operand) {
+								return getValue(value, operandCount + i);
+							}
 						}
+						return size % 2 == 0 ? "" : getValue(value, size - 1);
+					} catch (NumberFormatException e) {
+						String basestr = getValue(value, 1);
+						for (int i = 2; i < 2 + operandCount; i++) {
+							String operand = getValue(value, i);
+							if (basestr.equals(operand)) {
+								return getValue(value, operandCount + i);
+							}
+						}
+						return size % 2 == 0 ? "" : getValue(value, size - 1);
 					}
-					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				} else if (operation.equals(Operation.NE)) {
-					for (int i = 2; i < 2 + operandCount; i++) {
-						double operand = getDoubleValue(value, i);
-						if (base != operand) {
-							return getValue(value, operandCount + i);
+					try {
+						base = getDoubleValue(value, 1);
+						for (int i = 2; i < 2 + operandCount; i++) {
+							double operand = getDoubleValue(value, i);
+							if (base != operand) {
+								return getValue(value, operandCount + i);
+							}
 						}
+						return size % 2 == 0 ? "" : getValue(value, size - 1);
+					} catch (NumberFormatException e) {
+						String basestr = getValue(value, 1);
+						for (int i = 2; i < 2 + operandCount; i++) {
+							String operand = getValue(value, i);
+							if (!basestr.equals(operand)) {
+								return getValue(value, operandCount + i);
+							}
+						}
+						return size % 2 == 0 ? "" : getValue(value, size - 1);
 					}
-					return size % 2 == 0 ? "" : getValue(value, size - 1);
 				}
 
 				return "";
