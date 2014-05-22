@@ -663,9 +663,9 @@ public class InGameInfoCore {
 				Item item;
 				int itemDamage = -1;
 				try {
-					item = GameData.itemRegistry.get(getValue(value, 0));
+					item = GameData.getItemRegistry().getObject(getValue(value, 0));
 				} catch (Exception e3) {
-					item = GameData.itemRegistry.get(getIntValue(value, 0));
+					item = GameData.getItemRegistry().getObjectById(getIntValue(value, 0));
 				}
 				if (size == 2) {
 					itemDamage = getIntValue(value, 1);
@@ -705,14 +705,14 @@ public class InGameInfoCore {
 						metadata = getIntValue(value, 1);
 					}
 
-					itemStack = new ItemStack(GameData.itemRegistry.get(what), 1, metadata);
+					itemStack = new ItemStack(GameData.getItemRegistry().getObject(what), 1, metadata);
 					if (itemStack.getItem() != null) {
 						item = new InfoItem(this.minecraftClient.fontRenderer, itemStack);
 						this.infoItemQueue.add(item);
 						return getIconTag(item);
 					}
 
-					itemStack = new ItemStack(GameData.blockRegistry.get(what), 1, metadata);
+					itemStack = new ItemStack(GameData.getBlockRegistry().getObject(what), 1, metadata);
 					if (itemStack.getItem() != null) {
 						item = new InfoItem(this.minecraftClient.fontRenderer, itemStack);
 						this.infoItemQueue.add(item);
@@ -931,7 +931,7 @@ public class InGameInfoCore {
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
 						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
-							return GameData.blockRegistry.getNameForObject(block);
+							return GameData.getBlockRegistry().getNameForObject(block);
 						}
 					}
 				}
@@ -944,7 +944,7 @@ public class InGameInfoCore {
 					} else if (objectMouseOver.typeOfHit == MovingObjectType.BLOCK) {
 						Block block = this.world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
 						if (block != null) {
-							return Integer.toString(GameData.blockRegistry.getId(block));
+							return Integer.toString(GameData.getBlockRegistry().getId(block));
 						}
 					}
 				}
@@ -1158,7 +1158,7 @@ public class InGameInfoCore {
 
 				if (var.endsWith("uniquename")) {
 					Item item = itemStack != null ? itemStack.getItem() : null;
-					return item != null ? GameData.itemRegistry.getNameForObject(item) : "";
+					return item != null ? GameData.getItemRegistry().getNameForObject(item) : "";
 				} else if (var.endsWith("name")) {
 					String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(this.player.inventory, Items.arrow) + ")" : "";
 					return itemStack != null ? itemStack.getDisplayName() + arrows : "";
