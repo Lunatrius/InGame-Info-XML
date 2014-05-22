@@ -35,6 +35,7 @@ public class Value {
 		MODI(-1, 2),
 		ITEMQUANTITY(-1, 1, 2),
 		TRANS(1),
+		FORMATTEDTIME(-1, 1),
 		ICON(-1, 1, 2, 5, 7, 11);
 
 		private int min = -1;
@@ -102,6 +103,8 @@ public class Value {
 				return ITEMQUANTITY;
 			} else if (str.matches("(?i)(trans|translate)")) {
 				return TRANS;
+			} else if (str.matches("(?i)(formattedtime|rltimef)")) {
+				return FORMATTEDTIME;
 			} else if (str.matches("(?i)(icon|img|image)")) {
 				return ICON;
 			}

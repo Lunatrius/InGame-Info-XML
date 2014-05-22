@@ -73,6 +73,8 @@ import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
 public class InGameInfoCore {
 	public static final InGameInfoCore instance = new InGameInfoCore();
+	private static final SimpleDateFormat TIME_24 = new SimpleDateFormat("HH:mm");
+	private static final SimpleDateFormat TIME_12 = new SimpleDateFormat("hh:mm a");
 	private final Comparator<EntityPlayer> playerDistanceComparator;
 
 	private Field fieldGameType = null;
@@ -655,6 +657,13 @@ public class InGameInfoCore {
 			} catch (Exception e) {
 				return "?";
 			}
+		} else if (value.type.equals(ValueType.FORMATTEDTIME)) {
+			try {
+				String format = getValue(value, 0);
+				return new SimpleDateFormat(format).format(new Date());
+			} catch (Exception e) {
+				return "?";
+			}
 		} else if (value.type.equals(ValueType.ICON)) {
 			try {
 				String what = getValue(value, 0);
@@ -775,9 +784,9 @@ public class InGameInfoCore {
 				long minute = (this.world.getWorldTime() % 1000) * 60 / 1000;
 				return String.format(Locale.ENGLISH, "%02d", minute);
 			} else if (var.equalsIgnoreCase("rltime") || var.equalsIgnoreCase("irltime") || var.equalsIgnoreCase("rltime24") || var.equalsIgnoreCase("irltime24")) {
-				return (new SimpleDateFormat("HH:mm")).format(new Date());
+				return TIME_24.format(new Date());
 			} else if (var.equalsIgnoreCase("rltime12") || var.equalsIgnoreCase("irltime12")) {
-				return (new SimpleDateFormat("hh:mm a")).format(new Date());
+				return TIME_12.format(new Date());
 			} else if (var.equalsIgnoreCase("light")) {
 				try {
 					return Integer.toString(this.world.getChunkFromBlockCoords(this.playerPosition.x, this.playerPosition.z).getBlockLightValue(this.playerPosition.x & 15, this.playerPosition.y, this.playerPosition.z & 15, this.world.calculateSkylightSubtracted(1.0f)));

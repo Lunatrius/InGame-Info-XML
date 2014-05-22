@@ -85,6 +85,7 @@ public class TextSerializer implements ISerializer {
 				break;
 
 			case NOT:
+			case FORMATTEDTIME:
 				writer.write(String.format("<%s[", type));
 				writeValue(writer, values.get(0));
 				writer.write("]>");
@@ -98,6 +99,7 @@ public class TextSerializer implements ISerializer {
 			case EQUAL:
 			case CONCAT:
 			case OPERATION:
+			case TRANS:
 			case ICON:
 				writer.write(String.format("<%s[", type));
 				writeValue(writer, values.get(0));
@@ -146,12 +148,6 @@ public class TextSerializer implements ISerializer {
 					writer.write("/");
 					writeValue(writer, values.get(1));
 				}
-				writer.write("]>");
-				break;
-
-			case TRANS:
-				writer.write(String.format("<%s[", type));
-				writeValue(writer, values.get(0));
 				writer.write("]>");
 				break;
 
