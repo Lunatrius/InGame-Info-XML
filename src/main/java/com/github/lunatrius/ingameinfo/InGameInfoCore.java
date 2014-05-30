@@ -1209,9 +1209,24 @@ public class InGameInfoCore {
 				updatePotionEffects();
 				int index = Integer.parseInt(var.substring(19));
 				if (this.potionEffects.length > index) {
-					return Integer.toString((this.potionEffects[index]).getDuration());
+					return Integer.toString(this.potionEffects[index].getDuration());
 				}
 				return "0";
+			} else if (var.matches("potionicon\\d+")) {
+				updatePotionEffects();
+				int index = Integer.parseInt(var.substring(10));
+				if (this.potionEffects.length > index) {
+					Potion potion = Potion.potionTypes[this.potionEffects[index].getPotionID()];
+					if (potion.hasStatusIcon()) {
+						InfoIcon icon = new InfoIcon("textures/gui/container/inventory.png");
+						int i = potion.getStatusIconIndex();
+						icon.setDisplayDimensions(1, -1, 18 / 2, 18 / 2);
+						icon.setTextureData(0 + i % 8 * 18, 198 + i / 8 * 18, 18, 18, 256, 256);
+						this.infoItemQueue.add(icon);
+						return getIconTag(icon);
+					}
+				}
+				return "";
 			} else if (var.equalsIgnoreCase("memmax")) {
 				return Long.toString(Runtime.getRuntime().maxMemory());
 			} else if (var.equalsIgnoreCase("memtotal")) {
