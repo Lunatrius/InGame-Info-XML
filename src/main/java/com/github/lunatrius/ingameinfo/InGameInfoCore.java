@@ -23,6 +23,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiPlayerInfo;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.resources.I18n;
@@ -1269,6 +1270,39 @@ public class InGameInfoCore {
 					return "-1";
 				}
 				return str.substring(str.indexOf(":") + 1);
+			} else if (var.equalsIgnoreCase("ping")) {
+				List<GuiPlayerInfo> list = this.player.sendQueue.playerInfoList;
+				for (GuiPlayerInfo playerInfo : list) {
+					if (this.player.getGameProfile().getName().equals(playerInfo.name)) {
+						return Integer.toString(playerInfo.responseTime);
+					}
+				}
+				return "-1";
+			} else if (var.equalsIgnoreCase("pingicon")) {
+				List<GuiPlayerInfo> list = this.player.sendQueue.playerInfoList;
+				for (GuiPlayerInfo playerInfo : list) {
+					if (this.player.getGameProfile().getName().equals(playerInfo.name)) {
+						int pingIndex = 4;
+						if (playerInfo.responseTime < 0) {
+							pingIndex = 5;
+						} else if (playerInfo.responseTime < 150) {
+							pingIndex = 0;
+						} else if (playerInfo.responseTime < 300) {
+							pingIndex = 1;
+						} else if (playerInfo.responseTime < 600) {
+							pingIndex = 2;
+						} else if (playerInfo.responseTime < 1000) {
+							pingIndex = 3;
+						}
+
+						InfoIcon icon = new InfoIcon("textures/gui/icons.png");
+						icon.setDisplayDimensions(0, 0, 10, 8);
+						icon.setTextureData(0, 176 + pingIndex * 8, 10, 8, 256, 256);
+						this.infoItemQueue.add(icon);
+						return getIconTag(icon);
+					}
+				}
+				return "-1";
 			} else if (var.equalsIgnoreCase("black")) {
 				return "\u00a70";
 			} else if (var.equalsIgnoreCase("darkblue") || var.equalsIgnoreCase("navy")) {
