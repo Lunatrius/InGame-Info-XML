@@ -1093,6 +1093,8 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("entitiestotal")) {
 				String str = this.minecraftClient.getEntityDebug();
 				return str.substring(str.indexOf('/') + 1, str.indexOf('.'));
+			} else if (var.equalsIgnoreCase("loadedchunks")) {
+				return Integer.toString(this.world.getChunkProvider().getLoadedChunkCount());
 			} else if (var.equalsIgnoreCase("daytime")) {
 				return Boolean.toString(this.world.calculateSkylightSubtracted(1.0f) < 4);
 			} else if (var.equalsIgnoreCase("raining")) {
