@@ -188,7 +188,7 @@ public class InGameInfoCore {
 	}
 
 	public void onTickClient() {
-		ScaledResolution scaledResolution = new ScaledResolution(this.minecraftClient.gameSettings, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
+		ScaledResolution scaledResolution = new ScaledResolution(this.minecraftClient, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
 
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;

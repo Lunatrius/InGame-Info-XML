@@ -1,5 +1,6 @@
-package com.github.lunatrius.ingameinfo;
+package com.github.lunatrius.ingameinfo.handler;
 
+import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -11,8 +12,6 @@ import static cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 
 public class Ticker {
 	public static boolean enabled = true;
-	public static boolean showInChat = true;
-	public static boolean showOnPlayerList = true;
 
 	private final Minecraft client;
 	private final InGameInfoCore core;
@@ -39,7 +38,7 @@ public class Ticker {
 			}
 
 			if (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo) {
-				if (!showOnPlayerList && this.client.gameSettings.keyBindPlayerList.getIsKeyPressed()) {
+				if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.getIsKeyPressed()) {
 					return false;
 				}
 
@@ -47,7 +46,7 @@ public class Ticker {
 					return true;
 				}
 
-				if (showInChat && this.client.currentScreen instanceof GuiChat) {
+				if (ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat) {
 					return true;
 				}
 			}

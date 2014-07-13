@@ -1,8 +1,8 @@
 package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
-import com.github.lunatrius.ingameinfo.Ticker;
-import com.github.lunatrius.ingameinfo.lib.Reference;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.handler.Ticker;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
@@ -71,14 +71,14 @@ public class InGameInfoCommand extends CommandBase {
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("reload")) {
 				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.reload"));
-				Reference.config.reload();
+				ConfigurationHandler.reload();
 				this.core.reloadConfig();
 				return;
 			} else if (args[0].equalsIgnoreCase("load")) {
 				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.load", args[1]));
 				if (this.core.loadConfig(args[1])) {
-					Reference.config.setConfigName(args[1]);
-					Reference.config.save();
+					ConfigurationHandler.setConfigName(args[1]);
+					ConfigurationHandler.save();
 				}
 				return;
 			} else if (args[0].equalsIgnoreCase("save")) {
@@ -101,6 +101,6 @@ public class InGameInfoCommand extends CommandBase {
 
 	@Override
 	public int compareTo(Object obj) {
-		return 0;
+		return super.compareTo(obj);
 	}
 }

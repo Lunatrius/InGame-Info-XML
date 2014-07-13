@@ -1,13 +1,10 @@
-package com.github.lunatrius.ingameinfo;
+package com.github.lunatrius.ingameinfo.proxy;
 
 import net.minecraft.server.MinecraftServer;
 
 import java.io.File;
 
 public class CommonProxy {
-	public void initializeVariables() {
-	}
-
 	public void setupConfig(File file) {
 	}
 

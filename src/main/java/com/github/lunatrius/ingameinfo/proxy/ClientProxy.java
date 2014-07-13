@@ -1,10 +1,9 @@
-package com.github.lunatrius.ingameinfo.client;
+package com.github.lunatrius.ingameinfo.proxy;
 
-import com.github.lunatrius.ingameinfo.CommonProxy;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
-import com.github.lunatrius.ingameinfo.Ticker;
 import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
-import com.github.lunatrius.ingameinfo.lib.Reference;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.handler.Ticker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -15,22 +14,17 @@ public class ClientProxy extends CommonProxy {
 	private final InGameInfoCore core = InGameInfoCore.instance;
 
 	@Override
-	public void initializeVariables() {
-		Ticker.showInChat = Reference.config.getShowInChat();
-		Ticker.showOnPlayerList = Reference.config.getShowOnPlayerList();
-	}
-
-	@Override
 	public void setupConfig(File file) {
 		this.core.setConfigDirectory(file);
 		this.core.copyDefaultConfig();
-		this.core.setConfigFile(Reference.config.getConfigName());
+		this.core.setConfigFile(ConfigurationHandler.configName);
 		this.core.reloadConfig();
 	}
 
 	@Override
 	public void registerEvents() {
 		FMLCommonHandler.instance().bus().register(new Ticker(this.core));
+		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 	}
 
 	@Override

@@ -1,3 +1,34 @@
+# GUI
+# ingameinfoxml.category.general=General
+# ingameinfoxml.category.general.tooltip=General options.
+# ingameinfoxml.category.alignment=Alignment
+# ingameinfoxml.category.alignment.tooltip=Alignment offset options.
+# ingameinfoxml.filename=Filename
+# ingameinfoxml.filename.tooltip=The configuration that that should be loaded on startup.
+# ingameinfoxml.showInChat=Show in chat
+# ingameinfoxml.showInChat.tooltip=Display the overlay in chat.
+# ingameinfoxml.showOnPlayerList=Show on player list
+# ingameinfoxml.showOnPlayerList.tooltip=Display the overlay on the player list.
+# ingameinfoxml.topleft=Top Left
+# ingameinfoxml.topleft.tooltip=Offsets for the top left size of the screen (X<space>Y).
+# ingameinfoxml.topcenter=Top Center
+# ingameinfoxml.topcenter.tooltip=Offsets for the top center size of the screen (X<space>Y).
+# ingameinfoxml.topright=Top Right
+# ingameinfoxml.topright.tooltip=Offsets for the top right size of the screen (X<space>Y).
+# ingameinfoxml.middleleft=Middle Left
+# ingameinfoxml.middleleft.tooltip=Offsets for the middle left size of the screen (X<space>Y).
+# ingameinfoxml.middlecenter=Middle Center
+# ingameinfoxml.middlecenter.tooltip=Offsets for the middle center size of the screen (X<space>Y).
+# ingameinfoxml.middleright=Middle Right
+# ingameinfoxml.middleright.tooltip=Offsets for the top middle right of the screen (X<space>Y).
+# ingameinfoxml.bottomleft=Bottom Left
+# ingameinfoxml.bottomleft.tooltip=Offsets for the bottom left size of the screen (X<space>Y).
+# ingameinfoxml.bottomcenter=Bottom Center
+# ingameinfoxml.bottomcenter.tooltip=Offsets for the bottom center size of the screen (X<space>Y).
+# ingameinfoxml.bottomright=Bottom Right
+# ingameinfoxml.bottomright.tooltip=Offsets for the top bottom right of the screen (X<space>Y).
+
+# Commands
 commands.igi.usage=/igi <reload|load|save|enable|disable> [имя файла]
 commands.igi.reload=Перегрузка...
 commands.igi.load=Загрузка %s...

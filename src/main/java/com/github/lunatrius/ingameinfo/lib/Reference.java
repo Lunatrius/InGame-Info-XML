@@ -1,6 +1,5 @@
 package com.github.lunatrius.ingameinfo.lib;
 
-import com.github.lunatrius.ingameinfo.config.Config;
 import com.google.common.base.Throwables;
 import org.apache.logging.log4j.Logger;
 
@@ -16,7 +15,7 @@ public class Reference {
 			prop.load(stream);
 			stream.close();
 		} catch (Exception e) {
-			Throwables.propagate(e);
+			throw Throwables.propagate(e);
 		}
 
 		VERSION = prop.getProperty("version.mod");
@@ -29,9 +28,9 @@ public class Reference {
 	public static final String VERSION;
 	public static final String FORGE;
 	public static final String MINECRAFT;
-	public static final String PROXY_COMMON = "com.github.lunatrius.ingameinfo.CommonProxy";
-	public static final String PROXY_CLIENT = "com.github.lunatrius.ingameinfo.client.ClientProxy";
+	public static final String PROXY_COMMON = "com.github.lunatrius.ingameinfo.proxy.CommonProxy";
+	public static final String PROXY_CLIENT = "com.github.lunatrius.ingameinfo.proxy.ClientProxy";
+	public static final String GUI_FACTORY = "com.github.lunatrius.ingameinfo.client.gui.GuiFactory";
 
 	public static Logger logger = null;
-	public static Config config = null;
 }
