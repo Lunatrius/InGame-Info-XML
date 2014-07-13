@@ -1,10 +1,10 @@
-package com.github.lunatrius.ingameinfo.serializer.xml;
+package com.github.lunatrius.ingameinfo.printer.xml;
 
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.lib.Reference;
-import com.github.lunatrius.ingameinfo.serializer.ISerializer;
+import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -19,9 +19,9 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-public class XmlSerializer implements ISerializer {
+public class XmlPrinter implements IPrinter {
 	@Override
-	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
+	public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder;
 		try {

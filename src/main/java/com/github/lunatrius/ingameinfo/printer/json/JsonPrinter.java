@@ -1,10 +1,10 @@
-package com.github.lunatrius.ingameinfo.serializer.json;
+package com.github.lunatrius.ingameinfo.printer.json;
 
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.lib.Reference;
-import com.github.lunatrius.ingameinfo.serializer.ISerializer;
+import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -16,9 +16,9 @@ import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
 
-public class JsonSerializer implements ISerializer {
+public class JsonPrinter implements IPrinter {
 	@Override
-	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
+	public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
 		try {
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileWriter);

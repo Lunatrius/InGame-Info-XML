@@ -1,10 +1,10 @@
-package com.github.lunatrius.ingameinfo.serializer.text;
+package com.github.lunatrius.ingameinfo.printer.text;
 
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.lib.Reference;
-import com.github.lunatrius.ingameinfo.serializer.ISerializer;
+import com.github.lunatrius.ingameinfo.printer.IPrinter;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,9 +15,9 @@ import java.util.Map;
 
 import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
-public class TextSerializer implements ISerializer {
+public class TextPrinter implements IPrinter {
 	@Override
-	public boolean save(File file, Map<Alignment, List<List<Value>>> format) {
+	public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
 		try {
 			FileWriter fileWriter = new FileWriter(file);
 			BufferedWriter writer = new BufferedWriter(fileWriter);

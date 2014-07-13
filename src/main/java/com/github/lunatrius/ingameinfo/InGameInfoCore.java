@@ -13,10 +13,10 @@ import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
 import com.github.lunatrius.ingameinfo.parser.xml.XmlParser;
-import com.github.lunatrius.ingameinfo.serializer.ISerializer;
-import com.github.lunatrius.ingameinfo.serializer.json.JsonSerializer;
-import com.github.lunatrius.ingameinfo.serializer.text.TextSerializer;
-import com.github.lunatrius.ingameinfo.serializer.xml.XmlSerializer;
+import com.github.lunatrius.ingameinfo.printer.IPrinter;
+import com.github.lunatrius.ingameinfo.printer.json.JsonPrinter;
+import com.github.lunatrius.ingameinfo.printer.text.TextPrinter;
+import com.github.lunatrius.ingameinfo.printer.xml.XmlPrinter;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.block.Block;
@@ -323,17 +323,17 @@ public class InGameInfoCore {
 	}
 
 	public boolean saveConfig(String filename) {
-		ISerializer serializer = null;
+		IPrinter printer = null;
 		File file = new File(this.configDirectory, filename);
 		if (filename.endsWith(".xml")) {
-			serializer = new XmlSerializer();
+			printer = new XmlPrinter();
 		} else if (filename.endsWith(".json")) {
-			serializer = new JsonSerializer();
+			printer = new JsonPrinter();
 		} else if (filename.endsWith(".txt")) {
-			serializer = new TextSerializer();
+			printer = new TextPrinter();
 		}
 
-		return serializer != null && serializer.save(file, this.format);
+		return printer != null && printer.print(file, this.format);
 	}
 
 	private String replaceVariables(String str) {
