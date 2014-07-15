@@ -64,7 +64,6 @@ public class ConfigurationHandler {
 			Property property = configuration.get(CATEGORY_ALIGNMENT, alignment.toString().toLowerCase(), alignment.getXY(), String.format(ALIGNMENT_DESC, alignment.toString()));
 			property.setLanguageKey(String.format("%s.%s", LANG_PREFIX, alignment.toString().toLowerCase()));
 			property.setValidationPattern(Pattern.compile("-?\\d+ -?\\d+"));
-			System.out.println(property.getLanguageKey());
 			propAlignments.put(alignment, property);
 			alignment.setXY(property.getString());
 		}
