@@ -25,6 +25,7 @@ import net.minecraft.client.gui.GuiPlayerInfo;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -77,6 +78,7 @@ public class InGameInfoCore {
 
 	private final Minecraft minecraftClient = Minecraft.getMinecraft();
 	private final Profiler profiler = this.minecraftClient.mcProfiler;
+	private final ResourcePackRepository resourcePackRepository = this.minecraftClient.getResourcePackRepository();
 	private MinecraftServer minecraftServer = null;
 	private World world = null;
 	private EntityClientPlayerMP player = null;
@@ -1043,9 +1045,12 @@ public class InGameInfoCore {
 				return String.format(Locale.ENGLISH, "%.0f", this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).rainfall * 100);
 			} else if (var.equalsIgnoreCase("username")) {
 				return this.player.getGameProfile().getName();
-			} else if (var.equalsIgnoreCase("texturepack") || var.equalsIgnoreCase("resourcepack")) {
-				// TODO: remove or figure out a way to display all resource packs
-				// return this.minecraftClient.getResourcePackRepository().getResourcePackName();
+			} else if (var.equalsIgnoreCase("resourcepack")) {
+				List<ResourcePackRepository.Entry> repositoryEntries = this.resourcePackRepository.getRepositoryEntries();
+				if (repositoryEntries.size() > 0) {
+					return repositoryEntries.get(0).getResourcePackName();
+				}
+				return this.resourcePackRepository.rprDefaultResourcePack.getPackName();
 			} else if (var.matches("nearbyplayername\\d+")) {
 				updateNearbyPlayers();
 				int index = Integer.parseInt(var.substring(16));
