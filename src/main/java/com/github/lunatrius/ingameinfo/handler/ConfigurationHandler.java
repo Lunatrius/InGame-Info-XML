@@ -26,7 +26,7 @@ public class ConfigurationHandler {
 	public static final String SHOWONPLAYERLIST_DESC = "Display the overlay on the player list.";
 
 	public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
-	public static final String LANG_PREFIX = Reference.MODID.toLowerCase();
+	public static final String LANG_PREFIX = Reference.MODID.toLowerCase() + ".config";
 
 	public static Configuration configuration;
 

@@ -1,37 +1,41 @@
-# GUI
-ingameinfoxml.category.general=General
-ingameinfoxml.category.general.tooltip=General options.
-ingameinfoxml.category.alignment=Alignment
-ingameinfoxml.category.alignment.tooltip=Alignment offset options.
-ingameinfoxml.filename=Filename
-ingameinfoxml.filename.tooltip=The configuration that that should be loaded on startup.
-ingameinfoxml.showInChat=Show in chat
-ingameinfoxml.showInChat.tooltip=Display the overlay in chat.
-ingameinfoxml.showOnPlayerList=Show on player list
-ingameinfoxml.showOnPlayerList.tooltip=Display the overlay on the player list.
-ingameinfoxml.topleft=Top Left
-ingameinfoxml.topleft.tooltip=Offsets for the top left size of the screen (X<space>Y).
-ingameinfoxml.topcenter=Top Center
-ingameinfoxml.topcenter.tooltip=Offsets for the top center size of the screen (X<space>Y).
-ingameinfoxml.topright=Top Right
-ingameinfoxml.topright.tooltip=Offsets for the top right size of the screen (X<space>Y).
-ingameinfoxml.middleleft=Middle Left
-ingameinfoxml.middleleft.tooltip=Offsets for the middle left size of the screen (X<space>Y).
-ingameinfoxml.middlecenter=Middle Center
-ingameinfoxml.middlecenter.tooltip=Offsets for the middle center size of the screen (X<space>Y).
-ingameinfoxml.middleright=Middle Right
-ingameinfoxml.middleright.tooltip=Offsets for the top middle right of the screen (X<space>Y).
-ingameinfoxml.bottomleft=Bottom Left
-ingameinfoxml.bottomleft.tooltip=Offsets for the bottom left size of the screen (X<space>Y).
-ingameinfoxml.bottomcenter=Bottom Center
-ingameinfoxml.bottomcenter.tooltip=Offsets for the bottom center size of the screen (X<space>Y).
-ingameinfoxml.bottomright=Bottom Right
-ingameinfoxml.bottomright.tooltip=Offsets for the top bottom right of the screen (X<space>Y).
+# gui - config - categories
+ingameinfoxml.config.category.general=General
+ingameinfoxml.config.category.general.tooltip=General options.
+ingameinfoxml.config.category.alignment=Alignment
+ingameinfoxml.config.category.alignment.tooltip=Alignment offset options.
 
-# Commands
-commands.igi.usage=/igi <reload|load|save|enable|disable> [filename]
-commands.igi.reload=Reloading...
-commands.igi.load=Loading %s...
-commands.igi.save=Saving %s...
-commands.igi.enable=InGame Info XML overlay is now enabled.
-commands.igi.disable=InGame Info XML overlay is now disabled.
+# gui - config - general
+ingameinfoxml.config.filename=Filename
+ingameinfoxml.config.filename.tooltip=The configuration that that should be loaded on startup.
+ingameinfoxml.config.showInChat=Show in Chat
+ingameinfoxml.config.showInChat.tooltip=Display the overlay in chat.
+ingameinfoxml.config.showOnPlayerList=Show on Player List
+ingameinfoxml.config.showOnPlayerList.tooltip=Display the overlay on the player list.
+
+# gui - config - alignment
+ingameinfoxml.config.topleft=Top Left
+ingameinfoxml.config.topleft.tooltip=Offsets for the top left size of the screen (X<space>Y).
+ingameinfoxml.config.topcenter=Top Center
+ingameinfoxml.config.topcenter.tooltip=Offsets for the top center size of the screen (X<space>Y).
+ingameinfoxml.config.topright=Top Right
+ingameinfoxml.config.topright.tooltip=Offsets for the top right size of the screen (X<space>Y).
+ingameinfoxml.config.middleleft=Middle Left
+ingameinfoxml.config.middleleft.tooltip=Offsets for the middle left size of the screen (X<space>Y).
+ingameinfoxml.config.middlecenter=Middle Center
+ingameinfoxml.config.middlecenter.tooltip=Offsets for the middle center size of the screen (X<space>Y).
+ingameinfoxml.config.middleright=Middle Right
+ingameinfoxml.config.middleright.tooltip=Offsets for the top middle right of the screen (X<space>Y).
+ingameinfoxml.config.bottomleft=Bottom Left
+ingameinfoxml.config.bottomleft.tooltip=Offsets for the bottom left size of the screen (X<space>Y).
+ingameinfoxml.config.bottomcenter=Bottom Center
+ingameinfoxml.config.bottomcenter.tooltip=Offsets for the bottom center size of the screen (X<space>Y).
+ingameinfoxml.config.bottomright=Bottom Right
+ingameinfoxml.config.bottomright.tooltip=Offsets for the top bottom right of the screen (X<space>Y).
+
+# commands
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [filename]
+commands.ingameinfoxml.reload=Reloading...
+commands.ingameinfoxml.load=Loading %s...
+commands.ingameinfoxml.save=Saving %s...
+commands.ingameinfoxml.enable=InGame Info XML overlay is now enabled.
+commands.ingameinfoxml.disable=InGame Info XML overlay is now disabled.

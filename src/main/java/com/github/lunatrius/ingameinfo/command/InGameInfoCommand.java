@@ -27,7 +27,7 @@ public class InGameInfoCommand extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender commandSender) {
-		return "commands.igi.usage";
+		return "commands.ingameinfoxml.usage";
 	}
 
 	@Override
@@ -70,27 +70,27 @@ public class InGameInfoCommand extends CommandBase {
 	public void processCommand(ICommandSender commandSender, String[] args) {
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("reload")) {
-				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.reload"));
+				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.reload"));
 				ConfigurationHandler.reload();
 				this.core.reloadConfig();
 				return;
 			} else if (args[0].equalsIgnoreCase("load")) {
-				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.load", args[1]));
+				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.load", args[1]));
 				if (this.core.loadConfig(args[1])) {
 					ConfigurationHandler.setConfigName(args[1]);
 					ConfigurationHandler.save();
 				}
 				return;
 			} else if (args[0].equalsIgnoreCase("save")) {
-				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.save", args[1]));
+				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.save", args[1]));
 				this.core.saveConfig(args[1]);
 				return;
 			} else if (args[0].equalsIgnoreCase("enable")) {
-				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.enable"));
+				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.enable"));
 				Ticker.enabled = true;
 				return;
 			} else if (args[0].equalsIgnoreCase("disable")) {
-				commandSender.addChatMessage(new ChatComponentTranslation("commands.igi.disable"));
+				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.disable"));
 				Ticker.enabled = false;
 				return;
 			}
