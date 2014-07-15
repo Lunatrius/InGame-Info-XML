@@ -1,0 +1,41 @@
+# gui - config - categories
+ingameinfoxml.config.category.general=Général
+ingameinfoxml.config.category.general.tooltip=Options générale.
+ingameinfoxml.config.category.alignment=Alignement
+ingameinfoxml.config.category.alignment.tooltip=Options d'alignement de l'interface
+
+# gui - config - general
+ingameinfoxml.config.filename=Nom du Fichier
+ingameinfoxml.config.filename.tooltip=La configuration qui devra charger au démarrage.
+ingameinfoxml.config.showInChat=Afficher le Chat
+ingameinfoxml.config.showInChat.tooltip=Afficher l'interface dans le chat.
+ingameinfoxml.config.showOnPlayerList=Afficher la liste des joueurs
+ingameinfoxml.config.showOnPlayerList.tooltip=Afficher l'interface dans la liste des joueurs.
+
+# gui - config - alignment
+ingameinfoxml.config.topleft=En haut à gauche
+ingameinfoxml.config.topleft.tooltip=Décalage de la taille de l'interface en haut à gauche (X<espace>Y).
+ingameinfoxml.config.topcenter=En haut au centre
+ingameinfoxml.config.topcenter.tooltipDécalage de la taille de l'interface en haut au centre (X<espace>Y).
+ingameinfoxml.config.topright=En haut à droite
+ingameinfoxml.config.topright.tooltip=Décalage de la taille de l'interface en haut à droite (X<espace>Y).
+ingameinfoxml.config.middleleft=Au millieu à gauche
+ingameinfoxml.config.middleleft.tooltip=Décalage de la taille de l'interface au millieu à gauche (X<espace>Y).
+ingameinfoxml.config.middlecenter=Au centre
+ingameinfoxml.config.middlecenter.tooltip=Décalage de la taille de l'interface au centre de l'écran (X<espace>Y).
+ingameinfoxml.config.middleright=Au millieu à droite
+ingameinfoxml.config.middleright.tooltip=Décalage de la taille de l'interface au millieu à droite (X<espace>Y).
+ingameinfoxml.config.bottomleft=En bas à gauche
+ingameinfoxml.config.bottomleft.tooltip=Décalage de la taille de l'interface en bas à gauche (X<espace>Y).
+ingameinfoxml.config.bottomcenter=En bas au centre
+ingameinfoxml.config.bottomcenter.tooltip=Décalage de la taille de l'interface en bas au centre (X<espace>Y).
+ingameinfoxml.config.bottomright=En bas à droite
+ingameinfoxml.config.bottomright.tooltip=Décalage de la taille de l'interface en bas à droite (X<espace>Y).
+
+# commands
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [nondufichier]
+commands.ingameinfoxml.reload=Rechargement...
+commands.ingameinfoxml.load=Chargement de %s...
+commands.ingameinfoxml.save=Sauvegarde de %s...
+commands.ingameinfoxml.enable=L'interface de InGame Info XML est désormais activé.
+commands.ingameinfoxml.disable=L'interface de InGame Info XML est désormais désactivé.
