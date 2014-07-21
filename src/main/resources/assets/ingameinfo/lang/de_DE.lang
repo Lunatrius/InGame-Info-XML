@@ -7,6 +7,8 @@
 # gui - config - general
 # ingameinfoxml.config.filename=Filename
 # ingameinfoxml.config.filename.tooltip=The configuration that that should be loaded on startup.
+# ingameinfoxml.config.replaceDebug=Replace Debug Overlay
+# ingameinfoxml.config.replaceDebug.tooltip=Replace the debug overlay (F3) with the InGameInfoXML overlay.
 # ingameinfoxml.config.showInChat=Show in Chat
 # ingameinfoxml.config.showInChat.tooltip=Display the overlay in chat.
 # ingameinfoxml.config.showOnPlayerList=Show on Player List

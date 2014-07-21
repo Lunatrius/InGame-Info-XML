@@ -19,6 +19,9 @@ public class ConfigurationHandler {
 	public static final String FILENAME = "filename";
 	public static final String FILENAME_DESC = "The configuration that that should be loaded on startup.";
 
+	public static final String REPLACEDEBUG = "replaceDebug";
+	public static final String REPLACEDEBUG_DESC = "Replace the debug overlay (F3) with the InGameInfoXML overlay.";
+
 	public static final String SHOWINCHAT = "showInChat";
 	public static final String SHOWINCHAT_DESC = "Display the overlay in chat.";
 
@@ -31,10 +34,13 @@ public class ConfigurationHandler {
 	public static Configuration configuration;
 
 	public static String configName = "InGameInfo.xml";
+	// TODO: 1.8 - flip the default to true
+	public static boolean replaceDebug = false;
 	public static boolean showInChat = true;
 	public static boolean showOnPlayerList = true;
 
 	private static Property propConfigName = null;
+	private static Property propReplaceDebug = null;
 	private static Property propShowInChat = null;
 	private static Property propShowOnPlayerList = null;
 	private static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
@@ -51,6 +57,10 @@ public class ConfigurationHandler {
 		propConfigName.setLanguageKey(String.format("%s.%s", LANG_PREFIX, FILENAME));
 		propConfigName.setRequiresMcRestart(true);
 		configName = propConfigName.getString();
+
+		propReplaceDebug = configuration.get(CATEGORY_GENERAL, REPLACEDEBUG, replaceDebug, REPLACEDEBUG_DESC);
+		propReplaceDebug.setLanguageKey(String.format("%s.%s", LANG_PREFIX, REPLACEDEBUG));
+		replaceDebug = propReplaceDebug.getBoolean(replaceDebug);
 
 		propShowInChat = configuration.get(CATEGORY_GENERAL, SHOWINCHAT, showInChat, SHOWINCHAT_DESC);
 		propShowInChat.setLanguageKey(String.format("%s.%s", LANG_PREFIX, SHOWINCHAT));

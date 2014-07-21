@@ -7,6 +7,8 @@ ingameinfoxml.config.category.alignment.tooltip=Options d'alignement de l'interf
 # gui - config - general
 ingameinfoxml.config.filename=Nom du Fichier
 ingameinfoxml.config.filename.tooltip=La configuration qui devra charger au démarrage.
+# ingameinfoxml.config.replaceDebug=Replace Debug Overlay
+# ingameinfoxml.config.replaceDebug.tooltip=Replace the debug overlay (F3) with the InGameInfoXML overlay.
 ingameinfoxml.config.showInChat=Afficher le Chat
 ingameinfoxml.config.showInChat.tooltip=Afficher l'interface dans le chat.
 ingameinfoxml.config.showOnPlayerList=Afficher la liste des joueurs

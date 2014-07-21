@@ -7,6 +7,7 @@ import com.github.lunatrius.ingameinfo.handler.Ticker;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.ClientCommandHandler;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.io.File;
 
@@ -23,6 +24,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerEvents() {
+		MinecraftForge.EVENT_BUS.register(new Ticker(this.core));
 		FMLCommonHandler.instance().bus().register(new Ticker(this.core));
 		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 	}

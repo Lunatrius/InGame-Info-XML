@@ -6,6 +6,7 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiChat;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 
 import static cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
 import static cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
@@ -19,6 +20,13 @@ public class Ticker {
 	public Ticker(InGameInfoCore core) {
 		this.client = Minecraft.getMinecraft();
 		this.core = core;
+	}
+
+	@SubscribeEvent
+	public void onRenderGameOverlayEventPre(RenderGameOverlayEvent.Pre event) {
+		if (ConfigurationHandler.replaceDebug && event.type == RenderGameOverlayEvent.ElementType.DEBUG) {
+			event.setCanceled(true);
+		}
 	}
 
 	@SubscribeEvent
@@ -37,7 +45,8 @@ public class Ticker {
 				return true;
 			}
 
-			if (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo) {
+			// a && b || !a && !b  -->  a == b
+			if (this.client.gameSettings != null && ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
 				if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.getIsKeyPressed()) {
 					return false;
 				}
