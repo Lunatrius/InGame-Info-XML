@@ -22,12 +22,12 @@ public class Ticker {
 	}
 
 	@SubscribeEvent
-	public void tick(ClientTickEvent event) {
+	public void onClientTick(ClientTickEvent event) {
 		onTick(event);
 	}
 
 	@SubscribeEvent
-	public void tick(RenderTickEvent event) {
+	public void onRenderTick(RenderTickEvent event) {
 		onTick(event);
 	}
 
@@ -39,6 +39,10 @@ public class Ticker {
 
 			if (this.client.gameSettings != null && !this.client.gameSettings.showDebugInfo) {
 				if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.getIsKeyPressed()) {
+					return false;
+				}
+
+				if (this.client.gameSettings.hideGUI) {
 					return false;
 				}
 
