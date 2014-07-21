@@ -182,6 +182,10 @@ public class InGameInfoCore {
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
 
+		if (this.world == null || this.player == null) {
+			return;
+		}
+
 		this.playerPosition.setX((int) Math.floor(this.player.posX));
 		this.playerPosition.setY((int) Math.floor(this.player.posY));
 		this.playerPosition.setZ((int) Math.floor(this.player.posZ));
