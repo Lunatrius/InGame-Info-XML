@@ -13,15 +13,26 @@ public class InfoItem extends Info {
 	private final static RenderItem renderItem = new RenderItem();
 	private final ItemStack itemStack;
 	private final FontRenderer fontRenderer;
+	private final boolean large;
+	private final int size;
 
 	public InfoItem(FontRenderer fontRenderer, ItemStack itemStack) {
-		this(fontRenderer, itemStack, 0, 0);
+		this(fontRenderer, itemStack, false);
 	}
 
-	public InfoItem(FontRenderer fontRenderer, ItemStack itemStack, int x, int y) {
+	public InfoItem(FontRenderer fontRenderer, ItemStack itemStack, boolean large) {
+		this(fontRenderer, itemStack, large, 0, 0);
+	}
+
+	public InfoItem(FontRenderer fontRenderer, ItemStack itemStack, boolean large, int x, int y) {
 		super(x, y);
 		this.fontRenderer = fontRenderer;
 		this.itemStack = itemStack;
+		this.large = large;
+		this.size = large ? 16 : 8;
+		if (large) {
+			this.y = -4;
+		}
 	}
 
 	@Override
@@ -31,11 +42,15 @@ public class InfoItem extends Info {
 			RenderHelper.enableGUIStandardItemLighting();
 
 			GL11.glTranslatef(getX(), getY(), 0);
-			GL11.glScalef(0.5f, 0.5f, 0.5f);
+			if (!this.large) {
+				GL11.glScalef(0.5f, 0.5f, 0.5f);
+			}
 
 			renderItem.renderItemAndEffectIntoGUI(this.fontRenderer, textureManager, this.itemStack, 0, 0);
 
-			GL11.glScalef(2.0f, 2.0f, 2.0f);
+			if (!this.large) {
+				GL11.glScalef(2.0f, 2.0f, 2.0f);
+			}
 			GL11.glTranslatef(-getX(), -getY(), 0);
 
 			RenderHelper.disableStandardItemLighting();
@@ -45,12 +60,12 @@ public class InfoItem extends Info {
 
 	@Override
 	public int getWidth() {
-		return this.itemStack != null && this.itemStack.getItem() != null ? 8 : 0;
+		return this.itemStack != null && this.itemStack.getItem() != null ? this.size : 0;
 	}
 
 	@Override
 	public int getHeight() {
-		return this.itemStack != null && this.itemStack.getItem() != null ? 8 : 0;
+		return this.itemStack != null && this.itemStack.getItem() != null ? this.size : 0;
 	}
 
 	@Override

@@ -1118,7 +1118,7 @@ public class InGameInfoCore {
 				return Boolean.toString(this.player.isEating());
 			} else if (var.equalsIgnoreCase("invulnerable")) {
 				return Boolean.toString(this.player.isEntityInvulnerable());
-			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(uniquename|name|maxdamage|damage|damageleft|icon)")) {
+			} else if (var.matches("(equipped|helmet|chestplate|leggings|boots)(uniquename|name|maxdamage|damage|damageleft|icon|largeicon)")) {
 				ItemStack itemStack;
 
 				if (var.startsWith("equipped")) {
@@ -1150,7 +1150,7 @@ public class InGameInfoCore {
 				} else if (var.endsWith("damageleft")) {
 					return Integer.toString(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamageForDisplay() : 0);
 				} else if (var.endsWith("icon")) {
-					InfoItem item = new InfoItem(this.minecraftClient.fontRenderer, itemStack);
+					InfoItem item = new InfoItem(this.minecraftClient.fontRenderer, itemStack, var.endsWith("largeicon"));
 					this.infoItemQueue.add(item);
 					return getIconTag(item);
 				}
@@ -1193,15 +1193,20 @@ public class InGameInfoCore {
 					return Integer.toString(this.potionEffects[index].getDuration());
 				}
 				return "0";
-			} else if (var.matches("potionicon\\d+")) {
+			} else if (var.matches("potion(large)?icon\\d+")) {
 				updatePotionEffects();
-				int index = Integer.parseInt(var.substring(10));
+				boolean large = var.contains("large");
+				int index = Integer.parseInt(var.substring(large ? 15 : 10));
 				if (this.potionEffects.length > index) {
 					Potion potion = Potion.potionTypes[this.potionEffects[index].getPotionID()];
 					if (potion.hasStatusIcon()) {
 						InfoIcon icon = new InfoIcon("textures/gui/container/inventory.png");
 						int i = potion.getStatusIconIndex();
-						icon.setDisplayDimensions(1, -1, 18 / 2, 18 / 2);
+						if (large) {
+							icon.setDisplayDimensions(1, -5, 18, 18);
+						} else {
+							icon.setDisplayDimensions(1, -1, 18 / 2, 18 / 2);
+						}
 						icon.setTextureData(0 + i % 8 * 18, 198 + i / 8 * 18, 18, 18, 256, 256);
 						this.infoItemQueue.add(icon);
 						return getIconTag(icon);
