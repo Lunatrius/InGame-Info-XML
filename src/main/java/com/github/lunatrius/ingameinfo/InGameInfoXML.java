@@ -23,13 +23,11 @@ public class InGameInfoXML {
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
-
 		Reference.logger = event.getModLog();
-
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-
 		proxy.setupConfig(event.getModConfigurationDirectory());
+
+		VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
 	}
 
 	@EventHandler
