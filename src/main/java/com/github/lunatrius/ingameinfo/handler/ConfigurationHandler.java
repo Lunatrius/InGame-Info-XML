@@ -33,11 +33,16 @@ public class ConfigurationHandler {
 
 	public static Configuration configuration;
 
-	public static String configName = "InGameInfo.xml";
+	public static final String CONFIGNAME_DEFAULT = "InGameInfo.xml";
 	// TODO: 1.8 - flip the default to true
-	public static boolean replaceDebug = false;
-	public static boolean showInChat = true;
-	public static boolean showOnPlayerList = true;
+	public static final boolean REPLACEDEBUG_DEFAULT = false;
+	public static final boolean SHOWINCHAT_DEFAULT = true;
+	public static final boolean SHOWONPLAYERLIST_DEFAULT = true;
+
+	public static String configName = CONFIGNAME_DEFAULT;
+	public static boolean replaceDebug = REPLACEDEBUG_DEFAULT;
+	public static boolean showInChat = SHOWINCHAT_DEFAULT;
+	public static boolean showOnPlayerList = SHOWONPLAYERLIST_DEFAULT;
 
 	private static Property propConfigName = null;
 	private static Property propReplaceDebug = null;
@@ -53,22 +58,22 @@ public class ConfigurationHandler {
 	}
 
 	private static void loadConfiguration() {
-		propConfigName = configuration.get(CATEGORY_GENERAL, FILENAME, "InGameInfo.xml", FILENAME_DESC);
+		propConfigName = configuration.get(CATEGORY_GENERAL, FILENAME, CONFIGNAME_DEFAULT, FILENAME_DESC);
 		propConfigName.setLanguageKey(String.format("%s.%s", LANG_PREFIX, FILENAME));
 		propConfigName.setRequiresMcRestart(true);
 		configName = propConfigName.getString();
 
-		propReplaceDebug = configuration.get(CATEGORY_GENERAL, REPLACEDEBUG, replaceDebug, REPLACEDEBUG_DESC);
+		propReplaceDebug = configuration.get(CATEGORY_GENERAL, REPLACEDEBUG, REPLACEDEBUG_DEFAULT, REPLACEDEBUG_DESC);
 		propReplaceDebug.setLanguageKey(String.format("%s.%s", LANG_PREFIX, REPLACEDEBUG));
-		replaceDebug = propReplaceDebug.getBoolean(replaceDebug);
+		replaceDebug = propReplaceDebug.getBoolean(REPLACEDEBUG_DEFAULT);
 
-		propShowInChat = configuration.get(CATEGORY_GENERAL, SHOWINCHAT, showInChat, SHOWINCHAT_DESC);
+		propShowInChat = configuration.get(CATEGORY_GENERAL, SHOWINCHAT, SHOWINCHAT_DEFAULT, SHOWINCHAT_DESC);
 		propShowInChat.setLanguageKey(String.format("%s.%s", LANG_PREFIX, SHOWINCHAT));
-		showInChat = propShowInChat.getBoolean(showInChat);
+		showInChat = propShowInChat.getBoolean(SHOWINCHAT_DEFAULT);
 
-		propShowOnPlayerList = configuration.get(CATEGORY_GENERAL, SHOWONPLAYERLIST, showOnPlayerList, SHOWONPLAYERLIST_DESC);
+		propShowOnPlayerList = configuration.get(CATEGORY_GENERAL, SHOWONPLAYERLIST, SHOWONPLAYERLIST_DEFAULT, SHOWONPLAYERLIST_DESC);
 		propShowOnPlayerList.setLanguageKey(String.format("%s.%s", LANG_PREFIX, SHOWONPLAYERLIST));
-		showOnPlayerList = propShowOnPlayerList.getBoolean(showOnPlayerList);
+		showOnPlayerList = propShowOnPlayerList.getBoolean(SHOWONPLAYERLIST_DEFAULT);
 
 		for (Alignment alignment : Alignment.values()) {
 			Property property = configuration.get(CATEGORY_ALIGNMENT, alignment.toString().toLowerCase(), alignment.getXY(), String.format(ALIGNMENT_DESC, alignment.toString()));
