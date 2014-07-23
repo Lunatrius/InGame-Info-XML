@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.client.gui;
 
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
-import com.github.lunatrius.ingameinfo.lib.Reference;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import cpw.mods.fml.client.config.GuiConfig;
 import cpw.mods.fml.client.config.IConfigElement;
 import net.minecraft.client.gui.GuiScreen;

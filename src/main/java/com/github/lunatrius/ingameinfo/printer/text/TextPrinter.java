@@ -3,8 +3,8 @@ package com.github.lunatrius.ingameinfo.printer.text;
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
-import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.printer.IPrinter;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 
 import java.io.BufferedWriter;
 import java.io.File;

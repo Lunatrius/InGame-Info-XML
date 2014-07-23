@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.handler;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.lib.Reference;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;

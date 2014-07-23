@@ -3,8 +3,8 @@ package com.github.lunatrius.ingameinfo.printer.xml;
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.Utils;
 import com.github.lunatrius.ingameinfo.Value;
-import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.printer.IPrinter;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

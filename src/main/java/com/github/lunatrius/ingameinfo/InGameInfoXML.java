@@ -2,8 +2,8 @@ package com.github.lunatrius.ingameinfo;
 
 import com.github.lunatrius.core.version.VersionChecker;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
-import com.github.lunatrius.ingameinfo.lib.Reference;
 import com.github.lunatrius.ingameinfo.proxy.CommonProxy;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -13,7 +13,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, guiFactory = Reference.GUI_FACTORY)
+@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY)
 public class InGameInfoXML {
 	@Instance(Reference.MODID)
 	public static InGameInfoXML instance;
