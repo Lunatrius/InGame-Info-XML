@@ -13,6 +13,8 @@ ingameinfoxml.config.showInChat=Afficher le Chat
 ingameinfoxml.config.showInChat.tooltip=Afficher l'interface dans le chat.
 ingameinfoxml.config.showOnPlayerList=Afficher la liste des joueurs
 ingameinfoxml.config.showOnPlayerList.tooltip=Afficher l'interface dans la liste des joueurs.
+# ingameinfoxml.config.scale=Scale
+# ingameinfoxml.config.scale.tooltip=The overlay will be scaled by this amount.
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=En haut à gauche

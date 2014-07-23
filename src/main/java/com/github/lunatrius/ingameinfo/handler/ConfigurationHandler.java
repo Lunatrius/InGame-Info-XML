@@ -28,6 +28,9 @@ public class ConfigurationHandler {
 	public static final String SHOWONPLAYERLIST = "showOnPlayerList";
 	public static final String SHOWONPLAYERLIST_DESC = "Display the overlay on the player list.";
 
+	public static final String SCALE = "scale";
+	public static final String SCALE_DESC = "The overlay will be scaled by this amount.";
+
 	public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 	public static final String LANG_PREFIX = Reference.MODID.toLowerCase() + ".config";
 
@@ -38,16 +41,19 @@ public class ConfigurationHandler {
 	public static final boolean REPLACEDEBUG_DEFAULT = false;
 	public static final boolean SHOWINCHAT_DEFAULT = true;
 	public static final boolean SHOWONPLAYERLIST_DEFAULT = true;
+	public static final double SCALE_DEFAULT = 1.0;
 
 	public static String configName = CONFIGNAME_DEFAULT;
 	public static boolean replaceDebug = REPLACEDEBUG_DEFAULT;
 	public static boolean showInChat = SHOWINCHAT_DEFAULT;
 	public static boolean showOnPlayerList = SHOWONPLAYERLIST_DEFAULT;
+	public static float scale = (float) SCALE_DEFAULT;
 
 	private static Property propConfigName = null;
 	private static Property propReplaceDebug = null;
 	private static Property propShowInChat = null;
 	private static Property propShowOnPlayerList = null;
+	private static Property propScale = null;
 	private static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
 	public static void init(File configFile) {
@@ -74,6 +80,11 @@ public class ConfigurationHandler {
 		propShowOnPlayerList = configuration.get(CATEGORY_GENERAL, SHOWONPLAYERLIST, SHOWONPLAYERLIST_DEFAULT, SHOWONPLAYERLIST_DESC);
 		propShowOnPlayerList.setLanguageKey(String.format("%s.%s", LANG_PREFIX, SHOWONPLAYERLIST));
 		showOnPlayerList = propShowOnPlayerList.getBoolean(SHOWONPLAYERLIST_DEFAULT);
+
+		propScale = configuration.get(CATEGORY_GENERAL, SCALE, String.valueOf(SCALE_DEFAULT), SCALE_DESC);
+		propScale.setLanguageKey(String.format("%s.%s", LANG_PREFIX, SCALE));
+		propScale.setValidValues(new String[] { "0.5", "1.0", "1.5", "2.0" });
+		scale = (float) propScale.getDouble(SCALE_DEFAULT);
 
 		for (Alignment alignment : Alignment.values()) {
 			Property property = configuration.get(CATEGORY_ALIGNMENT, alignment.toString().toLowerCase(), alignment.getXY(), String.format(ALIGNMENT_DESC, alignment.toString()));

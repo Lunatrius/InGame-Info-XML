@@ -8,6 +8,7 @@ import com.github.lunatrius.ingameinfo.client.gui.Info;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
 import com.github.lunatrius.ingameinfo.client.gui.InfoText;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
 import com.github.lunatrius.ingameinfo.parser.text.TextParser;
@@ -178,6 +179,8 @@ public class InGameInfoCore {
 
 	public void onTickClient() {
 		ScaledResolution scaledResolution = new ScaledResolution(this.minecraftClient, this.minecraftClient.displayWidth, this.minecraftClient.displayHeight);
+		int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
+		int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
 
 		this.world = this.minecraftClient.theWorld;
 		this.player = this.minecraftClient.thePlayer;
@@ -221,7 +224,7 @@ public class InGameInfoCore {
 				if (!str.isEmpty()) {
 					String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
 
-					x = alignment.getX(scaledResolution.getScaledWidth(), fontRenderer.getStringWidth(processed));
+					x = alignment.getX(scaledWidth, fontRenderer.getStringWidth(processed));
 					InfoText text = new InfoText(fontRenderer, processed, x, 0);
 
 					if (this.infoItemQueue.size() > 0) {
@@ -241,7 +244,7 @@ public class InGameInfoCore {
 				}
 			}
 
-			y = alignment.getY(scaledResolution.getScaledHeight(), queue.size() * (fontRenderer.FONT_HEIGHT + 1));
+			y = alignment.getY(scaledHeight, queue.size() * (fontRenderer.FONT_HEIGHT + 1));
 			for (Info item : queue) {
 				item.y = y;
 				this.info.add(item);
@@ -256,11 +259,13 @@ public class InGameInfoCore {
 
 	public void onTickRender() {
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		GL11.glScalef(ConfigurationHandler.scale, ConfigurationHandler.scale, ConfigurationHandler.scale);
 
 		for (Info info : this.info) {
 			info.draw();
 		}
 
+		GL11.glScalef(1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale);
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
