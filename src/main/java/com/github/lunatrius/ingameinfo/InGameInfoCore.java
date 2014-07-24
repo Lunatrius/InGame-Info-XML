@@ -1085,12 +1085,11 @@ public class InGameInfoCore {
 			} else if (var.equalsIgnoreCase("daytime")) {
 				return Boolean.toString(this.world.calculateSkylightSubtracted(1.0f) < 4);
 			} else if (var.equalsIgnoreCase("raining")) {
-				return Boolean.toString(this.world.getRainStrength(1.0f) > 0.2f && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
+				return Boolean.toString(this.world.isRaining() && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
 			} else if (var.equalsIgnoreCase("thundering")) {
-				return Boolean.toString(this.world.getWorldInfo().isThundering() && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
+				return Boolean.toString(this.world.isThundering() && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).canSpawnLightningBolt());
 			} else if (var.equalsIgnoreCase("snowing")) {
-				BiomeGenBase biome = this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z);
-				return Boolean.toString(this.world.isRaining() && !biome.canSpawnLightningBolt() && !biome.equals(BiomeGenBase.desert) && !biome.equals(BiomeGenBase.desertHills));
+				return Boolean.toString(this.world.isRaining() && this.world.getBiomeGenForCoords(this.playerPosition.x, this.playerPosition.z).getEnableSnow());
 			} else if (var.equalsIgnoreCase("nextrain")) {
 				if (this.minecraftServer == null) {
 					return "?";
