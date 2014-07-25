@@ -36,10 +36,11 @@ public class TextPrinter implements IPrinter {
 
 	private void writeLines(BufferedWriter writer, Map<Alignment, List<List<Value>>> format) throws IOException {
 		for (Alignment alignment : Alignment.values()) {
-			if (format.containsKey(alignment)) {
+			List<List<Value>> lists = format.get(alignment);
+			if (lists != null) {
 				writer.write(String.format("<%s>", alignment.toString().toLowerCase()));
 
-				writeLine(writer, format.get(alignment));
+				writeLine(writer, lists);
 			}
 		}
 	}

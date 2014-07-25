@@ -42,10 +42,11 @@ public class JsonPrinter implements IPrinter {
 
 	private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
 		for (Alignment alignment : Alignment.values()) {
-			if (format.containsKey(alignment)) {
+			List<List<Value>> lists = format.get(alignment);
+			if (lists != null) {
 				JsonArray arrayLines = new JsonArray();
 
-				appendLine(arrayLines, format.get(alignment));
+				appendLine(arrayLines, lists);
 
 				if (arrayLines.size() > 0) {
 					jsonConfig.add(alignment.toString().toLowerCase(), arrayLines);

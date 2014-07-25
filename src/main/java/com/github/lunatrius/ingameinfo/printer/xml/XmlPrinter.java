@@ -51,11 +51,12 @@ public class XmlPrinter implements IPrinter {
 
 	private void appendLines(Document doc, Element config, Map<Alignment, List<List<Value>>> format) {
 		for (Alignment alignment : Alignment.values()) {
-			if (format.containsKey(alignment)) {
+			List<List<Value>> lists = format.get(alignment);
+			if (lists != null) {
 				Element elementLines = doc.createElement("lines");
 				elementLines.setAttribute("at", alignment.toString().toLowerCase());
 
-				appendLine(doc, elementLines, format.get(alignment));
+				appendLine(doc, elementLines, lists);
 
 				if (elementLines.hasChildNodes()) {
 					config.appendChild(elementLines);
