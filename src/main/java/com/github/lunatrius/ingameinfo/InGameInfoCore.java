@@ -29,6 +29,7 @@ import net.minecraft.client.resources.IResource;
 import net.minecraft.client.resources.ResourcePackRepository;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -702,6 +703,11 @@ public class InGameInfoCore {
 					int metadata = 0;
 					if (size == 2) {
 						metadata = getIntValue(value, 1);
+						// TODO: this needs a better workaround
+						Block block = GameData.getBlockRegistry().getObject(what);
+						if (block == Blocks.double_plant) {
+							metadata &= 7;
+						}
 					}
 
 					itemStack = new ItemStack(GameData.getItemRegistry().getObject(what), 1, metadata);
