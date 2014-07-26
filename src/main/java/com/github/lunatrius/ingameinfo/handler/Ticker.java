@@ -15,13 +15,8 @@ import static cpw.mods.fml.common.gameevent.TickEvent.RenderTickEvent;
 public class Ticker {
 	public static boolean enabled = true;
 
-	private final Minecraft client;
-	private final InGameInfoCore core;
-
-	public Ticker(InGameInfoCore core) {
-		this.client = Minecraft.getMinecraft();
-		this.core = core;
-	}
+	private final Minecraft client = Minecraft.getMinecraft();
+	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 
 	@SubscribeEvent
 	public void onRenderGameOverlayEventPre(RenderGameOverlayEvent.Pre event) {

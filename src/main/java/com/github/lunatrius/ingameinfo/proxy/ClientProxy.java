@@ -31,14 +31,14 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerEvents() {
-		MinecraftForge.EVENT_BUS.register(new Ticker(this.core));
-		FMLCommonHandler.instance().bus().register(new Ticker(this.core));
+		MinecraftForge.EVENT_BUS.register(new Ticker());
+		FMLCommonHandler.instance().bus().register(new Ticker());
 		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
 	}
 
 	@Override
 	public void registerCommands() {
-		ClientCommandHandler.instance.registerCommand(new InGameInfoCommand(this.core));
+		ClientCommandHandler.instance.registerCommand(new InGameInfoCommand());
 	}
 
 	@Override

@@ -14,11 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InGameInfoCommand extends CommandBase {
-	private InGameInfoCore core;
-
-	public InGameInfoCommand(InGameInfoCore core) {
-		this.core = core;
-	}
+	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 
 	@Override
 	public String getCommandName() {
