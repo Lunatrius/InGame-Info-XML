@@ -8,6 +8,9 @@ public class CommonProxy {
 	public void setupConfig(File file) {
 	}
 
+	public void registerTags() {
+	}
+
 	public void registerEvents() {
 	}
 

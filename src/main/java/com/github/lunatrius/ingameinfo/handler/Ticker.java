@@ -1,6 +1,7 @@
 package com.github.lunatrius.ingameinfo.handler;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.tag.Tag;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.relauncher.Side;
@@ -80,7 +81,8 @@ public class Ticker {
 			}
 
 			if ((!enabled || this.client.gameSettings == null) && event.type == TickEvent.Type.CLIENT) {
-				this.core.reset();
+				Tag.setServer(null);
+				Tag.releaseResources();
 			}
 			this.client.mcProfiler.endSection();
 		}

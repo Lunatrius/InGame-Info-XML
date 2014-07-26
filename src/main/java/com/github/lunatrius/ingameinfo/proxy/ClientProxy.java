@@ -4,6 +4,8 @@ import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
+import com.github.lunatrius.ingameinfo.tag.Tag;
+import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.client.ClientCommandHandler;
@@ -12,7 +14,7 @@ import net.minecraftforge.common.MinecraftForge;
 import java.io.File;
 
 public class ClientProxy extends CommonProxy {
-	private final InGameInfoCore core = InGameInfoCore.instance;
+	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 
 	@Override
 	public void setupConfig(File file) {
@@ -20,6 +22,11 @@ public class ClientProxy extends CommonProxy {
 		this.core.copyDefaultConfig();
 		this.core.setConfigFile(ConfigurationHandler.configName);
 		this.core.reloadConfig();
+	}
+
+	@Override
+	public void registerTags() {
+		TagRegistry.INSTANCE.init();
 	}
 
 	@Override
@@ -36,6 +43,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void setServer(MinecraftServer server) {
-		this.core.setServer(server);
+		Tag.setServer(server);
 	}
 }

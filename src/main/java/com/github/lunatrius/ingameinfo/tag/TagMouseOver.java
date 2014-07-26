@@ -1,0 +1,147 @@
+package com.github.lunatrius.ingameinfo.tag;
+
+import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import cpw.mods.fml.common.registry.GameData;
+import net.minecraft.block.Block;
+import net.minecraft.entity.EntityList;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
+
+public abstract class TagMouseOver extends Tag {
+	public static class Name extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+					return objectMouseOver.entityHit.func_145748_c_().getFormattedText();
+				} else if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+					if (block != null) {
+						ItemStack pickBlock = block.getPickBlock(objectMouseOver, world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+						if (pickBlock != null) {
+							return pickBlock.getDisplayName();
+						}
+						return block.getLocalizedName();
+					}
+				}
+			}
+			return "";
+		}
+	}
+
+	public static class UniqueName extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+					String name = EntityList.getEntityString(objectMouseOver.entityHit);
+					if (name != null) {
+						return name;
+					}
+				} else if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+					if (block != null) {
+						return GameData.getBlockRegistry().getNameForObject(block);
+					}
+				}
+			}
+			return "";
+		}
+	}
+
+	public static class Id extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+					return String.valueOf(objectMouseOver.entityHit.getEntityId());
+				} else if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+					if (block != null) {
+						return String.valueOf(GameData.getBlockRegistry().getId(block));
+					}
+				}
+			}
+			return "0";
+		}
+	}
+
+	public static class Metadata extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					return String.valueOf(world.getBlockMetadata(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ));
+				}
+			}
+			return "0";
+		}
+	}
+
+	public static class PowerWeak extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+					if (block != null) {
+						int power = -1;
+						for (int side = 0; side < 6; side++) {
+							power = Math.max(power, block.isProvidingWeakPower(world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+						}
+						return String.valueOf(power);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
+
+	public static class PowerStrong extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+					if (block != null) {
+						int power = -1;
+						for (int side = 0; side < 6; side++) {
+							power = Math.max(power, block.isProvidingStrongPower(world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+						}
+						return String.valueOf(power);
+					}
+				}
+			}
+			return "-1";
+		}
+	}
+
+	public static class PowerInput extends TagMouseOver {
+		@Override
+		public String getValue() {
+			MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+			if (objectMouseOver != null) {
+				if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
+					return String.valueOf(world.getBlockPowerInput(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ));
+				}
+			}
+			return "-1";
+		}
+	}
+
+	public static void register() {
+		TagRegistry.INSTANCE.register(new Name(), "mouseovername");
+		TagRegistry.INSTANCE.register(new UniqueName(), "mouseoveruniquename");
+		TagRegistry.INSTANCE.register(new Id(), "mouseoverid");
+		TagRegistry.INSTANCE.register(new Metadata(), "mouseovermetadata");
+		TagRegistry.INSTANCE.register(new PowerWeak(), "mouseoverpowerweak");
+		TagRegistry.INSTANCE.register(new PowerStrong(), "mouseoverpowerstrong");
+		TagRegistry.INSTANCE.register(new PowerInput(), "mouseoverpowerinput");
+	}
+}
