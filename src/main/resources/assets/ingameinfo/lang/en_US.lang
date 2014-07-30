@@ -18,23 +18,23 @@ ingameinfoxml.config.scale.tooltip=The overlay will be scaled by this amount.
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left
-ingameinfoxml.config.topleft.tooltip=Offsets for the top left size of the screen (X<space>Y).
+ingameinfoxml.config.topleft.tooltip=Offsets for the top left side of the screen (X<space>Y).
 ingameinfoxml.config.topcenter=Top Center
-ingameinfoxml.config.topcenter.tooltip=Offsets for the top center size of the screen (X<space>Y).
+ingameinfoxml.config.topcenter.tooltip=Offsets for the top center side of the screen (X<space>Y).
 ingameinfoxml.config.topright=Top Right
-ingameinfoxml.config.topright.tooltip=Offsets for the top right size of the screen (X<space>Y).
+ingameinfoxml.config.topright.tooltip=Offsets for the top right side of the screen (X<space>Y).
 ingameinfoxml.config.middleleft=Middle Left
-ingameinfoxml.config.middleleft.tooltip=Offsets for the middle left size of the screen (X<space>Y).
+ingameinfoxml.config.middleleft.tooltip=Offsets for the middle left side of the screen (X<space>Y).
 ingameinfoxml.config.middlecenter=Middle Center
-ingameinfoxml.config.middlecenter.tooltip=Offsets for the middle center size of the screen (X<space>Y).
+ingameinfoxml.config.middlecenter.tooltip=Offsets for the middle center side of the screen (X<space>Y).
 ingameinfoxml.config.middleright=Middle Right
-ingameinfoxml.config.middleright.tooltip=Offsets for the top middle right of the screen (X<space>Y).
+ingameinfoxml.config.middleright.tooltip=Offsets for the middle right side of the screen (X<space>Y).
 ingameinfoxml.config.bottomleft=Bottom Left
-ingameinfoxml.config.bottomleft.tooltip=Offsets for the bottom left size of the screen (X<space>Y).
+ingameinfoxml.config.bottomleft.tooltip=Offsets for the bottom left side of the screen (X<space>Y).
 ingameinfoxml.config.bottomcenter=Bottom Center
-ingameinfoxml.config.bottomcenter.tooltip=Offsets for the bottom center size of the screen (X<space>Y).
+ingameinfoxml.config.bottomcenter.tooltip=Offsets for the bottom center side of the screen (X<space>Y).
 ingameinfoxml.config.bottomright=Bottom Right
-ingameinfoxml.config.bottomright.tooltip=Offsets for the top bottom right of the screen (X<space>Y).
+ingameinfoxml.config.bottomright.tooltip=Offsets for the bottom right side of the screen (X<space>Y).
 
 # gui - tag list
 gui.ingameinfoxml.taglist=Tag List

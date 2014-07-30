@@ -18,23 +18,23 @@ ingameinfoxml.config.showOnPlayerList.tooltip=Afficher l'interface dans la liste
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=En haut à gauche
-ingameinfoxml.config.topleft.tooltip=Décalage de la taille de l'interface en haut à gauche (X<espace>Y).
+# ingameinfoxml.config.topleft.tooltip=Offsets for the top left side of the screen (X<space>Y).
 ingameinfoxml.config.topcenter=En haut au centre
-ingameinfoxml.config.topcenter.tooltip=Décalage de la taille de l'interface en haut au centre (X<espace>Y).
+# ingameinfoxml.config.topcenter.tooltip=Offsets for the top center side of the screen (X<space>Y).
 ingameinfoxml.config.topright=En haut à droite
-ingameinfoxml.config.topright.tooltip=Décalage de la taille de l'interface en haut à droite (X<espace>Y).
+# ingameinfoxml.config.topright.tooltip=Offsets for the top right side of the screen (X<space>Y).
 ingameinfoxml.config.middleleft=Au millieu à gauche
-ingameinfoxml.config.middleleft.tooltip=Décalage de la taille de l'interface au millieu à gauche (X<espace>Y).
+# ingameinfoxml.config.middleleft.tooltip=Offsets for the middle left side of the screen (X<space>Y).
 ingameinfoxml.config.middlecenter=Au centre
-ingameinfoxml.config.middlecenter.tooltip=Décalage de la taille de l'interface au centre de l'écran (X<espace>Y).
+# ingameinfoxml.config.middlecenter.tooltip=Offsets for the middle center side of the screen (X<space>Y).
 ingameinfoxml.config.middleright=Au millieu à droite
-ingameinfoxml.config.middleright.tooltip=Décalage de la taille de l'interface au millieu à droite (X<espace>Y).
+# ingameinfoxml.config.middleright.tooltip=Offsets for the middle right side of the screen (X<space>Y).
 ingameinfoxml.config.bottomleft=En bas à gauche
-ingameinfoxml.config.bottomleft.tooltip=Décalage de la taille de l'interface en bas à gauche (X<espace>Y).
+# ingameinfoxml.config.bottomleft.tooltip=Offsets for the bottom left side of the screen (X<space>Y).
 ingameinfoxml.config.bottomcenter=En bas au centre
-ingameinfoxml.config.bottomcenter.tooltip=Décalage de la taille de l'interface en bas au centre (X<espace>Y).
+# ingameinfoxml.config.bottomcenter.tooltip=Offsets for the bottom center side of the screen (X<space>Y).
 ingameinfoxml.config.bottomright=En bas à droite
-ingameinfoxml.config.bottomright.tooltip=Décalage de la taille de l'interface en bas à droite (X<espace>Y).
+# ingameinfoxml.config.bottomright.tooltip=Offsets for the bottom right side of the screen (X<space>Y).
 
 # gui - tag list
 # gui.ingameinfoxml.taglist=Tag List
