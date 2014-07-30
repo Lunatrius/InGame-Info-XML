@@ -1,0 +1,248 @@
+# gui - config - categories
+ingameinfoxml.config.category.general=Generelt
+ingameinfoxml.config.category.general.tooltip=Generelle innstillinger.
+ingameinfoxml.config.category.alignment=Justering
+ingameinfoxml.config.category.alignment.tooltip=Justeringsinnstillinger.
+
+# gui - config - general
+ingameinfoxml.config.filename=Filnavn
+ingameinfoxml.config.filename.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
+ingameinfoxml.config.replaceDebug=Erstatt feilsøkingsdata
+ingameinfoxml.config.replaceDebug.tooltip=Erstatt feilsøkingsdataene (F3) med InGameInfoXML-data.
+ingameinfoxml.config.showInChat=Vis i chat
+ingameinfoxml.config.showInChat.tooltip=Vis data i chat.
+ingameinfoxml.config.showOnPlayerList=Vis på spillerlisten
+ingameinfoxml.config.showOnPlayerList.tooltip=Vis data på spillerlisten.
+ingameinfoxml.config.scale=Størrelse
+ingameinfoxml.config.scale.tooltip=Datavisningen vil bli skalert med denne mengden.
+
+# gui - config - alignment
+ingameinfoxml.config.topleft=Øverst til venstre
+ingameinfoxml.config.topleft.tooltip=Forskyvning for øverst til venstre på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.topcenter=Øverst i midten
+ingameinfoxml.config.topcenter.tooltip=Forskyvning for øverst i midten på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.topright=Øverst til høyre
+ingameinfoxml.config.topright.tooltip=Forskyvning for øverst til høyre på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.middleleft=Til venstre på midten
+ingameinfoxml.config.middleleft.tooltip=Forskyvning for venstre side på midten av skjermen (X<mellomrom>Y).
+ingameinfoxml.config.middlecenter=På midten
+ingameinfoxml.config.middlecenter.tooltip=Forskyvning for midt på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.middleright=Til høyre på midten
+ingameinfoxml.config.middleright.tooltip=Forskyvning for høyre side på midten av skjermen (X<mellomrom>Y).
+ingameinfoxml.config.bottomleft=Nederst til venstre
+ingameinfoxml.config.bottomleft.tooltip=Forskyvning for nederst til venstre på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.bottomcenter=Nederst i midten
+ingameinfoxml.config.bottomcenter.tooltip=Forskyvning for nederst i midten på skjermen (X<mellomrom>Y).
+ingameinfoxml.config.bottomright=Nederst til høyre
+ingameinfoxml.config.bottomright.tooltip=Forskyvning for nederst til høyre på skjermen (X<mellomrom>Y).
+
+# gui - tag list
+gui.ingameinfoxml.taglist=Liste over tagger
+
+# gui - tag list - categories
+ingameinfoxml.tag.category.formatting.name=Formatering
+ingameinfoxml.tag.category.misc.name=Diverse
+ingameinfoxml.tag.category.mouseover.name=Musepekeren over
+ingameinfoxml.tag.category.nearbyplayer.name=Spillere i nærheten
+ingameinfoxml.tag.category.playerequipment.name=Spiller - utstyr
+ingameinfoxml.tag.category.playergeneral.name=Spiller - generelt
+ingameinfoxml.tag.category.playerposition.name=Spiller - posisjon
+ingameinfoxml.tag.category.playerpotion.name=Spiller - trylledrikkeffekter
+ingameinfoxml.tag.category.time.name=Tid
+ingameinfoxml.tag.category.world.name=Verden
+
+# gui - tag list - formatting tags
+ingameinfoxml.tag.black.desc=Svart farge (§0EKSEMPEL§r).
+ingameinfoxml.tag.darkblue.desc=Mørk blå farge (§1EKSEMPEL§r).
+ingameinfoxml.tag.darkgreen.desc=Mørk grønn farge (§2EKSEMPEL§r).
+ingameinfoxml.tag.darkaqua.desc=Mørk turkis farge (§3EKSEMPEL§r).
+ingameinfoxml.tag.darkred.desc=Mørk rød farge (§4EKSEMPEL§r).
+ingameinfoxml.tag.darkpurple.desc=Mørk lilla farge (§5EKSEMPEL§r).
+ingameinfoxml.tag.gold.desc=Gullfarge (§6EKSEMPEL§r).
+ingameinfoxml.tag.gray.desc=Grå farge (§7EKSEMPEL§r).
+ingameinfoxml.tag.darkgrey.desc=Mørk grå farge (§8EKSEMPEL§r).
+ingameinfoxml.tag.blue.desc=Blå farge (§9EKSEMPEL§r).
+ingameinfoxml.tag.green.desc=Grønn farge (§aEKSEMPEL§r).
+ingameinfoxml.tag.aqua.desc=Turkis farge (§bEKSEMPEL§r).
+ingameinfoxml.tag.red.desc=Rød farge (§cEKSEMPEL§r).
+ingameinfoxml.tag.lightpurple.desc=Lys lilla farge (§dEKSEMPEL§r).
+ingameinfoxml.tag.yellow.desc=Gul farge (§eEKSEMPEL§r).
+ingameinfoxml.tag.white.desc=Hvit farge (§fEKSEMPEL§r).
+ingameinfoxml.tag.obfuscated.desc=Maskert tekst (§kEKSEMPEL§r).
+ingameinfoxml.tag.bold.desc=Fet tekst (§lEKSEMPEL§r).
+ingameinfoxml.tag.strikethrough.desc=Gjennomstreket tekst (§mEKSEMPEL§r).
+ingameinfoxml.tag.underline.desc=Underlinjet tekst (§nEKSEMPEL§r).
+ingameinfoxml.tag.italic.desc=Kursiv tekst (§oEKSEMPEL§r).
+ingameinfoxml.tag.reset.desc=Nullstill formatering.
+
+# gui - tag list - misc
+ingameinfoxml.tag.memmax.desc=Mengde maksimalt minne.
+ingameinfoxml.tag.memtotal.desc=Mengde totalt minne.
+ingameinfoxml.tag.memfree.desc=Mengde ledig minne.
+ingameinfoxml.tag.memused.desc=Mengde brukt minne.
+ingameinfoxml.tag.fps.desc=Nåværende bildefrekvens.
+ingameinfoxml.tag.resourcepack.desc=Nåværende ressurspakke.
+ingameinfoxml.tag.entitiesrendered.desc=Antall gjengitte enheter.
+ingameinfoxml.tag.entitiestotal.desc=Antall innlastede enheter.
+ingameinfoxml.tag.loadedchunks.desc=Antall innlastede verdensblokker.
+ingameinfoxml.tag.server.desc=Tjenerens vertnavn eller IP-adresse og porten hvis den ikke er 25565, localhost hvis det er et lokalt spill.
+ingameinfoxml.tag.servername.desc=Tjenerens vertnavn, localhost hvis det er et lokalt spill.
+ingameinfoxml.tag.serverip.desc=Tjenerens IP-adresse, 127.0.0.1 hvis det er et lokalt spill.
+ingameinfoxml.tag.serverport.desc=Tjenerens port, -1 hvis det er et lokalt spill.
+ingameinfoxml.tag.ping.desc=Nåværende responstid, -1 hvis data mangler.
+ingameinfoxml.tag.pingicon.desc=Nåværende responstidsikon, ingen tekst hvis data mangler.
+
+# gui - tag list - mouse over
+ingameinfoxml.tag.mouseovername.desc=Navnet på enheten eller blokken under musepekeren, ingenting hvis det ikke er noen.
+ingameinfoxml.tag.mouseoveruniquename.desc=Unikt navn på enheten eller blokken under musepekeren, ingenting hvis det ikke er noen.
+ingameinfoxml.tag.mouseoverid.desc=Enhets- eller blokk-IDen under musepekeren, null hvis det ikke er noen.
+ingameinfoxml.tag.mouseovermetadata.desc=Blokkmetadata under musepekeren, null hvis det ikke er noen.
+ingameinfoxml.tag.mouseoverpowerweak.desc=Den svake rødsteinstrømmen til blokken, -1 hvis det ikke er noen.
+ingameinfoxml.tag.mouseoverpowerstrong.desc=Den sterke rødsteinstrømmen til blokken, -1 hvis det ikke er noen.
+ingameinfoxml.tag.mouseoverpowerinput.desc=Rødsteinstrømmen inn til blokken, -1 hvis det ikke er noen.
+
+# gui - tag list - nearby player
+ingameinfoxml.tag.nearbyplayerdistance.desc=Avstand til x-te nærmeste spiller.
+ingameinfoxml.tag.nearbyplayername.desc=Navnet på x-te nærmeste spiller.
+
+# gui - tag list - player equipment
+ingameinfoxml.tag.equippedname.desc=Navnet på utstyrt gjenstand.
+ingameinfoxml.tag.equippeduniquename.desc=Unikt navn på utstyrt gjenstand.
+ingameinfoxml.tag.equippeddamage.desc=Skaden på utstyrt gjenstand.
+ingameinfoxml.tag.equippedmaxdamage.desc=Maksimalskaden på utstyrt gjenstand.
+ingameinfoxml.tag.equippeddamageleft.desc=Gjenværende skade på utstyrt gjenstand.
+ingameinfoxml.tag.equippedquantity.desc=Antallet av den utstyrte gjenstanden i inventaret.
+ingameinfoxml.tag.equippedicon.desc=Ikonet til utstyrt gjenstand.
+ingameinfoxml.tag.equippedlargeicon.desc=Det store ikonet til utstyrt gjenstand.
+ingameinfoxml.tag.helmetname.desc=Hjelmens navn.
+ingameinfoxml.tag.helmetuniquename.desc=Hjelmens unike navn.
+ingameinfoxml.tag.helmetdamage.desc=Hjelmens skade.
+ingameinfoxml.tag.helmetmaxdamage.desc=Hjelmens maksimale skade.
+ingameinfoxml.tag.helmetdamageleft.desc=Hjelmens gjenværende skade.
+ingameinfoxml.tag.helmetquantity.desc=Antallet av hjelmen i inventaret.
+ingameinfoxml.tag.helmeticon.desc=Hjelmens ikon.
+ingameinfoxml.tag.helmetlargeicon.desc=Hjelmens store ikon.
+ingameinfoxml.tag.chestplatename.desc=Brystplatens navn.
+ingameinfoxml.tag.chestplateuniquename.desc=Brystplatens unike navn.
+ingameinfoxml.tag.chestplatedamage.desc=Brystplatens skade.
+ingameinfoxml.tag.chestplatemaxdamage.desc=Brystplatens maksimale skade.
+ingameinfoxml.tag.chestplatedamageleft.desc=Brystplatens gjenværende skade.
+ingameinfoxml.tag.chestplatequantity.desc=Antallet av brystplaten i inventaret.
+ingameinfoxml.tag.chestplateicon.desc=Brystplatens ikon.
+ingameinfoxml.tag.chestplatelargeicon.desc=Brystplatens store ikon.
+ingameinfoxml.tag.leggingsname.desc=Buksenes navn.
+ingameinfoxml.tag.leggingsuniquename.desc=Buksenes unike navn.
+ingameinfoxml.tag.leggingsdamage.desc=Buksenes skade.
+ingameinfoxml.tag.leggingsmaxdamage.desc=Buksenes maksimale skade.
+ingameinfoxml.tag.leggingsdamageleft.desc=Buksenes gjenværende skade.
+ingameinfoxml.tag.leggingsquantity.desc=Antallet av buksene i inventaret.
+ingameinfoxml.tag.leggingsicon.desc=Buksenes ikon.
+ingameinfoxml.tag.leggingslargeicon.desc=Buksenes store ikon.
+ingameinfoxml.tag.bootsname.desc=Støvlenes navn.
+ingameinfoxml.tag.bootsuniquename.desc=Støvlenes unike navn.
+ingameinfoxml.tag.bootsdamage.desc=Støvlenes skade.
+ingameinfoxml.tag.bootsmaxdamage.desc=Støvlenes maksimale skade.
+ingameinfoxml.tag.bootsdamageleft.desc=Støvlenes gjenværende skade.
+ingameinfoxml.tag.bootsquantity.desc=Antallet av støvlene i inventaret.
+ingameinfoxml.tag.bootsicon.desc=Støvlenes ikon.
+ingameinfoxml.tag.bootslargeicon.desc=Støvlenes store ikon.
+
+# gui - tag list - player general
+ingameinfoxml.tag.light.desc=Lysnivå på din nåværende posisjon.
+ingameinfoxml.tag.lightfeet.desc=Lysnivå på din nåværende posisjon (ved føttene).
+ingameinfoxml.tag.lightnosun.desc=Lysnivå på din nåværende posisjon uten sollys.
+ingameinfoxml.tag.lightnosunfeet.desc=Lysnivå på din nåværende posisjon uten sollys (ved føttene).
+ingameinfoxml.tag.score.desc=Spillerens poengsun.
+ingameinfoxml.tag.gamemode.desc=Spillerens spillmodusnavn.
+ingameinfoxml.tag.gamemodeid.desc=Spillerens spillmodus-ID.
+ingameinfoxml.tag.health.desc=Spillerens nåværende antall liv.
+ingameinfoxml.tag.maxhealth.desc=Spillerens maksimale antall liv.
+ingameinfoxml.tag.armorpoints.desc=Spillerens rustningspoeng.
+ingameinfoxml.tag.foodlevel.desc=Spillerens matnivå.
+ingameinfoxml.tag.saturation.desc=Spillerens metthet.
+ingameinfoxml.tag.airticks.desc=Spillerens gjenværende luftmengde.
+ingameinfoxml.tag.playerlevel.desc=Spillerens nivå.
+ingameinfoxml.tag.xpthislevel.desc=Spillerens nåværende erfaringsnivå.
+ingameinfoxml.tag.xpuntilnext.desc=Spillerens gjenværende erfaring før nytt nivå.
+ingameinfoxml.tag.xpcap.desc=Spillerens totale påkrevde erfaringsnivå for nåværende nivå.
+ingameinfoxml.tag.username.desc=Spillerens brukernavn.
+ingameinfoxml.tag.inwater.desc=§etrue§r hvis spilleren er under vann, §efalse§r ellers.
+ingameinfoxml.tag.wet.desc=§etrue§r hvis spilleren er våt, §efalse§r ellers.
+ingameinfoxml.tag.alive.desc=§etrue§r hvis spilleren lever, §efalse§r ellers.
+ingameinfoxml.tag.burning.desc=§etrue§r hvis spilleren brenner, §efalse§r ellers.
+ingameinfoxml.tag.riding.desc=§etrue§r hvis spilleren er ridende, §efalse§r ellers.
+ingameinfoxml.tag.sneaking.desc=§etrue§r hvis spilleren sniker, §efalse§r ellers.
+ingameinfoxml.tag.sprinting.desc=§etrue§r hvis spilleren sprinter, §efalse§r ellers.
+ingameinfoxml.tag.invisible.desc=§etrue§r hvis spilleren er usynlig, §efalse§r ellers.
+ingameinfoxml.tag.eating.desc=§etrue§r hvis spilleren spiser, §efalse§r ellers.
+ingameinfoxml.tag.invulnerable.desc=§etrue§r hvis spilleren er uskadelig, §efalse§r ellers.
+
+# gui - tag list - player position
+ingameinfoxml.tag.chunkx.desc=Spillerens X-verdensblokk-koordinat.
+ingameinfoxml.tag.chunkz.desc=Spillerens Z-verdensblokk-koordinat.
+ingameinfoxml.tag.chunkoffsetx.desc=Spillerens X-posisjon innenfor verdensblokken (0-15).
+ingameinfoxml.tag.chunkoffsetz.desc=Spillerens Z-posisjon innenfor verdensblokken (0-15).
+ingameinfoxml.tag.x.desc=Spillerens X-koordinat.
+ingameinfoxml.tag.y.desc=Spillerens Y-koordinat.
+ingameinfoxml.tag.yfeet.desc=Spillerens Y-koordinat (ved føttene).
+ingameinfoxml.tag.z.desc=Spillerens Z-koordinat.
+ingameinfoxml.tag.xi.desc=Spillerens X-koordinat rundet av til nærmeste hele tall.
+ingameinfoxml.tag.yi.desc=Spillerens Y-koordinat rundet av til nærmeste hele tall.
+ingameinfoxml.tag.yfeeti.desc=Spillerens Y-koordinat rundet av til nærmeste hele tall (ved føttene).
+ingameinfoxml.tag.zi.desc=Spillerens Z-koordinat rundet av til nærmeste hele tall.
+ingameinfoxml.tag.speed.desc=Spillerens hastighet.
+ingameinfoxml.tag.speedx.desc=Spillerens hastighet langs X-aksen.
+ingameinfoxml.tag.speedy.desc=Spillerens hastighet langs Y-aksen.
+ingameinfoxml.tag.speedz.desc=Spillerens hastighet langs Z-aksen.
+ingameinfoxml.tag.speedxz.desc=Spillerens horisontale hastighet.
+ingameinfoxml.tag.direction.desc=Spillerens retning i grader fra -180 til 180.
+ingameinfoxml.tag.roughdirection.desc=Omtrentlig retning spilleren ser i (sør, vest, nord, øst).
+ingameinfoxml.tag.finedirection.desc=Retning spilleren ser i (sør, sørvest, vest, nordvest, ...).
+ingameinfoxml.tag.abrroughdirection.desc=Forkortelse for omtrentlig retning spilleren ser i (S, V, N, Ø).
+ingameinfoxml.tag.abrfinedirection.desc=Forkortelse for retning spilleren er i (S, SV, V, NV, ...).
+ingameinfoxml.tag.directionhud.desc=En liten tekstbasert retnings-HUD.
+
+# gui - tag list - player potion
+ingameinfoxml.tag.potioneffect.desc=Navnet på den x-te trylledrikkeffekten.
+ingameinfoxml.tag.potionduration.desc=Varigheten på den x-te trylledrikkeffekten i sekunder.
+ingameinfoxml.tag.potiondurationticks.desc=Varigheten på den x-te trylledrikkeffekten i ticks.
+ingameinfoxml.tag.potionicon.desc=Ikonet til den x-te trylledrikkeffekten.
+ingameinfoxml.tag.potionlargeicon.desc=Det store ikonet til den x-te trylledrikkeffekten.
+
+# gui - tag list - time
+ingameinfoxml.tag.day.desc=Minecraft-dag, starter fra 0.
+ingameinfoxml.tag.mctimeh.desc=Minecraft-time.
+ingameinfoxml.tag.mctimem.desc=Minecraft-minutt.
+ingameinfoxml.tag.mctime24.desc=Minecraft-tid (24-timers format).
+ingameinfoxml.tag.mctime12.desc=Minecraft-tid (12-timers format).
+ingameinfoxml.tag.rltime24.desc=Virkelig tid (24-timers format).
+ingameinfoxml.tag.rltime12.desc=Virkelig tid (12-timers format).
+
+# gui - tag list - world
+ingameinfoxml.tag.worldname.desc=Navnet på verdenen.
+ingameinfoxml.tag.worldsize.desc=Størrelsen på verdenen.
+ingameinfoxml.tag.worldsizemb.desc=Størrelsen på verdenen i MiB.
+ingameinfoxml.tag.seed.desc=Generasjonsfrøet til verdenen.
+ingameinfoxml.tag.difficulty.desc=Navnet til vanskelighetsgraden på verdenen.
+ingameinfoxml.tag.difficultyid.desc=IDen til vanskelighetsgraden på verdenen.
+ingameinfoxml.tag.dimension.desc=Dimensjonsnavnet.
+ingameinfoxml.tag.dimensionid.desc=Dimensjons-IDen.
+ingameinfoxml.tag.biome.desc=Biomenavnet.
+ingameinfoxml.tag.biomeid.desc=Biome-IDen.
+ingameinfoxml.tag.daytime.desc=§etrue§r hvis det er dag, §efalse§r ellers.
+ingameinfoxml.tag.raining.desc=§etrue§r hvis det regner, §efalse§r ellers.
+ingameinfoxml.tag.thundering.desc=§etrue§r hvis det er torden, §efalse§r ellers.
+ingameinfoxml.tag.snowing.desc=§etrue§r hvis det snør, §efalse§r ellers.
+ingameinfoxml.tag.nextrain.desc=Tid til neste regnskyll.
+ingameinfoxml.tag.slimes.desc=§etrue§r hvis verdensblokken er en slime-blokk, §efalse§r ellers.
+ingameinfoxml.tag.hardcore.desc=§etrue§r hvis verdenen er i hardcore-modus, §efalse§r ellers.
+ingameinfoxml.tag.temperature.desc=Biometemperatur.
+ingameinfoxml.tag.humidity.desc=Biomefuktighet.
+
+# commands
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [filnavn]
+commands.ingameinfoxml.reload=Laster inn på nytt...
+commands.ingameinfoxml.load=Laster %s...
+commands.ingameinfoxml.save=Lagrer %s...
+commands.ingameinfoxml.enable=InGame Info XML-visningen er nå aktivert.
+commands.ingameinfoxml.disable=InGame Info XML-visningen er nå deaktivert.
