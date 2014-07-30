@@ -5,6 +5,11 @@ import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 public abstract class TagFormatting extends Tag {
 	private static final String SIGN = "\u00a7";
 
+	@Override
+	public String getCategory() {
+		return "formatting";
+	}
+
 	public static class Black extends TagFormatting {
 		@Override
 		public String getValue() {
@@ -40,14 +45,14 @@ public abstract class TagFormatting extends Tag {
 		}
 	}
 
-	public static class Purple extends TagFormatting {
+	public static class DarkPurple extends TagFormatting {
 		@Override
 		public String getValue() {
 			return SIGN + "5";
 		}
 	}
 
-	public static class Orange extends TagFormatting {
+	public static class Gold extends TagFormatting {
 		@Override
 		public String getValue() {
 			return SIGN + "6";
@@ -96,7 +101,7 @@ public abstract class TagFormatting extends Tag {
 		}
 	}
 
-	public static class Magenta extends TagFormatting {
+	public static class LightPurple extends TagFormatting {
 		@Override
 		public String getValue() {
 			return SIGN + "d";
@@ -160,27 +165,27 @@ public abstract class TagFormatting extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new Black(), "black");
-		TagRegistry.INSTANCE.register(new DarkBlue(), "darkblue", "navy");
-		TagRegistry.INSTANCE.register(new DarkGreen(), "darkgreen", "green");
-		TagRegistry.INSTANCE.register(new DarkAqua(), "darkaqua", "darkcyan", "turquoise");
-		TagRegistry.INSTANCE.register(new DarkRed(), "darkred");
-		TagRegistry.INSTANCE.register(new Purple(), "purple", "violet");
-		TagRegistry.INSTANCE.register(new Orange(), "orange", "gold");
-		TagRegistry.INSTANCE.register(new Gray(), "gray", "grey", "lightgray", "lightgrey");
-		TagRegistry.INSTANCE.register(new DarkGray(), "darkgrey", "darkgray", "charcoal");
-		TagRegistry.INSTANCE.register(new Blue(), "blue", "lightblue", "indigo");
-		TagRegistry.INSTANCE.register(new Green(), "brightgreen", "lightgreen", "lime");
-		TagRegistry.INSTANCE.register(new Aqua(), "aqua", "cyan", "celeste", "diamond");
-		TagRegistry.INSTANCE.register(new Red(), "red", "lightred", "salmon");
-		TagRegistry.INSTANCE.register(new Magenta(), "magenta", "pink");
-		TagRegistry.INSTANCE.register(new Yellow(), "yellow");
-		TagRegistry.INSTANCE.register(new White(), "white");
-		TagRegistry.INSTANCE.register(new Obfuscated(), "random", "obfuscated");
-		TagRegistry.INSTANCE.register(new Bold(), "bold", "b");
-		TagRegistry.INSTANCE.register(new Strikethrough(), "strikethrough", "strike", "s");
-		TagRegistry.INSTANCE.register(new Underline(), "underline", "u");
-		TagRegistry.INSTANCE.register(new Italic(), "italic", "italics", "i");
-		TagRegistry.INSTANCE.register(new Reset(), "reset", "r");
+		TagRegistry.INSTANCE.register(new Black().setName("black"));
+		TagRegistry.INSTANCE.register(new DarkBlue().setName("darkblue").setAliases("navy"));
+		TagRegistry.INSTANCE.register(new DarkGreen().setName("darkgreen"));
+		TagRegistry.INSTANCE.register(new DarkAqua().setName("darkaqua").setAliases("darkcyan", "turquoise"));
+		TagRegistry.INSTANCE.register(new DarkRed().setName("darkred"));
+		TagRegistry.INSTANCE.register(new DarkPurple().setName("darkpurple").setAliases("purple", "violet"));
+		TagRegistry.INSTANCE.register(new Gold().setName("gold").setAliases("orange"));
+		TagRegistry.INSTANCE.register(new Gray().setName("gray").setAliases("grey", "lightgray", "lightgrey"));
+		TagRegistry.INSTANCE.register(new DarkGray().setName("darkgrey").setAliases("darkgray", "charcoal"));
+		TagRegistry.INSTANCE.register(new Blue().setName("blue").setAliases("lightblue", "indigo"));
+		TagRegistry.INSTANCE.register(new Green().setName("green").setAliases("brightgreen", "lightgreen", "lime"));
+		TagRegistry.INSTANCE.register(new Aqua().setName("aqua").setAliases("cyan", "celeste", "diamond"));
+		TagRegistry.INSTANCE.register(new Red().setName("red").setAliases("lightred", "salmon"));
+		TagRegistry.INSTANCE.register(new LightPurple().setName("lightpurple").setAliases("magenta", "pink"));
+		TagRegistry.INSTANCE.register(new Yellow().setName("yellow"));
+		TagRegistry.INSTANCE.register(new White().setName("white"));
+		TagRegistry.INSTANCE.register(new Obfuscated().setName("obfuscated").setAliases("random"));
+		TagRegistry.INSTANCE.register(new Bold().setName("bold").setAliases("b"));
+		TagRegistry.INSTANCE.register(new Strikethrough().setName("strikethrough").setAliases("strike", "s"));
+		TagRegistry.INSTANCE.register(new Underline().setName("underline").setAliases("u"));
+		TagRegistry.INSTANCE.register(new Italic().setName("italic").setAliases("italics", "i"));
+		TagRegistry.INSTANCE.register(new Reset().setName("reset").setAliases("r"));
 	}
 }

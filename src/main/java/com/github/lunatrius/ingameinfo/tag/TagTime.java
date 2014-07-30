@@ -7,6 +7,11 @@ import java.util.Date;
 import java.util.Locale;
 
 public abstract class TagTime extends Tag {
+	@Override
+	public String getCategory() {
+		return "time";
+	}
+
 	public static class MinecraftDay extends TagTime {
 		@Override
 		public String getValue() {
@@ -77,12 +82,12 @@ public abstract class TagTime extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new MinecraftDay(), "day");
-		TagRegistry.INSTANCE.register(new MinecraftHour(), "mctimeh");
-		TagRegistry.INSTANCE.register(new MinecraftMinute(), "mctimem");
-		TagRegistry.INSTANCE.register(new Minecraft24(), "mctime24", "mctime");
-		TagRegistry.INSTANCE.register(new Minecraft12(), "mctime12");
-		TagRegistry.INSTANCE.register(new Real24(), "rltime24", "rltime");
-		TagRegistry.INSTANCE.register(new Real12(), "rltime12");
+		TagRegistry.INSTANCE.register(new MinecraftDay().setName("day"));
+		TagRegistry.INSTANCE.register(new MinecraftHour().setName("mctimeh"));
+		TagRegistry.INSTANCE.register(new MinecraftMinute().setName("mctimem"));
+		TagRegistry.INSTANCE.register(new Minecraft24().setName("mctime24").setAliases("mctime"));
+		TagRegistry.INSTANCE.register(new Minecraft12().setName("mctime12"));
+		TagRegistry.INSTANCE.register(new Real24().setName("rltime24").setAliases("rltime"));
+		TagRegistry.INSTANCE.register(new Real12().setName("rltime12"));
 	}
 }

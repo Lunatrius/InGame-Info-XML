@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.List;
 
 public abstract class TagNearbyPlayer extends Tag {
+	public static final int MAXIMUM_INDEX = 16;
+
 	private static final Comparator<EntityPlayer> PLAYER_DISTANCE_COMPARATOR = new Comparator<EntityPlayer>() {
 		@Override
 		public int compare(EntityPlayer playerA, EntityPlayer playerB) {
@@ -31,6 +33,36 @@ public abstract class TagNearbyPlayer extends Tag {
 
 	public TagNearbyPlayer(int index) {
 		this.index = index;
+	}
+
+	@Override
+	public String getName() {
+		return super.getName() + this.index;
+	}
+
+	@Override
+	public String[] getAliases() {
+		String[] aliases = super.getAliases();
+		String[] aliasesIndexed = new String[aliases.length];
+		for (int i = 0; i < aliases.length; i++) {
+			aliasesIndexed[i] = aliases[i] + this.index;
+		}
+		return aliasesIndexed;
+	}
+
+	@Override
+	public boolean isIndexed() {
+		return true;
+	}
+
+	@Override
+	public int getMaximumIndex() {
+		return MAXIMUM_INDEX - 1;
+	}
+
+	@Override
+	public String getCategory() {
+		return "nearbyplayer";
 	}
 
 	protected static void updateNearbyPlayers() {
@@ -78,9 +110,9 @@ public abstract class TagNearbyPlayer extends Tag {
 	}
 
 	public static void register() {
-		for (int i = 0; i < 16; i++) {
-			TagRegistry.INSTANCE.register(new Name(i), "nearbyplayername" + i);
-			TagRegistry.INSTANCE.register(new Distance(i), "nearbyplayerdistance" + i);
+		for (int i = 0; i < MAXIMUM_INDEX; i++) {
+			TagRegistry.INSTANCE.register(new Name(i).setName("nearbyplayername"));
+			TagRegistry.INSTANCE.register(new Distance(i).setName("nearbyplayerdistance"));
 		}
 	}
 

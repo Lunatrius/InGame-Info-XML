@@ -13,7 +13,9 @@ import com.github.lunatrius.ingameinfo.tag.TagPlayerPotion;
 import com.github.lunatrius.ingameinfo.tag.TagTime;
 import com.github.lunatrius.ingameinfo.tag.TagWorld;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TagRegistry {
@@ -35,17 +37,25 @@ public class TagRegistry {
 		this.stringTagMap.put(name.toLowerCase(), tag);
 	}
 
-	public void register(Tag tag, String name, String... extra) {
-		register(name, tag);
+	public void register(Tag tag) {
+		register(tag.getName(), tag);
 
-		for (String n : extra) {
-			register(n, tag);
+		for (String name : tag.getAliases()) {
+			register(name, tag);
 		}
 	}
 
 	public String getValue(String name) {
 		Tag tag = this.stringTagMap.get(name.toLowerCase());
 		return tag != null ? tag.getValue() : null;
+	}
+
+	public List<Tag> getRegisteredTags() {
+		List<Tag> tags = new ArrayList<Tag>();
+		for (Map.Entry<String, Tag> entry : this.stringTagMap.entrySet()) {
+			tags.add(entry.getValue());
+		}
+		return tags;
 	}
 
 	public void init() {

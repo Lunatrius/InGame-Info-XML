@@ -17,6 +17,11 @@ public abstract class TagPlayerEquipment extends Tag {
 		this.slot = slot;
 	}
 
+	@Override
+	public String getCategory() {
+		return "playerequipment";
+	}
+
 	protected ItemStack getItemStack(int slot) {
 		if (slot == -1) {
 			return player.getCurrentEquippedItem();
@@ -117,14 +122,14 @@ public abstract class TagPlayerEquipment extends Tag {
 
 	public static void register() {
 		for (int i = 0; i < TYPES.length; i++) {
-			TagRegistry.INSTANCE.register(new Name(SLOTS[i]), TYPES[i] + "name");
-			TagRegistry.INSTANCE.register(new UniqueName(SLOTS[i]), TYPES[i] + "uniquename");
-			TagRegistry.INSTANCE.register(new Damage(SLOTS[i]), TYPES[i] + "damage");
-			TagRegistry.INSTANCE.register(new MaximumDamage(SLOTS[i]), TYPES[i] + "maxdamage");
-			TagRegistry.INSTANCE.register(new DamageLeft(SLOTS[i]), TYPES[i] + "damageleft");
-			TagRegistry.INSTANCE.register(new Quantity(SLOTS[i]), TYPES[i] + "quantity");
-			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], false), TYPES[i] + "icon");
-			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true), TYPES[i] + "largeicon");
+			TagRegistry.INSTANCE.register(new Name(SLOTS[i]).setName(TYPES[i] + "name"));
+			TagRegistry.INSTANCE.register(new UniqueName(SLOTS[i]).setName(TYPES[i] + "uniquename"));
+			TagRegistry.INSTANCE.register(new Damage(SLOTS[i]).setName(TYPES[i] + "damage"));
+			TagRegistry.INSTANCE.register(new MaximumDamage(SLOTS[i]).setName(TYPES[i] + "maxdamage"));
+			TagRegistry.INSTANCE.register(new DamageLeft(SLOTS[i]).setName(TYPES[i] + "damageleft"));
+			TagRegistry.INSTANCE.register(new Quantity(SLOTS[i]).setName(TYPES[i] + "quantity"));
+			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], false).setName(TYPES[i] + "icon"));
+			TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
 		}
 	}
 }

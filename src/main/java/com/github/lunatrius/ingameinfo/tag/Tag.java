@@ -21,6 +21,45 @@ public abstract class Tag {
 	protected static boolean hasSeed = false;
 	protected static long seed = 0;
 
+	private String name = null;
+	private String[] aliases = new String[0];
+
+	public Tag setName(String name) {
+		this.name = name;
+		return this;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public Tag setAliases(String... aliases) {
+		this.aliases = aliases;
+		return this;
+	}
+
+	public String[] getAliases() {
+		return this.aliases;
+	}
+
+	public boolean isIndexed() {
+		return false;
+	}
+
+	public int getMaximumIndex() {
+		return -1;
+	}
+
+	public String getRawName() {
+		return this.name;
+	}
+
+	public String getFormattedName() {
+		return this.name + (isIndexed() ? String.format("[0..%d]", getMaximumIndex()) : "");
+	}
+
+	public abstract String getCategory();
+
 	public abstract String getValue();
 
 	public static void setServer(MinecraftServer server) {

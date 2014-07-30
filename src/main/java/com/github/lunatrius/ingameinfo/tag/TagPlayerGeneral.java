@@ -7,6 +7,11 @@ import net.minecraft.world.EnumSkyBlock;
 import java.util.Locale;
 
 public abstract class TagPlayerGeneral extends Tag {
+	@Override
+	public String getCategory() {
+		return "playergeneral";
+	}
+
 	public static class Light extends TagPlayerGeneral {
 		@Override
 		public String getValue() {
@@ -224,33 +229,33 @@ public abstract class TagPlayerGeneral extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new Light(), "light");
-		TagRegistry.INSTANCE.register(new LightFeet(), "lightfeet");
-		TagRegistry.INSTANCE.register(new LightNoSun(), "lightnosun");
-		TagRegistry.INSTANCE.register(new LightNoSunFeet(), "lightnosunfeet");
-		TagRegistry.INSTANCE.register(new Score(), "score");
-		TagRegistry.INSTANCE.register(new GameMode(), "gamemode");
-		TagRegistry.INSTANCE.register(new GameModeId(), "gamemodeid");
-		TagRegistry.INSTANCE.register(new Health(), "health", "healthpoints");
-		TagRegistry.INSTANCE.register(new MaxHealth(), "maxhealth");
-		TagRegistry.INSTANCE.register(new Armor(), "armor", "armorpoints");
-		TagRegistry.INSTANCE.register(new FoodLevel(), "foodlevel", "foodpoints");
-		TagRegistry.INSTANCE.register(new Saturation(), "saturation", "foodsaturation");
-		TagRegistry.INSTANCE.register(new AirTicks(), "airticks");
-		TagRegistry.INSTANCE.register(new PlayerLevel(), "playerlevel");
-		TagRegistry.INSTANCE.register(new CurrentExperience(), "xpthislevel");
-		TagRegistry.INSTANCE.register(new ExperienceUntilNext(), "xpuntilnext");
-		TagRegistry.INSTANCE.register(new ExperienceCap(), "xpcap");
-		TagRegistry.INSTANCE.register(new Username(), "username");
-		TagRegistry.INSTANCE.register(new InWater(), "inwater", "underwater");
-		TagRegistry.INSTANCE.register(new Wet(), "wet");
-		TagRegistry.INSTANCE.register(new Alive(), "alive");
-		TagRegistry.INSTANCE.register(new Burning(), "burning");
-		TagRegistry.INSTANCE.register(new Riding(), "riding");
-		TagRegistry.INSTANCE.register(new Sneaking(), "sneaking");
-		TagRegistry.INSTANCE.register(new Sprinting(), "sprinting");
-		TagRegistry.INSTANCE.register(new Invisible(), "invisible");
-		TagRegistry.INSTANCE.register(new Eating(), "eating");
-		TagRegistry.INSTANCE.register(new Invulnerable(), "invulnerable");
+		TagRegistry.INSTANCE.register(new Light().setName("light"));
+		TagRegistry.INSTANCE.register(new LightFeet().setName("lightfeet"));
+		TagRegistry.INSTANCE.register(new LightNoSun().setName("lightnosun"));
+		TagRegistry.INSTANCE.register(new LightNoSunFeet().setName("lightnosunfeet"));
+		TagRegistry.INSTANCE.register(new Score().setName("score"));
+		TagRegistry.INSTANCE.register(new GameMode().setName("gamemode"));
+		TagRegistry.INSTANCE.register(new GameModeId().setName("gamemodeid"));
+		TagRegistry.INSTANCE.register(new Health().setName("health").setAliases("healthpoints"));
+		TagRegistry.INSTANCE.register(new MaxHealth().setName("maxhealth"));
+		TagRegistry.INSTANCE.register(new Armor().setName("armor").setAliases("armorpoints"));
+		TagRegistry.INSTANCE.register(new FoodLevel().setName("foodlevel").setAliases("foodpoints"));
+		TagRegistry.INSTANCE.register(new Saturation().setName("saturation").setAliases("foodsaturation"));
+		TagRegistry.INSTANCE.register(new AirTicks().setName("airticks"));
+		TagRegistry.INSTANCE.register(new PlayerLevel().setName("playerlevel"));
+		TagRegistry.INSTANCE.register(new CurrentExperience().setName("xpthislevel"));
+		TagRegistry.INSTANCE.register(new ExperienceUntilNext().setName("xpuntilnext"));
+		TagRegistry.INSTANCE.register(new ExperienceCap().setName("xpcap"));
+		TagRegistry.INSTANCE.register(new Username().setName("username"));
+		TagRegistry.INSTANCE.register(new InWater().setName("inwater").setAliases("underwater"));
+		TagRegistry.INSTANCE.register(new Wet().setName("wet"));
+		TagRegistry.INSTANCE.register(new Alive().setName("alive"));
+		TagRegistry.INSTANCE.register(new Burning().setName("burning"));
+		TagRegistry.INSTANCE.register(new Riding().setName("riding"));
+		TagRegistry.INSTANCE.register(new Sneaking().setName("sneaking"));
+		TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
+		TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
+		TagRegistry.INSTANCE.register(new Eating().setName("eating"));
+		TagRegistry.INSTANCE.register(new Invulnerable().setName("invulnerable"));
 	}
 }

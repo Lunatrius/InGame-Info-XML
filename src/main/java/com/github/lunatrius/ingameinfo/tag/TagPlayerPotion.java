@@ -9,11 +9,43 @@ import net.minecraft.potion.PotionEffect;
 import java.util.Collection;
 
 public abstract class TagPlayerPotion extends Tag {
+	public static final int MAXIMUM_INDEX = Potion.potionTypes.length;
+
 	protected static PotionEffect[] potionEffects = null;
 	protected final int index;
 
 	public TagPlayerPotion(int index) {
 		this.index = index;
+	}
+
+	@Override
+	public String getName() {
+		return super.getName() + this.index;
+	}
+
+	@Override
+	public String[] getAliases() {
+		String[] aliases = super.getAliases();
+		String[] aliasesIndexed = new String[aliases.length];
+		for (int i = 0; i < aliases.length; i++) {
+			aliasesIndexed[i] = aliases[i] + this.index;
+		}
+		return aliasesIndexed;
+	}
+
+	@Override
+	public boolean isIndexed() {
+		return true;
+	}
+
+	@Override
+	public int getMaximumIndex() {
+		return MAXIMUM_INDEX - 1;
+	}
+
+	@Override
+	public String getCategory() {
+		return "playerpotion";
 	}
 
 	protected void updatePotionEffects() {
@@ -118,12 +150,12 @@ public abstract class TagPlayerPotion extends Tag {
 	}
 
 	public static void register() {
-		for (int i = 0; i < Potion.potionTypes.length; i++) {
-			TagRegistry.INSTANCE.register(new Effect(i), "potioneffect" + i);
-			TagRegistry.INSTANCE.register(new Duration(i), "potionduration" + i);
-			TagRegistry.INSTANCE.register(new DurationTicks(i), "potiondurationticks" + i);
-			TagRegistry.INSTANCE.register(new Icon(i, false), "potionicon" + i);
-			TagRegistry.INSTANCE.register(new Icon(i, true), "potionlargeicon" + i);
+		for (int i = 0; i < MAXIMUM_INDEX; i++) {
+			TagRegistry.INSTANCE.register(new Effect(i).setName("potioneffect"));
+			TagRegistry.INSTANCE.register(new Duration(i).setName("potionduration"));
+			TagRegistry.INSTANCE.register(new DurationTicks(i).setName("potiondurationticks"));
+			TagRegistry.INSTANCE.register(new Icon(i, false).setName("potionicon"));
+			TagRegistry.INSTANCE.register(new Icon(i, true).setName("potionlargeicon"));
 		}
 	}
 

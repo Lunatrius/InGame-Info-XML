@@ -8,6 +8,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 
 public abstract class TagMouseOver extends Tag {
+	@Override
+	public String getCategory() {
+		return "mouseover";
+	}
+
 	public static class Name extends TagMouseOver {
 		@Override
 		public String getValue() {
@@ -136,12 +141,12 @@ public abstract class TagMouseOver extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new Name(), "mouseovername");
-		TagRegistry.INSTANCE.register(new UniqueName(), "mouseoveruniquename");
-		TagRegistry.INSTANCE.register(new Id(), "mouseoverid");
-		TagRegistry.INSTANCE.register(new Metadata(), "mouseovermetadata");
-		TagRegistry.INSTANCE.register(new PowerWeak(), "mouseoverpowerweak");
-		TagRegistry.INSTANCE.register(new PowerStrong(), "mouseoverpowerstrong");
-		TagRegistry.INSTANCE.register(new PowerInput(), "mouseoverpowerinput");
+		TagRegistry.INSTANCE.register(new Name().setName("mouseovername"));
+		TagRegistry.INSTANCE.register(new UniqueName().setName("mouseoveruniquename"));
+		TagRegistry.INSTANCE.register(new Id().setName("mouseoverid"));
+		TagRegistry.INSTANCE.register(new Metadata().setName("mouseovermetadata"));
+		TagRegistry.INSTANCE.register(new PowerWeak().setName("mouseoverpowerweak"));
+		TagRegistry.INSTANCE.register(new PowerStrong().setName("mouseoverpowerstrong"));
+		TagRegistry.INSTANCE.register(new PowerInput().setName("mouseoverpowerinput"));
 	}
 }

@@ -1,7 +1,9 @@
 package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.client.gui.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.handler.DelayedGuiDisplayTicker;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -34,7 +36,7 @@ public class InGameInfoCommand extends CommandBase {
 	@Override
 	public List addTabCompletionOptions(ICommandSender commandSender, String[] args) {
 		if (args.length == 1) {
-			return getListOfStringsMatchingLastWord(args, "reload", "load", "save", "enable", "disable");
+			return getListOfStringsMatchingLastWord(args, "reload", "load", "save", "enable", "disable", "taglist");
 		} else if (args.length == 2) {
 			if (args[0].equalsIgnoreCase("load")) {
 				return getListOfStringsFromIterableMatchingLastWord(args, getFilenames());
@@ -88,6 +90,9 @@ public class InGameInfoCommand extends CommandBase {
 			} else if (args[0].equalsIgnoreCase("disable")) {
 				commandSender.addChatMessage(new ChatComponentTranslation("commands.ingameinfoxml.disable"));
 				Ticker.enabled = false;
+				return;
+			} else if (args[0].equalsIgnoreCase("taglist")) {
+				DelayedGuiDisplayTicker.create(new GuiTags(), 10);
 				return;
 			}
 		}

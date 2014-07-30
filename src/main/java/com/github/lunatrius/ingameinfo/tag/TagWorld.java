@@ -10,6 +10,11 @@ import net.minecraftforge.common.DimensionManager;
 import java.util.Locale;
 
 public abstract class TagWorld extends Tag {
+	@Override
+	public String getCategory() {
+		return "world";
+	}
+
 	public static class Name extends TagWorld {
 		@Override
 		public String getValue() {
@@ -184,24 +189,24 @@ public abstract class TagWorld extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new Name(), "worldname");
-		TagRegistry.INSTANCE.register(new Size(), "worldsize");
-		TagRegistry.INSTANCE.register(new SizeMB(), "worldsizemb");
-		TagRegistry.INSTANCE.register(new Seed(), "seed");
-		TagRegistry.INSTANCE.register(new Difficulty(), "difficulty");
-		TagRegistry.INSTANCE.register(new DifficultyId(), "difficultyid");
-		TagRegistry.INSTANCE.register(new Dimension(), "dimension");
-		TagRegistry.INSTANCE.register(new DimensionId(), "dimensionid");
-		TagRegistry.INSTANCE.register(new Biome(), "biome");
-		TagRegistry.INSTANCE.register(new BiomeId(), "biomeid");
-		TagRegistry.INSTANCE.register(new Daytime(), "daytime");
-		TagRegistry.INSTANCE.register(new Raining(), "raining");
-		TagRegistry.INSTANCE.register(new Thundering(), "thundering");
-		TagRegistry.INSTANCE.register(new Snowing(), "snowing");
-		TagRegistry.INSTANCE.register(new NextRain(), "nextrain");
-		TagRegistry.INSTANCE.register(new Slimes(), "slimes");
-		TagRegistry.INSTANCE.register(new Hardcore(), "hardcore");
-		TagRegistry.INSTANCE.register(new Temperature(), "temperature");
-		TagRegistry.INSTANCE.register(new Humidity(), "humidity");
+		TagRegistry.INSTANCE.register(new Name().setName("worldname"));
+		TagRegistry.INSTANCE.register(new Size().setName("worldsize"));
+		TagRegistry.INSTANCE.register(new SizeMB().setName("worldsizemb"));
+		TagRegistry.INSTANCE.register(new Seed().setName("seed"));
+		TagRegistry.INSTANCE.register(new Difficulty().setName("difficulty"));
+		TagRegistry.INSTANCE.register(new DifficultyId().setName("difficultyid"));
+		TagRegistry.INSTANCE.register(new Dimension().setName("dimension"));
+		TagRegistry.INSTANCE.register(new DimensionId().setName("dimensionid"));
+		TagRegistry.INSTANCE.register(new Biome().setName("biome"));
+		TagRegistry.INSTANCE.register(new BiomeId().setName("biomeid"));
+		TagRegistry.INSTANCE.register(new Daytime().setName("daytime"));
+		TagRegistry.INSTANCE.register(new Raining().setName("raining"));
+		TagRegistry.INSTANCE.register(new Thundering().setName("thundering"));
+		TagRegistry.INSTANCE.register(new Snowing().setName("snowing"));
+		TagRegistry.INSTANCE.register(new NextRain().setName("nextrain"));
+		TagRegistry.INSTANCE.register(new Slimes().setName("slimes"));
+		TagRegistry.INSTANCE.register(new Hardcore().setName("hardcore"));
+		TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));
+		TagRegistry.INSTANCE.register(new Humidity().setName("humidity"));
 	}
 }

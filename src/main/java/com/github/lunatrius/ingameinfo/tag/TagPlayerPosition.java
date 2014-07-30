@@ -19,6 +19,11 @@ public abstract class TagPlayerPosition extends Tag {
 			"S", "SW", "W", "NW", "N", "NE", "E", "SE"
 	};
 
+	@Override
+	public String getCategory() {
+		return "playerposition";
+	}
+
 	public static class ChunkX extends TagPlayerPosition {
 		@Override
 		public String getValue() {
@@ -194,28 +199,28 @@ public abstract class TagPlayerPosition extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new ChunkX(), "chunkx");
-		TagRegistry.INSTANCE.register(new ChunkZ(), "chunkz");
-		TagRegistry.INSTANCE.register(new ChunkOffsetX(), "chunkoffsetx");
-		TagRegistry.INSTANCE.register(new ChunkOffsetZ(), "chunkoffsetz");
-		TagRegistry.INSTANCE.register(new X(), "x", "xr");
-		TagRegistry.INSTANCE.register(new Y(), "y", "yr");
-		TagRegistry.INSTANCE.register(new YFeet(), "yfeet", "yfeetr");
-		TagRegistry.INSTANCE.register(new Z(), "z", "zr");
-		TagRegistry.INSTANCE.register(new Xi(), "xi");
-		TagRegistry.INSTANCE.register(new Yi(), "yi");
-		TagRegistry.INSTANCE.register(new YFeeti(), "yfeeti");
-		TagRegistry.INSTANCE.register(new Zi(), "zi");
-		TagRegistry.INSTANCE.register(new Speed(), "speed");
-		TagRegistry.INSTANCE.register(new SpeedX(), "speedx");
-		TagRegistry.INSTANCE.register(new SpeedY(), "speedy");
-		TagRegistry.INSTANCE.register(new SpeedZ(), "speedz");
-		TagRegistry.INSTANCE.register(new SpeedXZ(), "speedxz");
-		TagRegistry.INSTANCE.register(new Direction(), "direction");
-		TagRegistry.INSTANCE.register(new RoughDirection(), "roughdirection");
-		TagRegistry.INSTANCE.register(new FineDirection(), "finedirection");
-		TagRegistry.INSTANCE.register(new AbbreviatedRoughDirection(), "abrroughdirection");
-		TagRegistry.INSTANCE.register(new AbbreviatedFineDirection(), "abrfinedirection");
-		TagRegistry.INSTANCE.register(new DirectionHud(), "directionhud");
+		TagRegistry.INSTANCE.register(new ChunkX().setName("chunkx"));
+		TagRegistry.INSTANCE.register(new ChunkZ().setName("chunkz"));
+		TagRegistry.INSTANCE.register(new ChunkOffsetX().setName("chunkoffsetx"));
+		TagRegistry.INSTANCE.register(new ChunkOffsetZ().setName("chunkoffsetz"));
+		TagRegistry.INSTANCE.register(new X().setName("x").setAliases("xr"));
+		TagRegistry.INSTANCE.register(new Y().setName("y").setAliases("yr"));
+		TagRegistry.INSTANCE.register(new YFeet().setName("yfeet").setAliases("yfeetr"));
+		TagRegistry.INSTANCE.register(new Z().setName("z").setAliases("zr"));
+		TagRegistry.INSTANCE.register(new Xi().setName("xi"));
+		TagRegistry.INSTANCE.register(new Yi().setName("yi"));
+		TagRegistry.INSTANCE.register(new YFeeti().setName("yfeeti"));
+		TagRegistry.INSTANCE.register(new Zi().setName("zi"));
+		TagRegistry.INSTANCE.register(new Speed().setName("speed"));
+		TagRegistry.INSTANCE.register(new SpeedX().setName("speedx"));
+		TagRegistry.INSTANCE.register(new SpeedY().setName("speedy"));
+		TagRegistry.INSTANCE.register(new SpeedZ().setName("speedz"));
+		TagRegistry.INSTANCE.register(new SpeedXZ().setName("speedxz"));
+		TagRegistry.INSTANCE.register(new Direction().setName("direction"));
+		TagRegistry.INSTANCE.register(new RoughDirection().setName("roughdirection"));
+		TagRegistry.INSTANCE.register(new FineDirection().setName("finedirection"));
+		TagRegistry.INSTANCE.register(new AbbreviatedRoughDirection().setName("abrroughdirection"));
+		TagRegistry.INSTANCE.register(new AbbreviatedFineDirection().setName("abrfinedirection"));
+		TagRegistry.INSTANCE.register(new DirectionHud().setName("directionhud"));
 	}
 }

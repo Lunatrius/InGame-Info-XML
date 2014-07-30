@@ -10,6 +10,11 @@ import java.util.List;
 public abstract class TagMisc extends Tag {
 	protected static final ResourcePackRepository resourcePackRepository = minecraft.getResourcePackRepository();
 
+	@Override
+	public String getCategory() {
+		return "misc";
+	}
+
 	public static class MemoryMaximum extends TagMisc {
 		@Override
 		public String getValue() {
@@ -177,20 +182,20 @@ public abstract class TagMisc extends Tag {
 	}
 
 	public static void register() {
-		TagRegistry.INSTANCE.register(new MemoryMaximum(), "memmax");
-		TagRegistry.INSTANCE.register(new MemoryTotal(), "memtotal");
-		TagRegistry.INSTANCE.register(new MemoryFree(), "memfree");
-		TagRegistry.INSTANCE.register(new MemoryUsed(), "memused");
-		TagRegistry.INSTANCE.register(new FPS(), "fps");
-		TagRegistry.INSTANCE.register(new ResourcePack(), "resourcepack");
-		TagRegistry.INSTANCE.register(new EntitiesRendered(), "entitiesrendered");
-		TagRegistry.INSTANCE.register(new EntitiesTotal(), "entitiestotal");
-		TagRegistry.INSTANCE.register(new LoadedChunks(), "loadedchunks");
-		TagRegistry.INSTANCE.register(new Server(), "server");
-		TagRegistry.INSTANCE.register(new ServerName(), "servername");
-		TagRegistry.INSTANCE.register(new ServerIP(), "serverip");
-		TagRegistry.INSTANCE.register(new ServerPort(), "serverport");
-		TagRegistry.INSTANCE.register(new Ping(), "ping");
-		TagRegistry.INSTANCE.register(new PingIcon(), "pingicon");
+		TagRegistry.INSTANCE.register(new MemoryMaximum().setName("memmax"));
+		TagRegistry.INSTANCE.register(new MemoryTotal().setName("memtotal"));
+		TagRegistry.INSTANCE.register(new MemoryFree().setName("memfree"));
+		TagRegistry.INSTANCE.register(new MemoryUsed().setName("memused"));
+		TagRegistry.INSTANCE.register(new FPS().setName("fps"));
+		TagRegistry.INSTANCE.register(new ResourcePack().setName("resourcepack"));
+		TagRegistry.INSTANCE.register(new EntitiesRendered().setName("entitiesrendered"));
+		TagRegistry.INSTANCE.register(new EntitiesTotal().setName("entitiestotal"));
+		TagRegistry.INSTANCE.register(new LoadedChunks().setName("loadedchunks"));
+		TagRegistry.INSTANCE.register(new Server().setName("server"));
+		TagRegistry.INSTANCE.register(new ServerName().setName("servername"));
+		TagRegistry.INSTANCE.register(new ServerIP().setName("serverip"));
+		TagRegistry.INSTANCE.register(new ServerPort().setName("serverport"));
+		TagRegistry.INSTANCE.register(new Ping().setName("ping"));
+		TagRegistry.INSTANCE.register(new PingIcon().setName("pingicon"));
 	}
 }
