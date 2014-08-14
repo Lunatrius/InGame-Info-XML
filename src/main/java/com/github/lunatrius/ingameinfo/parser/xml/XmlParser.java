@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,15 +23,17 @@ public class XmlParser implements IParser {
 	private Document document;
 
 	@Override
-	public boolean load(File file) {
+	public boolean load(InputStream inputStream) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			this.document = dBuilder.parse(file);
+			this.document = dBuilder.parse(inputStream);
 			this.document.getDocumentElement().normalize();
 		} catch (Exception e) {
 			Reference.logger.fatal("Could not read xml configuration file!", e);
+			return false;
 		}
+
 		return true;
 	}
 

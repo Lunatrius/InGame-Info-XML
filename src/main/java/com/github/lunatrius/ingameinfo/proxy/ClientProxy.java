@@ -19,7 +19,6 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void setupConfig(File file) {
 		this.core.setConfigDirectory(file);
-		this.core.copyDefaultConfig();
 		this.core.setConfigFile(ConfigurationHandler.configName);
 		this.core.reloadConfig();
 	}

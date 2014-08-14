@@ -9,8 +9,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -22,25 +22,28 @@ public class JsonParser implements IParser {
 	private JsonElement element;
 
 	@Override
-	public boolean load(File file) {
+	public boolean load(InputStream inputStream) {
 		try {
-			FileReader fileReader = new FileReader(file);
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
 			com.google.gson.JsonParser parser = new com.google.gson.JsonParser();
 
-			this.element = parser.parse(fileReader);
+			this.element = parser.parse(inputStreamReader);
 
-			fileReader.close();
-
-			return true;
+			inputStreamReader.close();
 		} catch (Exception e) {
 			Reference.logger.fatal("Could not read json configuration file!", e);
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
 	public boolean parse(Map<Alignment, List<List<Value>>> format) {
+		if (!this.element.isJsonObject()) {
+			return false;
+		}
+
 		JsonObject config = this.element.getAsJsonObject();
 		Set<Map.Entry<String, JsonElement>> entries = config.entrySet();
 

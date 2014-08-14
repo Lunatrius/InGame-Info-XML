@@ -14,6 +14,7 @@ import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import com.github.lunatrius.ingameinfo.printer.json.JsonPrinter;
 import com.github.lunatrius.ingameinfo.printer.text.TextPrinter;
 import com.github.lunatrius.ingameinfo.printer.xml.XmlPrinter;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import cpw.mods.fml.common.registry.GameData;
@@ -32,13 +33,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -94,6 +91,9 @@ public class InGameInfoCore {
 				return true;
 			}
 		}
+
+		this.configFile = null;
+		this.parser = new XmlParser();
 		return false;
 	}
 
@@ -108,11 +108,11 @@ public class InGameInfoCore {
 		}
 		Tag.setWorld(world);
 
-		EntityClientPlayerMP player1 = this.minecraft.thePlayer;
-		if (player1 == null) {
+		EntityClientPlayerMP player = this.minecraft.thePlayer;
+		if (player == null) {
 			return;
 		}
-		Tag.setPlayer(player1);
+		Tag.setPlayer(player);
 
 		this.info.clear();
 		int x, y;
@@ -190,35 +190,6 @@ public class InGameInfoCore {
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	}
 
-	public void copyDefaultConfig() {
-		File configFile = new File(this.configDirectory, "InGameInfo.xml");
-
-		if (!configFile.exists()) {
-			try {
-				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", "InGameInfo.xml");
-				IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
-				InputStream inputStream = resource.getInputStream();
-
-				BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-				String defaultConfig = "";
-				String line;
-
-				while ((line = reader.readLine()) != null) {
-					defaultConfig += line + System.getProperty("line.separator");
-				}
-
-				inputStream.close();
-
-				FileWriter fileWriter = new FileWriter(configFile);
-				BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-				bufferedWriter.write(defaultConfig);
-				bufferedWriter.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
 	public boolean loadConfig(String filename) {
 		return setConfigFile(filename) && reloadConfig();
 	}
@@ -232,13 +203,37 @@ public class InGameInfoCore {
 			return false;
 		}
 
-		this.parser.load(this.configFile);
-		if (!this.parser.parse(this.format)) {
-			this.format.clear();
+		final InputStream inputStream = getInputStream();
+		if (inputStream == null) {
 			return false;
 		}
 
-		return true;
+		if (this.parser.load(inputStream) && this.parser.parse(this.format)) {
+			return true;
+		}
+
+		this.format.clear();
+		return false;
+	}
+
+	private InputStream getInputStream() {
+		InputStream inputStream = null;
+
+		try {
+			if (this.configFile != null && this.configFile.exists()) {
+				Reference.logger.debug("Loading file config...");
+				inputStream = new FileInputStream(this.configFile);
+			} else {
+				Reference.logger.debug("Loading default config...");
+				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", "InGameInfo.xml");
+				IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
+				inputStream = resource.getInputStream();
+			}
+		} catch (Exception e) {
+			Reference.logger.error("", e);
+		}
+
+		return inputStream;
 	}
 
 	public boolean saveConfig(String filename) {

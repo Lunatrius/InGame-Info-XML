@@ -7,8 +7,8 @@ import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,27 +32,26 @@ public class TextParser implements IParser {
 	}
 
 	@Override
-	public boolean load(File file) {
-		if (file.exists()) {
-			try {
-				FileReader fileReader = new FileReader(file);
-				BufferedReader reader = new BufferedReader(fileReader);
-				String line, content = "";
+	public boolean load(InputStream inputStream) {
+		try {
+			InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+			BufferedReader reader = new BufferedReader(inputStreamReader);
+			String line, content = "";
 
-				while ((line = reader.readLine()) != null) {
-					content += line + "\n";
-				}
-
-				reader.close();
-				fileReader.close();
-
-				this.tokenizer.tokenize(content);
-			} catch (Exception e) {
-				Reference.logger.fatal("Could not read text configuration file!", e);
+			while ((line = reader.readLine()) != null) {
+				content += line + "\n";
 			}
+
+			reader.close();
+			inputStreamReader.close();
+
+			this.tokenizer.tokenize(content);
+		} catch (Exception e) {
+			Reference.logger.fatal("Could not read text configuration file!", e);
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class TextParser implements IParser {
 			expr = alignments(format) && this.token.isEof();
 		} catch (Exception e) {
 			expr = false;
-			e.printStackTrace();
+			Reference.logger.error("Parsing failed!", e);
 		}
 
 		return expr;
