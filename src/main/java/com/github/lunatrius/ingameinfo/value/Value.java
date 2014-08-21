@@ -73,11 +73,11 @@ public abstract class Value {
 	}
 
 	protected String getValue(int index) {
-		return this.values.get(index).getValue();
+		return this.values.get(index).getReplacedValue();
 	}
 
 	protected int getIntValue() {
-		return Integer.parseInt(getValue());
+		return Integer.parseInt(getReplacedValue());
 	}
 
 	protected int getIntValue(int index) {
@@ -85,7 +85,7 @@ public abstract class Value {
 	}
 
 	protected double getDoubleValue() {
-		return Double.parseDouble(getValue());
+		return Double.parseDouble(getReplacedValue());
 	}
 
 	protected double getDoubleValue(int index) {
@@ -93,7 +93,7 @@ public abstract class Value {
 	}
 
 	protected boolean getBooleanValue() {
-		return Boolean.parseBoolean(getValue());
+		return Boolean.parseBoolean(getReplacedValue());
 	}
 
 	protected boolean getBooleanValue(int index) {
