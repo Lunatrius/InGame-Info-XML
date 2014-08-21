@@ -5,6 +5,9 @@ import net.minecraft.server.MinecraftServer;
 import java.io.File;
 
 public class CommonProxy {
+	public void registerValues() {
+	}
+
 	public void setupConfig(File file) {
 	}
 

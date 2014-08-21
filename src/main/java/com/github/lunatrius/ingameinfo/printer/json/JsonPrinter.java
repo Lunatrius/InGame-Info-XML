@@ -1,10 +1,9 @@
 package com.github.lunatrius.ingameinfo.printer.json;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.Utils;
-import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.value.Value;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -71,14 +70,16 @@ public class JsonPrinter implements IPrinter {
 		for (Value value : values) {
 			JsonObject obj = new JsonObject();
 
-			String type = value.type.toString().toLowerCase();
+			String type = value.getType();
 			if (value.values.size() > 0) {
 				JsonArray array = new JsonArray();
 				appendValues(array, value.values);
 				obj.add(type, array);
 			} else {
-				String val = Utils.escapeValue(value.value, false);
-				if (val.matches("^-?\\d+(\\.\\d+)?$")) {
+				String val = value.getRawValue(false);
+				if (val.matches("^-?\\d+$")) {
+					obj.addProperty(type, Integer.valueOf(val));
+				} else if (val.matches("^-?\\d+(\\.\\d+)?$")) {
 					obj.addProperty(type, Double.valueOf(val));
 				} else {
 					obj.addProperty(type, val);

@@ -1,10 +1,9 @@
 package com.github.lunatrius.ingameinfo.parser.text;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.Utils;
-import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.value.Value;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.github.lunatrius.ingameinfo.Value.ValueType;
 import static com.github.lunatrius.ingameinfo.parser.text.Token.TokenType;
 
 public class TextParser implements IParser {
@@ -166,7 +164,8 @@ public class TextParser implements IParser {
 	}
 
 	private boolean string(List<Value> values, String lexem) {
-		values.add(new Value(ValueType.STR, Utils.unescapeValue(lexem, true)));
+		final Value value = Value.fromString("str").setRawValue(lexem, true);
+		values.add(value);
 		return true;
 	}
 
@@ -175,8 +174,13 @@ public class TextParser implements IParser {
 
 		this.level++;
 
-		ValueType type = ValueType.fromString(lexem);
-		Value value = ((type == ValueType.NONE) ? new Value(ValueType.VAR, lexem) : new Value(type, ""));
+		Value value = Value.fromString(lexem);
+		if (!value.isValid()) {
+			value = Value.fromString("var");
+			value.setRawValue(lexem, true);
+		} else {
+			value.setRawValue("", true);
+		}
 
 		if (this.token.getType().equals(TokenType.STRING)) {
 			nextToken();

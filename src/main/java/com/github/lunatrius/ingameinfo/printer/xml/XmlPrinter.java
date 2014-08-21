@@ -1,10 +1,9 @@
 package com.github.lunatrius.ingameinfo.printer.xml;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.Utils;
-import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.value.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -79,13 +78,9 @@ public class XmlPrinter implements IPrinter {
 
 	private void appendValues(Document doc, Element elementValues, List<Value> values) {
 		for (Value value : values) {
-			if (value.value.matches("^-?\\d+(\\.\\d+)?$")) {
-				value.type = Value.ValueType.NUM;
-			}
+			Element elementValue = doc.createElement(value.getType());
 
-			Element elementValue = doc.createElement(value.type.toString().toLowerCase());
-
-			elementValue.setTextContent(Utils.escapeValue(value.value, false));
+			elementValue.setTextContent(value.getRawValue(false));
 			if (value.values.size() > 0) {
 				appendValues(doc, elementValue, value.values);
 			}

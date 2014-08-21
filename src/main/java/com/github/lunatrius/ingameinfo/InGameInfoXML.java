@@ -26,6 +26,7 @@ public class InGameInfoXML {
 	public void preInit(FMLPreInitializationEvent event) {
 		Reference.logger = event.getModLog();
 		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+		proxy.registerValues();
 		proxy.setupConfig(event.getModConfigurationDirectory());
 
 		VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);

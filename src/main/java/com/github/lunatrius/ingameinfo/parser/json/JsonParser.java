@@ -1,10 +1,9 @@
 package com.github.lunatrius.ingameinfo.parser.json;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.Utils;
-import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.value.Value;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
 public class JsonParser implements IParser {
 	private JsonElement element;
@@ -78,18 +75,19 @@ public class JsonParser implements IParser {
 				JsonObject object = elementValue.getAsJsonObject();
 				Set<Map.Entry<String, JsonElement>> entries = object.entrySet();
 				for (Map.Entry<String, JsonElement> entry : entries) {
-					ValueType type = ValueType.fromString(entry.getKey());
+					final String type = entry.getKey();
+					final Value value = Value.fromString(type);
 
-					String value = "";
-					if ((type == ValueType.STR) || (type == ValueType.NUM) || (type == ValueType.VAR) || (type == ValueType.TRANS)) {
-						value = Utils.unescapeValue(entry.getValue().getAsString(), false);
+					if (!value.isValid()) {
+						continue;
 					}
 
-					Value val = new Value(type, value);
-					if (entry.getValue().isJsonArray()) {
-						val.values = getValues(entry.getValue().getAsJsonArray());
+					if (value.isSimple()) {
+						value.setRawValue(entry.getValue().getAsString(), false);
+					} else if (entry.getValue().isJsonArray()) {
+						value.values.addAll(getValues(entry.getValue().getAsJsonArray()));
 					}
-					values.add(val);
+					values.add(value);
 				}
 			}
 		}

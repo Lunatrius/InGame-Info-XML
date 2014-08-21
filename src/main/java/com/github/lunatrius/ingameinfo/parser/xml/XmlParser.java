@@ -1,10 +1,9 @@
 package com.github.lunatrius.ingameinfo.parser.xml;
 
 import com.github.lunatrius.ingameinfo.Alignment;
-import com.github.lunatrius.ingameinfo.Utils;
-import com.github.lunatrius.ingameinfo.Value;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import com.github.lunatrius.ingameinfo.value.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,8 +15,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import static com.github.lunatrius.ingameinfo.Value.ValueType;
 
 public class XmlParser implements IParser {
 	private Document document;
@@ -79,29 +76,19 @@ public class XmlParser implements IParser {
 		for (int i = 0; i < nodeListValues.getLength(); i++) {
 			Element elementValue = getElement(nodeListValues.item(i));
 			if (elementValue != null) {
-				ValueType type;
-				if (elementValue.getNodeName().equalsIgnoreCase("value")) {
-					type = ValueType.fromString(elementValue.getAttribute("type"));
+				final String type = elementValue.getNodeName().equalsIgnoreCase("value") ? elementValue.getAttribute("type") : elementValue.getNodeName();
+				final Value value = Value.fromString(type);
 
-					if (type == ValueType.NONE) {
-						continue;
-					}
+				if (!value.isValid()) {
+					continue;
+				}
+
+				if (value.isSimple()) {
+					value.setRawValue(elementValue.getTextContent(), false);
 				} else {
-					type = ValueType.fromString(elementValue.getNodeName());
-
-					if (type == ValueType.NONE) {
-						type = ValueType.VAR;
-					}
+					value.values.addAll(getValues(elementValue));
 				}
-
-				String value = "";
-				if ((type == ValueType.STR) || (type == ValueType.NUM) || (type == ValueType.VAR) || (type == ValueType.TRANS)) {
-					value = Utils.unescapeValue(elementValue.getTextContent(), false);
-				}
-
-				Value val = new Value(type, value);
-				val.values = getValues(elementValue);
-				values.add(val);
+				values.add(value);
 			}
 		}
 
