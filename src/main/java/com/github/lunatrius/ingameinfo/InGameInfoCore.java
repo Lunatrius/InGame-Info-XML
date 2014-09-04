@@ -11,6 +11,7 @@ import com.github.lunatrius.ingameinfo.printer.IPrinter;
 import com.github.lunatrius.ingameinfo.printer.json.JsonPrinter;
 import com.github.lunatrius.ingameinfo.printer.text.TextPrinter;
 import com.github.lunatrius.ingameinfo.printer.xml.XmlPrinter;
+import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.Value;
@@ -66,15 +67,15 @@ public class InGameInfoCore {
 	public boolean setConfigFile(String filename) {
 		File file = new File(this.configDirectory, filename);
 		if (file.exists()) {
-			if (filename.endsWith(".xml")) {
+			if (filename.endsWith(Names.Files.EXT_XML)) {
 				this.configFile = file;
 				this.parser = new XmlParser();
 				return true;
-			} else if (filename.endsWith(".json")) {
+			} else if (filename.endsWith(Names.Files.EXT_JSON)) {
 				this.configFile = file;
 				this.parser = new JsonParser();
 				return true;
-			} else if (filename.endsWith(".txt")) {
+			} else if (filename.endsWith(Names.Files.EXT_TXT)) {
 				this.configFile = file;
 				this.parser = new TextParser();
 				return true;
@@ -213,7 +214,7 @@ public class InGameInfoCore {
 				inputStream = new FileInputStream(this.configFile);
 			} else {
 				Reference.logger.debug("Loading default config...");
-				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", "InGameInfo.xml");
+				ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", Names.Files.FILE_XML);
 				IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
 				inputStream = resource.getInputStream();
 			}
@@ -227,11 +228,11 @@ public class InGameInfoCore {
 	public boolean saveConfig(String filename) {
 		IPrinter printer = null;
 		File file = new File(this.configDirectory, filename);
-		if (filename.endsWith(".xml")) {
+		if (filename.endsWith(Names.Files.EXT_XML)) {
 			printer = new XmlPrinter();
-		} else if (filename.endsWith(".json")) {
+		} else if (filename.endsWith(Names.Files.EXT_JSON)) {
 			printer = new JsonPrinter();
-		} else if (filename.endsWith(".txt")) {
+		} else if (filename.endsWith(Names.Files.EXT_TXT)) {
 			printer = new TextPrinter();
 		}
 
