@@ -240,9 +240,11 @@ ingameinfoxml.tag.temperature.desc=Biometemperatur.
 ingameinfoxml.tag.humidity.desc=Biomefuktighet.
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [filnavn]
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist> [filnavn]
 commands.ingameinfoxml.reload=Laster inn på nytt...
 commands.ingameinfoxml.load=Laster %s...
 commands.ingameinfoxml.save=Lagrer %s...
+# commands.ingameinfoxml.success=Done!
+# commands.ingameinfoxml.failure=Something went wrong!
 commands.ingameinfoxml.enable=InGame Info XML-visningen er nå aktivert.
 commands.ingameinfoxml.disable=InGame Info XML-visningen er nå deaktivert.

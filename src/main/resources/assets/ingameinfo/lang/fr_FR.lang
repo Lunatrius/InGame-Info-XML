@@ -240,9 +240,11 @@ ingameinfoxml.config.bottomright=En bas à droite
 # ingameinfoxml.tag.humidity.desc=Biome humidity.
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [nondufichier]
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist> [nondufichier]
 commands.ingameinfoxml.reload=Rechargement...
 commands.ingameinfoxml.load=Chargement de %s...
 commands.ingameinfoxml.save=Sauvegarde de %s...
+# commands.ingameinfoxml.success=Done!
+# commands.ingameinfoxml.failure=Something went wrong!
 commands.ingameinfoxml.enable=L'interface de InGame Info XML est désormais activé.
 commands.ingameinfoxml.disable=L'interface de InGame Info XML est désormais désactivé.

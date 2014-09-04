@@ -240,9 +240,11 @@
 # ingameinfoxml.tag.humidity.desc=Biome humidity.
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [имя файла]
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist> [имя файла]
 commands.ingameinfoxml.reload=Перегрузка...
 commands.ingameinfoxml.load=Загрузка %s...
 commands.ingameinfoxml.save=Сохранение %s...
+# commands.ingameinfoxml.success=Done!
+# commands.ingameinfoxml.failure=Something went wrong!
 commands.ingameinfoxml.enable=Оверлей InGame Info XML включен.
 commands.ingameinfoxml.disable=Оверлей InGame Info XML отключен.

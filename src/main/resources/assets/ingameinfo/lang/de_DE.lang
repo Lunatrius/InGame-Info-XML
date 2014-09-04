@@ -240,9 +240,11 @@
 # ingameinfoxml.tag.humidity.desc=Biome humidity.
 
 # commands
-commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable> [Dateiname]
+commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist> [Dateiname]
 commands.ingameinfoxml.reload=Lade neu...
 commands.ingameinfoxml.load=%s wird geladen...
 commands.ingameinfoxml.save=%s wird gespeichert...
+# commands.ingameinfoxml.success=Done!
+# commands.ingameinfoxml.failure=Something went wrong!
 commands.ingameinfoxml.enable=InGame Info XML Overlay ist nun aktiviert.
 commands.ingameinfoxml.disable=InGame Info XML Overlay ist nun deaktiviert.
