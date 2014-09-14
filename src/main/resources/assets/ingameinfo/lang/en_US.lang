@@ -6,7 +6,7 @@ ingameinfoxml.config.category.alignment.tooltip=Alignment offset options.
 
 # gui - config - general
 ingameinfoxml.config.filename=Filename
-ingameinfoxml.config.filename.tooltip=The configuration that that should be loaded on startup.
+ingameinfoxml.config.filename.tooltip=The configuration that should be loaded on startup.
 ingameinfoxml.config.replaceDebug=Replace Debug Overlay
 ingameinfoxml.config.replaceDebug.tooltip=Replace the debug overlay (F3) with the InGameInfoXML overlay.
 ingameinfoxml.config.showInChat=Show in Chat
@@ -83,7 +83,7 @@ ingameinfoxml.tag.memused.desc=Amount of memory in use.
 ingameinfoxml.tag.fps.desc=Current FPS.
 ingameinfoxml.tag.resourcepack.desc=Current resource pack.
 ingameinfoxml.tag.entitiesrendered.desc=Amount of rendered entities.
-ingameinfoxml.tag.entitiestotal.desc=Amount of loaded entities entities.
+ingameinfoxml.tag.entitiestotal.desc=Amount of loaded entities.
 ingameinfoxml.tag.loadedchunks.desc=Amount of loaded chunks.
 ingameinfoxml.tag.server.desc=Server domain or IP and the port if it's not 25565, localhost if it's a local game.
 ingameinfoxml.tag.servername.desc=Server domain, localhost if it's a local game.
