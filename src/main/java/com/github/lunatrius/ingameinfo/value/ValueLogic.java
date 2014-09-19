@@ -162,6 +162,33 @@ public abstract class ValueLogic extends ValueComplex {
 		}
 	}
 
+	public static class ValueContains extends ValueLogic {
+		@Override
+		public String getValue() {
+			try {
+				double current = getDoubleValue(0);
+
+				for (Value operand : this.values.subList(1, this.values.size())) {
+					double next = operand.getDoubleValue();
+					if (current == next) {
+						return String.valueOf(true);
+					}
+				}
+				return String.valueOf(false);
+			} catch (Exception e) {
+				String current = replaceVariables(getValue(0));
+
+				for (Value operand : this.values.subList(1, this.values.size())) {
+					String next = replaceVariables(operand.getValue());
+					if (current.equals(next)) {
+						return String.valueOf(true);
+					}
+				}
+				return String.valueOf(false);
+			}
+		}
+	}
+
 	public static void register() {
 		ValueRegistry.INSTANCE.register(new ValueIf().setName("if"));
 		ValueRegistry.INSTANCE.register(new ValueNot().setName("not"));
@@ -171,5 +198,6 @@ public abstract class ValueLogic extends ValueComplex {
 		ValueRegistry.INSTANCE.register(new ValueGreater().setName("greater").setAliases("more"));
 		ValueRegistry.INSTANCE.register(new ValueLesser().setName("lesser").setAliases("less"));
 		ValueRegistry.INSTANCE.register(new ValueEqual().setName("equal").setAliases("equals"));
+		ValueRegistry.INSTANCE.register(new ValueContains().setName("contains").setAliases("in"));
 	}
 }
