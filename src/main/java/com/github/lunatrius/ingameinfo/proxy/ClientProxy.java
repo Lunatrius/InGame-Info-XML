@@ -15,39 +15,39 @@ import net.minecraftforge.common.MinecraftForge;
 import java.io.File;
 
 public class ClientProxy extends CommonProxy {
-	private final InGameInfoCore core = InGameInfoCore.INSTANCE;
+    private final InGameInfoCore core = InGameInfoCore.INSTANCE;
 
-	@Override
-	public void registerValues() {
-		ValueRegistry.INSTANCE.init();
-	}
+    @Override
+    public void registerValues() {
+        ValueRegistry.INSTANCE.init();
+    }
 
-	@Override
-	public void setupConfig(File file) {
-		this.core.setConfigDirectory(file);
-		this.core.setConfigFile(ConfigurationHandler.configName);
-		this.core.reloadConfig();
-	}
+    @Override
+    public void setupConfig(File file) {
+        this.core.setConfigDirectory(file);
+        this.core.setConfigFile(ConfigurationHandler.configName);
+        this.core.reloadConfig();
+    }
 
-	@Override
-	public void registerTags() {
-		TagRegistry.INSTANCE.init();
-	}
+    @Override
+    public void registerTags() {
+        TagRegistry.INSTANCE.init();
+    }
 
-	@Override
-	public void registerEvents() {
-		MinecraftForge.EVENT_BUS.register(new Ticker());
-		FMLCommonHandler.instance().bus().register(new Ticker());
-		FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
-	}
+    @Override
+    public void registerEvents() {
+        MinecraftForge.EVENT_BUS.register(new Ticker());
+        FMLCommonHandler.instance().bus().register(new Ticker());
+        FMLCommonHandler.instance().bus().register(new ConfigurationHandler());
+    }
 
-	@Override
-	public void registerCommands() {
-		ClientCommandHandler.instance.registerCommand(new InGameInfoCommand());
-	}
+    @Override
+    public void registerCommands() {
+        ClientCommandHandler.instance.registerCommand(new InGameInfoCommand());
+    }
 
-	@Override
-	public void setServer(MinecraftServer server) {
-		Tag.setServer(server);
-	}
+    @Override
+    public void setServer(MinecraftServer server) {
+        Tag.setServer(server);
+    }
 }

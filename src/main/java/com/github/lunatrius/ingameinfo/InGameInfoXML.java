@@ -16,40 +16,40 @@ import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 @Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY)
 public class InGameInfoXML {
-	@Instance(Reference.MODID)
-	public static InGameInfoXML instance;
+    @Instance(Reference.MODID)
+    public static InGameInfoXML instance;
 
-	@SidedProxy(serverSide = Reference.PROXY_COMMON, clientSide = Reference.PROXY_CLIENT)
-	public static CommonProxy proxy;
+    @SidedProxy(serverSide = Reference.PROXY_COMMON, clientSide = Reference.PROXY_CLIENT)
+    public static CommonProxy proxy;
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		Reference.logger = event.getModLog();
-		ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-		proxy.registerValues();
-		proxy.setupConfig(event.getModConfigurationDirectory());
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        Reference.logger = event.getModLog();
+        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+        proxy.registerValues();
+        proxy.setupConfig(event.getModConfigurationDirectory());
 
-		VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
-	}
+        VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
+    }
 
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		proxy.registerEvents();
-		proxy.registerCommands();
-	}
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
+        proxy.registerEvents();
+        proxy.registerCommands();
+    }
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		proxy.registerTags();
-	}
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        proxy.registerTags();
+    }
 
-	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event) {
-		proxy.setServer(event.getServer());
-	}
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        proxy.setServer(event.getServer());
+    }
 
-	@EventHandler
-	public void serverStopping(FMLServerStoppingEvent event) {
-		proxy.setServer(null);
-	}
+    @EventHandler
+    public void serverStopping(FMLServerStoppingEvent event) {
+        proxy.setServer(null);
+    }
 }

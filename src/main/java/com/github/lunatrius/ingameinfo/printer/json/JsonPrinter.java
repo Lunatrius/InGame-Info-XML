@@ -16,77 +16,77 @@ import java.util.List;
 import java.util.Map;
 
 public class JsonPrinter implements IPrinter {
-	@Override
-	public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
-		try {
-			FileWriter fileWriter = new FileWriter(file);
-			BufferedWriter writer = new BufferedWriter(fileWriter);
+    @Override
+    public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fileWriter);
 
-			JsonObject jsonConfig = new JsonObject();
+            JsonObject jsonConfig = new JsonObject();
 
-			appendLines(jsonConfig, format);
+            appendLines(jsonConfig, format);
 
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			writer.write(gson.toJson(jsonConfig));
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            writer.write(gson.toJson(jsonConfig));
 
-			writer.close();
-			fileWriter.close();
-			return true;
-		} catch (Exception e) {
-			Reference.logger.fatal("Could not save json configuration file!", e);
-		}
+            writer.close();
+            fileWriter.close();
+            return true;
+        } catch (Exception e) {
+            Reference.logger.fatal("Could not save json configuration file!", e);
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
-		for (Alignment alignment : Alignment.values()) {
-			List<List<Value>> lists = format.get(alignment);
-			if (lists != null) {
-				JsonArray arrayLines = new JsonArray();
+    private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
+        for (Alignment alignment : Alignment.values()) {
+            List<List<Value>> lists = format.get(alignment);
+            if (lists != null) {
+                JsonArray arrayLines = new JsonArray();
 
-				appendLine(arrayLines, lists);
+                appendLine(arrayLines, lists);
 
-				if (arrayLines.size() > 0) {
-					jsonConfig.add(alignment.toString().toLowerCase(), arrayLines);
-				}
-			}
-		}
-	}
+                if (arrayLines.size() > 0) {
+                    jsonConfig.add(alignment.toString().toLowerCase(), arrayLines);
+                }
+            }
+        }
+    }
 
-	private void appendLine(JsonArray jsonLines, List<List<Value>> lines) {
-		for (List<Value> line : lines) {
-			JsonArray arrayLine = new JsonArray();
+    private void appendLine(JsonArray jsonLines, List<List<Value>> lines) {
+        for (List<Value> line : lines) {
+            JsonArray arrayLine = new JsonArray();
 
-			appendValues(arrayLine, line);
+            appendValues(arrayLine, line);
 
-			if (arrayLine.size() > 0) {
-				jsonLines.add(arrayLine);
-			}
-		}
-	}
+            if (arrayLine.size() > 0) {
+                jsonLines.add(arrayLine);
+            }
+        }
+    }
 
-	private void appendValues(JsonArray jsonValues, List<Value> values) {
-		for (Value value : values) {
-			JsonObject obj = new JsonObject();
+    private void appendValues(JsonArray jsonValues, List<Value> values) {
+        for (Value value : values) {
+            JsonObject obj = new JsonObject();
 
-			String type = value.getType();
-			if (value.values.size() > 0) {
-				JsonArray array = new JsonArray();
-				appendValues(array, value.values);
-				obj.add(type, array);
-			} else {
-				String val = value.getRawValue(false);
-				if (val.matches("^-?\\d+$")) {
-					obj.addProperty(type, Integer.valueOf(val));
-				} else if (val.matches("^-?\\d+(\\.\\d+)?$")) {
-					obj.addProperty(type, Double.valueOf(val));
-				} else {
-					obj.addProperty(type, val);
-				}
-			}
+            String type = value.getType();
+            if (value.values.size() > 0) {
+                JsonArray array = new JsonArray();
+                appendValues(array, value.values);
+                obj.add(type, array);
+            } else {
+                String val = value.getRawValue(false);
+                if (val.matches("^-?\\d+$")) {
+                    obj.addProperty(type, Integer.valueOf(val));
+                } else if (val.matches("^-?\\d+(\\.\\d+)?$")) {
+                    obj.addProperty(type, Double.valueOf(val));
+                } else {
+                    obj.addProperty(type, val);
+                }
+            }
 
-			jsonValues.add(obj);
-		}
-	}
+            jsonValues.add(obj);
+        }
+    }
 }
