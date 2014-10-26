@@ -109,6 +109,14 @@ public abstract class TagPlayerGeneral extends Tag {
         }
     }
 
+    public static class MaxFoodLevel extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            // TODO: use Forge method when it's in
+            return String.valueOf(20);
+        }
+    }
+
     public static class Saturation extends TagPlayerGeneral {
         @Override
         public String getValue() {
@@ -116,10 +124,24 @@ public abstract class TagPlayerGeneral extends Tag {
         }
     }
 
+    public static class Exhaustion extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            return String.format(Locale.ENGLISH, "%.2f", player.getFoodStats().foodExhaustionLevel);
+        }
+    }
+
     public static class AirTicks extends TagPlayerGeneral {
         @Override
         public String getValue() {
             return String.valueOf(player.getAir());
+        }
+    }
+
+    public static class MaxAirTicks extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            return String.valueOf(300);
         }
     }
 
@@ -237,11 +259,14 @@ public abstract class TagPlayerGeneral extends Tag {
         TagRegistry.INSTANCE.register(new GameMode().setName("gamemode"));
         TagRegistry.INSTANCE.register(new GameModeId().setName("gamemodeid"));
         TagRegistry.INSTANCE.register(new Health().setName("health").setAliases("healthpoints"));
-        TagRegistry.INSTANCE.register(new MaxHealth().setName("maxhealth"));
+        TagRegistry.INSTANCE.register(new MaxHealth().setName("maxhealth").setAliases("maxhealthpoints"));
         TagRegistry.INSTANCE.register(new Armor().setName("armor").setAliases("armorpoints"));
         TagRegistry.INSTANCE.register(new FoodLevel().setName("foodlevel").setAliases("foodpoints"));
+        TagRegistry.INSTANCE.register(new MaxFoodLevel().setName("maxfoodlevel").setAliases("maxfoodpoints"));
         TagRegistry.INSTANCE.register(new Saturation().setName("saturation").setAliases("foodsaturation"));
+        TagRegistry.INSTANCE.register(new Exhaustion().setName("exhaustion").setAliases("foodexhaustion"));
         TagRegistry.INSTANCE.register(new AirTicks().setName("airticks"));
+        TagRegistry.INSTANCE.register(new MaxAirTicks().setName("maxairticks"));
         TagRegistry.INSTANCE.register(new PlayerLevel().setName("playerlevel"));
         TagRegistry.INSTANCE.register(new CurrentExperience().setName("xpthislevel"));
         TagRegistry.INSTANCE.register(new ExperienceUntilNext().setName("xpuntilnext"));

@@ -10,6 +10,7 @@ import com.github.lunatrius.ingameinfo.tag.TagPlayerEquipment;
 import com.github.lunatrius.ingameinfo.tag.TagPlayerGeneral;
 import com.github.lunatrius.ingameinfo.tag.TagPlayerPosition;
 import com.github.lunatrius.ingameinfo.tag.TagPlayerPotion;
+import com.github.lunatrius.ingameinfo.tag.TagRiding;
 import com.github.lunatrius.ingameinfo.tag.TagTime;
 import com.github.lunatrius.ingameinfo.tag.TagWorld;
 
@@ -67,6 +68,7 @@ public class TagRegistry {
         TagPlayerGeneral.register();
         TagPlayerPosition.register();
         TagPlayerPotion.register();
+        TagRiding.register();
         TagTime.register();
         TagWorld.register();
 
