@@ -20,7 +20,7 @@ public class Ticker {
 
     @SubscribeEvent
     public void onRenderGameOverlayEventPre(RenderGameOverlayEvent.Pre event) {
-        if (ConfigurationHandler.replaceDebug && event.type == RenderGameOverlayEvent.ElementType.DEBUG) {
+        if (enabled && ConfigurationHandler.replaceDebug && event.type == RenderGameOverlayEvent.ElementType.DEBUG) {
             event.setCanceled(true);
         }
     }
