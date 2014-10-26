@@ -48,6 +48,7 @@ ingameinfoxml.tag.category.playerequipment.name=玩家-装备
 ingameinfoxml.tag.category.playergeneral.name=玩家-一般
 ingameinfoxml.tag.category.playerposition.name=玩家-药水
 ingameinfoxml.tag.category.playerpotion.name=玩家-药水效果
+# ingameinfoxml.tag.category.riding.name=Riding
 ingameinfoxml.tag.category.time.name=时间
 ingameinfoxml.tag.category.world.name=世界
 
@@ -159,8 +160,11 @@ ingameinfoxml.tag.health.desc=玩家当前健康值.
 ingameinfoxml.tag.maxhealth.desc=玩家最大健康值.
 ingameinfoxml.tag.armorpoints.desc=玩家护甲值.
 ingameinfoxml.tag.foodlevel.desc=玩家食物点.
+# ingameinfoxml.tag.maxfoodlevel.desc=Player's maximum food points.
 ingameinfoxml.tag.saturation.desc=玩家饱腹度.
+# ingameinfoxml.tag.exhaustion.desc=Player's food exhaustion.
 ingameinfoxml.tag.airticks.desc=玩家空气刻.
+# ingameinfoxml.tag.maxairticks.desc=Player's maximum air ticks.
 ingameinfoxml.tag.playerlevel.desc=玩家等级.
 ingameinfoxml.tag.xpthislevel.desc=玩家当前经验.
 ingameinfoxml.tag.xpuntilnext.desc=玩家下次升级所需经验.
@@ -208,6 +212,13 @@ ingameinfoxml.tag.potionduration.desc=药水效果的持续时间(秒).
 ingameinfoxml.tag.potiondurationticks.desc=药水效果的持续时间(ticks).
 ingameinfoxml.tag.potionicon.desc=药水效果的图标.
 ingameinfoxml.tag.potionlargeicon.desc=药水效果的大图标.
+
+# gui - tag list - riding
+# ingameinfoxml.tag.ridinghorse.desc=§etrue§r if the player is riding a horse, §efalse§r otherwise.
+# ingameinfoxml.tag.horsehealth.desc=Horse's health.
+# ingameinfoxml.tag.horsemaxhealth.desc=Horse's maximum health.
+# ingameinfoxml.tag.horsespeed.desc=Horse's speed.
+# ingameinfoxml.tag.horsejumpstrength.desc=Horse's jump strength.
 
 # gui - tag list - time
 ingameinfoxml.tag.day.desc=Minecraft天数,从0开始.

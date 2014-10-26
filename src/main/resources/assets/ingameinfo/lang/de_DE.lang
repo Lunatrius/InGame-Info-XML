@@ -48,6 +48,7 @@
 # ingameinfoxml.tag.category.playergeneral.name=Player - General
 # ingameinfoxml.tag.category.playerposition.name=Player - Position
 # ingameinfoxml.tag.category.playerpotion.name=Player - Potion Effects
+# ingameinfoxml.tag.category.riding.name=Riding
 # ingameinfoxml.tag.category.time.name=Time
 # ingameinfoxml.tag.category.world.name=World
 
@@ -159,8 +160,11 @@
 # ingameinfoxml.tag.maxhealth.desc=Player's maximum health points.
 # ingameinfoxml.tag.armorpoints.desc=Player's armor points.
 # ingameinfoxml.tag.foodlevel.desc=Player's food points.
+# ingameinfoxml.tag.maxfoodlevel.desc=Player's maximum food points.
 # ingameinfoxml.tag.saturation.desc=Player's food saturation.
+# ingameinfoxml.tag.exhaustion.desc=Player's food exhaustion.
 # ingameinfoxml.tag.airticks.desc=Player's air ticks.
+# ingameinfoxml.tag.maxairticks.desc=Player's maximum air ticks.
 # ingameinfoxml.tag.playerlevel.desc=Player's level.
 # ingameinfoxml.tag.xpthislevel.desc=Player's current experience.
 # ingameinfoxml.tag.xpuntilnext.desc=Player's experience until level up.
@@ -208,6 +212,13 @@
 # ingameinfoxml.tag.potiondurationticks.desc=Duration of the x-th potion effect in ticks.
 # ingameinfoxml.tag.potionicon.desc=Icon of the x-th potion effect.
 # ingameinfoxml.tag.potionlargeicon.desc=Large icon of the x-th potion effect.
+
+# gui - tag list - riding
+# ingameinfoxml.tag.ridinghorse.desc=§etrue§r if the player is riding a horse, §efalse§r otherwise.
+# ingameinfoxml.tag.horsehealth.desc=Horse's health.
+# ingameinfoxml.tag.horsemaxhealth.desc=Horse's maximum health.
+# ingameinfoxml.tag.horsespeed.desc=Horse's speed.
+# ingameinfoxml.tag.horsejumpstrength.desc=Horse's jump strength.
 
 # gui - tag list - time
 # ingameinfoxml.tag.day.desc=Minecraft day, starting from 0.
