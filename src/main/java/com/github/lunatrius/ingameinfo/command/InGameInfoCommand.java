@@ -2,6 +2,7 @@ package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.core.handler.DelayedGuiDisplayTicker;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
+import com.github.lunatrius.ingameinfo.client.gui.GuiModConfig;
 import com.github.lunatrius.ingameinfo.client.gui.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
@@ -37,7 +38,7 @@ public class InGameInfoCommand extends CommandBase {
     @Override
     public List addTabCompletionOptions(ICommandSender commandSender, String[] args) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
+            return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST, Names.Command.CONFIG);
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
                 return getListOfStringsFromIterableMatchingLastWord(args, getFilenames());
@@ -98,6 +99,9 @@ public class InGameInfoCommand extends CommandBase {
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
                 DelayedGuiDisplayTicker.create(new GuiTags(), 10);
+                return;
+            } else if (args[0].equalsIgnoreCase(Names.Command.CONFIG)) {
+                DelayedGuiDisplayTicker.create(new GuiModConfig(null), 0);
                 return;
             }
         }
