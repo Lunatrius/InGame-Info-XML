@@ -9,14 +9,9 @@ dependencies {
     compile group: group, name: 'LunatriusCore', version: "${project.version_minecraft}-${project.version_lunatriuscore}", classifier: 'dev'
 }
 
-def addDependency(depFilename, depName, depPath) {
-    def depfile = new File('libs/' + depFilename)
-    if (depfile.isFile()) {
+def addDependency(depFilter, depName, depPath) {
+    if (fileTree('libs').include(depFilter).getFiles().size() == 1) {
         logger.lifecycle "Building with ${depName}..."
-
-        dependencies {
-            compile files(depfile)
-        }
     } else {
         logger.warn "Building without ${depName}..."
 
@@ -28,3 +23,5 @@ def addDependency(depFilename, depName, depPath) {
 }
 
 // addDependency('example.jar', 'example', 'com/github/lunatrius/example/integration/test')
+addDependency('SimplyJetpacks*', 'SimplyJetpacks', 'com/github/lunatrius/ingameinfo/integration/simplyjetpacks')
+addDependency('Thaumcraft*', 'Thaumcraft', 'com/github/lunatrius/ingameinfo/integration/thaumcraft')

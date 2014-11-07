@@ -51,6 +51,8 @@ ingameinfoxml.tag.category.playerpotion.name=Player - Potion Effects
 ingameinfoxml.tag.category.riding.name=Riding
 ingameinfoxml.tag.category.time.name=Time
 ingameinfoxml.tag.category.world.name=World
+ingameinfoxml.tag.category.simplyjetpacks.name=Simply Jetpacks
+ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 ingameinfoxml.tag.black.desc=Black color (§0EXAMPLE§r).
@@ -249,6 +251,19 @@ ingameinfoxml.tag.slimes.desc=§etrue§r if the current chunk is a slime chunk, 
 ingameinfoxml.tag.hardcore.desc=§etrue§r if the world is in hardcore mode, §efalse§r otherwise.
 ingameinfoxml.tag.temperature.desc=Biome temperature.
 ingameinfoxml.tag.humidity.desc=Biome humidity.
+
+# gui - tag list - integration - simply jetpacks
+ingameinfoxml.tag.sjenergy.desc=Jetpack energy.
+ingameinfoxml.tag.sjmaxenergy.desc=Jetpack maximum energy.
+ingameinfoxml.tag.sjpercent.desc=Jetpack energy left in percents.
+ingameinfoxml.tag.sjenabled.desc=§etrue§r if the jetpack is enabled, §efalse§r otherwise.
+ingameinfoxml.tag.sjhover.desc=§etrue§r if the jetpack is in hover mode, §efalse§r otherwise.
+
+# gui - tag list - integration - thaumcraft
+ingameinfoxml.tag.tcwarpperm.desc=Player's permanent warp.
+ingameinfoxml.tag.tcwarpsticky.desc=Player's normal (sticky) warp.
+ingameinfoxml.tag.tcwarptemp.desc=Player's temporary warp.
+ingameinfoxml.tag.tcwarptotal.desc=Player's total warp.
 
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [filename]

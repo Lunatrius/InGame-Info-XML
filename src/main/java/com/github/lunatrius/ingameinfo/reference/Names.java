@@ -2,6 +2,14 @@ package com.github.lunatrius.ingameinfo.reference;
 
 @SuppressWarnings("HardCodedStringLiteral")
 public final class Names {
+    public static final class Mods {
+        public static final String SIMPLYJETPACKS_MODID = "simplyjetpacks";
+        public static final String SIMPLYJETPACKS_NAME = "Simply Jetpacks";
+
+        public static final String THAUMCRAFT_MODID = "Thaumcraft";
+        public static final String THAUMCRAFT_NAME = "Thaumcraft";
+    }
+
     public static final class Command {
         public static final class Message {
             public static final String USAGE = "commands.ingameinfoxml.usage";
