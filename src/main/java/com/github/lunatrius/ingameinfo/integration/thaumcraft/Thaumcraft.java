@@ -3,10 +3,12 @@ package com.github.lunatrius.ingameinfo.integration.thaumcraft;
 import com.github.lunatrius.ingameinfo.integration.thaumcraft.tag.TagThaumcraft;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = Thaumcraft.MODID, name = Thaumcraft.NAME, version = Reference.VERSION, dependencies = Thaumcraft.DEPENDENCIES)
 public class Thaumcraft {
@@ -16,6 +18,10 @@ public class Thaumcraft {
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
+        if (FMLCommonHandler.instance().getEffectiveSide() != Side.CLIENT) {
+            return;
+        }
+
         if (Loader.isModLoaded(Names.Mods.THAUMCRAFT_MODID)) {
             TagThaumcraft.register();
         }
