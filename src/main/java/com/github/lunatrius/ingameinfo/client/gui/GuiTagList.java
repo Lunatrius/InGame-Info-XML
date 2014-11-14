@@ -153,6 +153,9 @@ public class GuiTagList extends GuiListExtended {
                 while (this.fontRenderer.getStringWidth(desc) > width) {
                     String trimmed = this.fontRenderer.trimStringToWidth(desc, width);
                     int index = trimmed.lastIndexOf(" ");
+                    if (index < 1) {
+                        break;
+                    }
                     desc = desc.substring(index + 1);
                     list.add(trimmed.substring(0, index));
                 }
