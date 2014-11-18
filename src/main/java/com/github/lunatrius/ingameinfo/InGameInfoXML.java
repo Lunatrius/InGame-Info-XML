@@ -2,6 +2,7 @@ package com.github.lunatrius.ingameinfo;
 
 import com.github.lunatrius.core.version.VersionChecker;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.network.PacketHandler;
 import com.github.lunatrius.ingameinfo.proxy.CommonProxy;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import cpw.mods.fml.common.Mod;
@@ -19,7 +20,7 @@ public class InGameInfoXML {
     @Instance(Reference.MODID)
     public static InGameInfoXML instance;
 
-    @SidedProxy(serverSide = Reference.PROXY_COMMON, clientSide = Reference.PROXY_CLIENT)
+    @SidedProxy(serverSide = Reference.PROXY_SERVER, clientSide = Reference.PROXY_CLIENT)
     public static CommonProxy proxy;
 
     @EventHandler
@@ -34,6 +35,7 @@ public class InGameInfoXML {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        PacketHandler.init();
         proxy.registerEvents();
         proxy.registerCommands();
     }
