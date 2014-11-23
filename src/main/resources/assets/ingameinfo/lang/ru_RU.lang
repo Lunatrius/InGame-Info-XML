@@ -160,7 +160,7 @@
 # ingameinfoxml.tag.gamemodeid.desc=Player's gamemode id.
 # ingameinfoxml.tag.health.desc=Player's current health points.
 # ingameinfoxml.tag.maxhealth.desc=Player's maximum health points.
-# ingameinfoxml.tag.armorpoints.desc=Player's armor points.
+# ingameinfoxml.tag.armor.desc=Player's armor points.
 # ingameinfoxml.tag.foodlevel.desc=Player's food points.
 # ingameinfoxml.tag.maxfoodlevel.desc=Player's maximum food points.
 # ingameinfoxml.tag.saturation.desc=Player's food saturation.
