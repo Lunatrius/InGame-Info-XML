@@ -1,25 +1,33 @@
 package com.github.lunatrius.ingameinfo.proxy;
 
-import net.minecraft.server.MinecraftServer;
-
-import java.io.File;
+import com.github.lunatrius.core.version.VersionChecker;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
+import com.github.lunatrius.ingameinfo.network.PacketHandler;
+import com.github.lunatrius.ingameinfo.reference.Reference;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.event.FMLServerStoppingEvent;
 
 public class CommonProxy {
-    public void registerValues() {
+    public void preInit(FMLPreInitializationEvent event) {
+        Reference.logger = event.getModLog();
+        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
+
+        VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
     }
 
-    public void setupConfig(File file) {
+    public void init(FMLInitializationEvent event) {
+        PacketHandler.init();
     }
 
-    public void registerTags() {
+    public void postInit(FMLPostInitializationEvent event) {
     }
 
-    public void registerEvents() {
+    public void serverStarting(FMLServerStartingEvent event) {
     }
 
-    public void registerCommands() {
-    }
-
-    public void setServer(MinecraftServer server) {
+    public void serverStopping(FMLServerStoppingEvent event) {
     }
 }

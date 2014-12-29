@@ -1,8 +1,5 @@
 package com.github.lunatrius.ingameinfo;
 
-import com.github.lunatrius.core.version.VersionChecker;
-import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
-import com.github.lunatrius.ingameinfo.network.PacketHandler;
 import com.github.lunatrius.ingameinfo.proxy.CommonProxy;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import cpw.mods.fml.common.Mod;
@@ -34,33 +31,26 @@ public class InGameInfoXML {
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        Reference.logger = event.getModLog();
-        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
-        proxy.registerValues();
-        proxy.setupConfig(event.getModConfigurationDirectory());
-
-        VersionChecker.registerMod(event.getModMetadata(), Reference.FORGE);
+        proxy.preInit(event);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        PacketHandler.init();
-        proxy.registerEvents();
-        proxy.registerCommands();
+        proxy.init(event);
     }
 
     @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        proxy.registerTags();
+        proxy.postInit(event);
     }
 
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
-        proxy.setServer(event.getServer());
+        proxy.serverStarting(event);
     }
 
     @EventHandler
     public void serverStopping(FMLServerStoppingEvent event) {
-        proxy.setServer(null);
+        proxy.serverStopping(event);
     }
 }

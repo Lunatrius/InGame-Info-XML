@@ -265,6 +265,10 @@
 # ingameinfoxml.tag.tcwarptemp.desc=Player's temporary warp.
 # ingameinfoxml.tag.tcwarptotal.desc=Player's total warp.
 
+# keys
+# ingameinfoxml.key.category=InGame Info XML
+# ingameinfoxml.key.toggle=Toggle Overlay
+
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [Dateiname]
 commands.ingameinfoxml.reload=Lade neu...

@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class ConfigurationHandler {
+    public static final ConfigurationHandler INSTANCE = new ConfigurationHandler();
+
     public static Configuration configuration;
 
     public static final String CONFIGNAME_DEFAULT = Names.Files.FILE_XML;
@@ -35,6 +37,8 @@ public class ConfigurationHandler {
     private static Property propShowOnPlayerList = null;
     private static Property propScale = null;
     private static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
+
+    private ConfigurationHandler() {}
 
     public static void init(File configFile) {
         if (configuration == null) {

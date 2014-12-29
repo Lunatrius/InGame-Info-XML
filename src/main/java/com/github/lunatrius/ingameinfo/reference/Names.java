@@ -65,4 +65,9 @@ public final class Names {
         public static final String EXT_JSON = ".json";
         public static final String EXT_TXT = ".txt";
     }
+
+    public static final class Keys {
+        public static final String CATEGORY = "ingameinfoxml.key.category";
+        public static final String TOGGLE = "ingameinfoxml.key.toggle";
+    }
 }
