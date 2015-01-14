@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class TagNearbyPlayer extends Tag {
     public static final int MAXIMUM_INDEX = 16;
@@ -103,7 +104,7 @@ public abstract class TagNearbyPlayer extends Tag {
         public String getValue() {
             updateNearbyPlayers();
             if (nearbyPlayers.length > this.index) {
-                return String.format("%.2f", nearbyPlayers[this.index].getDistanceToEntity(player));
+                return String.format(Locale.ENGLISH, "%.2f", nearbyPlayers[this.index].getDistanceToEntity(player));
             }
             return "-1";
         }

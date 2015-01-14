@@ -6,6 +6,8 @@ import net.minecraft.util.MathHelper;
 import java.util.Locale;
 
 public abstract class TagPlayerPosition extends Tag {
+    private static final int TICKS = 20;
+
     protected static final String[] ROUGHDIRECTION = {
             "South", "West", "North", "East"
     };
@@ -111,35 +113,35 @@ public abstract class TagPlayerPosition extends Tag {
     public static class Speed extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format("%.2f", Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.y * playerMotion.y + playerMotion.z * playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.y * playerMotion.y + playerMotion.z * playerMotion.z));
         }
     }
 
     public static class SpeedX extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format("%.2f", Math.abs(playerMotion.x));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.x));
         }
     }
 
     public static class SpeedY extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format("%.2f", Math.abs(playerMotion.y));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.y));
         }
     }
 
     public static class SpeedZ extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format("%.2f", Math.abs(playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.z));
         }
     }
 
     public static class SpeedXZ extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format("%.2f", Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.z * playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.z * playerMotion.z));
         }
     }
 
@@ -152,7 +154,7 @@ public abstract class TagPlayerPosition extends Tag {
             } else if (direction < -180) {
                 direction += 360;
             }
-            return String.format("%.2f", direction);
+            return String.format(Locale.ENGLISH, "%.2f", direction);
         }
     }
 
