@@ -41,7 +41,7 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             if (player.ridingEntity instanceof EntityHorse) {
-                return String.format("%.2f", ((EntityHorse) player.ridingEntity).getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
+                return String.format("%.6f", ((EntityHorse) player.ridingEntity).getEntityAttribute(SharedMonsterAttributes.movementSpeed).getAttributeValue());
             }
             return "-1";
         }
@@ -51,7 +51,7 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             if (player.ridingEntity instanceof EntityHorse) {
-                return String.format("%.2f", ((EntityHorse) player.ridingEntity).getHorseJumpStrength());
+                return String.format("%.6f", ((EntityHorse) player.ridingEntity).getHorseJumpStrength());
             }
             return "-1";
         }
