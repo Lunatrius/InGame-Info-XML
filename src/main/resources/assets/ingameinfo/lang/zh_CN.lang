@@ -266,8 +266,6 @@ ingameinfoxml.tag.tcwarptemp.desc=玩家的暂时性扭曲.
 ingameinfoxml.tag.tcwarptotal.desc=玩家的总扭曲.
 
 # keys
-# ingameinfoxml.key.category=InGame Info XML
-# ingameinfoxml.key.toggle=Toggle Overlay
 
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [文件名]

@@ -48,11 +48,8 @@ ingameinfoxml.tag.category.playerequipment.name=Spiller - utstyr
 ingameinfoxml.tag.category.playergeneral.name=Spiller - generelt
 ingameinfoxml.tag.category.playerposition.name=Spiller - posisjon
 ingameinfoxml.tag.category.playerpotion.name=Spiller - trylledrikkeffekter
-# ingameinfoxml.tag.category.riding.name=Riding
 ingameinfoxml.tag.category.time.name=Tid
 ingameinfoxml.tag.category.world.name=Verden
-# ingameinfoxml.tag.category.simplyjetpacks.name=Simply Jetpacks
-# ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 ingameinfoxml.tag.black.desc=Svart farge (§0EKSEMPEL§r).
@@ -162,11 +159,8 @@ ingameinfoxml.tag.health.desc=Spillerens nåværende antall liv.
 ingameinfoxml.tag.maxhealth.desc=Spillerens maksimale antall liv.
 ingameinfoxml.tag.armor.desc=Spillerens rustningspoeng.
 ingameinfoxml.tag.foodlevel.desc=Spillerens matnivå.
-# ingameinfoxml.tag.maxfoodlevel.desc=Player's maximum food points.
 ingameinfoxml.tag.saturation.desc=Spillerens metthet.
-# ingameinfoxml.tag.exhaustion.desc=Player's food exhaustion.
 ingameinfoxml.tag.airticks.desc=Spillerens gjenværende luftmengde.
-# ingameinfoxml.tag.maxairticks.desc=Player's maximum air ticks.
 ingameinfoxml.tag.playerlevel.desc=Spillerens nivå.
 ingameinfoxml.tag.xpthislevel.desc=Spillerens nåværende erfaringsnivå.
 ingameinfoxml.tag.xpuntilnext.desc=Spillerens gjenværende erfaring før nytt nivå.
@@ -216,11 +210,6 @@ ingameinfoxml.tag.potionicon.desc=Ikonet til den x-te trylledrikkeffekten.
 ingameinfoxml.tag.potionlargeicon.desc=Det store ikonet til den x-te trylledrikkeffekten.
 
 # gui - tag list - riding
-# ingameinfoxml.tag.ridinghorse.desc=§etrue§r if the player is riding a horse, §efalse§r otherwise.
-# ingameinfoxml.tag.horsehealth.desc=Horse's health.
-# ingameinfoxml.tag.horsemaxhealth.desc=Horse's maximum health.
-# ingameinfoxml.tag.horsespeed.desc=Horse's speed.
-# ingameinfoxml.tag.horsejumpstrength.desc=Horse's jump strength.
 
 # gui - tag list - time
 ingameinfoxml.tag.day.desc=Minecraft-dag, starter fra 0.
@@ -253,28 +242,15 @@ ingameinfoxml.tag.temperature.desc=Biometemperatur.
 ingameinfoxml.tag.humidity.desc=Biomefuktighet.
 
 # gui - tag list - integration - simply jetpacks
-# ingameinfoxml.tag.sjenergy.desc=Jetpack energy.
-# ingameinfoxml.tag.sjmaxenergy.desc=Jetpack maximum energy.
-# ingameinfoxml.tag.sjpercent.desc=Jetpack energy left in percents.
-# ingameinfoxml.tag.sjenabled.desc=§etrue§r if the jetpack is enabled, §efalse§r otherwise.
-# ingameinfoxml.tag.sjhover.desc=§etrue§r if the jetpack is in hover mode, §efalse§r otherwise.
 
 # gui - tag list - integration - thaumcraft
-# ingameinfoxml.tag.tcwarpperm.desc=Player's permanent warp.
-# ingameinfoxml.tag.tcwarpsticky.desc=Player's normal (sticky) warp.
-# ingameinfoxml.tag.tcwarptemp.desc=Player's temporary warp.
-# ingameinfoxml.tag.tcwarptotal.desc=Player's total warp.
 
 # keys
-# ingameinfoxml.key.category=InGame Info XML
-# ingameinfoxml.key.toggle=Toggle Overlay
 
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [filnavn]
 commands.ingameinfoxml.reload=Laster inn på nytt...
 commands.ingameinfoxml.load=Laster %s...
 commands.ingameinfoxml.save=Lagrer %s...
-# commands.ingameinfoxml.success=Done!
-# commands.ingameinfoxml.failure=Something went wrong!
 commands.ingameinfoxml.enable=InGame Info XML-visningen er nå aktivert.
 commands.ingameinfoxml.disable=InGame Info XML-visningen er nå deaktivert.
