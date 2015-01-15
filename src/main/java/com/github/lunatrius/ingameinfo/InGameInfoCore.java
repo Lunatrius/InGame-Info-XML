@@ -15,6 +15,7 @@ import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.Value;
+import com.github.lunatrius.ingameinfo.value.ValueComplex;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.FontRenderer;
@@ -165,6 +166,7 @@ public class InGameInfoCore {
         this.profiler.endSection();
 
         Tag.releaseResources();
+        ValueComplex.ValueFile.tick();
     }
 
     public void onTickRender() {

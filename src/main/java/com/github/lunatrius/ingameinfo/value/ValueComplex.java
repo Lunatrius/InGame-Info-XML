@@ -3,6 +3,7 @@ package com.github.lunatrius.ingameinfo.value;
 import com.github.lunatrius.core.entity.EntityHelper;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
 import cpw.mods.fml.common.registry.GameData;
@@ -13,8 +14,14 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class ValueComplex extends Value {
     @Override
@@ -157,6 +164,76 @@ public abstract class ValueComplex extends Value {
         }
     }
 
+    public static class ValueFile extends ValueComplex {
+        private static final File ROOT = Minecraft.getMinecraft().mcDataDir;
+        private static final int TICK_RATE = 20 * 5;
+        private static int ticks = 0;
+
+        private Map<String, String> cache = new HashMap<String, String>();
+
+        @Override
+        public boolean isValidSize() {
+            return this.values.size() == 1;
+        }
+
+        @Override
+        public String getValue() {
+            final String filename = getValue(0);
+
+            if (ticks == 0) {
+                if (this.cache.size() > 16) {
+                    Reference.logger.trace("Clearing file cache...");
+                    this.cache.clear();
+                }
+
+                final File file = new File(ROOT, filename);
+                if (contains(ROOT, file) && file.exists()) {
+                    this.cache.put(filename, getLine(file));
+                }
+            }
+
+            final String line = this.cache.get(filename);
+            if (line != null) {
+                return line;
+            }
+
+            return "";
+        }
+
+        private String getLine(File file) {
+            try {
+                final FileReader fileReader = new FileReader(file);
+                final BufferedReader reader = new BufferedReader(fileReader);
+
+                final String line = reader.readLine();
+
+                reader.close();
+                fileReader.close();
+
+                return line;
+            } catch (Exception e) {
+                Reference.logger.error("", e);
+            }
+
+            return "";
+        }
+
+        // http://stackoverflow.com/q/18227634/1166946
+        private boolean contains(final File root, final File file) {
+            try {
+                return file.getCanonicalPath().startsWith(root.getCanonicalPath() + File.separator);
+            } catch (IOException e) {
+                Reference.logger.error("", e);
+            }
+
+            return false;
+        }
+
+        public static void tick() {
+            ticks = (ticks + 1) % TICK_RATE;
+        }
+    }
+
     public static class ValueIcon extends ValueComplex {
         @Override
         public boolean isValidSize() {
@@ -236,5 +313,6 @@ public abstract class ValueComplex extends Value {
         ValueRegistry.INSTANCE.register(new ValueTranslate().setName("trans").setAliases("translate"));
         ValueRegistry.INSTANCE.register(new ValueFormattedTime().setName("formattedtime").setAliases("rltimef"));
         ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
+        ValueRegistry.INSTANCE.register(new ValueFile().setName("file"));
     }
 }
