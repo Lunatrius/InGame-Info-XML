@@ -12,7 +12,7 @@ task signJars(dependsOn: ['reobf', 'devJar', 'sourceJar']) {
     inputs.file keystore_location
     inputs.property 'keystore_alias', keystore_alias
     inputs.property 'keystore_password', keystore_password
-    outputs.dir devJar.destinationDir
+    outputs.dir jar.destinationDir
 
     onlyIf {
         return keystore_location != '.'
