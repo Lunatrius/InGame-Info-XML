@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class TagMouseOver extends Tag {
     @Override
@@ -93,14 +94,18 @@ public abstract class TagMouseOver extends Tag {
             MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
-                    if (block != null) {
-                        int power = -1;
-                        for (int side = 0; side < 6; side++) {
-                            power = Math.max(power, block.isProvidingWeakPower(world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+                    int power = -1;
+                    for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+                        final int x = objectMouseOver.blockX + side.offsetX;
+                        final int y = objectMouseOver.blockY + side.offsetY;
+                        final int z = objectMouseOver.blockZ + side.offsetZ;
+                        power = Math.max(power, world.getBlock(x, y, z).isProvidingWeakPower(world, x, y, z, side.ordinal()));
+
+                        if (power >= 15) {
+                            break;
                         }
-                        return String.valueOf(power);
                     }
+                    return String.valueOf(power);
                 }
             }
             return "-1";
@@ -113,14 +118,16 @@ public abstract class TagMouseOver extends Tag {
             MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
-                    Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
-                    if (block != null) {
-                        int power = -1;
-                        for (int side = 0; side < 6; side++) {
-                            power = Math.max(power, block.isProvidingStrongPower(world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side));
+                    final Block block = world.getBlock(objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ);
+                    int power = -1;
+                    for (ForgeDirection side : ForgeDirection.VALID_DIRECTIONS) {
+                        power = Math.max(power, block.isProvidingStrongPower(world, objectMouseOver.blockX, objectMouseOver.blockY, objectMouseOver.blockZ, side.ordinal()));
+
+                        if (power >= 15) {
+                            break;
                         }
-                        return String.valueOf(power);
                     }
+                    return String.valueOf(power);
                 }
             }
             return "-1";
