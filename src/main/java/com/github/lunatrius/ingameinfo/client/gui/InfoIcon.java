@@ -3,11 +3,11 @@ package com.github.lunatrius.ingameinfo.client.gui;
 import com.github.lunatrius.core.util.vector.Vector2f;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
-import org.lwjgl.opengl.GL11;
 
 public class InfoIcon extends Info {
     private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
@@ -49,7 +49,7 @@ public class InfoIcon extends Info {
         try {
             textureManager.bindTexture(this.resourceLocation);
 
-            GL11.glTranslatef(getX(), getY(), 0);
+            GlStateManager.translate(getX(), getY(), 0);
 
             final Tessellator tessellator = Tessellator.getInstance();
             final WorldRenderer worldRenderer = tessellator.getWorldRenderer();
@@ -60,7 +60,7 @@ public class InfoIcon extends Info {
             worldRenderer.addVertexWithUV(this.xy0.x, this.xy0.y, this.zLevel, this.uv0.x, this.uv0.y);
             tessellator.draw();
 
-            GL11.glTranslatef(-getX(), -getY(), 0);
+            GlStateManager.translate(-getX(), -getY(), 0);
         } catch (Exception e) {
             Reference.logger.debug(e);
         }
