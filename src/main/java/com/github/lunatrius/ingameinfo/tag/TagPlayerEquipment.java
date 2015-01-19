@@ -3,12 +3,14 @@ package com.github.lunatrius.ingameinfo.tag;
 import com.github.lunatrius.core.entity.EntityHelper;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
-import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
+import net.minecraftforge.fml.common.registry.GameData;
 
 public abstract class TagPlayerEquipment extends Tag {
+    public static final FMLControlledNamespacedRegistry<Item> ITEM_REGISTRY = GameData.getItemRegistry();
     public static final String[] TYPES = new String[] { "equipped", "helmet", "chestplate", "leggings", "boots" };
     public static final int[] SLOTS = new int[] { -1, 3, 2, 1, 0 };
     protected final int slot;
@@ -51,7 +53,7 @@ public abstract class TagPlayerEquipment extends Tag {
         public String getValue() {
             ItemStack itemStack = getItemStack(this.slot);
             Item item = itemStack != null ? itemStack.getItem() : null;
-            return item != null ? GameData.getItemRegistry().getNameForObject(item) : "";
+            return item != null ? String.valueOf(ITEM_REGISTRY.getNameForObject(item)) : "";
         }
     }
 
@@ -63,7 +65,7 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamageForDisplay() : 0);
+            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
         }
     }
 
@@ -87,7 +89,7 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamageForDisplay() : 0);
+            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamage() : 0);
         }
     }
 
@@ -114,7 +116,7 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             ItemStack itemStack = getItemStack(this.slot);
-            InfoItem item = new InfoItem(minecraft.fontRenderer, itemStack, this.large);
+            InfoItem item = new InfoItem(itemStack, this.large);
             info.add(item);
             return getIconTag(item);
         }

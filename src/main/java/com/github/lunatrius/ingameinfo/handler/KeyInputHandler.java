@@ -1,13 +1,11 @@
 package com.github.lunatrius.ingameinfo.handler;
 
-
 import com.github.lunatrius.ingameinfo.reference.Names;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.input.Keyboard;
-
-import static cpw.mods.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class KeyInputHandler {
     public static final KeyInputHandler INSTANCE = new KeyInputHandler();
@@ -23,12 +21,10 @@ public class KeyInputHandler {
     private KeyInputHandler() {}
 
     @SubscribeEvent
-    public void onKeyInput(KeyInputEvent event) {
-        for (KeyBinding keyBinding : KEY_BINDINGS) {
-            if (keyBinding.isPressed()) {
-                if (this.minecraft.currentScreen == null) {
-                    Ticker.enabled = !Ticker.enabled;
-                }
+    public void onKeyInput(InputEvent event) {
+        if (this.minecraft.currentScreen == null) {
+            if (KEY_BINDING_TOGGLE.isPressed()) {
+                Ticker.enabled = !Ticker.enabled;
             }
         }
     }

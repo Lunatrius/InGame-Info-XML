@@ -17,7 +17,7 @@ import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.Value;
 import com.github.lunatrius.ingameinfo.value.ValueComplex;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.resources.IResource;
@@ -99,7 +99,7 @@ public class InGameInfoCore {
         }
         Tag.setWorld(world);
 
-        EntityClientPlayerMP player = this.minecraft.thePlayer;
+        EntityPlayerSP player = this.minecraft.thePlayer;
         if (player == null) {
             return;
         }
@@ -118,7 +118,7 @@ public class InGameInfoCore {
                 continue;
             }
 
-            FontRenderer fontRenderer = this.minecraft.fontRenderer;
+            FontRenderer fontRenderer = this.minecraft.fontRendererObj;
             List<Info> queue = new ArrayList<Info>();
 
             for (List<Value> line : lines) {

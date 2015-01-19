@@ -1,33 +1,28 @@
 package com.github.lunatrius.ingameinfo.client.gui;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 public class InfoItem extends Info {
-    private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
-    private final static RenderItem renderItem = new RenderItem();
+    private final static RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
     private final ItemStack itemStack;
-    private final FontRenderer fontRenderer;
     private final boolean large;
     private final int size;
 
-    public InfoItem(FontRenderer fontRenderer, ItemStack itemStack) {
-        this(fontRenderer, itemStack, false);
+    public InfoItem(ItemStack itemStack) {
+        this(itemStack, false);
     }
 
-    public InfoItem(FontRenderer fontRenderer, ItemStack itemStack, boolean large) {
-        this(fontRenderer, itemStack, large, 0, 0);
+    public InfoItem(ItemStack itemStack, boolean large) {
+        this(itemStack, large, 0, 0);
     }
 
-    public InfoItem(FontRenderer fontRenderer, ItemStack itemStack, boolean large, int x, int y) {
+    public InfoItem(ItemStack itemStack, boolean large, int x, int y) {
         super(x, y);
-        this.fontRenderer = fontRenderer;
         this.itemStack = itemStack;
         this.large = large;
         this.size = large ? 16 : 8;
@@ -48,7 +43,10 @@ public class InfoItem extends Info {
                 GL11.glScalef(0.5f, 0.5f, 0.5f);
             }
 
-            renderItem.renderItemAndEffectIntoGUI(this.fontRenderer, textureManager, this.itemStack, 0, 0);
+            final float zLevel = renderItem.zLevel;
+            renderItem.zLevel = 300;
+            renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
+            renderItem.zLevel = zLevel;
 
             if (!this.large) {
                 GL11.glScalef(2.0f, 2.0f, 2.0f);
@@ -74,9 +72,5 @@ public class InfoItem extends Info {
     @Override
     public String toString() {
         return String.format("InfoItem{itemStack: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.itemStack, this.x, this.y, this.offsetX, this.offsetY, this.children);
-    }
-
-    static {
-        renderItem.zLevel = 300;
     }
 }

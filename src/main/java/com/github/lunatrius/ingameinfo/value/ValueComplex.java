@@ -6,13 +6,13 @@ import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
-import cpw.mods.fml.common.registry.GameData;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -262,14 +262,14 @@ public abstract class ValueComplex extends Value {
 
                     itemStack = new ItemStack(GameData.getItemRegistry().getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
-                        item = new InfoItem(Minecraft.getMinecraft().fontRenderer, itemStack);
+                        item = new InfoItem(itemStack);
                         info.add(item);
                         return Tag.getIconTag(item);
                     }
 
                     itemStack = new ItemStack(GameData.getBlockRegistry().getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
-                        item = new InfoItem(Minecraft.getMinecraft().fontRenderer, itemStack);
+                        item = new InfoItem(itemStack);
                         info.add(item);
                         return Tag.getIconTag(item);
                     }

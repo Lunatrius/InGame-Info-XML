@@ -3,9 +3,9 @@ package com.github.lunatrius.ingameinfo.handler;
 import com.github.lunatrius.ingameinfo.network.PacketHandler;
 import com.github.lunatrius.ingameinfo.network.message.MessageSeed;
 import com.github.lunatrius.ingameinfo.reference.Reference;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PlayerHandler {
     @SubscribeEvent

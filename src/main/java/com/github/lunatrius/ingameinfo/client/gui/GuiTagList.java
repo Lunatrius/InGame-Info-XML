@@ -6,7 +6,6 @@ import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
@@ -38,13 +37,13 @@ public class GuiTagList extends GuiListExtended {
 
             CategoryEntry categoryEntry = stringCategoryEntryMap.get(category);
             if (categoryEntry == null) {
-                categoryEntry = new CategoryEntry(this.minecraft.fontRenderer, category);
+                categoryEntry = new CategoryEntry(this.minecraft.fontRendererObj, category);
                 stringCategoryEntryMap.put(category, categoryEntry);
                 this.map.put(categoryEntry, new TreeSet<TagEntry>());
             }
             Set<TagEntry> tagEntries = this.map.get(categoryEntry);
             if (tagEntries != null) {
-                tagEntries.add(new TagEntry(this.minecraft.fontRenderer, name, description));
+                tagEntries.add(new TagEntry(this.minecraft.fontRendererObj, name, description));
             }
         }
 
@@ -102,6 +101,10 @@ public class GuiTagList extends GuiListExtended {
         public void mouseReleased(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
         }
 
+        @Override
+        public void setSelected(int index, int p_178011_2_, int p_178011_3_) {
+        }
+
         public abstract String getName();
 
         @Override
@@ -120,7 +123,7 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void drawEntry(int index, int x, int y, int width, int height, Tessellator tessellator, int mouseX, int mouseY, boolean isSelected) {
+        public void drawEntry(int index, int x, int y, int width, int height, int mouseX, int mouseY, boolean isSelected) {
             this.fontRenderer.drawString(this.name, x + (width - this.fontRenderer.getStringWidth(this.name)) / 2, y + (height - this.fontRenderer.FONT_HEIGHT + 1) / 2, 0xFFFFFF);
         }
 
@@ -166,7 +169,7 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void drawEntry(int index, int x, int y, int width, int height, Tessellator tessellator, int mouseX, int mouseY, boolean isSelected) {
+        public void drawEntry(int index, int x, int y, int width, int height, int mouseX, int mouseY, boolean isSelected) {
             this.fontRenderer.drawString(this.name, x, y + height / 2 - this.fontRenderer.FONT_HEIGHT / 2, 0xFFFFFF);
 
             int lineHeight = this.fontRenderer.FONT_HEIGHT + 1;

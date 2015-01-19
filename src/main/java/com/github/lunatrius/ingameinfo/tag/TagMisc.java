@@ -2,7 +2,8 @@ package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
-import net.minecraft.client.gui.GuiPlayerInfo;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.resources.ResourcePackRepository;
 
 import java.util.List;
@@ -46,7 +47,7 @@ public abstract class TagMisc extends Tag {
     public static class FPS extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.debug.substring(0, minecraft.debug.indexOf(" fps"));
+            return String.valueOf(Minecraft.getDebugFPS());
         }
     }
 
@@ -64,16 +65,14 @@ public abstract class TagMisc extends Tag {
     public static class EntitiesRendered extends TagMisc {
         @Override
         public String getValue() {
-            String str = minecraft.getEntityDebug();
-            return str.substring(str.indexOf(' ') + 1, str.indexOf('/'));
+            return String.valueOf(minecraft.renderGlobal.countEntitiesRendered);
         }
     }
 
     public static class EntitiesTotal extends TagMisc {
         @Override
         public String getValue() {
-            String str = minecraft.getEntityDebug();
-            return str.substring(str.indexOf('/') + 1, str.indexOf('.'));
+            return String.valueOf(minecraft.renderGlobal.countEntitiesTotal);
         }
     }
 
@@ -87,7 +86,7 @@ public abstract class TagMisc extends Tag {
     public static class Server extends TagMisc {
         @Override
         public String getValue() {
-            String str = player.sendQueue.getNetworkManager().getSocketAddress().toString();
+            String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
             int i = str.indexOf("/");
             int j = str.indexOf(":");
             if (i < 0) {
@@ -103,7 +102,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerName extends TagMisc {
         @Override
         public String getValue() {
-            String str = player.sendQueue.getNetworkManager().getSocketAddress().toString();
+            String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
             int i = str.indexOf("/");
             if (i < 0) {
                 return "localhost";
@@ -117,7 +116,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerIP extends TagMisc {
         @Override
         public String getValue() {
-            String str = player.sendQueue.getNetworkManager().getSocketAddress().toString();
+            String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
             int i = str.indexOf("/");
             if (i < 0) {
                 return "127.0.0.1";
@@ -129,7 +128,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerPort extends TagMisc {
         @Override
         public String getValue() {
-            String str = player.sendQueue.getNetworkManager().getSocketAddress().toString();
+            String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
             int i = str.indexOf("/");
             if (i < 0) {
                 return "-1";
@@ -141,11 +140,10 @@ public abstract class TagMisc extends Tag {
     public static class Ping extends TagMisc {
         @Override
         public String getValue() {
-            List<GuiPlayerInfo> list = player.sendQueue.playerInfoList;
-            for (GuiPlayerInfo playerInfo : list) {
-                if (player.getGameProfile().getName().equals(playerInfo.name)) {
-                    return String.valueOf(playerInfo.responseTime);
-                }
+            try {
+                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(player.getUniqueID());
+                return String.valueOf(playerInfo.getResponseTime());
+            } catch (Exception e) {
             }
             return "-1";
         }
@@ -154,28 +152,28 @@ public abstract class TagMisc extends Tag {
     public static class PingIcon extends TagMisc {
         @Override
         public String getValue() {
-            List<GuiPlayerInfo> list = player.sendQueue.playerInfoList;
-            for (GuiPlayerInfo playerInfo : list) {
-                if (player.getGameProfile().getName().equals(playerInfo.name)) {
-                    int pingIndex = 4;
-                    if (playerInfo.responseTime < 0) {
-                        pingIndex = 5;
-                    } else if (playerInfo.responseTime < 150) {
-                        pingIndex = 0;
-                    } else if (playerInfo.responseTime < 300) {
-                        pingIndex = 1;
-                    } else if (playerInfo.responseTime < 600) {
-                        pingIndex = 2;
-                    } else if (playerInfo.responseTime < 1000) {
-                        pingIndex = 3;
-                    }
-
-                    InfoIcon icon = new InfoIcon("textures/gui/icons.png");
-                    icon.setDisplayDimensions(0, 0, 10, 8);
-                    icon.setTextureData(0, 176 + pingIndex * 8, 10, 8, 256, 256);
-                    info.add(icon);
-                    return getIconTag(icon);
+            try {
+                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(player.getUniqueID());
+                final int responseTime = playerInfo.getResponseTime();
+                int pingIndex = 4;
+                if (responseTime < 0) {
+                    pingIndex = 5;
+                } else if (responseTime < 150) {
+                    pingIndex = 0;
+                } else if (responseTime < 300) {
+                    pingIndex = 1;
+                } else if (responseTime < 600) {
+                    pingIndex = 2;
+                } else if (responseTime < 1000) {
+                    pingIndex = 3;
                 }
+
+                InfoIcon icon = new InfoIcon("textures/gui/icons.png");
+                icon.setDisplayDimensions(0, 0, 10, 8);
+                icon.setTextureData(0, 176 + pingIndex * 8, 10, 8, 256, 256);
+                info.add(icon);
+                return getIconTag(icon);
+            } catch (Exception e) {
             }
             return "-1";
         }

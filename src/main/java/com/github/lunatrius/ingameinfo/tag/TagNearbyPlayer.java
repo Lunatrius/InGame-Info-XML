@@ -89,7 +89,7 @@ public abstract class TagNearbyPlayer extends Tag {
         public String getValue() {
             updateNearbyPlayers();
             if (nearbyPlayers.length > this.index) {
-                return nearbyPlayers[this.index].func_145748_c_().getFormattedText();
+                return nearbyPlayers[this.index].getDisplayName().getFormattedText();
             }
             return "";
         }

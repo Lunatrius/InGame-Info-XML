@@ -4,6 +4,7 @@ import com.github.lunatrius.core.util.vector.Vector2f;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
@@ -50,13 +51,14 @@ public class InfoIcon extends Info {
 
             GL11.glTranslatef(getX(), getY(), 0);
 
-            Tessellator tess = Tessellator.instance;
-            tess.startDrawingQuads();
-            tess.addVertexWithUV(this.xy0.x, this.xy1.y, this.zLevel, this.uv0.x, this.uv1.y);
-            tess.addVertexWithUV(this.xy1.x, this.xy1.y, this.zLevel, this.uv1.x, this.uv1.y);
-            tess.addVertexWithUV(this.xy1.x, this.xy0.y, this.zLevel, this.uv1.x, this.uv0.y);
-            tess.addVertexWithUV(this.xy0.x, this.xy0.y, this.zLevel, this.uv0.x, this.uv0.y);
-            tess.draw();
+            final Tessellator tessellator = Tessellator.getInstance();
+            final WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+            worldRenderer.startDrawingQuads();
+            worldRenderer.addVertexWithUV(this.xy0.x, this.xy1.y, this.zLevel, this.uv0.x, this.uv1.y);
+            worldRenderer.addVertexWithUV(this.xy1.x, this.xy1.y, this.zLevel, this.uv1.x, this.uv1.y);
+            worldRenderer.addVertexWithUV(this.xy1.x, this.xy0.y, this.zLevel, this.uv1.x, this.uv0.y);
+            worldRenderer.addVertexWithUV(this.xy0.x, this.xy0.y, this.zLevel, this.uv0.x, this.uv0.y);
+            tessellator.draw();
 
             GL11.glTranslatef(-getX(), -getY(), 0);
         } catch (Exception e) {

@@ -3,10 +3,10 @@ package com.github.lunatrius.ingameinfo.handler;
 import com.github.lunatrius.ingameinfo.Alignment;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import com.github.lunatrius.ingameinfo.reference.Reference;
-import cpw.mods.fml.client.event.ConfigChangedEvent;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.client.event.ConfigChangedEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 import java.util.HashMap;

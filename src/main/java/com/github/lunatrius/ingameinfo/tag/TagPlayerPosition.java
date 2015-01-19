@@ -71,7 +71,7 @@ public abstract class TagPlayerPosition extends Tag {
     public static class YFeet extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.boundingBox.minY);
+            return String.format(Locale.ENGLISH, "%.2f", player.getEntityBoundingBox().minY);
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class TagPlayerPosition extends Tag {
     public static class YFeeti extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.valueOf((int) Math.floor(player.boundingBox.minY));
+            return String.valueOf((int) Math.floor(player.getEntityBoundingBox().minY));
         }
     }
 

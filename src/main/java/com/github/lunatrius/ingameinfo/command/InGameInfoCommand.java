@@ -8,8 +8,10 @@ import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
 import com.github.lunatrius.ingameinfo.reference.Names;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
 
 import java.io.File;
@@ -25,27 +27,27 @@ public class InGameInfoCommand extends CommandBase {
     private InGameInfoCommand() {}
 
     @Override
-    public String getCommandName() {
+    public String getName() {
         return Names.Command.NAME;
     }
 
     @Override
-    public String getCommandUsage(ICommandSender commandSender) {
+    public String getUsage(ICommandSender sender) {
         return Names.Command.Message.USAGE;
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender par1ICommandSender) {
+    public boolean canCommandSenderUse(ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender commandSender, String[] args) {
+    public List tabComplete(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST, Names.Command.CONFIG);
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
-                return getListOfStringsFromIterableMatchingLastWord(args, getFilenames());
+                return getListOfStringsMatchingLastWord(args, getFilenames());
             } else if (args[0].equalsIgnoreCase(Names.Command.SAVE)) {
                 return CommandBase.getListOfStringsMatchingLastWord(args, Names.Files.FILE_XML, Names.Files.FILE_JSON, Names.Files.FILE_TXT);
             }
@@ -71,7 +73,7 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender commandSender, String[] args) {
+    public void execute(ICommandSender commandSender, String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.RELOAD));
@@ -110,7 +112,7 @@ public class InGameInfoCommand extends CommandBase {
             }
         }
 
-        throw new WrongUsageException(getCommandUsage(commandSender));
+        throw new WrongUsageException(getUsage(commandSender));
     }
 
     @Override

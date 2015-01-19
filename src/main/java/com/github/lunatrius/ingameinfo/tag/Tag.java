@@ -1,10 +1,10 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.core.util.MBlockPos;
 import com.github.lunatrius.core.util.vector.Vector3f;
-import com.github.lunatrius.core.util.vector.Vector3i;
 import com.github.lunatrius.ingameinfo.client.gui.Info;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
@@ -12,11 +12,11 @@ import java.util.List;
 
 public abstract class Tag {
     protected static final Minecraft minecraft = Minecraft.getMinecraft();
-    protected static final Vector3i playerPosition = new Vector3i();
+    protected static final MBlockPos playerPosition = new MBlockPos();
     protected static final Vector3f playerMotion = new Vector3f();
     protected static MinecraftServer server;
     protected static World world;
-    protected static EntityClientPlayerMP player;
+    protected static EntityPlayerSP player;
     protected static List<Info> info;
     protected static boolean hasSeed = false;
     protected static long seed = 0;
@@ -86,11 +86,11 @@ public abstract class Tag {
         Tag.world = world;
     }
 
-    public static void setPlayer(EntityClientPlayerMP player) {
+    public static void setPlayer(EntityPlayerSP player) {
         Tag.player = player;
 
         if (player != null) {
-            playerPosition.set((int) Math.floor(player.posX), (int) Math.floor(player.posY), (int) Math.floor(player.posZ));
+            playerPosition.set(player);
             playerMotion.set((float) (player.posX - player.prevPosX), (float) (player.posY - player.prevPosY), (float) (player.posZ - player.prevPosZ));
         }
     }
@@ -108,7 +108,7 @@ public abstract class Tag {
 
     public static String getIconTag(Info info) {
         String str = "";
-        for (int i = 0; i < info.getWidth() && minecraft.fontRenderer.getStringWidth(str) < info.getWidth(); i++) {
+        for (int i = 0; i < info.getWidth() && minecraft.fontRendererObj.getStringWidth(str) < info.getWidth(); i++) {
             str += " ";
         }
         return String.format("{ICON|%s}", str);

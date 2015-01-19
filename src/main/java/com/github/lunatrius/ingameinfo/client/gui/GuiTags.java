@@ -6,6 +6,8 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 
+import java.io.IOException;
+
 public class GuiTags extends GuiScreen {
     private GuiTagList guiTagList;
     private GuiTextField guiTextField;
@@ -16,8 +18,8 @@ public class GuiTags extends GuiScreen {
     @Override
     public void initGui() {
         this.guiTagList = new GuiTagList(this, Minecraft.getMinecraft());
-        this.guiTextField = new GuiTextField(this.fontRendererObj, this.width / 2 - 155, this.height - 24, 150, 18);
-        this.btnDone = new GuiButton(0, this.width / 2 + 5, this.height - 25, 150, 20, I18n.format("gui.done"));
+        this.guiTextField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 155, this.height - 24, 150, 18);
+        this.btnDone = new GuiButton(1, this.width / 2 + 5, this.height - 25, 150, 20, I18n.format("gui.done"));
         this.buttonList.add(this.btnDone);
     }
 
@@ -29,22 +31,22 @@ public class GuiTags extends GuiScreen {
     }
 
     @Override
-    protected void mouseClicked(int x, int y, int action) {
+    protected void mouseClicked(int x, int y, int action) throws IOException {
         this.guiTextField.mouseClicked(x, y, action);
-        if (action != 0 || !this.guiTagList.func_148179_a(x, y, action)) {
+        if (action != 0 || !this.guiTagList.mouseClicked(x, y, action)) {
             super.mouseClicked(x, y, action);
         }
     }
 
     @Override
-    protected void mouseMovedOrUp(int x, int y, int mouseEvent) {
-        if (mouseEvent != 0 || !this.guiTagList.func_148181_b(x, y, mouseEvent)) {
-            super.mouseMovedOrUp(x, y, mouseEvent);
+    protected void mouseReleased(int x, int y, int mouseEvent) {
+        if (mouseEvent != 0 || !this.guiTagList.mouseReleased(x, y, mouseEvent)) {
+            super.mouseReleased(x, y, mouseEvent);
         }
     }
 
     @Override
-    protected void keyTyped(char character, int code) {
+    protected void keyTyped(char character, int code) throws IOException {
         this.guiTextField.textboxKeyTyped(character, code);
         this.guiTagList.filter(this.guiTextField.getText().toLowerCase());
         super.keyTyped(character, code);
