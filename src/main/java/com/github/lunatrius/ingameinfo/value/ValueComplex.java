@@ -1,7 +1,6 @@
 package com.github.lunatrius.ingameinfo.value;
 
 import com.github.lunatrius.core.entity.EntityHelper;
-import com.github.lunatrius.core.util.FileUtils;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
@@ -167,7 +166,6 @@ public abstract class ValueComplex extends Value {
     }
 
     public static class ValueFile extends ValueComplex {
-        private static final File ROOT = Minecraft.getMinecraft().mcDataDir;
         private static int ticks = 0;
 
         private Map<String, String> cache = new HashMap<String, String>();
@@ -188,7 +186,7 @@ public abstract class ValueComplex extends Value {
                 }
 
                 final File file = new File(InGameInfoCore.INSTANCE.getConfigDirectory(), filename);
-                if (FileUtils.contains(ROOT, file) && file.exists()) {
+                if (file.exists()) {
                     this.cache.put(filename, getLine(file));
                 }
             }
@@ -209,7 +207,10 @@ public abstract class ValueComplex extends Value {
                 final String line = reader.readLine();
 
                 reader.close();
-                fileReader.close();
+
+                if (line.startsWith("\uFEFF")) {
+                    return line.substring(1);
+                }
 
                 return line;
             } catch (Exception e) {
