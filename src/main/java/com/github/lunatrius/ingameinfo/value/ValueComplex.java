@@ -1,8 +1,10 @@
 package com.github.lunatrius.ingameinfo.value;
 
 import com.github.lunatrius.core.entity.EntityHelper;
+import com.github.lunatrius.core.util.FileUtils;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
@@ -17,7 +19,6 @@ import net.minecraftforge.fml.common.registry.GameData;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -166,7 +167,6 @@ public abstract class ValueComplex extends Value {
 
     public static class ValueFile extends ValueComplex {
         private static final File ROOT = Minecraft.getMinecraft().mcDataDir;
-        private static final int TICK_RATE = 20 * 5;
         private static int ticks = 0;
 
         private Map<String, String> cache = new HashMap<String, String>();
@@ -187,7 +187,7 @@ public abstract class ValueComplex extends Value {
                 }
 
                 final File file = new File(ROOT, filename);
-                if (contains(ROOT, file) && file.exists()) {
+                if (FileUtils.contains(ROOT, file) && file.exists()) {
                     this.cache.put(filename, getLine(file));
                 }
             }
@@ -218,19 +218,8 @@ public abstract class ValueComplex extends Value {
             return "";
         }
 
-        // http://stackoverflow.com/q/18227634/1166946
-        private boolean contains(final File root, final File file) {
-            try {
-                return file.getCanonicalPath().startsWith(root.getCanonicalPath() + File.separator);
-            } catch (IOException e) {
-                Reference.logger.error("", e);
-            }
-
-            return false;
-        }
-
         public static void tick() {
-            ticks = (ticks + 1) % TICK_RATE;
+            ticks = (ticks + 1) % (ConfigurationHandler.fileInterval * 20);
         }
     }
 
