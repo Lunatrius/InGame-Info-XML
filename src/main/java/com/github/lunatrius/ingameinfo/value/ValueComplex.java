@@ -2,6 +2,7 @@ package com.github.lunatrius.ingameinfo.value;
 
 import com.github.lunatrius.core.entity.EntityHelper;
 import com.github.lunatrius.core.util.FileUtils;
+import com.github.lunatrius.ingameinfo.InGameInfoCore;
 import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
@@ -186,7 +187,7 @@ public abstract class ValueComplex extends Value {
                     this.cache.clear();
                 }
 
-                final File file = new File(ROOT, filename);
+                final File file = new File(InGameInfoCore.INSTANCE.getConfigDirectory(), filename);
                 if (FileUtils.contains(ROOT, file) && file.exists()) {
                     this.cache.put(filename, getLine(file));
                 }
