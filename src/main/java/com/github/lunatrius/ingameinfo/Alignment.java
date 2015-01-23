@@ -23,10 +23,14 @@ public enum Alignment {
     private static final int RIGHT = 0x08;
 
     private int alignment;
+    public final int defaultX;
+    public final int defaultY;
     public int x;
     public int y;
 
     Alignment(int x, int y) {
+        this.defaultX = x;
+        this.defaultY = y;
         this.x = x;
         this.y = y;
         this.alignment = 0;
@@ -88,6 +92,10 @@ public enum Alignment {
         }
 
         return 0;
+    }
+
+    public String getDefaultXY() {
+        return String.format("%d %d", this.defaultX, this.defaultY);
     }
 
     public String getXY() {
