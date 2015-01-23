@@ -15,6 +15,8 @@ ingameinfoxml.config.showOnPlayerList=Show on Player List
 ingameinfoxml.config.showOnPlayerList.tooltip=Display the overlay on the player list.
 ingameinfoxml.config.scale=Scale
 ingameinfoxml.config.scale.tooltip=The overlay will be scaled by this amount.
+ingameinfoxml.config.fileInterval=File Tag Interval
+ingameinfoxml.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left
