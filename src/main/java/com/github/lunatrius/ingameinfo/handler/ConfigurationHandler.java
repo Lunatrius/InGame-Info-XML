@@ -33,13 +33,13 @@ public class ConfigurationHandler {
     public static float scale = (float) SCALE_DEFAULT;
     public static int fileInterval = FILE_INTERVAL_DEFAULT;
 
-    private static Property propConfigName = null;
-    private static Property propReplaceDebug = null;
-    private static Property propShowInChat = null;
-    private static Property propShowOnPlayerList = null;
-    private static Property propScale = null;
-    private static Property propFileInterval = null;
-    private static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
+    public static Property propConfigName = null;
+    public static Property propReplaceDebug = null;
+    public static Property propShowInChat = null;
+    public static Property propShowOnPlayerList = null;
+    public static Property propScale = null;
+    public static Property propFileInterval = null;
+    public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
     private ConfigurationHandler() {}
 

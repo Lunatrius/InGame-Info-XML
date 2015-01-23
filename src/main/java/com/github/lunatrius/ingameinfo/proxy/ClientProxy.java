@@ -11,6 +11,7 @@ import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.config.GuiConfigEntries;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -31,6 +32,8 @@ public class ClientProxy extends CommonProxy {
         this.core.setConfigDirectory(event.getModConfigurationDirectory());
         this.core.setConfigFile(ConfigurationHandler.configName);
         this.core.reloadConfig();
+
+        ConfigurationHandler.propFileInterval.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
 
         for (KeyBinding keyBinding : KeyInputHandler.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);
