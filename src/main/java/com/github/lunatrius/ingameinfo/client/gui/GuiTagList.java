@@ -19,6 +19,7 @@ import java.util.TreeSet;
 
 public class GuiTagList extends GuiListExtended {
     public static final int OFFSET_X = 150;
+    public static final int SCROLLBAR_WIDTH = 6;
 
     private final Minecraft minecraft;
     private final Map<CategoryEntry, Set<TagEntry>> map;
@@ -84,12 +85,12 @@ public class GuiTagList extends GuiListExtended {
 
     @Override
     public int getListWidth() {
-        return 440;
+        return Math.min(Math.max(this.width, 400), 440);
     }
 
     @Override
     protected int getScrollBarX() {
-        return this.width / 2 + getListWidth() / 2;
+        return this.width / 2 + getListWidth() / 2 - SCROLLBAR_WIDTH;
     }
 
     public abstract class ListEntry implements IGuiListEntry, Comparable<ListEntry> {
@@ -146,7 +147,7 @@ public class GuiTagList extends GuiListExtended {
         private String[] getDescArray(String desc) {
             List<String> list = new ArrayList<String>();
 
-            int width = getListWidth() - OFFSET_X;
+            int width = getListWidth() - OFFSET_X - SCROLLBAR_WIDTH;
             if (this.fontRenderer.getStringWidth(desc) < width) {
                 list.add(desc);
             } else {
