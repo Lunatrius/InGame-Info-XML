@@ -5,6 +5,7 @@ import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
 
 import java.util.Locale;
@@ -143,20 +144,22 @@ public abstract class TagWorld extends Tag {
         }
     }
 
-    public static class NextRain extends TagWorld {
+    public static class NextWeatherChange extends TagWorld {
         @Override
         public String getValue() {
             if (server == null) {
                 return "?";
             }
 
-            int seconds = server.worldServers[0].getWorldInfo().getRainTime() / 20;
+            final WorldInfo worldInfo = server.worldServerForDimension(0).getWorldInfo();
+            final int clearTime = worldInfo.getCleanWeatherTime();
+            final float seconds = (clearTime > 0 ? clearTime : worldInfo.getRainTime()) / 20f;
             if (seconds < 60) {
-                return String.format(Locale.ENGLISH, "%ds", seconds);
+                return String.format(Locale.ENGLISH, "%.1fs", seconds);
             } else if (seconds < 3600) {
-                return String.format(Locale.ENGLISH, "%dm", seconds / 60);
+                return String.format(Locale.ENGLISH, "%.1fm", seconds / 60);
             }
-            return String.format(Locale.ENGLISH, "%dh", seconds / 3600);
+            return String.format(Locale.ENGLISH, "%.1fh", seconds / 3600);
         }
     }
 
@@ -203,7 +206,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Raining().setName("raining"));
         TagRegistry.INSTANCE.register(new Thundering().setName("thundering"));
         TagRegistry.INSTANCE.register(new Snowing().setName("snowing"));
-        TagRegistry.INSTANCE.register(new NextRain().setName("nextrain"));
+        TagRegistry.INSTANCE.register(new NextWeatherChange().setName("nextweatherchange").setAliases("nextrain"));
         TagRegistry.INSTANCE.register(new Slimes().setName("slimes"));
         TagRegistry.INSTANCE.register(new Hardcore().setName("hardcore"));
         TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));

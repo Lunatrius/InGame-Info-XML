@@ -235,7 +235,6 @@ ingameinfoxml.tag.daytime.desc=§etrue§r hvis det er dag, §efalse§r ellers.
 ingameinfoxml.tag.raining.desc=§etrue§r hvis det regner, §efalse§r ellers.
 ingameinfoxml.tag.thundering.desc=§etrue§r hvis det er torden, §efalse§r ellers.
 ingameinfoxml.tag.snowing.desc=§etrue§r hvis det snør, §efalse§r ellers.
-ingameinfoxml.tag.nextrain.desc=Tid til neste regnskyll.
 ingameinfoxml.tag.slimes.desc=§etrue§r hvis verdensblokken er en slime-blokk, §efalse§r ellers.
 ingameinfoxml.tag.hardcore.desc=§etrue§r hvis verdenen er i hardcore-modus, §efalse§r ellers.
 ingameinfoxml.tag.temperature.desc=Biometemperatur.
