@@ -24,6 +24,12 @@ public class GuiTags extends GuiScreen {
     }
 
     @Override
+    public void handleMouseInput() throws IOException {
+        super.handleMouseInput();
+        this.guiTagList.handleMouseInput();
+    }
+
+    @Override
     protected void actionPerformed(GuiButton button) {
         if (button.id == this.btnDone.id) {
             this.mc.displayGuiScreen(null);
