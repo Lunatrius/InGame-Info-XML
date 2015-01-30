@@ -170,7 +170,6 @@ ingameinfoxml.tag.maxairticks.desc=玩家最大氧气槽数量.
 ingameinfoxml.tag.playerlevel.desc=玩家等级.
 ingameinfoxml.tag.xpthislevel.desc=玩家当前经验值.
 ingameinfoxml.tag.xpuntilnext.desc=玩家升级所需经验值.
-ingameinfoxml.tag.xpcap.desc=玩家到达当前等级总共所需经验值.
 ingameinfoxml.tag.username.desc=玩家名称.
 ingameinfoxml.tag.inwater.desc=如果玩家位于水下就返回§e真§r, 否则就返回§e假§r.
 ingameinfoxml.tag.wet.desc=如果玩家被水打湿就返回§e真§r, 否则就返回§e假§r.

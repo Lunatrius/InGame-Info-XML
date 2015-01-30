@@ -164,7 +164,6 @@ ingameinfoxml.tag.airticks.desc=Spillerens gjenværende luftmengde.
 ingameinfoxml.tag.playerlevel.desc=Spillerens nivå.
 ingameinfoxml.tag.xpthislevel.desc=Spillerens nåværende erfaringsnivå.
 ingameinfoxml.tag.xpuntilnext.desc=Spillerens gjenværende erfaring før nytt nivå.
-ingameinfoxml.tag.xpcap.desc=Spillerens totale påkrevde erfaringsnivå for nåværende nivå.
 ingameinfoxml.tag.username.desc=Spillerens brukernavn.
 ingameinfoxml.tag.inwater.desc=§etrue§r hvis spilleren er under vann, §efalse§r ellers.
 ingameinfoxml.tag.wet.desc=§etrue§r hvis spilleren er våt, §efalse§r ellers.
