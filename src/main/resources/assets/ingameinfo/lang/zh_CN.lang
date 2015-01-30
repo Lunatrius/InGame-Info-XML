@@ -51,8 +51,6 @@ ingameinfoxml.tag.category.playerpotion.name=玩家 - 药水效果
 ingameinfoxml.tag.category.riding.name=骑乘
 ingameinfoxml.tag.category.time.name=世界时间
 ingameinfoxml.tag.category.world.name=世界名称
-ingameinfoxml.tag.category.simplyjetpacks.name=Simply Jetpacks
-ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 ingameinfoxml.tag.black.desc=黑色(§0例子§r).

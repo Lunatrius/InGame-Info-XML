@@ -268,7 +268,6 @@ ingameinfoxml.tag.tcwarptemp.desc=Gracza tymczasowy warp.
 ingameinfoxml.tag.tcwarptotal.desc=Gracza całkowity warp.
 
 # keys
-ingameinfoxml.key.category=XML Info w Grze.
 ingameinfoxml.key.toggle=Przełącz Nakładkę.
 
 # commands
@@ -278,5 +277,5 @@ commands.ingameinfoxml.load=Ładowanie %s...
 commands.ingameinfoxml.save=Zapisywanie %s...
 commands.ingameinfoxml.success=Zrobione!
 commands.ingameinfoxml.failure=Coś poszło nie tak!
-commands.ingameinfoxml.enable=Nakładka XML Info w Grze jest teraz włączona.
-commands.ingameinfoxml.disable=Nakładka XML Info w Grze jest teraz wyłączona.
+commands.ingameinfoxml.enable=Nakładka InGame Info XML jest teraz włączona.
+commands.ingameinfoxml.disable=Nakładka InGame Info XML jest teraz wyłączona.
