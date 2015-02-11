@@ -183,7 +183,6 @@ ingameinfoxml.tag.sneaking.desc=§etrue§r if the player is sneaking, §efalse§
 ingameinfoxml.tag.sprinting.desc=§etrue§r if the player is sprinting, §efalse§r otherwise.
 ingameinfoxml.tag.invisible.desc=§etrue§r if the player is invisible, §efalse§r otherwise.
 ingameinfoxml.tag.eating.desc=§etrue§r if the player is eating, §efalse§r otherwise.
-ingameinfoxml.tag.invulnerable.desc=§etrue§r if the player is invulnerable, §efalse§r otherwise.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Player's X chunk coordinate.

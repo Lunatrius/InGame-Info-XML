@@ -174,7 +174,6 @@ ingameinfoxml.tag.sneaking.desc=§etrue§r hvis spilleren sniker, §efalse§r el
 ingameinfoxml.tag.sprinting.desc=§etrue§r hvis spilleren sprinter, §efalse§r ellers.
 ingameinfoxml.tag.invisible.desc=§etrue§r hvis spilleren er usynlig, §efalse§r ellers.
 ingameinfoxml.tag.eating.desc=§etrue§r hvis spilleren spiser, §efalse§r ellers.
-ingameinfoxml.tag.invulnerable.desc=§etrue§r hvis spilleren er uskadelig, §efalse§r ellers.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Spillerens X-verdensblokk-koordinat.

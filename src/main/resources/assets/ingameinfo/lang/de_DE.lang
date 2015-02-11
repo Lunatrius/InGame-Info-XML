@@ -1,5 +1,3 @@
-# https://github.com/ReneMuetti/InGame-Info-XML
-
 # gui - config - categories
 ingameinfoxml.config.category.general=Allgemein
 ingameinfoxml.config.category.general.tooltip=Allgemeine Optionen.
@@ -185,7 +183,6 @@ ingameinfoxml.tag.sneaking.desc=§etrue§r wenn der Spieler schleicht, sonst §e
 ingameinfoxml.tag.sprinting.desc=§etrue§r wenn der Spieler rennt, sonst §efalse§r.
 ingameinfoxml.tag.invisible.desc=§etrue§r wenn der Spieler unsichtbar ist, sonst §efalse§r.
 ingameinfoxml.tag.eating.desc=§etrue§r wenn der Spieler isst, sonst §efalse§r.
-ingameinfoxml.tag.invulnerable.desc=§etrue§r wenn der Spieler unverwundbar ist, sonst §efalse§r.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Spieler X Chunk Koordinate.
@@ -197,7 +194,7 @@ ingameinfoxml.tag.y.desc=Spieler Y Koordinate.
 ingameinfoxml.tag.yfeet.desc=Spieler Y Koordinate (Sichtebene).
 ingameinfoxml.tag.z.desc=Spieler Z Koordinate.
 ingameinfoxml.tag.xi.desc=Spieler X Koordinate aufgerundete ganze Zahl.
-ingameinfoxml.tag.yi.desc=Spieler y Koordinate aufgerundete ganze Zahl.
+ingameinfoxml.tag.yi.desc=Spieler Y Koordinate aufgerundete ganze Zahl.
 ingameinfoxml.tag.yfeeti.desc=Spieler Y Koordinate aufgerundete ganze Zahl (Sichtebene).
 ingameinfoxml.tag.zi.desc=Spieler Y Koordinate aufgerundete ganze Zahl.
 ingameinfoxml.tag.speed.desc=Spielergeschwindigkeit.

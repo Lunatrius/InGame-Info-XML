@@ -178,7 +178,6 @@ ingameinfoxml.tag.sneaking.desc=如果玩家正在潜行就返回§e真§r, 否�
 ingameinfoxml.tag.sprinting.desc=如果玩家正在疾跑就返回§e真§r, 否则就返回§e假§r.
 ingameinfoxml.tag.invisible.desc=如果玩家处于隐身状态就返回§e真§r, 否则就返回§e假§r.
 ingameinfoxml.tag.eating.desc=如果玩家正在进食就返回§e真§r, 否则就返回§e假§r.
-ingameinfoxml.tag.invulnerable.desc=如果玩家处于无敌状态就返回§e真§r, 否则就返回§e假§r.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=玩家X轴区块坐标.

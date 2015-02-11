@@ -183,7 +183,6 @@ ingameinfoxml.tag.sneaking.desc=§eprawda§r jeśli gracz się skrada, §efałsz
 ingameinfoxml.tag.sprinting.desc=§eprawda§r jeśli gracz sprintuje, §efałsz§r przeciwnie.
 ingameinfoxml.tag.invisible.desc=§eprawda§r jeśli gracz jest niewidzialny, §efałsz§r przeciwnie.
 ingameinfoxml.tag.eating.desc=§eprawda§r jeśli gracz spożywa, §efałsz§r przeciwnie.
-ingameinfoxml.tag.invulnerable.desc=§eprawda§r jeśli gracz jest nieśmiertelny, §efałsz§r przeciwnie.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Gracza pozycja X chunku.
