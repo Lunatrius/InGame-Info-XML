@@ -1,45 +1,284 @@
+# https://github.com/ReneMuetti/InGame-Info-XML
+
 # gui - config - categories
+ingameinfoxml.config.category.general=Allgemein
+ingameinfoxml.config.category.general.tooltip=Allgemeine Optionen.
+ingameinfoxml.config.category.alignment=Ausrichtung
+ingameinfoxml.config.category.alignment.tooltip=Ausrichtungs-Versatz.
 
 # gui - config - general
+ingameinfoxml.config.filename=Dateiname
+ingameinfoxml.config.filename.tooltip=Die Konfiguration, welche beim Systemstart geladen werden soll.
+ingameinfoxml.config.replaceDebug=Ersetze Debug Overlay
+ingameinfoxml.config.replaceDebug.tooltip=Ersetzt den Debug-Overlay (F3) mit dem InGameInfoXML Overlay.
+ingameinfoxml.config.showInChat=Zeige im Chat
+ingameinfoxml.config.showInChat.tooltip=Zeige den Overlay im Chat.
+ingameinfoxml.config.showOnPlayerList=Auf der Spieler Liste anzeigen
+ingameinfoxml.config.showOnPlayerList.tooltip=Zeige den Overlay auf der Spieler Liste.
+ingameinfoxml.config.scale=Skalierung
+ingameinfoxml.config.scale.tooltip=Das Overlay wird um diesen Betrag skaliert.
+ingameinfoxml.config.fileInterval=Datei-Tag-Intervall
+ingameinfoxml.config.fileInterval.tooltip=Der Intervall zwischen beim Datei lesen für den 'file' Tag (in Sekunden).
 
 # gui - config - alignment
+ingameinfoxml.config.topleft=Oben Links
+ingameinfoxml.config.topleft.tooltip=Offsets für die obere linke Ecke des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.topcenter=Oben Zentriert
+ingameinfoxml.config.topcenter.tooltip=Offsets für die obere Mitte des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.topright=Oben Rechts
+ingameinfoxml.config.topright.tooltip=Offsets für die obere rechte Ecke des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.middleleft=Mitte Links
+ingameinfoxml.config.middleleft.tooltip=Offsets für die mittlere linke Seite des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.middlecenter=Mitte Zentriert
+ingameinfoxml.config.middlecenter.tooltip=Offsets für die mittlere zentrierte Seite des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.middleright=Mitte Rechts
+ingameinfoxml.config.middleright.tooltip=Offsets für die mittlere rechte Seite des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.bottomleft=Unten Links
+ingameinfoxml.config.bottomleft.tooltip=Offsets für die untere linke Seite des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.bottomcenter=Unten Zentriert
+ingameinfoxml.config.bottomcenter.tooltip=Offsets für die untere Mitte des Bildschirms (X <Leerzeichen> Y).
+ingameinfoxml.config.bottomright=Unten Rechts
+ingameinfoxml.config.bottomright.tooltip=Offsets für die untere rechte Seite des Bildschirms (X <Leerzeichen> Y).
 
 # gui - tag list
+gui.ingameinfoxml.taglist=Tag Liste
 
 # gui - tag list - categories
+ingameinfoxml.tag.category.formatting.name=Formatierung
+ingameinfoxml.tag.category.misc.name=Verschiedenes
+ingameinfoxml.tag.category.mouseover.name=Mouseover
+ingameinfoxml.tag.category.nearbyplayer.name=beim Spieler
+ingameinfoxml.tag.category.playerequipment.name=Spieler - Ausrüstung
+ingameinfoxml.tag.category.playergeneral.name=Spieler - Allgemein
+ingameinfoxml.tag.category.playerposition.name=Spieler - Position
+ingameinfoxml.tag.category.playerpotion.name=Spieler - Trankeffekte
+ingameinfoxml.tag.category.riding.name=Reiten
+ingameinfoxml.tag.category.time.name=Zeit
+ingameinfoxml.tag.category.world.name=Welt
+ingameinfoxml.tag.category.simplyjetpacks.name=einfacher Jetpack
+ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
+ingameinfoxml.tag.black.desc=Schwarze Farbe (§0BEISPIEL§r).
+ingameinfoxml.tag.darkblue.desc=Dunkelblaue Farbe (§1BEISPIEL§r).
+ingameinfoxml.tag.darkgreen.desc=Dunkelgrüne Farbe (§2BEISPIEL§r).
+ingameinfoxml.tag.darkaqua.desc=Dunkeltürkise Farbe (§3BEISPIEL§r).
+ingameinfoxml.tag.darkred.desc=Dunkelrote Farbe (§4BEISPIEL§r).
+ingameinfoxml.tag.darkpurple.desc=Dunkelviolette Farbe (§5BEISPIEL§r).
+ingameinfoxml.tag.gold.desc=Goldene Farbe (§6BEISPIEL§r).
+ingameinfoxml.tag.gray.desc=Graue Farbe (§7BEISPIEL§r).
+ingameinfoxml.tag.darkgrey.desc=Dunkelgraue Farbe (§8BEISPIEL§r).
+ingameinfoxml.tag.blue.desc=Blaue Farbe (§9BEISPIEL§r).
+ingameinfoxml.tag.green.desc=Grüne Farbe (§aBEISPIEL§r).
+ingameinfoxml.tag.aqua.desc=Türkise Farbe (§bBEISPIEL§r).
+ingameinfoxml.tag.red.desc=Rote Farbe (§cBEISPIEL§r).
+ingameinfoxml.tag.lightpurple.desc=Hell-Lila Farbe (§dBEISPIEL§r).
+ingameinfoxml.tag.yellow.desc=Gelbe Farbe (§eBEISPIEL§r).
+ingameinfoxml.tag.white.desc=Weiße Farbe (§fBEISPIEL§r).
+ingameinfoxml.tag.obfuscated.desc=Verschleierter Text (§kBEISPIEL§r).
+ingameinfoxml.tag.bold.desc=Fetter Text (§lBEISPIEL§r).
+ingameinfoxml.tag.strikethrough.desc=Durchgestrichener Text (§mBEISPIEL§r).
+ingameinfoxml.tag.underline.desc=Unterstrichener Text (§nBEISPIEL§r).
+ingameinfoxml.tag.italic.desc=Kursiver Text (§oBEISPIEL§r).
+ingameinfoxml.tag.reset.desc=Formatierung zurücksetzen.
 
 # gui - tag list - misc
+ingameinfoxml.tag.memmax.desc=Größe des maximalen Speicher.
+ingameinfoxml.tag.memtotal.desc=Größe des Gesamtspeicher.
+ingameinfoxml.tag.memfree.desc=Größe des freien Speichers.
+ingameinfoxml.tag.memused.desc=Größe des verwendeten Speicher.
+ingameinfoxml.tag.fps.desc=Aktuelle FPS.
+ingameinfoxml.tag.resourcepack.desc=Aktueller Ressourcen-Pack.
+ingameinfoxml.tag.entitiesrendered.desc=Anzahl der gerenderten Einheiten.
+ingameinfoxml.tag.entitiestotal.desc=Anzahl der geladenen Einheiten.
+ingameinfoxml.tag.loadedchunks.desc=Anzahl der geladenen Chunks.
+ingameinfoxml.tag.server.desc=Server-Domäne oder die IP und der Port wenn nicht 25565, localhost wenn es ein lokales Spiel ist.
+ingameinfoxml.tag.servername.desc=Server-Domäne, localhost wenn es ein lokales Spiel ist.
+ingameinfoxml.tag.serverip.desc=Server IP, 127.0.0.1 wenn es ein lokales Spiel ist.
+ingameinfoxml.tag.serverport.desc=Server Port, -1 wenn es ein lokales Spiel ist.
+ingameinfoxml.tag.ping.desc=Aktueller ping, -1 wenn keine Daten.
+ingameinfoxml.tag.pingicon.desc=Aktueller Ping-Icon, Leer wenn keine Daten.
 
 # gui - tag list - mouse over
+ingameinfoxml.tag.mouseovername.desc=Name des Objekts oder Blocks unter dem Cursor, leerer String wenn es nichts.
+ingameinfoxml.tag.mouseoveruniquename.desc=Eindeutiger Name des Objekts oder Blocks unter dem Cursor, leerer String wenn es nichts.
+ingameinfoxml.tag.mouseoverid.desc=ObjektID oder Blockmetadaten unter dem Cursor, 0 wenn nichts.
+ingameinfoxml.tag.mouseovermetadata.desc=Blockmetadaten unter dem Cursor, 0 wenn nichts.
+ingameinfoxml.tag.mouseoverpowerweak.desc=Schwache Redstone-Energie des Blocks, -1 wenn es nichts.
+ingameinfoxml.tag.mouseoverpowerstrong.desc=Starke Redstone-Energie des Blocks, -1 wenn es nichts.
+ingameinfoxml.tag.mouseoverpowerinput.desc=Eingang Redstone-Energie des Blocks, -1 wenn es nichts.
 
 # gui - tag list - nearby player
+ingameinfoxml.tag.nearbyplayerdistance.desc=Entfernung zum x-ten Spieler in der Nähe.
+ingameinfoxml.tag.nearbyplayername.desc=Name des x-ten Spieler in der Nähe.
 
 # gui - tag list - player equipment
+ingameinfoxml.tag.equippedname.desc=Name des ausgerüsteten Objektes.
+ingameinfoxml.tag.equippeduniquename.desc=Eindeutiger Namen des ausgerüsteten Objektes.
+ingameinfoxml.tag.equippeddamage.desc=Beschädigungdes ausgerüsteten Objektes.
+ingameinfoxml.tag.equippedmaxdamage.desc=Maximaler Schaden des ausgerüsteten Objektes.
+ingameinfoxml.tag.equippeddamageleft.desc=Restschaden des ausgerüsteten Objektes.
+ingameinfoxml.tag.equippedquantity.desc=Menge des ausgerüsteten Objektes im Inventar.
+ingameinfoxml.tag.equippedicon.desc=Icon des ausgerüsteten Objektes.
+ingameinfoxml.tag.equippedlargeicon.desc=Großer Icon des ausgerüsteten Objektes.
+ingameinfoxml.tag.helmetname.desc=Helmname.
+ingameinfoxml.tag.helmetuniquename.desc=Eindeutiger Helmname.
+ingameinfoxml.tag.helmetdamage.desc=Helmschaden.
+ingameinfoxml.tag.helmetmaxdamage.desc=Maximaler Helmschaden.
+ingameinfoxml.tag.helmetdamageleft.desc=Restlicher Helmschaden.
+ingameinfoxml.tag.helmetquantity.desc=Anzahl der Helme im Inventar.
+ingameinfoxml.tag.helmeticon.desc=Helmicon.
+ingameinfoxml.tag.helmetlargeicon.desc=Großer Helmicon.
+ingameinfoxml.tag.chestplatename.desc=Rüstungsname.
+ingameinfoxml.tag.chestplateuniquename.desc=Eindeutiger Rüstungsname.
+ingameinfoxml.tag.chestplatedamage.desc=Rüstungsschaden.
+ingameinfoxml.tag.chestplatemaxdamage.desc=Maximaler Rüstungsschaden.
+ingameinfoxml.tag.chestplatedamageleft.desc=Restlicher Rüstungsschaden.
+ingameinfoxml.tag.chestplatequantity.desc=Anzahl der Rüstungen im Inventar.
+ingameinfoxml.tag.chestplateicon.desc=Rüstungsicon.
+ingameinfoxml.tag.chestplatelargeicon.desc=Großer Rüstungsicon.
+ingameinfoxml.tag.leggingsname.desc=Beinschienenname.
+ingameinfoxml.tag.leggingsuniquename.desc=Eindeutiger Beinschienenname.
+ingameinfoxml.tag.leggingsdamage.desc=Schaden der Beinschienen.
+ingameinfoxml.tag.leggingsmaxdamage.desc=Maximaler Schaden der Beinschienen.
+ingameinfoxml.tag.leggingsdamageleft.desc=Restschaden der Beinschienen.
+ingameinfoxml.tag.leggingsquantity.desc=Anzahl der Beinschienen im Inventar.
+ingameinfoxml.tag.leggingsicon.desc=Beinschienenicon.
+ingameinfoxml.tag.leggingslargeicon.desc=Großer Beinschienenicon.
+ingameinfoxml.tag.bootsname.desc=Stiefelname.
+ingameinfoxml.tag.bootsuniquename.desc=Eindeutiger Stiefelname.
+ingameinfoxml.tag.bootsdamage.desc=Stiefelschaden.
+ingameinfoxml.tag.bootsmaxdamage.desc=Maximaler Stiefelschaden.
+ingameinfoxml.tag.bootsdamageleft.desc=Restlicher Stiefelschaden.
+ingameinfoxml.tag.bootsquantity.desc=Anzahl der Stiefel im Inventar.
+ingameinfoxml.tag.bootsicon.desc=Stiefelicon.
+ingameinfoxml.tag.bootslargeicon.desc=Großer Stiefelicon.
 
 # gui - tag list - player general
+ingameinfoxml.tag.light.desc=Lichtpegel an der aktuellen Position.
+ingameinfoxml.tag.lightfeet.desc=Lichtpegel an der aktuellen Position (Sichtebene).
+ingameinfoxml.tag.lightnosun.desc=Lichtpegel an der aktuellen Position ohne Sonnenlicht.
+ingameinfoxml.tag.lightnosunfeet.desc=Lichtpegel an der aktuellen Position ohne Sonnenlicht (Sichtebene).
+ingameinfoxml.tag.score.desc=Spieler Score.
+ingameinfoxml.tag.gamemode.desc=Spieler Gamemode Name.
+ingameinfoxml.tag.gamemodeid.desc=Spieler Gamemode ID.
+ingameinfoxml.tag.health.desc=Aktuelle Lebenspunkte des Spielers.
+ingameinfoxml.tag.maxhealth.desc=Maximale Lebenspunkte des Spielers.
+ingameinfoxml.tag.armor.desc=Rüstungspunkte des Spielers.
+ingameinfoxml.tag.foodlevel.desc=Essenspunkte des Spielers.
+ingameinfoxml.tag.maxfoodlevel.desc=Maximale Essenspunkte des Spielers.
+ingameinfoxml.tag.saturation.desc=Spieler Sättigung.
+ingameinfoxml.tag.exhaustion.desc=Spieler Hunger.
+ingameinfoxml.tag.airticks.desc=Spieler Luft.
+ingameinfoxml.tag.maxairticks.desc=Maximale Spieler Luft.
+ingameinfoxml.tag.playerlevel.desc=Spieler Level.
+ingameinfoxml.tag.xpthislevel.desc=Aktuelle Spieler-Erfahrung.
+ingameinfoxml.tag.xpuntilnext.desc=Spieler-Erfahrung bis zum Level-Aufstieg.
+ingameinfoxml.tag.xpcap.desc=Gesamte Spieler-Erfahrung für das aktuelle Spieler-Level.
+ingameinfoxml.tag.username.desc=Benutzername des Spielers.
+ingameinfoxml.tag.inwater.desc=§etrue§r wenn der Spieler taucht, sonst §efalse§r.
+ingameinfoxml.tag.wet.desc=§etrue§r wenn der Spieler nass ist, sonst §efalse§r.
+ingameinfoxml.tag.alive.desc=§etrue§r wenn der Spieler am Leben ist, sonst §efalse§r.
+ingameinfoxml.tag.burning.desc=§etrue§r wenn der Spieler brennt, sonst §efalse§r.
+ingameinfoxml.tag.riding.desc=§etrue§r wenn der Spieler reitet, sonst §efalse§r.
+ingameinfoxml.tag.sneaking.desc=§etrue§r wenn der Spieler schleicht, sonst §efalse§r.
+ingameinfoxml.tag.sprinting.desc=§etrue§r wenn der Spieler rennt, sonst §efalse§r.
+ingameinfoxml.tag.invisible.desc=§etrue§r wenn der Spieler unsichtbar ist, sonst §efalse§r.
+ingameinfoxml.tag.eating.desc=§etrue§r wenn der Spieler isst, sonst §efalse§r.
+ingameinfoxml.tag.invulnerable.desc=§etrue§r wenn der Spieler unverwundbar ist, sonst §efalse§r.
 
 # gui - tag list - player position
+ingameinfoxml.tag.chunkx.desc=Spieler X Chunk Koordinate.
+ingameinfoxml.tag.chunkz.desc=Spieler Z Chunk Koordinate.
+ingameinfoxml.tag.chunkoffsetx.desc=Spieler X Chunk Offset Koordinate (0-15).
+ingameinfoxml.tag.chunkoffsetz.desc=Spieler Z Chunk Offset Koordinate (0-15).
+ingameinfoxml.tag.x.desc=Spieler X Koordinate.
+ingameinfoxml.tag.y.desc=Spieler Y Koordinate.
+ingameinfoxml.tag.yfeet.desc=Spieler Y Koordinate (Sichtebene).
+ingameinfoxml.tag.z.desc=Spieler Z Koordinate.
+ingameinfoxml.tag.xi.desc=Spieler X Koordinate aufgerundete ganze Zahl.
+ingameinfoxml.tag.yi.desc=Spieler y Koordinate aufgerundete ganze Zahl.
+ingameinfoxml.tag.yfeeti.desc=Spieler Y Koordinate aufgerundete ganze Zahl (Sichtebene).
+ingameinfoxml.tag.zi.desc=Spieler Y Koordinate aufgerundete ganze Zahl.
+ingameinfoxml.tag.speed.desc=Spielergeschwindigkeit.
+ingameinfoxml.tag.speedx.desc=Spielergeschwindigkeit entlang der x-Achse.
+ingameinfoxml.tag.speedy.desc=Spielergeschwindigkeit entlang der y-Achse.
+ingameinfoxml.tag.speedz.desc=Spielergeschwindigkeit entlang der z-Achse.
+ingameinfoxml.tag.speedxz.desc=Spielergeschwindigkeit horizontal.
+ingameinfoxml.tag.direction.desc=Spielerrichtung in Grad von -180 bis 180.
+ingameinfoxml.tag.roughdirection.desc=Grobe Richtung in welche der Spieler schaut (Süden, Westen, Norden, Osten).
+ingameinfoxml.tag.finedirection.desc=Genaue Richtung in welche der Spieler schaut (Süd, Südwest, West, Nordwest, ...).
+ingameinfoxml.tag.abrroughdirection.desc=Abgekürzte Richtung in welche der Spieler schaut (S, W, N, E).
+ingameinfoxml.tag.abrfinedirection.desc=Abgekürzte genaue Richtung in welche der Spieler schaut (S, SW, W, NW, ...).
+ingameinfoxml.tag.directionhud.desc=Eine kleine Textausrichtung des HUD.
 
 # gui - tag list - player potion
+ingameinfoxml.tag.potioneffect.desc=Name des x-ten Trank-Effekt.
+ingameinfoxml.tag.potionduration.desc=Dauer des x-ten Trank-Effekt in Sekunden.
+ingameinfoxml.tag.potiondurationticks.desc=Dauer des x-ten Trank-Effekt in Ticks.
+ingameinfoxml.tag.potionicon.desc=Icon des x-ten Trank-Effekt.
+ingameinfoxml.tag.potionlargeicon.desc=Großer Icon des x-ten Trank-Effekt.
 
 # gui - tag list - riding
+ingameinfoxml.tag.ridinghorse.desc=§etrue§r wenn der Spieler ein Pferd reitet, sonst §efalse§r.
+ingameinfoxml.tag.horsehealth.desc=Gesundheit des Pferdes.
+ingameinfoxml.tag.horsemaxhealth.desc=Maximale Gesundheit des Pferdes.
+ingameinfoxml.tag.horsespeed.desc=Geschwindigkeit des Pferdes.
+ingameinfoxml.tag.horsejumpstrength.desc=Sprungkraft des Pferdes.
 
 # gui - tag list - time
+ingameinfoxml.tag.day.desc=Minecraft Tag, Start bei 0.
+ingameinfoxml.tag.mctimeh.desc=Minecraft Stunde.
+ingameinfoxml.tag.mctimem.desc=Minecraft Minute.
+ingameinfoxml.tag.mctime24.desc=Minecraft-Zeit (24-Stunden-Format).
+ingameinfoxml.tag.mctime12.desc=Minecraft-Zeit (12-Stunden-Format).
+ingameinfoxml.tag.rltime24.desc=Real-Zeit (24-Stunden-Format).
+ingameinfoxml.tag.rltime12.desc=Real-Zeit (12-Stunden-Format).
 
 # gui - tag list - world
+ingameinfoxml.tag.worldname.desc=Weltname.
+ingameinfoxml.tag.worldsize.desc=Weltgröße.
+ingameinfoxml.tag.worldsizemb.desc=Weltgröße in MiB.
+ingameinfoxml.tag.seed.desc=Welt-Seed.
+ingameinfoxml.tag.difficulty.desc=Welt Schwierigkeit Bezeichnung.
+ingameinfoxml.tag.difficultyid.desc=Welt Schwierigkeit ID.
+ingameinfoxml.tag.dimension.desc=Dimensionsnamen.
+ingameinfoxml.tag.dimensionid.desc=Dimensions ID.
+ingameinfoxml.tag.biome.desc=Biome Name.
+ingameinfoxml.tag.biomeid.desc=Biome ID.
+ingameinfoxml.tag.daytime.desc=§etrue§r wenn es Tag ist, sonst §efalse§r.
+ingameinfoxml.tag.raining.desc=§etrue§r wenn es regnet, sonst §efalse§r.
+ingameinfoxml.tag.thundering.desc=§etrue§r wenn es donnert, sonst §efalse§r.
+ingameinfoxml.tag.snowing.desc=§etrue§r wenn es schneit, sonst §efalse§r.
+ingameinfoxml.tag.nextweatherchange.desc=Zeit bis zum nächsten Wetterwechsel.
+ingameinfoxml.tag.slimes.desc=§etrue§r if wenn der aktuelle Chunk ein Slimechunk ist, sonst §efalse§r.
+ingameinfoxml.tag.hardcore.desc=§etrue§r wenn die Welt im Hard-Mode läuft, sonst §efalse§r.
+ingameinfoxml.tag.temperature.desc=Biome Temperatur.
+ingameinfoxml.tag.humidity.desc=Biome Luftfeuchtigkeit.
 
 # gui - tag list - integration - simply jetpacks
+ingameinfoxml.tag.sjenergy.desc=Jetpack Energie.
+ingameinfoxml.tag.sjmaxenergy.desc=Maximale Jetpack Energie.
+ingameinfoxml.tag.sjpercent.desc=Restprozent der Jetpack Energie.
+ingameinfoxml.tag.sjenabled.desc=§etrue§r wenn der Jetpack aktiv ist, sonst §efalse§r.
+ingameinfoxml.tag.sjhover.desc=§etrue§r wenn der Jetpack im Hover-Modus ist, sonst §efalse§r.
 
 # gui - tag list - integration - thaumcraft
+ingameinfoxml.tag.tcwarpperm.desc=Permanenter Spieler-Warp.
+ingameinfoxml.tag.tcwarpsticky.desc=Normaler (gesicherter) Spieler-Warp.
+ingameinfoxml.tag.tcwarptemp.desc=Vorübergehender Spieler-Warp.
+ingameinfoxml.tag.tcwarptotal.desc=Gesamter Spieler-Warp.
 
 # keys
+ingameinfoxml.key.category=InGame Info XML
+ingameinfoxml.key.toggle=tausche Overlay
 
 # commands
 commands.ingameinfoxml.usage=/igi <reload|load|save|enable|disable|taglist|config> [Dateiname]
 commands.ingameinfoxml.reload=Lade neu...
 commands.ingameinfoxml.load=%s wird geladen...
 commands.ingameinfoxml.save=%s wird gespeichert...
+commands.ingameinfoxml.success=Fertig!
+commands.ingameinfoxml.failure=Etwas ist schiefgelaufen!
 commands.ingameinfoxml.enable=InGame Info XML Overlay ist nun aktiviert.
 commands.ingameinfoxml.disable=InGame Info XML Overlay ist nun deaktiviert.
