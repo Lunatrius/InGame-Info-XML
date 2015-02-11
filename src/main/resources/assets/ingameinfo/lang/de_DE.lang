@@ -22,23 +22,23 @@ ingameinfoxml.config.fileInterval.tooltip=Der Intervall zwischen beim Datei lese
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Oben Links
-ingameinfoxml.config.topleft.tooltip=Offsets für die obere linke Ecke des Bildschirms (X <space> Y).
+ingameinfoxml.config.topleft.tooltip=Offsets für die obere linke Ecke des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.topcenter=Oben Zentriert
-ingameinfoxml.config.topcenter.tooltip=Offsets für die obere Mitte des Bildschirms (X <space> Y).
+ingameinfoxml.config.topcenter.tooltip=Offsets für die obere Mitte des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.topright=Oben Rechts
-ingameinfoxml.config.topright.tooltip=Offsets für die obere rechte Ecke des Bildschirms (X <space> Y).
+ingameinfoxml.config.topright.tooltip=Offsets für die obere rechte Ecke des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.middleleft=Mitte Links
-ingameinfoxml.config.middleleft.tooltip=Offsets für die mittlere linke Seite des Bildschirms (X <space> Y).
+ingameinfoxml.config.middleleft.tooltip=Offsets für die mittlere linke Seite des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.middlecenter=Mitte Zentriert
-ingameinfoxml.config.middlecenter.tooltip=Offsets für die mittlere zentrierte Seite des Bildschirms (X <space> Y).
+ingameinfoxml.config.middlecenter.tooltip=Offsets für die mittlere zentrierte Seite des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.middleright=Mitte Rechts
-ingameinfoxml.config.middleright.tooltip=Offsets für die mittlere rechte Seite des Bildschirms (X <space> Y).
+ingameinfoxml.config.middleright.tooltip=Offsets für die mittlere rechte Seite des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.bottomleft=Unten Links
-ingameinfoxml.config.bottomleft.tooltip=Offsets für die untere linke Seite des Bildschirms (X <space> Y).
+ingameinfoxml.config.bottomleft.tooltip=Offsets für die untere linke Seite des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.bottomcenter=Unten Zentriert
-ingameinfoxml.config.bottomcenter.tooltip=Offsets für die untere Mitte des Bildschirms (X <space> Y).
+ingameinfoxml.config.bottomcenter.tooltip=Offsets für die untere Mitte des Bildschirms (X <Leerzeichen> Y).
 ingameinfoxml.config.bottomright=Unten Rechts
-ingameinfoxml.config.bottomright.tooltip=Offsets für die untere rechte Seite des Bildschirms (X <space> Y).
+ingameinfoxml.config.bottomright.tooltip=Offsets für die untere rechte Seite des Bildschirms (X <Leerzeichen> Y).
 
 # gui - tag list
 gui.ingameinfoxml.taglist=Tag Liste
@@ -176,16 +176,16 @@ ingameinfoxml.tag.xpthislevel.desc=Aktuelle Spieler-Erfahrung.
 ingameinfoxml.tag.xpuntilnext.desc=Spieler-Erfahrung bis zum Level-Aufstieg.
 ingameinfoxml.tag.xpcap.desc=Gesamte Spieler-Erfahrung für das aktuelle Spieler-Level.
 ingameinfoxml.tag.username.desc=Benutzername des Spielers.
-ingameinfoxml.tag.inwater.desc=§eJa§r wenn der Spieler taucht, sonst §eNein§r.
-ingameinfoxml.tag.wet.desc=§eJa§r wenn der Spieler nass ist, sonst §eNein§r.
-ingameinfoxml.tag.alive.desc=§eJa§r wenn der Spieler am Leben ist, sonst §eNein§r.
-ingameinfoxml.tag.burning.desc=§eJa§r wenn der Spieler brennt, sonst §eNein§r.
-ingameinfoxml.tag.riding.desc=§eJa§r wenn der Spieler reitet, sonst §eNein§r.
-ingameinfoxml.tag.sneaking.desc=§eJa§r wenn der Spieler schleicht, sonst §eNein§r.
-ingameinfoxml.tag.sprinting.desc=§eJa§r wenn der Spieler rennt, sonst §eNein§r.
-ingameinfoxml.tag.invisible.desc=§eJa§r wenn der Spieler unsichtbar ist, sonst §eNein§r.
-ingameinfoxml.tag.eating.desc=§eJa§r wenn der Spieler isst, sonst §eNein§r.
-ingameinfoxml.tag.invulnerable.desc=§eJa§r wenn der Spieler unverwundbar ist, sonst §eNein§r.
+ingameinfoxml.tag.inwater.desc=§etrue§r wenn der Spieler taucht, sonst §efalse§r.
+ingameinfoxml.tag.wet.desc=§etrue§r wenn der Spieler nass ist, sonst §efalse§r.
+ingameinfoxml.tag.alive.desc=§etrue§r wenn der Spieler am Leben ist, sonst §efalse§r.
+ingameinfoxml.tag.burning.desc=§etrue§r wenn der Spieler brennt, sonst §efalse§r.
+ingameinfoxml.tag.riding.desc=§etrue§r wenn der Spieler reitet, sonst §efalse§r.
+ingameinfoxml.tag.sneaking.desc=§etrue§r wenn der Spieler schleicht, sonst §efalse§r.
+ingameinfoxml.tag.sprinting.desc=§etrue§r wenn der Spieler rennt, sonst §efalse§r.
+ingameinfoxml.tag.invisible.desc=§etrue§r wenn der Spieler unsichtbar ist, sonst §efalse§r.
+ingameinfoxml.tag.eating.desc=§etrue§r wenn der Spieler isst, sonst §efalse§r.
+ingameinfoxml.tag.invulnerable.desc=§etrue§r wenn der Spieler unverwundbar ist, sonst §efalse§r.
 
 # gui - tag list - player position
 ingameinfoxml.tag.chunkx.desc=Spieler X Chunk Koordinate.
@@ -220,7 +220,7 @@ ingameinfoxml.tag.potionicon.desc=Icon des x-ten Trank-Effekt.
 ingameinfoxml.tag.potionlargeicon.desc=Großer Icon des x-ten Trank-Effekt.
 
 # gui - tag list - riding
-ingameinfoxml.tag.ridinghorse.desc=§eJa§r wenn der Spieler ein Pferd reitet, sonst §eNein§r.
+ingameinfoxml.tag.ridinghorse.desc=§etrue§r wenn der Spieler ein Pferd reitet, sonst §efalse§r.
 ingameinfoxml.tag.horsehealth.desc=Gesundheit des Pferdes.
 ingameinfoxml.tag.horsemaxhealth.desc=Maximale Gesundheit des Pferdes.
 ingameinfoxml.tag.horsespeed.desc=Geschwindigkeit des Pferdes.
@@ -246,13 +246,13 @@ ingameinfoxml.tag.dimension.desc=Dimensionsnamen.
 ingameinfoxml.tag.dimensionid.desc=Dimensions ID.
 ingameinfoxml.tag.biome.desc=Biome Name.
 ingameinfoxml.tag.biomeid.desc=Biome ID.
-ingameinfoxml.tag.daytime.desc=§eJa§r wenn es Tag ist, sonst §eNein§r.
-ingameinfoxml.tag.raining.desc=§eJa§r wenn es regnet, sonst §eNein§r.
-ingameinfoxml.tag.thundering.desc=§eJa§r wenn es donnert, sonst §eNein§r.
-ingameinfoxml.tag.snowing.desc=§eJa§r wenn es schneit, sonst §eNein§r.
+ingameinfoxml.tag.daytime.desc=§etrue§r wenn es Tag ist, sonst §efalse§r.
+ingameinfoxml.tag.raining.desc=§etrue§r wenn es regnet, sonst §efalse§r.
+ingameinfoxml.tag.thundering.desc=§etrue§r wenn es donnert, sonst §efalse§r.
+ingameinfoxml.tag.snowing.desc=§etrue§r wenn es schneit, sonst §efalse§r.
 ingameinfoxml.tag.nextrain.desc=Zeit bis zum nächsten Regen.
-ingameinfoxml.tag.slimes.desc=§eJa§r if wenn der aktuelle Chunk ein Slimechunk ist, sonst §eNein§r.
-ingameinfoxml.tag.hardcore.desc=§eJa§r wenn die Welt im Hard-Mode läuft, sonst §eNein§r.
+ingameinfoxml.tag.slimes.desc=§etrue§r if wenn der aktuelle Chunk ein Slimechunk ist, sonst §efalse§r.
+ingameinfoxml.tag.hardcore.desc=§etrue§r wenn die Welt im Hard-Mode läuft, sonst §efalse§r.
 ingameinfoxml.tag.temperature.desc=Biome Temperatur.
 ingameinfoxml.tag.humidity.desc=Biome Luftfeuchtigkeit.
 
@@ -260,8 +260,8 @@ ingameinfoxml.tag.humidity.desc=Biome Luftfeuchtigkeit.
 ingameinfoxml.tag.sjenergy.desc=Jetpack Energie.
 ingameinfoxml.tag.sjmaxenergy.desc=Maximale Jetpack Energie.
 ingameinfoxml.tag.sjpercent.desc=Restprozent der Jetpack Energie.
-ingameinfoxml.tag.sjenabled.desc=§eJa§r wenn der Jetpack aktiv ist, sonst §eNein§r.
-ingameinfoxml.tag.sjhover.desc=§eJa§r wenn der Jetpack im Hover-Modus ist, sonst §eNein§r.
+ingameinfoxml.tag.sjenabled.desc=§etrue§r wenn der Jetpack aktiv ist, sonst §efalse§r.
+ingameinfoxml.tag.sjhover.desc=§etrue§r wenn der Jetpack im Hover-Modus ist, sonst §efalse§r.
 
 # gui - tag list - integration - thaumcraft
 ingameinfoxml.tag.tcwarpperm.desc=Permanenter Spieler-Warp.
