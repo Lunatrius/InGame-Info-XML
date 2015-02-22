@@ -27,22 +27,22 @@ public class InGameInfoCommand extends CommandBase {
     private InGameInfoCommand() {}
 
     @Override
-    public String getName() {
+    public String getCommandName() {
         return Names.Command.NAME;
     }
 
     @Override
-    public String getUsage(ICommandSender sender) {
+    public String getCommandUsage(ICommandSender sender) {
         return Names.Command.Message.USAGE;
     }
 
     @Override
-    public boolean canCommandSenderUse(ICommandSender sender) {
+    public boolean canCommandSenderUseCommand(ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List tabComplete(ICommandSender sender, String[] args, BlockPos pos) {
+    public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST, Names.Command.CONFIG);
         } else if (args.length == 2) {
@@ -73,7 +73,7 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public void execute(ICommandSender commandSender, String[] args) throws CommandException {
+    public void processCommand(ICommandSender commandSender, String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.RELOAD));
@@ -112,7 +112,7 @@ public class InGameInfoCommand extends CommandBase {
             }
         }
 
-        throw new WrongUsageException(getUsage(commandSender));
+        throw new WrongUsageException(getCommandUsage(commandSender));
     }
 
     @Override
