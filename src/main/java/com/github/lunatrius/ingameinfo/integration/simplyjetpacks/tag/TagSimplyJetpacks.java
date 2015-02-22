@@ -4,8 +4,8 @@ import cofh.api.energy.IEnergyContainerItem;
 import com.github.lunatrius.ingameinfo.tag.TagIntegration;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.item.ItemStack;
-import tonius.simplyjetpacks.item.ItemJetpack;
-import tonius.simplyjetpacks.item.jetpack.Jetpack;
+import tonius.simplyjetpacks.item.ItemPack;
+import tonius.simplyjetpacks.item.meta.Jetpack;
 
 import java.util.Locale;
 
@@ -75,9 +75,9 @@ public abstract class TagSimplyJetpacks extends TagIntegration {
             try {
                 final ItemStack chestplate = player.getCurrentArmor(2);
                 if (chestplate != null) {
-                    if (chestplate.getItem() instanceof ItemJetpack) {
-                        final ItemJetpack item = (ItemJetpack) chestplate.getItem();
-                        final Jetpack jetpack = item.getJetpack(chestplate);
+                    if (chestplate.getItem() instanceof ItemPack.ItemJetpack) {
+                        final ItemPack.ItemJetpack item = (ItemPack.ItemJetpack) chestplate.getItem();
+                        final Jetpack jetpack = item.getPack(chestplate);
                         return String.valueOf(jetpack != null && jetpack.isOn(chestplate));
                     }
                 }
@@ -94,9 +94,9 @@ public abstract class TagSimplyJetpacks extends TagIntegration {
             try {
                 final ItemStack chestplate = player.getCurrentArmor(2);
                 if (chestplate != null) {
-                    if (chestplate.getItem() instanceof ItemJetpack) {
-                        final ItemJetpack item = (ItemJetpack) chestplate.getItem();
-                        final Jetpack jetpack = item.getJetpack(chestplate);
+                    if (chestplate.getItem() instanceof ItemPack.ItemJetpack) {
+                        final ItemPack.ItemJetpack item = (ItemPack.ItemJetpack) chestplate.getItem();
+                        final Jetpack jetpack = item.getPack(chestplate);
                         return String.valueOf(jetpack != null && jetpack.isHoverModeOn(chestplate));
                     }
                 }
