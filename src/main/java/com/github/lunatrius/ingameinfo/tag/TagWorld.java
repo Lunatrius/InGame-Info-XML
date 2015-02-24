@@ -1,8 +1,10 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.core.util.MBlockPos;
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.storage.WorldInfo;
@@ -11,6 +13,8 @@ import net.minecraftforge.common.DimensionManager;
 import java.util.Locale;
 
 public abstract class TagWorld extends Tag {
+    protected final MBlockPos pos = new MBlockPos();
+
     @Override
     public String getCategory() {
         return "world";
@@ -85,6 +89,21 @@ public abstract class TagWorld extends Tag {
                 }
             }
             return String.valueOf(minecraft.gameSettings.difficulty.getDifficultyId());
+        }
+    }
+
+    public static class LocalDifficulty extends TagWorld {
+        @Override
+        public String getValue() {
+            this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
+            DifficultyInstance difficulty = world.getDifficultyForLocation(this.pos);
+            if (server != null) {
+                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                if (worldServer != null) {
+                    difficulty = worldServer.getDifficultyForLocation(this.pos);
+                }
+            }
+            return String.format(Locale.ENGLISH, "%.2f", difficulty.getAdditionalDifficulty());
         }
     }
 
@@ -198,6 +217,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Seed().setName("seed"));
         TagRegistry.INSTANCE.register(new Difficulty().setName("difficulty"));
         TagRegistry.INSTANCE.register(new DifficultyId().setName("difficultyid"));
+        TagRegistry.INSTANCE.register(new LocalDifficulty().setName("localdifficulty"));
         TagRegistry.INSTANCE.register(new Dimension().setName("dimension"));
         TagRegistry.INSTANCE.register(new DimensionId().setName("dimensionid"));
         TagRegistry.INSTANCE.register(new Biome().setName("biome"));
