@@ -56,6 +56,28 @@ public abstract class TagPlayerGeneral extends Tag {
         }
     }
 
+    public static class LightSun extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            try {
+                return String.valueOf(world.getChunkFromBlockCoords(playerPosition.x, playerPosition.z).getSavedLightValue(EnumSkyBlock.Sky, playerPosition.x & 15, (int) Math.round(player.boundingBox.minY), playerPosition.z & 15));
+            } catch (Exception e) {
+                return "0";
+            }
+        }
+    }
+
+    public static class LightSunFeet extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            try {
+                return String.valueOf(world.getChunkFromBlockCoords(playerPosition.x, playerPosition.z).getSavedLightValue(EnumSkyBlock.Sky, playerPosition.x & 15, (int) Math.round(player.boundingBox.minY), playerPosition.z & 15));
+            } catch (Exception e) {
+                return "0";
+            }
+        }
+    }
+
     public static class Score extends TagPlayerGeneral {
         @Override
         public String getValue() {
@@ -255,6 +277,8 @@ public abstract class TagPlayerGeneral extends Tag {
         TagRegistry.INSTANCE.register(new LightFeet().setName("lightfeet"));
         TagRegistry.INSTANCE.register(new LightNoSun().setName("lightnosun"));
         TagRegistry.INSTANCE.register(new LightNoSunFeet().setName("lightnosunfeet"));
+        TagRegistry.INSTANCE.register(new LightSun().setName("lightsun"));
+        TagRegistry.INSTANCE.register(new LightSunFeet().setName("lightsunfeet"));
         TagRegistry.INSTANCE.register(new Score().setName("score"));
         TagRegistry.INSTANCE.register(new GameMode().setName("gamemode"));
         TagRegistry.INSTANCE.register(new GameModeId().setName("gamemodeid"));
