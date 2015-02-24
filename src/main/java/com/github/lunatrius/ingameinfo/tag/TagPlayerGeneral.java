@@ -61,6 +61,29 @@ public abstract class TagPlayerGeneral extends Tag {
         }
     }
 
+    public static class LightSun extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            try {
+                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightFor(EnumSkyBlock.SKY, playerPosition));
+            } catch (Exception e) {
+                return "0";
+            }
+        }
+    }
+
+    public static class LightSunFeet extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            try {
+                this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
+                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightFor(EnumSkyBlock.SKY, this.pos));
+            } catch (Exception e) {
+                return "0";
+            }
+        }
+    }
+
     public static class Score extends TagPlayerGeneral {
         @Override
         public String getValue() {
@@ -253,6 +276,8 @@ public abstract class TagPlayerGeneral extends Tag {
         TagRegistry.INSTANCE.register(new LightFeet().setName("lightfeet"));
         TagRegistry.INSTANCE.register(new LightNoSun().setName("lightnosun"));
         TagRegistry.INSTANCE.register(new LightNoSunFeet().setName("lightnosunfeet"));
+        TagRegistry.INSTANCE.register(new LightSun().setName("lightsun"));
+        TagRegistry.INSTANCE.register(new LightSunFeet().setName("lightsunfeet"));
         TagRegistry.INSTANCE.register(new Score().setName("score"));
         TagRegistry.INSTANCE.register(new GameMode().setName("gamemode"));
         TagRegistry.INSTANCE.register(new GameModeId().setName("gamemodeid"));
