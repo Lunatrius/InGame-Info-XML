@@ -181,6 +181,13 @@ public abstract class TagWorld extends Tag {
         }
     }
 
+    public static class LocalTemperature extends TagWorld {
+        @Override
+        public String getValue() {
+            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition.x, playerPosition.z).getFloatTemperature(playerPosition.x & 15, (int) Math.round(player.boundingBox.minY), playerPosition.z & 15) * 100);
+        }
+    }
+
     public static class Humidity extends TagWorld {
         @Override
         public String getValue() {
@@ -207,6 +214,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Slimes().setName("slimes"));
         TagRegistry.INSTANCE.register(new Hardcore().setName("hardcore"));
         TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));
+        TagRegistry.INSTANCE.register(new LocalTemperature().setName("localtemperature"));
         TagRegistry.INSTANCE.register(new Humidity().setName("humidity"));
     }
 }
