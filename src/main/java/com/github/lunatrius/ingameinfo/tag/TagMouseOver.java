@@ -101,7 +101,7 @@ public abstract class TagMouseOver extends Tag {
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     int power = -1;
-                    for (EnumFacing side : EnumFacing.values()) {
+                    for (EnumFacing side : EnumFacing.VALUES) {
                         final BlockPos pos = objectMouseOver.getBlockPos().offset(side);
                         final IBlockState blockState = world.getBlockState(pos);
                         power = Math.max(power, blockState.getBlock().isProvidingWeakPower(world, pos, blockState, side));
@@ -126,7 +126,7 @@ public abstract class TagMouseOver extends Tag {
                     final IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
                     final Block block = blockState.getBlock();
                     int power = -1;
-                    for (EnumFacing side : EnumFacing.values()) {
+                    for (EnumFacing side : EnumFacing.VALUES) {
                         power = Math.max(power, block.isProvidingStrongPower(world, objectMouseOver.getBlockPos(), blockState, side));
 
                         if (power >= 15) {
