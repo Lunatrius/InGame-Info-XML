@@ -3,6 +3,9 @@ package com.github.lunatrius.ingameinfo.reference;
 @SuppressWarnings("HardCodedStringLiteral")
 public final class Names {
     public static final class Mods {
+        public static final String BLOODMAGIC_MODID = "AWWayofTime";
+        public static final String BLOODMAGIC_NAME = "Blood Magic";
+
         public static final String SIMPLYJETPACKS_MODID = "simplyjetpacks";
         public static final String SIMPLYJETPACKS_NAME = "Simply Jetpacks";
 

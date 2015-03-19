@@ -53,6 +53,7 @@ ingameinfoxml.tag.category.playerpotion.name=Player - Potion Effects
 ingameinfoxml.tag.category.riding.name=Riding
 ingameinfoxml.tag.category.time.name=Time
 ingameinfoxml.tag.category.world.name=World
+ingameinfoxml.tag.category.bloodmagic.name=Blood Magic
 ingameinfoxml.tag.category.simplyjetpacks.name=Simply Jetpacks
 ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
@@ -252,6 +253,10 @@ ingameinfoxml.tag.slimes.desc=§etrue§r if the current chunk is a slime chunk, 
 ingameinfoxml.tag.hardcore.desc=§etrue§r if the world is in hardcore mode, §efalse§r otherwise.
 ingameinfoxml.tag.temperature.desc=Biome temperature.
 ingameinfoxml.tag.humidity.desc=Biome humidity.
+
+# gui - tag list - integration - blood magic
+ingameinfoxml.tag.bmlp.desc=Current §4Essence§r.
+ingameinfoxml.tag.bmmaxlp.desc=Maximum §4Essence§r.
 
 # gui - tag list - integration - simply jetpacks
 ingameinfoxml.tag.sjenergy.desc=Jetpack energy.
