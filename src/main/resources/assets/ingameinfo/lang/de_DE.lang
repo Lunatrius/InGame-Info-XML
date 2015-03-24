@@ -53,6 +53,7 @@ ingameinfoxml.tag.category.playerpotion.name=Spieler - Trankeffekte
 ingameinfoxml.tag.category.riding.name=Reiten
 ingameinfoxml.tag.category.time.name=Zeit
 ingameinfoxml.tag.category.world.name=Welt
+ingameinfoxml.tag.category.bloodmagic.name=Blood Magic
 ingameinfoxml.tag.category.simplyjetpacks.name=einfacher Jetpack
 ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
@@ -252,6 +253,10 @@ ingameinfoxml.tag.slimes.desc=§etrue§r if wenn der aktuelle Chunk ein Slimechu
 ingameinfoxml.tag.hardcore.desc=§etrue§r wenn die Welt im Hard-Mode läuft, sonst §efalse§r.
 ingameinfoxml.tag.temperature.desc=Biome Temperatur.
 ingameinfoxml.tag.humidity.desc=Biome Luftfeuchtigkeit.
+
+# gui - tag list - integration - blood magic
+ingameinfoxml.tag.bmlp.desc=Aktuell §4Essence§r.
+ingameinfoxml.tag.bmmaxlp.desc=Maximal §4Essence§r.
 
 # gui - tag list - integration - simply jetpacks
 ingameinfoxml.tag.sjenergy.desc=Jetpack Energie.
