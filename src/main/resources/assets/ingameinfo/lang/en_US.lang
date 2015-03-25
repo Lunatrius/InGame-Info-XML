@@ -158,6 +158,8 @@ ingameinfoxml.tag.light.desc=Light level at your current position.
 ingameinfoxml.tag.lightfeet.desc=Light level at your current position (feet level).
 ingameinfoxml.tag.lightnosun.desc=Light level at your current position without sunlight.
 ingameinfoxml.tag.lightnosunfeet.desc=Light level at your current position without sunlight (feel level).
+ingameinfoxml.tag.lightsun.desc=Sunlight level at your current position.
+ingameinfoxml.tag.lightsunfeet.desc=Sunlight level at your current position (feel level).
 ingameinfoxml.tag.score.desc=Player's score.
 ingameinfoxml.tag.gamemode.desc=Player's gamemode name.
 ingameinfoxml.tag.gamemodeid.desc=Player's gamemode id.
@@ -253,6 +255,7 @@ ingameinfoxml.tag.nextrain.desc=Time until the next rain.
 ingameinfoxml.tag.slimes.desc=§etrue§r if the current chunk is a slime chunk, §efalse§r otherwise.
 ingameinfoxml.tag.hardcore.desc=§etrue§r if the world is in hardcore mode, §efalse§r otherwise.
 ingameinfoxml.tag.temperature.desc=Biome temperature.
+ingameinfoxml.tag.localtemperature.desc=Biome temperature at your current position.
 ingameinfoxml.tag.humidity.desc=Biome humidity.
 
 # gui - tag list - integration - blood magic

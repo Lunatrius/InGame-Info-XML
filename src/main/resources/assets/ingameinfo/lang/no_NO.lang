@@ -241,6 +241,8 @@ ingameinfoxml.tag.hardcore.desc=§etrue§r hvis verdenen er i hardcore-modus, §
 ingameinfoxml.tag.temperature.desc=Biometemperatur.
 ingameinfoxml.tag.humidity.desc=Biomefuktighet.
 
+# gui - tag list - integration - blood magic
+
 # gui - tag list - integration - simply jetpacks
 
 # gui - tag list - integration - thaumcraft
