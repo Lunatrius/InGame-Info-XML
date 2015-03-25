@@ -253,6 +253,8 @@ ingameinfoxml.tag.hardcore.desc=§eprawda§r jeśli świat jest w trybie hardcor
 ingameinfoxml.tag.temperature.desc=Temperatura biomu.
 ingameinfoxml.tag.humidity.desc=Wilgotność biomu.
 
+# gui - tag list - integration - blood magic
+
 # gui - tag list - integration - simply jetpacks
 ingameinfoxml.tag.sjenergy.desc=Jetpacka energia.
 ingameinfoxml.tag.sjmaxenergy.desc=Jetpacka maksymalna energia.

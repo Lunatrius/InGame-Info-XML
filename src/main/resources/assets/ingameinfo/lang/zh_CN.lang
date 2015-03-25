@@ -247,6 +247,8 @@ ingameinfoxml.tag.hardcore.desc=如果该游戏世界为极限模式就返回§e
 ingameinfoxml.tag.temperature.desc=生物群系温度.
 ingameinfoxml.tag.humidity.desc=生物群系湿度.
 
+# gui - tag list - integration - blood magic
+
 # gui - tag list - integration - simply jetpacks
 ingameinfoxml.tag.sjenergy.desc=喷气背包能量值.
 ingameinfoxml.tag.sjmaxenergy.desc=喷气背包最大能量值.
