@@ -206,7 +206,7 @@ public abstract class TagWorld extends Tag {
     public static class LocalTemperature extends TagWorld {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition).getFloatTemperature(playerPosition) * 100);
+            return String.format(Locale.ENGLISH, "%.2f", world.getBiomeGenForCoords(playerPosition).getFloatTemperature(playerPosition) * 100);
         }
     }
 
