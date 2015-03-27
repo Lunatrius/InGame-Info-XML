@@ -71,11 +71,6 @@
             <str>Entities: $e{entitiesrendered}$f / $e{entitiestotal}$f</str>
         </line>
     </lines>
-    <lines at="topcenter">
-        <line>
-            <str>$b{username}$f</str>
-        </line>
-    </lines>
     <lines at="bottomleft">
         <line>
             <var>equippedicon</var>
