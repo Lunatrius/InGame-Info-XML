@@ -55,6 +55,7 @@ ingameinfoxml.tag.category.time.name=Time
 ingameinfoxml.tag.category.world.name=World
 ingameinfoxml.tag.category.bloodmagic.name=Blood Magic
 ingameinfoxml.tag.category.simplyjetpacks.name=Simply Jetpacks
+ingameinfoxml.tag.category.terrafirmacraft.name=TerraFirmaCraft
 ingameinfoxml.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
@@ -268,6 +269,20 @@ ingameinfoxml.tag.sjmaxenergy.desc=Jetpack maximum energy.
 ingameinfoxml.tag.sjpercent.desc=Jetpack energy left in percents.
 ingameinfoxml.tag.sjenabled.desc=§etrue§r if the jetpack is enabled, §efalse§r otherwise.
 ingameinfoxml.tag.sjhover.desc=§etrue§r if the jetpack is in hover mode, §efalse§r otherwise.
+
+# gui - tag list - integration - terrafirmacraft
+ingameinfoxml.tag.tfcrainfall.desc=Rainfall at your current position.
+ingameinfoxml.tag.tfctemperature.desc=Temperature at your current position.
+ingameinfoxml.tag.tfcaveragetemperature.desc=Average yearly temperature at your current position.
+ingameinfoxml.tag.tfctemperatureheatsources.desc=Temperature with external heat sources at your current position.
+ingameinfoxml.tag.tfcseason.desc=Season.
+ingameinfoxml.tag.tfcdate.desc=Date.
+ingameinfoxml.tag.tfcday.desc=Day.
+ingameinfoxml.tag.tfcmonth.desc=Month.
+ingameinfoxml.tag.tfcyear.desc=Year.
+ingameinfoxml.tag.fmtskill.desc=%s information.
+ingameinfoxml.tag.fmtskillrank.desc=Current rank for %s.
+ingameinfoxml.tag.fmtskillprogress.desc=Current progress in %s.
 
 # gui - tag list - integration - thaumcraft
 ingameinfoxml.tag.tcwarpperm.desc=Player's permanent warp.

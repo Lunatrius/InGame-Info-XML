@@ -9,6 +9,9 @@ public final class Names {
         public static final String SIMPLYJETPACKS_MODID = "simplyjetpacks";
         public static final String SIMPLYJETPACKS_NAME = "Simply Jetpacks";
 
+        public static final String TERRAFIRMACRAFT_MODID = "terrafirmacraft";
+        public static final String TERRAFIRMACRAFT_NAME = "TerraFirmaCraft";
+
         public static final String THAUMCRAFT_MODID = "Thaumcraft";
         public static final String THAUMCRAFT_NAME = "Thaumcraft";
     }
