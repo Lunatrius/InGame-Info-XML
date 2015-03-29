@@ -1,12 +1,10 @@
 package com.github.lunatrius.ingameinfo.client.gui;
 
-import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiListExtended;
-import net.minecraft.client.resources.I18n;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +30,9 @@ public class GuiTagList extends GuiListExtended {
 
         Map<String, CategoryEntry> stringCategoryEntryMap = new HashMap<String, CategoryEntry>();
         for (Tag tag : TagRegistry.INSTANCE.getRegisteredTags()) {
-            String category = I18n.format(Reference.MODID.toLowerCase() + ".tag.category." + tag.getCategory() + ".name");
+            String category = tag.getLocalizedCategory();
             String name = tag.getFormattedName();
-            String description = I18n.format(Reference.MODID.toLowerCase() + ".tag." + tag.getRawName() + ".desc");
+            String description = tag.getLocalizedDescription();
 
             CategoryEntry categoryEntry = stringCategoryEntryMap.get(category);
             if (categoryEntry == null) {
