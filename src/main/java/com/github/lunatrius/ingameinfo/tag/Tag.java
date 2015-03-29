@@ -3,8 +3,10 @@ package com.github.lunatrius.ingameinfo.tag;
 import com.github.lunatrius.core.util.vector.Vector3f;
 import com.github.lunatrius.core.util.vector.Vector3i;
 import com.github.lunatrius.ingameinfo.client.gui.Info;
+import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 
@@ -56,6 +58,14 @@ public abstract class Tag {
 
     public String getFormattedName() {
         return this.name + (isIndexed() ? String.format("[0..%d]", getMaximumIndex()) : "");
+    }
+
+    public String getLocalizedCategory() {
+        return I18n.format(Reference.MODID.toLowerCase() + ".tag.category." + getCategory() + ".name");
+    }
+
+    public String getLocalizedDescription() {
+        return I18n.format(Reference.MODID.toLowerCase() + ".tag." + getRawName() + ".desc");
     }
 
     public abstract String getCategory();
