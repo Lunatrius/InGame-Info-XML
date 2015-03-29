@@ -23,7 +23,7 @@ public abstract class TagTerraFirmaCraft extends TagIntegration {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(TFC_Climate.getRainfall(world, playerPosition.x, playerPosition.y, playerPosition.z));
+                return String.valueOf((int) TFC_Climate.getRainfall(world, playerPosition.x, playerPosition.y, playerPosition.z));
             } catch (Throwable e) {
                 log(this, e);
             }
@@ -35,7 +35,7 @@ public abstract class TagTerraFirmaCraft extends TagIntegration {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(TFC_Climate.getHeightAdjustedTemp(world, playerPosition.x, playerPosition.y, playerPosition.z));
+                return String.format(Locale.ENGLISH, "%.2f", TFC_Climate.getHeightAdjustedTemp(world, playerPosition.x, playerPosition.y, playerPosition.z));
             } catch (Throwable e) {
                 log(this, e);
             }
@@ -47,7 +47,7 @@ public abstract class TagTerraFirmaCraft extends TagIntegration {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(TFC_Climate.getBioTemperatureHeight(world, playerPosition.x, playerPosition.y, playerPosition.z));
+                return String.format(Locale.ENGLISH, "%.2f", TFC_Climate.getBioTemperatureHeight(world, playerPosition.x, playerPosition.y, playerPosition.z));
             } catch (Throwable e) {
                 log(this, e);
             }
@@ -59,7 +59,7 @@ public abstract class TagTerraFirmaCraft extends TagIntegration {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(TFC_Climate.getHeightAdjustedTemp(world, playerPosition.x, playerPosition.y, playerPosition.z) + BodyTempStats.applyTemperatureFromHeatSources(player));
+                return String.format(Locale.ENGLISH, "%.2f", TFC_Climate.getHeightAdjustedTemp(world, playerPosition.x, playerPosition.y, playerPosition.z) + BodyTempStats.applyTemperatureFromHeatSources(player));
             } catch (Throwable e) {
                 log(this, e);
             }
@@ -83,7 +83,7 @@ public abstract class TagTerraFirmaCraft extends TagIntegration {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(TFC_Time.getDateStringFromHours((int) TFC_Time.getTotalHours()));
+                return TFC_Time.getDateStringFromHours((int) TFC_Time.getTotalHours());
             } catch (Throwable e) {
                 log(this, e);
             }
