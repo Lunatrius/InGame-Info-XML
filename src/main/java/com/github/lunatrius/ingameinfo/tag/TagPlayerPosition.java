@@ -68,10 +68,10 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
-    public static class YFeet extends TagPlayerPosition {
+    public static class YEye extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.getEntityBoundingBox().minY);
+            return String.format(Locale.ENGLISH, "%.2f", player.posY + player.getEyeHeight());
         }
     }
 
@@ -96,10 +96,10 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
-    public static class YFeeti extends TagPlayerPosition {
+    public static class YEyei extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.valueOf((int) Math.floor(player.getEntityBoundingBox().minY));
+            return String.valueOf(MathHelper.floor_double(player.posY + player.getEyeHeight()));
         }
     }
 
@@ -207,11 +207,11 @@ public abstract class TagPlayerPosition extends Tag {
         TagRegistry.INSTANCE.register(new ChunkOffsetZ().setName("chunkoffsetz"));
         TagRegistry.INSTANCE.register(new X().setName("x").setAliases("xr"));
         TagRegistry.INSTANCE.register(new Y().setName("y").setAliases("yr"));
-        TagRegistry.INSTANCE.register(new YFeet().setName("yfeet").setAliases("yfeetr"));
+        TagRegistry.INSTANCE.register(new YEye().setName("yeye").setAliases("yeyer"));
         TagRegistry.INSTANCE.register(new Z().setName("z").setAliases("zr"));
         TagRegistry.INSTANCE.register(new Xi().setName("xi"));
         TagRegistry.INSTANCE.register(new Yi().setName("yi"));
-        TagRegistry.INSTANCE.register(new YFeeti().setName("yfeeti"));
+        TagRegistry.INSTANCE.register(new YEyei().setName("yeyei"));
         TagRegistry.INSTANCE.register(new Zi().setName("zi"));
         TagRegistry.INSTANCE.register(new Speed().setName("speed"));
         TagRegistry.INSTANCE.register(new SpeedX().setName("speedx"));

@@ -3,6 +3,7 @@ package com.github.lunatrius.ingameinfo.tag;
 import com.github.lunatrius.core.util.MBlockPos;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 
 import java.util.Locale;
@@ -19,19 +20,19 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightSubtracted(playerPosition, 0));
+                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightSubtracted(playerPosition, world.calculateSkylightSubtracted(1.0f)));
             } catch (Exception e) {
                 return "0";
             }
         }
     }
 
-    public static class LightFeet extends TagPlayerGeneral {
+    public static class LightEye extends TagPlayerGeneral {
         @Override
         public String getValue() {
             try {
-                this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
-                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightSubtracted(this.pos, 0));
+                this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
+                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightSubtracted(this.pos, world.calculateSkylightSubtracted(1.0f)));
             } catch (Exception e) {
                 return "0";
             }
@@ -42,19 +43,19 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightFor(EnumSkyBlock.BLOCK, playerPosition));
+                return String.valueOf(world.getLightFor(EnumSkyBlock.BLOCK, playerPosition));
             } catch (Exception e) {
                 return "0";
             }
         }
     }
 
-    public static class LightNoSunFeet extends TagPlayerGeneral {
+    public static class LightNoSunEye extends TagPlayerGeneral {
         @Override
         public String getValue() {
             try {
-                this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
-                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightFor(EnumSkyBlock.BLOCK, this.pos));
+                this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
+                return String.valueOf(world.getLightFor(EnumSkyBlock.BLOCK, this.pos));
             } catch (Exception e) {
                 return "0";
             }
@@ -65,19 +66,19 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightFor(EnumSkyBlock.SKY, playerPosition));
+                return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, playerPosition) - world.calculateSkylightSubtracted(1.0f), 0, 15));
             } catch (Exception e) {
                 return "0";
             }
         }
     }
 
-    public static class LightSunFeet extends TagPlayerGeneral {
+    public static class LightSunEye extends TagPlayerGeneral {
         @Override
         public String getValue() {
             try {
-                this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
-                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightFor(EnumSkyBlock.SKY, this.pos));
+                this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
+                return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, this.pos) - world.calculateSkylightSubtracted(1.0f), 0, 15));
             } catch (Exception e) {
                 return "0";
             }
@@ -273,11 +274,11 @@ public abstract class TagPlayerGeneral extends Tag {
 
     public static void register() {
         TagRegistry.INSTANCE.register(new Light().setName("light"));
-        TagRegistry.INSTANCE.register(new LightFeet().setName("lightfeet"));
+        TagRegistry.INSTANCE.register(new LightEye().setName("lighteye"));
         TagRegistry.INSTANCE.register(new LightNoSun().setName("lightnosun"));
-        TagRegistry.INSTANCE.register(new LightNoSunFeet().setName("lightnosunfeet"));
+        TagRegistry.INSTANCE.register(new LightNoSunEye().setName("lightnosuneye"));
         TagRegistry.INSTANCE.register(new LightSun().setName("lightsun"));
-        TagRegistry.INSTANCE.register(new LightSunFeet().setName("lightsunfeet"));
+        TagRegistry.INSTANCE.register(new LightSunEye().setName("lightsuneye"));
         TagRegistry.INSTANCE.register(new Score().setName("score"));
         TagRegistry.INSTANCE.register(new GameMode().setName("gamemode"));
         TagRegistry.INSTANCE.register(new GameModeId().setName("gamemodeid"));

@@ -95,12 +95,11 @@ public abstract class TagWorld extends Tag {
     public static class LocalDifficulty extends TagWorld {
         @Override
         public String getValue() {
-            this.pos.set(playerPosition.getX(), player.getEntityBoundingBox().minY, playerPosition.getZ());
-            DifficultyInstance difficulty = world.getDifficultyForLocation(this.pos);
+            DifficultyInstance difficulty = world.getDifficultyForLocation(playerPosition);
             if (server != null) {
                 WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    difficulty = worldServer.getDifficultyForLocation(this.pos);
+                    difficulty = worldServer.getDifficultyForLocation(playerPosition);
                 }
             }
             return String.format(Locale.ENGLISH, "%.2f", difficulty.getAdditionalDifficulty());
