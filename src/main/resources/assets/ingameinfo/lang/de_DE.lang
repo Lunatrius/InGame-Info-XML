@@ -155,9 +155,7 @@ ingameinfoxml.tag.bootslargeicon.desc=Großer Stiefelicon.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=Lichtpegel an der aktuellen Position.
-ingameinfoxml.tag.lightfeet.desc=Lichtpegel an der aktuellen Position (Sichtebene).
 ingameinfoxml.tag.lightnosun.desc=Lichtpegel an der aktuellen Position ohne Sonnenlicht.
-ingameinfoxml.tag.lightnosunfeet.desc=Lichtpegel an der aktuellen Position ohne Sonnenlicht (Sichtebene).
 ingameinfoxml.tag.score.desc=Spieler Score.
 ingameinfoxml.tag.gamemode.desc=Spieler Gamemode Name.
 ingameinfoxml.tag.gamemodeid.desc=Spieler Gamemode ID.
@@ -192,11 +190,9 @@ ingameinfoxml.tag.chunkoffsetx.desc=Spieler X Chunk Offset Koordinate (0-15).
 ingameinfoxml.tag.chunkoffsetz.desc=Spieler Z Chunk Offset Koordinate (0-15).
 ingameinfoxml.tag.x.desc=Spieler X Koordinate.
 ingameinfoxml.tag.y.desc=Spieler Y Koordinate.
-ingameinfoxml.tag.yfeet.desc=Spieler Y Koordinate (Sichtebene).
 ingameinfoxml.tag.z.desc=Spieler Z Koordinate.
 ingameinfoxml.tag.xi.desc=Spieler X Koordinate aufgerundete ganze Zahl.
 ingameinfoxml.tag.yi.desc=Spieler Y Koordinate aufgerundete ganze Zahl.
-ingameinfoxml.tag.yfeeti.desc=Spieler Y Koordinate aufgerundete ganze Zahl (Sichtebene).
 ingameinfoxml.tag.zi.desc=Spieler Y Koordinate aufgerundete ganze Zahl.
 ingameinfoxml.tag.speed.desc=Spielergeschwindigkeit.
 ingameinfoxml.tag.speedx.desc=Spielergeschwindigkeit entlang der x-Achse.
@@ -264,6 +260,8 @@ ingameinfoxml.tag.sjmaxenergy.desc=Maximale Jetpack Energie.
 ingameinfoxml.tag.sjpercent.desc=Restprozent der Jetpack Energie.
 ingameinfoxml.tag.sjenabled.desc=§etrue§r wenn der Jetpack aktiv ist, sonst §efalse§r.
 ingameinfoxml.tag.sjhover.desc=§etrue§r wenn der Jetpack im Hover-Modus ist, sonst §efalse§r.
+
+# gui - tag list - integration - terrafirmacraft
 
 # gui - tag list - integration - thaumcraft
 ingameinfoxml.tag.tcwarpperm.desc=Permanenter Spieler-Warp.

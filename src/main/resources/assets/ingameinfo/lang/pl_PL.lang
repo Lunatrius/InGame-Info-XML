@@ -154,9 +154,7 @@ ingameinfoxml.tag.bootslargeicon.desc=Duża ikona butów.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=Poziom światła na twojej obecnej pozycji.
-ingameinfoxml.tag.lightfeet.desc=Poziom światła na twojej obecnej pozycji (poziom nóg).
 ingameinfoxml.tag.lightnosun.desc=Poziom światła na twojej obecnej pozycji nie wliczając słońca.
-ingameinfoxml.tag.lightnosunfeet.desc=Poziom światła na twojej obecnej pozycji nie wliczając słońca (poziom nóg).
 ingameinfoxml.tag.score.desc=Gracza wynik.
 ingameinfoxml.tag.gamemode.desc=Gracza tryb gry.
 ingameinfoxml.tag.gamemodeid.desc=Gracza ID trybu gry.
@@ -191,11 +189,9 @@ ingameinfoxml.tag.chunkoffsetx.desc=Gracza pozycja X odsunięcia w chunku (0-15)
 ingameinfoxml.tag.chunkoffsetz.desc=Gracza pozycja Z odsunięcia w chunku (0-15).
 ingameinfoxml.tag.x.desc=Gracza pozycja X.
 ingameinfoxml.tag.y.desc=Gracza pozycja Y.
-ingameinfoxml.tag.yfeet.desc=Gracza pozycja Y (poziom nóg).
 ingameinfoxml.tag.z.desc=Gracza pozycja Z.
 ingameinfoxml.tag.xi.desc=Gracza pozycja X zaokrąglona do najbliższej pełnej liczby.
 ingameinfoxml.tag.yi.desc=Gracza pozycja Y zaokrąglona do najbliższej pełnej liczby.
-ingameinfoxml.tag.yfeeti.desc=Gracza pozycja Y zaokrąglona do najbliższej pełnej liczby (poziom nóg).
 ingameinfoxml.tag.zi.desc=Gracza pozycja Z zaokrąglona do najbliższej pełnej liczby.
 ingameinfoxml.tag.speed.desc=Gracza prędkość.
 ingameinfoxml.tag.speedx.desc=Gracza prędkość wzdłóż osi x.
@@ -261,6 +257,8 @@ ingameinfoxml.tag.sjmaxenergy.desc=Jetpacka maksymalna energia.
 ingameinfoxml.tag.sjpercent.desc=Jetpacka pozostała energia w procentach.
 ingameinfoxml.tag.sjenabled.desc=§eprawda§r jeśli jetpack jest włączony, §efałsz§r przeciwnie.
 ingameinfoxml.tag.sjhover.desc=§eprawda§r jeśli jetpack jest w trybie unoszenia, §efałsz§r przeciwnie.
+
+# gui - tag list - integration - terrafirmacraft
 
 # gui - tag list - integration - thaumcraft
 ingameinfoxml.tag.tcwarpperm.desc=Gracza stały warp.

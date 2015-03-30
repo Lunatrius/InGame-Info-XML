@@ -150,9 +150,7 @@ ingameinfoxml.tag.bootslargeicon.desc=靴子的大图标.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=你当前位置的光照等级.
-ingameinfoxml.tag.lightfeet.desc=你当前位置(脚下)的光照等级.
 ingameinfoxml.tag.lightnosun.desc=在没有阳光时你当前位置的光照等级.
-ingameinfoxml.tag.lightnosunfeet.desc=在没有阳光时你当前位置(脚下)的光照等级.
 ingameinfoxml.tag.score.desc=玩家得分.
 ingameinfoxml.tag.gamemode.desc=玩家游戏模式名称.
 ingameinfoxml.tag.gamemodeid.desc=玩家游戏模式id.
@@ -186,11 +184,9 @@ ingameinfoxml.tag.chunkoffsetx.desc=玩家X轴区块坐标偏移量(0-15).
 ingameinfoxml.tag.chunkoffsetz.desc=玩家Z轴区块坐标偏移量(0-15).
 ingameinfoxml.tag.x.desc=玩家X轴坐标.
 ingameinfoxml.tag.y.desc=玩家Y轴坐标.
-ingameinfoxml.tag.yfeet.desc=玩家Y轴坐标(脚下).
 ingameinfoxml.tag.z.desc=玩家Z轴坐标.
 ingameinfoxml.tag.xi.desc=玩家X轴坐标取整.
 ingameinfoxml.tag.yi.desc=玩家Y轴坐标取整.
-ingameinfoxml.tag.yfeeti.desc=玩家X轴坐标取整(脚下).
 ingameinfoxml.tag.zi.desc=玩家Z轴坐标取整.
 ingameinfoxml.tag.speed.desc=玩家移动速度.
 ingameinfoxml.tag.speedx.desc=玩家移动速度x轴分量.
@@ -255,6 +251,8 @@ ingameinfoxml.tag.sjmaxenergy.desc=喷气背包最大能量值.
 ingameinfoxml.tag.sjpercent.desc=喷气背包剩余能量值(以百分比为单位).
 ingameinfoxml.tag.sjenabled.desc=若果该喷气背包可用就返回§e真§r, 否则就返回§e假§r.
 ingameinfoxml.tag.sjhover.desc=如果该喷气背包处于悬停模式就返回§e真§r, 否则就返回§e假§r.
+
+# gui - tag list - integration - terrafirmacraft
 
 # gui - tag list - integration - thaumcraft
 ingameinfoxml.tag.tcwarpperm.desc=玩家的永久扭曲.

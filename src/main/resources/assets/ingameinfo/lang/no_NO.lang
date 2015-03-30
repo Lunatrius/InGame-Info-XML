@@ -149,9 +149,7 @@ ingameinfoxml.tag.bootslargeicon.desc=Støvlenes store ikon.
 
 # gui - tag list - player general
 ingameinfoxml.tag.light.desc=Lysnivå på din nåværende posisjon.
-ingameinfoxml.tag.lightfeet.desc=Lysnivå på din nåværende posisjon (ved føttene).
 ingameinfoxml.tag.lightnosun.desc=Lysnivå på din nåværende posisjon uten sollys.
-ingameinfoxml.tag.lightnosunfeet.desc=Lysnivå på din nåværende posisjon uten sollys (ved føttene).
 ingameinfoxml.tag.score.desc=Spillerens poengsun.
 ingameinfoxml.tag.gamemode.desc=Spillerens spillmodusnavn.
 ingameinfoxml.tag.gamemodeid.desc=Spillerens spillmodus-ID.
@@ -182,11 +180,9 @@ ingameinfoxml.tag.chunkoffsetx.desc=Spillerens X-posisjon innenfor verdensblokke
 ingameinfoxml.tag.chunkoffsetz.desc=Spillerens Z-posisjon innenfor verdensblokken (0-15).
 ingameinfoxml.tag.x.desc=Spillerens X-koordinat.
 ingameinfoxml.tag.y.desc=Spillerens Y-koordinat.
-ingameinfoxml.tag.yfeet.desc=Spillerens Y-koordinat (ved føttene).
 ingameinfoxml.tag.z.desc=Spillerens Z-koordinat.
 ingameinfoxml.tag.xi.desc=Spillerens X-koordinat rundet av til nærmeste hele tall.
 ingameinfoxml.tag.yi.desc=Spillerens Y-koordinat rundet av til nærmeste hele tall.
-ingameinfoxml.tag.yfeeti.desc=Spillerens Y-koordinat rundet av til nærmeste hele tall (ved føttene).
 ingameinfoxml.tag.zi.desc=Spillerens Z-koordinat rundet av til nærmeste hele tall.
 ingameinfoxml.tag.speed.desc=Spillerens hastighet.
 ingameinfoxml.tag.speedx.desc=Spillerens hastighet langs X-aksen.
@@ -241,6 +237,8 @@ ingameinfoxml.tag.humidity.desc=Biomefuktighet.
 # gui - tag list - integration - blood magic
 
 # gui - tag list - integration - simply jetpacks
+
+# gui - tag list - integration - terrafirmacraft
 
 # gui - tag list - integration - thaumcraft
 
