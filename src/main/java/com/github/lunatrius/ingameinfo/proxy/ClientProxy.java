@@ -5,6 +5,7 @@ import com.github.lunatrius.ingameinfo.command.InGameInfoCommand;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.KeyInputHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
+import com.github.lunatrius.ingameinfo.integration.PluginLoader;
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
@@ -28,6 +29,8 @@ public class ClientProxy extends CommonProxy {
         super.preInit(event);
 
         ValueRegistry.INSTANCE.init();
+
+        PluginLoader.getInstance().preInit(event);
 
         this.core.setConfigDirectory(event.getModConfigurationDirectory());
         this.core.setConfigFile(ConfigurationHandler.configName);
@@ -53,6 +56,8 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
+        PluginLoader.getInstance().postInit(event);
+
         TagRegistry.INSTANCE.init();
     }
 
