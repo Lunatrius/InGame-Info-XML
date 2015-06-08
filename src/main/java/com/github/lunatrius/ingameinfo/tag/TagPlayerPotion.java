@@ -119,6 +119,22 @@ public abstract class TagPlayerPotion extends Tag {
         }
     }
 
+    public static class Negative extends TagPlayerPotion {
+        public Negative(int index) {
+            super(index);
+        }
+
+        @Override
+        public String getValue() {
+            updatePotionEffects();
+            if (potionEffects.length > this.index) {
+                final Potion potion = Potion.potionTypes[potionEffects[this.index].getPotionID()];
+                return String.valueOf(potion.isBadEffect());
+            }
+            return "false";
+        }
+    }
+
     public static class Icon extends TagPlayerPotion {
         private final boolean large;
 
@@ -154,6 +170,7 @@ public abstract class TagPlayerPotion extends Tag {
             TagRegistry.INSTANCE.register(new Effect(i).setName("potioneffect"));
             TagRegistry.INSTANCE.register(new Duration(i).setName("potionduration"));
             TagRegistry.INSTANCE.register(new DurationTicks(i).setName("potiondurationticks"));
+            TagRegistry.INSTANCE.register(new Negative(i).setName("potionnegative"));
             TagRegistry.INSTANCE.register(new Icon(i, false).setName("potionicon"));
             TagRegistry.INSTANCE.register(new Icon(i, true).setName("potionlargeicon"));
         }
