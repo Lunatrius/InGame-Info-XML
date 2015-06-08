@@ -1,6 +1,8 @@
 package com.github.lunatrius.ingameinfo.tag;
 
+import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
@@ -110,10 +112,31 @@ public abstract class TagNearbyPlayer extends Tag {
         }
     }
 
+    public static class Icon extends TagNearbyPlayer {
+        public Icon(int index) {
+            super(index);
+        }
+
+        @Override
+        public String getValue() {
+            updateNearbyPlayers();
+            if (nearbyPlayers.length > this.index) {
+                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(nearbyPlayers[this.index].getUniqueID());
+                final InfoIcon icon = new InfoIcon(playerInfo.getLocationSkin());
+                icon.setTextureData(8, 8, 8, 8, 64, 64);
+                icon.setDisplayDimensions(0, 0, 8, 8);
+                info.add(icon);
+                return getIconTag(icon);
+            }
+            return "";
+        }
+    }
+
     public static void register() {
         for (int i = 0; i < MAXIMUM_INDEX; i++) {
             TagRegistry.INSTANCE.register(new Name(i).setName("nearbyplayername"));
             TagRegistry.INSTANCE.register(new Distance(i).setName("nearbyplayerdistance"));
+            TagRegistry.INSTANCE.register(new Icon(i).setName("nearbyplayericon"));
         }
     }
 

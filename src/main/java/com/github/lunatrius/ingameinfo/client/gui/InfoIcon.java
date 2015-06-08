@@ -21,12 +21,20 @@ public class InfoIcon extends Info {
     private int displayHeight;
 
     public InfoIcon(String location) {
-        this(location, 0, 0, 8, 8, 0, 0, 8, 8, 8, 8, 0, 0);
+        this(new ResourceLocation(location));
     }
 
     public InfoIcon(String location, int displayX, int displayY, int displayWidth, int displayHeight, int iconX, int iconY, int iconWidth, int iconHeight, int textureWidth, int textureHeight, int x, int y) {
+        this(new ResourceLocation(location), displayX, displayY, displayWidth, displayHeight, iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight, x, y);
+    }
+
+    public InfoIcon(ResourceLocation location) {
+        this(location, 0, 0, 8, 8, 0, 0, 8, 8, 8, 8, 0, 0);
+    }
+
+    public InfoIcon(ResourceLocation location, int displayX, int displayY, int displayWidth, int displayHeight, int iconX, int iconY, int iconWidth, int iconHeight, int textureWidth, int textureHeight, int x, int y) {
         super(x, y);
-        this.resourceLocation = new ResourceLocation(location);
+        this.resourceLocation = location;
         setDisplayDimensions(displayX, displayY, displayWidth, displayHeight);
         setTextureData(iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight);
     }
