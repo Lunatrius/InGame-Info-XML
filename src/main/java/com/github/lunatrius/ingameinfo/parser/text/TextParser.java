@@ -61,7 +61,7 @@ public class TextParser implements IParser {
             expr = alignments(format) && this.token.isEof();
         } catch (Exception e) {
             expr = false;
-            Reference.logger.error("Parsing failed!", e);
+            Reference.logger.error("Parsing failed at {}!", this.token, e);
         }
 
         return expr;
