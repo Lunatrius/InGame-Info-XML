@@ -170,6 +170,11 @@ public class InGameInfoCore {
     }
 
     public void onTickRender() {
+        // disable blending and reset to default (just in case)
+        // fixes "washed-out" / bright text
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
         GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
         GL11.glScalef(ConfigurationHandler.scale, ConfigurationHandler.scale, ConfigurationHandler.scale);
 
