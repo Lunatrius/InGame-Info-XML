@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.integration.terrafirmacraft;
 
+import com.bioxx.tfc.Reference;
 import com.github.lunatrius.ingameinfo.integration.Plugin;
 import com.github.lunatrius.ingameinfo.integration.terrafirmacraft.tag.TagTerraFirmaCraft;
 import com.github.lunatrius.ingameinfo.reference.Names;
@@ -19,7 +20,7 @@ public class TerraFirmaCraft extends Plugin {
 
     @Override
     public String getDependencyVersion() {
-        return com.bioxx.tfc.Reference.ModVersion;
+        return Reference.MOD_VERSION;
     }
 
     @Override
