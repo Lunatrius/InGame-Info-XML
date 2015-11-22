@@ -32,6 +32,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -111,7 +112,7 @@ public class InGameInfoCore {
         this.profiler.startSection("alignment");
         this.profiler.startSection("none");
         for (Alignment alignment : Alignment.values()) {
-            this.profiler.endStartSection(alignment.toString().toLowerCase());
+            this.profiler.endStartSection(alignment.toString().toLowerCase(Locale.ENGLISH));
             List<List<Value>> lines = this.format.get(alignment);
 
             if (lines == null) {

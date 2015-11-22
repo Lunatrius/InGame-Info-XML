@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class TextPrinter implements IPrinter {
@@ -38,7 +39,7 @@ public class TextPrinter implements IPrinter {
         for (Alignment alignment : Alignment.values()) {
             List<List<Value>> lists = format.get(alignment);
             if (lists != null) {
-                writer.write(String.format("<%s>", alignment.toString().toLowerCase()));
+                writer.write(String.format("<%s>", alignment.toString().toLowerCase(Locale.ENGLISH)));
 
                 writeLine(writer, lists);
             }

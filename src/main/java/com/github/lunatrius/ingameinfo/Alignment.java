@@ -1,5 +1,7 @@
 package com.github.lunatrius.ingameinfo;
 
+import java.util.Locale;
+
 public enum Alignment {
     TOPLEFT(2, 2),
     TOPCENTER(0, 2),
@@ -39,7 +41,7 @@ public enum Alignment {
     public static Alignment parse(String str) {
         String value = "";
 
-        str = str.toLowerCase();
+        str = str.toLowerCase(Locale.ENGLISH);
 
         if (str.startsWith("top")) {
             value = "TOP";

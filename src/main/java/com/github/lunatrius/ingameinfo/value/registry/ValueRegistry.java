@@ -8,6 +8,7 @@ import com.github.lunatrius.ingameinfo.value.ValueMath;
 import com.github.lunatrius.ingameinfo.value.ValueSimple;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ValueRegistry {
@@ -28,10 +29,11 @@ public class ValueRegistry {
             return;
         }
 
-        this.stringValueMap.put(name.toLowerCase(), value);
-        this.stringClassMap.put(name.toLowerCase(), value.getClass());
+        final String nameLowerCase = name.toLowerCase(Locale.ENGLISH);
+        this.stringValueMap.put(nameLowerCase, value);
+        this.stringClassMap.put(nameLowerCase, value.getClass());
         if (!isAlias) {
-            this.classStringMap.put(value.getClass(), name.toLowerCase());
+            this.classStringMap.put(value.getClass(), nameLowerCase);
         }
     }
 
@@ -44,7 +46,7 @@ public class ValueRegistry {
     }
 
     public Value forName(String name) {
-        name = name.toLowerCase();
+        name = name.toLowerCase(Locale.ENGLISH);
         try {
             final Class<? extends Value> clazz = this.stringClassMap.get(name);
             if (clazz != null) {

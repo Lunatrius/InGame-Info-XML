@@ -17,6 +17,7 @@ import com.github.lunatrius.ingameinfo.tag.TagWorld;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class TagRegistry {
@@ -35,7 +36,7 @@ public class TagRegistry {
             return;
         }
 
-        this.stringTagMap.put(name.toLowerCase(), tag);
+        this.stringTagMap.put(name.toLowerCase(Locale.ENGLISH), tag);
     }
 
     public void register(Tag tag) {
@@ -47,7 +48,7 @@ public class TagRegistry {
     }
 
     public String getValue(String name) {
-        Tag tag = this.stringTagMap.get(name.toLowerCase());
+        Tag tag = this.stringTagMap.get(name.toLowerCase(Locale.ENGLISH));
         return tag != null ? tag.getValue() : null;
     }
 

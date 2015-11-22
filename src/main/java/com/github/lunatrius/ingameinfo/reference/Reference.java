@@ -3,8 +3,11 @@ package com.github.lunatrius.ingameinfo.reference;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Locale;
+
 public class Reference {
     public static final String MODID = "InGameInfoXML";
+    public static final String MODID_LOWER = MODID.toLowerCase(Locale.ENGLISH);
     public static final String NAME = "InGame Info XML";
     public static final String VERSION = "${version}";
     public static final String FORGE = "${forgeversion}";

@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class GuiTags extends GuiScreen {
     private GuiTagList guiTagList;
@@ -54,7 +55,7 @@ public class GuiTags extends GuiScreen {
     @Override
     protected void keyTyped(char character, int code) throws IOException {
         this.guiTextField.textboxKeyTyped(character, code);
-        this.guiTagList.filter(this.guiTextField.getText().toLowerCase());
+        this.guiTagList.filter(this.guiTextField.getText().toLowerCase(Locale.ENGLISH));
         super.keyTyped(character, code);
     }
 

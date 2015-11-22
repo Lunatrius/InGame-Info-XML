@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class JsonPrinter implements IPrinter {
@@ -48,7 +49,7 @@ public class JsonPrinter implements IPrinter {
                 appendLine(arrayLines, lists);
 
                 if (arrayLines.size() > 0) {
-                    jsonConfig.add(alignment.toString().toLowerCase(), arrayLines);
+                    jsonConfig.add(alignment.toString().toLowerCase(Locale.ENGLISH), arrayLines);
                 }
             }
         }

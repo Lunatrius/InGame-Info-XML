@@ -61,11 +61,11 @@ public abstract class Tag {
     }
 
     public String getLocalizedCategory() {
-        return I18n.format(Reference.MODID.toLowerCase() + ".tag.category." + getCategory() + ".name");
+        return I18n.format(Reference.MODID_LOWER + ".tag.category." + getCategory() + ".name");
     }
 
     public String getLocalizedDescription() {
-        return I18n.format(Reference.MODID.toLowerCase() + ".tag." + getRawName() + ".desc");
+        return I18n.format(Reference.MODID_LOWER + ".tag." + getRawName() + ".desc");
     }
 
     public abstract String getCategory();

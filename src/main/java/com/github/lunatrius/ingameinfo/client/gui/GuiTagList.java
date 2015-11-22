@@ -9,6 +9,7 @@ import net.minecraft.client.gui.GuiListExtended;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -56,7 +57,7 @@ public class GuiTagList extends GuiListExtended {
 
             boolean added = false;
             for (TagEntry tag : entry.getValue()) {
-                if (tag.getName().toLowerCase().contains(pattern) || tag.getDesc().toLowerCase().contains(pattern)) {
+                if (tag.getName().toLowerCase(Locale.ENGLISH).contains(pattern) || tag.getDesc().toLowerCase(Locale.ENGLISH).contains(pattern)) {
                     added = true;
                     list.add(tag);
                 }

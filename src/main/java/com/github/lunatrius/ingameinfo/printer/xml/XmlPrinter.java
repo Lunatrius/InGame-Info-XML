@@ -16,6 +16,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class XmlPrinter implements IPrinter {
@@ -53,7 +54,7 @@ public class XmlPrinter implements IPrinter {
             List<List<Value>> lists = format.get(alignment);
             if (lists != null) {
                 Element elementLines = doc.createElement("lines");
-                elementLines.setAttribute("at", alignment.toString().toLowerCase());
+                elementLines.setAttribute("at", alignment.toString().toLowerCase(Locale.ENGLISH));
 
                 appendLine(doc, elementLines, lists);
 

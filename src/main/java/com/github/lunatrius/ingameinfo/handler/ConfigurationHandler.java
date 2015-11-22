@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -78,8 +79,9 @@ public class ConfigurationHandler {
         fileInterval = propFileInterval.getInt(FILE_INTERVAL_DEFAULT);
 
         for (Alignment alignment : Alignment.values()) {
-            Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignment.toString().toLowerCase(), alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
-            property.setLanguageKey(Names.Config.LANG_PREFIX + "." + alignment.toString().toLowerCase());
+            final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
+            Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignmentName, alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
+            property.setLanguageKey(Names.Config.LANG_PREFIX + "." + alignmentName);
             property.setValidationPattern(Pattern.compile("-?\\d+ -?\\d+"));
             propAlignments.put(alignment, property);
             alignment.setXY(property.getString());
