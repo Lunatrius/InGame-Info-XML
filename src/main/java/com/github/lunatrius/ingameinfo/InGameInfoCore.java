@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo;
 
-import com.github.lunatrius.ingameinfo.client.gui.Info;
-import com.github.lunatrius.ingameinfo.client.gui.InfoText;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoText;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.parser.IParser;
 import com.github.lunatrius.ingameinfo.parser.json.JsonParser;
@@ -57,7 +57,7 @@ public class InGameInfoCore {
         Value.setInfo(this.infoItemQueue);
     }
 
-    public boolean setConfigDirectory(File directory) {
+    public boolean setConfigDirectory(final File directory) {
         this.configDirectory = directory;
         return true;
     }
@@ -66,8 +66,8 @@ public class InGameInfoCore {
         return this.configDirectory;
     }
 
-    public boolean setConfigFile(String filename) {
-        File file = new File(this.configDirectory, filename);
+    public boolean setConfigFile(final String filename) {
+        final File file = new File(this.configDirectory, filename);
         if (file.exists()) {
             if (filename.endsWith(Names.Files.EXT_XML)) {
                 this.configFile = file;
@@ -90,17 +90,17 @@ public class InGameInfoCore {
     }
 
     public void onTickClient() {
-        ScaledResolution scaledResolution = new ScaledResolution(this.minecraft, this.minecraft.displayWidth, this.minecraft.displayHeight);
-        int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
-        int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
+        final ScaledResolution scaledResolution = new ScaledResolution(this.minecraft);
+        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
+        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
 
-        World world = this.minecraft.theWorld;
+        final World world = this.minecraft.theWorld;
         if (world == null) {
             return;
         }
         Tag.setWorld(world);
 
-        EntityPlayerSP player = this.minecraft.thePlayer;
+        final EntityPlayerSP player = this.minecraft.thePlayer;
         if (player == null) {
             return;
         }
@@ -111,38 +111,38 @@ public class InGameInfoCore {
 
         this.profiler.startSection("alignment");
         this.profiler.startSection("none");
-        for (Alignment alignment : Alignment.values()) {
+        for (final Alignment alignment : Alignment.values()) {
             this.profiler.endStartSection(alignment.toString().toLowerCase(Locale.ENGLISH));
-            List<List<Value>> lines = this.format.get(alignment);
+            final List<List<Value>> lines = this.format.get(alignment);
 
             if (lines == null) {
                 continue;
             }
 
-            FontRenderer fontRenderer = this.minecraft.fontRendererObj;
-            List<Info> queue = new ArrayList<Info>();
+            final FontRenderer fontRenderer = this.minecraft.fontRendererObj;
+            final List<Info> queue = new ArrayList<Info>();
 
-            for (List<Value> line : lines) {
+            for (final List<Value> line : lines) {
                 String str = "";
 
                 this.infoItemQueue.clear();
                 this.profiler.startSection("taggathering");
-                for (Value value : line) {
+                for (final Value value : line) {
                     str += getValue(value);
                 }
                 this.profiler.endSection();
 
                 if (!str.isEmpty()) {
-                    String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
+                    final String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
 
                     x = alignment.getX(scaledWidth, fontRenderer.getStringWidth(processed));
-                    InfoText text = new InfoText(fontRenderer, processed, x, 0);
+                    final InfoText text = new InfoText(fontRenderer, processed, x, 0);
 
                     if (this.infoItemQueue.size() > 0) {
                         MATCHER.reset(str);
 
                         for (int i = 0; i < this.infoItemQueue.size() && MATCHER.find(); i++) {
-                            Info item = this.infoItemQueue.get(i);
+                            final Info item = this.infoItemQueue.get(i);
                             item.x = fontRenderer.getStringWidth(str.substring(0, MATCHER.start()));
                             text.children.add(item);
 
@@ -155,7 +155,7 @@ public class InGameInfoCore {
             }
 
             y = alignment.getY(scaledHeight, queue.size() * (fontRenderer.FONT_HEIGHT + 1));
-            for (Info item : queue) {
+            for (final Info item : queue) {
                 item.y = y;
                 this.info.add(item);
                 y += fontRenderer.FONT_HEIGHT + 1;
@@ -174,7 +174,7 @@ public class InGameInfoCore {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
         GlStateManager.scale(ConfigurationHandler.scale, ConfigurationHandler.scale, ConfigurationHandler.scale);
 
-        for (Info info : this.info) {
+        for (final Info info : this.info) {
             info.draw();
         }
 
@@ -182,7 +182,7 @@ public class InGameInfoCore {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    public boolean loadConfig(String filename) {
+    public boolean loadConfig(final String filename) {
         return setConfigFile(filename) && reloadConfig();
     }
 
@@ -217,20 +217,20 @@ public class InGameInfoCore {
                 inputStream = new FileInputStream(this.configFile);
             } else {
                 Reference.logger.debug("Loading default config...");
-                ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", Names.Files.FILE_XML);
-                IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
+                final ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", Names.Files.FILE_XML);
+                final IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
                 inputStream = resource.getInputStream();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.error("", e);
         }
 
         return inputStream;
     }
 
-    public boolean saveConfig(String filename) {
+    public boolean saveConfig(final String filename) {
         IPrinter printer = null;
-        File file = new File(this.configDirectory, filename);
+        final File file = new File(this.configDirectory, filename);
         if (filename.endsWith(Names.Files.EXT_XML)) {
             printer = new XmlPrinter();
         } else if (filename.endsWith(Names.Files.EXT_JSON)) {
@@ -242,12 +242,12 @@ public class InGameInfoCore {
         return printer != null && printer.print(file, this.format);
     }
 
-    private String getValue(Value value) {
+    private String getValue(final Value value) {
         try {
             if (value.isValidSize()) {
                 return value.getReplacedValue();
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.debug("Failed to get value!", e);
             return "null";
         }

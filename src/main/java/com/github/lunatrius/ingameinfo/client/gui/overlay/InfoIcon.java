@@ -1,5 +1,6 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
+import com.github.lunatrius.core.client.gui.GuiHelper;
 import com.github.lunatrius.core.util.vector.Vector2f;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
@@ -7,7 +8,9 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 
 public class InfoIcon extends Info {
     private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
@@ -20,26 +23,26 @@ public class InfoIcon extends Info {
     private int displayWidth;
     private int displayHeight;
 
-    public InfoIcon(String location) {
+    public InfoIcon(final String location) {
         this(new ResourceLocation(location));
     }
 
-    public InfoIcon(String location, int displayX, int displayY, int displayWidth, int displayHeight, int iconX, int iconY, int iconWidth, int iconHeight, int textureWidth, int textureHeight, int x, int y) {
+    public InfoIcon(final String location, final int displayX, final int displayY, final int displayWidth, final int displayHeight, final int iconX, final int iconY, final int iconWidth, final int iconHeight, final int textureWidth, final int textureHeight, final int x, final int y) {
         this(new ResourceLocation(location), displayX, displayY, displayWidth, displayHeight, iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight, x, y);
     }
 
-    public InfoIcon(ResourceLocation location) {
+    public InfoIcon(final ResourceLocation location) {
         this(location, 0, 0, 8, 8, 0, 0, 8, 8, 8, 8, 0, 0);
     }
 
-    public InfoIcon(ResourceLocation location, int displayX, int displayY, int displayWidth, int displayHeight, int iconX, int iconY, int iconWidth, int iconHeight, int textureWidth, int textureHeight, int x, int y) {
+    public InfoIcon(final ResourceLocation location, final int displayX, final int displayY, final int displayWidth, final int displayHeight, final int iconX, final int iconY, final int iconWidth, final int iconHeight, final int textureWidth, final int textureHeight, final int x, final int y) {
         super(x, y);
         this.resourceLocation = location;
         setDisplayDimensions(displayX, displayY, displayWidth, displayHeight);
         setTextureData(iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight);
     }
 
-    public void setDisplayDimensions(int displayX, int displayY, int displayWidth, int displayHeight) {
+    public void setDisplayDimensions(final int displayX, final int displayY, final int displayWidth, final int displayHeight) {
         this.displayWidth = displayWidth;
         this.displayHeight = displayHeight;
 
@@ -47,7 +50,7 @@ public class InfoIcon extends Info {
         this.xy1.set(displayX + displayWidth, displayY + displayHeight);
     }
 
-    public void setTextureData(int iconX, int iconY, int iconWidth, int iconHeight, int textureWidth, int textureHeight) {
+    public void setTextureData(final int iconX, final int iconY, final int iconWidth, final int iconHeight, final int textureWidth, final int textureHeight) {
         this.uv0.set((float) iconX / textureWidth, (float) iconY / textureHeight);
         this.uv1.set((float) (iconX + iconWidth) / textureWidth, (float) (iconY + iconHeight) / textureHeight);
     }
@@ -61,15 +64,13 @@ public class InfoIcon extends Info {
 
             final Tessellator tessellator = Tessellator.getInstance();
             final WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-            worldRenderer.startDrawingQuads();
-            worldRenderer.addVertexWithUV(this.xy0.x, this.xy1.y, this.zLevel, this.uv0.x, this.uv1.y);
-            worldRenderer.addVertexWithUV(this.xy1.x, this.xy1.y, this.zLevel, this.uv1.x, this.uv1.y);
-            worldRenderer.addVertexWithUV(this.xy1.x, this.xy0.y, this.zLevel, this.uv1.x, this.uv0.y);
-            worldRenderer.addVertexWithUV(this.xy0.x, this.xy0.y, this.zLevel, this.uv0.x, this.uv0.y);
+
+            worldRenderer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+            GuiHelper.drawTexturedRectangle(worldRenderer, this.xy0.x, this.xy0.y, this.xy1.x, this.xy1.y, this.zLevel, this.uv0.x, this.uv0.y, this.uv1.x, this.uv1.y);
             tessellator.draw();
 
             GlStateManager.translate(-getX(), -getY(), 0);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.debug(e);
         }
     }

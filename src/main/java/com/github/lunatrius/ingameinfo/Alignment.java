@@ -30,7 +30,7 @@ public enum Alignment {
     public int x;
     public int y;
 
-    Alignment(int x, int y) {
+    Alignment(final int x, final int y) {
         this.defaultX = x;
         this.defaultY = y;
         this.x = x;
@@ -61,12 +61,12 @@ public enum Alignment {
 
         try {
             return valueOf(value);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return null;
         }
     }
 
-    public int getX(int screenwidth, int textwidth) {
+    public int getX(final int screenwidth, final int textwidth) {
         switch (this.alignment & MASK_X) {
         case LEFT:
             return this.x;
@@ -81,7 +81,7 @@ public enum Alignment {
         return 0;
     }
 
-    public int getY(int screenheight, int textheight) {
+    public int getY(final int screenheight, final int textheight) {
         switch (this.alignment & MASK_Y) {
         case TOP:
             return this.y;
@@ -104,16 +104,16 @@ public enum Alignment {
         return String.format("%d %d", this.x, this.y);
     }
 
-    public void setXY(String str) {
+    public void setXY(final String str) {
         try {
-            String[] parts = str.split(" ");
+            final String[] parts = str.split(" ");
             if (parts.length == 2) {
-                int x = Integer.parseInt(parts[0]);
-                int y = Integer.parseInt(parts[1]);
+                final int x = Integer.parseInt(parts[0]);
+                final int y = Integer.parseInt(parts[1]);
                 this.x = x;
                 this.y = y;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
         }
     }
 

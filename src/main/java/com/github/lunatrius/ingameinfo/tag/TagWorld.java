@@ -24,7 +24,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     return worldServer.getWorldInfo().getWorldName();
                 }
@@ -37,7 +37,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     return String.valueOf(worldServer.getWorldInfo().getSizeOnDisk());
                 }
@@ -50,7 +50,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     return String.format(Locale.ENGLISH, "%.1f", worldServer.getWorldInfo().getSizeOnDisk() / 1048576.0);
                 }
@@ -70,7 +70,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     return I18n.format(worldServer.getDifficulty().getDifficultyResourceKey());
                 }
@@ -83,7 +83,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     return String.valueOf(worldServer.getDifficulty().getDifficultyId());
                 }
@@ -97,7 +97,7 @@ public abstract class TagWorld extends Tag {
         public String getValue() {
             DifficultyInstance difficulty = world.getDifficultyForLocation(playerPosition);
             if (server != null) {
-                WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
                     difficulty = worldServer.getDifficultyForLocation(playerPosition);
                 }

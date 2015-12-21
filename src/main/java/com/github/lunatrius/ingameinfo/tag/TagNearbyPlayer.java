@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,13 +16,13 @@ public abstract class TagNearbyPlayer extends Tag {
 
     private static final Comparator<EntityPlayer> PLAYER_DISTANCE_COMPARATOR = new Comparator<EntityPlayer>() {
         @Override
-        public int compare(EntityPlayer playerA, EntityPlayer playerB) {
+        public int compare(final EntityPlayer playerA, final EntityPlayer playerB) {
             if (Tag.player == null) {
                 return 0;
             }
 
-            double distanceA = Tag.player.getDistanceSqToEntity(playerA);
-            double distanceB = Tag.player.getDistanceSqToEntity(playerB);
+            final double distanceA = Tag.player.getDistanceSqToEntity(playerA);
+            final double distanceB = Tag.player.getDistanceSqToEntity(playerB);
             if (distanceA > distanceB) {
                 return 1;
             } else if (distanceA < distanceB) {
@@ -34,7 +34,7 @@ public abstract class TagNearbyPlayer extends Tag {
     protected static EntityPlayer[] nearbyPlayers = null;
     protected final int index;
 
-    public TagNearbyPlayer(int index) {
+    public TagNearbyPlayer(final int index) {
         this.index = index;
     }
 
@@ -45,8 +45,8 @@ public abstract class TagNearbyPlayer extends Tag {
 
     @Override
     public String[] getAliases() {
-        String[] aliases = super.getAliases();
-        String[] aliasesIndexed = new String[aliases.length];
+        final String[] aliases = super.getAliases();
+        final String[] aliasesIndexed = new String[aliases.length];
         for (int i = 0; i < aliases.length; i++) {
             aliasesIndexed[i] = aliases[i] + this.index;
         }
@@ -70,8 +70,8 @@ public abstract class TagNearbyPlayer extends Tag {
 
     protected static void updateNearbyPlayers() {
         if (nearbyPlayers == null) {
-            List<EntityPlayer> playerList = new ArrayList<EntityPlayer>();
-            for (EntityPlayer player : (List<EntityPlayer>) world.playerEntities) {
+            final List<EntityPlayer> playerList = new ArrayList<EntityPlayer>();
+            for (final EntityPlayer player : world.playerEntities) {
                 if (player != Tag.player && !player.isSneaking()) {
                     playerList.add(player);
                 }
@@ -83,7 +83,7 @@ public abstract class TagNearbyPlayer extends Tag {
     }
 
     public static class Name extends TagNearbyPlayer {
-        public Name(int index) {
+        public Name(final int index) {
             super(index);
         }
 
@@ -98,7 +98,7 @@ public abstract class TagNearbyPlayer extends Tag {
     }
 
     public static class Distance extends TagNearbyPlayer {
-        public Distance(int index) {
+        public Distance(final int index) {
             super(index);
         }
 
@@ -113,7 +113,7 @@ public abstract class TagNearbyPlayer extends Tag {
     }
 
     public static class Icon extends TagNearbyPlayer {
-        public Icon(int index) {
+        public Icon(final int index) {
             super(index);
         }
 

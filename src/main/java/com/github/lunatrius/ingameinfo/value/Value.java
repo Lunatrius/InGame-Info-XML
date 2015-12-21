@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.value;
 
-import com.github.lunatrius.ingameinfo.client.gui.Info;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
@@ -21,7 +21,7 @@ public abstract class Value {
     protected String value = "";
     public final List<Value> values = new ArrayList<Value>();
 
-    public Value setName(String name) {
+    public Value setName(final String name) {
         this.name = name;
         return this;
     }
@@ -30,7 +30,7 @@ public abstract class Value {
         return this.name;
     }
 
-    public Value setAliases(String... aliases) {
+    public Value setAliases(final String... aliases) {
         this.aliases = aliases;
         return this;
     }
@@ -43,12 +43,12 @@ public abstract class Value {
         return ValueRegistry.INSTANCE.forClass(getClass());
     }
 
-    public Value setRawValue(String value, boolean isText) {
+    public Value setRawValue(final String value, final boolean isText) {
         this.value = "";
         return this;
     }
 
-    public String getRawValue(boolean isText) {
+    public String getRawValue(final boolean isText) {
         return this.value;
     }
 
@@ -72,7 +72,7 @@ public abstract class Value {
         return true;
     }
 
-    protected String getValue(int index) {
+    protected String getValue(final int index) {
         return this.values.get(index).getReplacedValue();
     }
 
@@ -80,7 +80,7 @@ public abstract class Value {
         return Integer.parseInt(getReplacedValue());
     }
 
-    protected int getIntValue(int index) {
+    protected int getIntValue(final int index) {
         return Integer.parseInt(getValue(index));
     }
 
@@ -88,7 +88,7 @@ public abstract class Value {
         return Double.parseDouble(getReplacedValue());
     }
 
-    protected double getDoubleValue(int index) {
+    protected double getDoubleValue(final int index) {
         return Double.parseDouble(getValue(index));
     }
 
@@ -96,17 +96,17 @@ public abstract class Value {
         return Boolean.parseBoolean(getReplacedValue());
     }
 
-    protected boolean getBooleanValue(int index) {
+    protected boolean getBooleanValue(final int index) {
         return Boolean.parseBoolean(getValue(index));
     }
 
-    protected String getVariableValue(String var) {
+    protected String getVariableValue(final String var) {
         try {
-            String value = TagRegistry.INSTANCE.getValue(var);
+            final String value = TagRegistry.INSTANCE.getValue(var);
             if (value != null) {
                 return value;
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.debug("Failed to get value!", e);
             return "null";
         }
@@ -123,15 +123,15 @@ public abstract class Value {
         return String.format(Locale.ENGLISH, "[%s] '%s'", getClass(), this.value);
     }
 
-    public static void setInfo(List<Info> info) {
+    public static void setInfo(final List<Info> info) {
         Value.info = info;
     }
 
-    public static Value fromString(String str) {
+    public static Value fromString(final String str) {
         return ValueRegistry.INSTANCE.forName(str);
     }
 
-    public static String toString(Value value) {
+    public static String toString(final Value value) {
         return ValueRegistry.INSTANCE.forClass(value.getClass());
     }
 }

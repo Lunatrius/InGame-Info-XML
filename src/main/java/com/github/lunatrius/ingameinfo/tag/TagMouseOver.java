@@ -22,14 +22,14 @@ public abstract class TagMouseOver extends Tag {
     public static class Name extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
                     return objectMouseOver.entityHit.getDisplayName().getFormattedText();
                 } else if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     final Block block = world.getBlockState(objectMouseOver.getBlockPos()).getBlock();
                     if (block != null) {
-                        final ItemStack pickBlock = block.getPickBlock(objectMouseOver, world, objectMouseOver.getBlockPos());
+                        final ItemStack pickBlock = block.getPickBlock(objectMouseOver, world, objectMouseOver.getBlockPos(), player);
                         if (pickBlock != null) {
                             return pickBlock.getDisplayName();
                         }
@@ -44,10 +44,10 @@ public abstract class TagMouseOver extends Tag {
     public static class UniqueName extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-                    String name = EntityList.getEntityString(objectMouseOver.entityHit);
+                    final String name = EntityList.getEntityString(objectMouseOver.entityHit);
                     if (name != null) {
                         return name;
                     }
@@ -65,7 +65,7 @@ public abstract class TagMouseOver extends Tag {
     public static class Id extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
                     return String.valueOf(objectMouseOver.entityHit.getEntityId());
@@ -83,7 +83,7 @@ public abstract class TagMouseOver extends Tag {
     public static class Metadata extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     final IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
@@ -97,14 +97,14 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerWeak extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     int power = -1;
-                    for (EnumFacing side : EnumFacing.VALUES) {
+                    for (final EnumFacing side : EnumFacing.VALUES) {
                         final BlockPos pos = objectMouseOver.getBlockPos().offset(side);
                         final IBlockState blockState = world.getBlockState(pos);
-                        power = Math.max(power, blockState.getBlock().isProvidingWeakPower(world, pos, blockState, side));
+                        power = Math.max(power, blockState.getBlock().getWeakPower(world, pos, blockState, side));
 
                         if (power >= 15) {
                             break;
@@ -120,14 +120,14 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerStrong extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     final IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
                     final Block block = blockState.getBlock();
                     int power = -1;
-                    for (EnumFacing side : EnumFacing.VALUES) {
-                        power = Math.max(power, block.isProvidingStrongPower(world, objectMouseOver.getBlockPos(), blockState, side));
+                    for (final EnumFacing side : EnumFacing.VALUES) {
+                        power = Math.max(power, block.getStrongPower(world, objectMouseOver.getBlockPos(), blockState, side));
 
                         if (power >= 15) {
                             break;
@@ -143,7 +143,7 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerInput extends TagMouseOver {
         @Override
         public String getValue() {
-            MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
+            final MovingObjectPosition objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK) {
                     return String.valueOf(world.isBlockIndirectlyGettingPowered(objectMouseOver.getBlockPos()));

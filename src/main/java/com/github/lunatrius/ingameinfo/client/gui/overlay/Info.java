@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public abstract class Info {
     public int offsetX;
     public int offsetY;
 
-    protected Info(int x, int y) {
+    protected Info(final int x, final int y) {
         this.x = x;
         this.y = y;
         this.offsetX = 0;
@@ -20,7 +20,7 @@ public abstract class Info {
     public void draw() {
         drawInfo();
 
-        for (Info child : this.children) {
+        for (final Info child : this.children) {
             child.offsetX = this.x;
             child.offsetY = this.y;
 

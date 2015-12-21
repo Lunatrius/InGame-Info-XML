@@ -21,7 +21,7 @@ public class KeyInputHandler {
     private KeyInputHandler() {}
 
     @SubscribeEvent
-    public void onKeyInput(InputEvent event) {
+    public void onKeyInput(final InputEvent event) {
         if (this.minecraft.currentScreen == null) {
             if (KEY_BINDING_TOGGLE.isPressed()) {
                 Ticker.enabled = !Ticker.enabled;

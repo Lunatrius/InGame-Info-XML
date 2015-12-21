@@ -1,7 +1,7 @@
 package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.core.entity.EntityHelper;
-import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoItem;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,7 +15,7 @@ public abstract class TagPlayerEquipment extends Tag {
     public static final int[] SLOTS = new int[] { -1, 3, 2, 1, 0 };
     protected final int slot;
 
-    public TagPlayerEquipment(int slot) {
+    public TagPlayerEquipment(final int slot) {
         this.slot = slot;
     }
 
@@ -24,7 +24,7 @@ public abstract class TagPlayerEquipment extends Tag {
         return "playerequipment";
     }
 
-    protected ItemStack getItemStack(int slot) {
+    protected ItemStack getItemStack(final int slot) {
         if (slot == -1) {
             return player.getCurrentEquippedItem();
         }
@@ -32,75 +32,75 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class Name extends TagPlayerEquipment {
-        public Name(int slot) {
+        public Name(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
-            String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.arrow) + ")" : "";
+            final ItemStack itemStack = getItemStack(this.slot);
+            final String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.arrow) + ")" : "";
             return itemStack != null ? itemStack.getDisplayName() + arrows : "";
         }
     }
 
     public static class UniqueName extends TagPlayerEquipment {
-        public UniqueName(int slot) {
+        public UniqueName(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
-            Item item = itemStack != null ? itemStack.getItem() : null;
+            final ItemStack itemStack = getItemStack(this.slot);
+            final Item item = itemStack != null ? itemStack.getItem() : null;
             return item != null ? String.valueOf(ITEM_REGISTRY.getNameForObject(item)) : "";
         }
     }
 
     public static class Damage extends TagPlayerEquipment {
-        public Damage(int slot) {
+        public Damage(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slot);
             return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
         }
     }
 
     public static class MaximumDamage extends TagPlayerEquipment {
-        public MaximumDamage(int slot) {
+        public MaximumDamage(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slot);
             return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
         }
     }
 
     public static class DamageLeft extends TagPlayerEquipment {
-        public DamageLeft(int slot) {
+        public DamageLeft(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slot);
             return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamage() : 0);
         }
     }
 
     public static class Quantity extends TagPlayerEquipment {
-        public Quantity(int slot) {
+        public Quantity(final int slot) {
             super(slot);
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slot);
             return String.valueOf(itemStack != null ? EntityHelper.getItemCountInInventory(player.inventory, itemStack.getItem(), itemStack.getItemDamage()) : 0);
         }
     }
@@ -108,15 +108,15 @@ public abstract class TagPlayerEquipment extends Tag {
     public static class Icon extends TagPlayerEquipment {
         private final boolean large;
 
-        public Icon(int slot, boolean large) {
+        public Icon(final int slot, final boolean large) {
             super(slot);
             this.large = large;
         }
 
         @Override
         public String getValue() {
-            ItemStack itemStack = getItemStack(this.slot);
-            InfoItem item = new InfoItem(itemStack, this.large);
+            final ItemStack itemStack = getItemStack(this.slot);
+            final InfoItem item = new InfoItem(itemStack, this.large);
             info.add(item);
             return getIconTag(item);
         }

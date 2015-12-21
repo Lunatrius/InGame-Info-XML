@@ -6,7 +6,7 @@ public class Location {
     private int row;
     private int column;
 
-    public Location(int row, int column) {
+    public Location(final int row, final int column) {
         this.row = row;
         this.column = column;
     }
@@ -21,11 +21,11 @@ public class Location {
         return new Location(this.row, this.column);
     }
 
-    public void setRow(int row) {
+    public void setRow(final int row) {
         this.row = row;
     }
 
-    public void setColumn(int column) {
+    public void setColumn(final int column) {
         this.column = column;
     }
 

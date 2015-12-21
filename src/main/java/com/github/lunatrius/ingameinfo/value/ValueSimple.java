@@ -4,7 +4,7 @@ import com.github.lunatrius.ingameinfo.value.registry.ValueRegistry;
 
 public abstract class ValueSimple extends Value {
     @Override
-    public Value setRawValue(String value, boolean isText) {
+    public Value setRawValue(final String value, final boolean isText) {
         this.value = value.replaceAll("\\$(?=[0-9a-fk-or])", "\u00a7");
         if (isText) {
             this.value = this.value.replaceAll("\\\\([<>\\[/\\]\\\\])", "$1");
@@ -13,7 +13,7 @@ public abstract class ValueSimple extends Value {
     }
 
     @Override
-    public String getRawValue(boolean isText) {
+    public String getRawValue(final boolean isText) {
         String str = this.value.replace("\u00a7", "$");
         if (isText) {
             str = str.replaceAll("([<>\\[/\\]\\\\])", "\\\\$1");

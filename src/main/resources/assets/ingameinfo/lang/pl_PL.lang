@@ -249,23 +249,6 @@ ingameinfoxml.tag.hardcore.desc=§eprawda§r jeśli świat jest w trybie hardcor
 ingameinfoxml.tag.temperature.desc=Temperatura biomu.
 ingameinfoxml.tag.humidity.desc=Wilgotność biomu.
 
-# gui - tag list - integration - blood magic
-
-# gui - tag list - integration - simply jetpacks
-ingameinfoxml.tag.sjenergy.desc=Jetpacka energia.
-ingameinfoxml.tag.sjmaxenergy.desc=Jetpacka maksymalna energia.
-ingameinfoxml.tag.sjpercent.desc=Jetpacka pozostała energia w procentach.
-ingameinfoxml.tag.sjenabled.desc=§eprawda§r jeśli jetpack jest włączony, §efałsz§r przeciwnie.
-ingameinfoxml.tag.sjhover.desc=§eprawda§r jeśli jetpack jest w trybie unoszenia, §efałsz§r przeciwnie.
-
-# gui - tag list - integration - terrafirmacraft
-
-# gui - tag list - integration - thaumcraft
-ingameinfoxml.tag.tcwarpperm.desc=Gracza stały warp.
-ingameinfoxml.tag.tcwarpsticky.desc=Gracza zwyczajny (lepki) warp.
-ingameinfoxml.tag.tcwarptemp.desc=Gracza tymczasowy warp.
-ingameinfoxml.tag.tcwarptotal.desc=Gracza całkowity warp.
-
 # keys
 ingameinfoxml.key.toggle=Przełącz Nakładkę.
 

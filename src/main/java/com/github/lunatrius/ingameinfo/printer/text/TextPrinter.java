@@ -18,26 +18,26 @@ import java.util.Map;
 
 public class TextPrinter implements IPrinter {
     @Override
-    public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
+    public boolean print(final File file, final Map<Alignment, List<List<Value>>> format) {
         try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fileWriter);
+            final FileWriter fileWriter = new FileWriter(file);
+            final BufferedWriter writer = new BufferedWriter(fileWriter);
 
             writeLines(writer, format);
 
             writer.close();
             fileWriter.close();
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not save text configuration file!", e);
         }
 
         return false;
     }
 
-    private void writeLines(BufferedWriter writer, Map<Alignment, List<List<Value>>> format) throws IOException {
-        for (Alignment alignment : Alignment.values()) {
-            List<List<Value>> lists = format.get(alignment);
+    private void writeLines(final BufferedWriter writer, final Map<Alignment, List<List<Value>>> format) throws IOException {
+        for (final Alignment alignment : Alignment.values()) {
+            final List<List<Value>> lists = format.get(alignment);
             if (lists != null) {
                 writer.write(String.format("<%s>", alignment.toString().toLowerCase(Locale.ENGLISH)));
 
@@ -46,23 +46,23 @@ public class TextPrinter implements IPrinter {
         }
     }
 
-    private void writeLine(BufferedWriter writer, List<List<Value>> lines) throws IOException {
-        for (List<Value> line : lines) {
+    private void writeLine(final BufferedWriter writer, final List<List<Value>> lines) throws IOException {
+        for (final List<Value> line : lines) {
             writeValues(writer, line);
             writer.write("\n");
         }
     }
 
-    private void writeValues(BufferedWriter writer, List<Value> values) throws IOException {
-        for (Value value : values) {
+    private void writeValues(final BufferedWriter writer, final List<Value> values) throws IOException {
+        for (final Value value : values) {
             writeValue(writer, value);
         }
     }
 
-    private void writeValue(BufferedWriter writer, Value value) throws IOException {
-        List<Value> values = value.values;
-        int size = values.size();
-        String type = value.getType();
+    private void writeValue(final BufferedWriter writer, final Value value) throws IOException {
+        final List<Value> values = value.values;
+        final int size = values.size();
+        final String type = value.getType();
 
         if (value.isValidSize()) {
             if (value.isSimple()) {

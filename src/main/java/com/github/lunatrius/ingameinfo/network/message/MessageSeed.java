@@ -14,22 +14,22 @@ public class MessageSeed implements IMessage, IMessageHandler<MessageSeed, IMess
         this.seed = 0;
     }
 
-    public MessageSeed(long seed) {
+    public MessageSeed(final long seed) {
         this.seed = seed;
     }
 
     @Override
-    public void fromBytes(ByteBuf buf) {
+    public void fromBytes(final ByteBuf buf) {
         this.seed = buf.readLong();
     }
 
     @Override
-    public void toBytes(ByteBuf buf) {
+    public void toBytes(final ByteBuf buf) {
         buf.writeLong(this.seed);
     }
 
     @Override
-    public IMessage onMessage(MessageSeed message, MessageContext ctx) {
+    public IMessage onMessage(final MessageSeed message, final MessageContext ctx) {
         if (ctx.side == Side.CLIENT) {
             Tag.setSeed(message.seed);
         }

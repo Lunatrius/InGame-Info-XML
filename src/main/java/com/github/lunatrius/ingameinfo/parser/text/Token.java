@@ -18,7 +18,7 @@ public class Token {
         public final static EnumSet<TokenType> EXCEPTIONS = EnumSet.of(FUNC_TAIL, ARGS_HEAD, ARGS_SEPARATOR, ARGS_TAIL);
         private final Pattern pattern;
 
-        private TokenType(String regex) {
+        private TokenType(final String regex) {
             this.pattern = Pattern.compile("^" + regex);
         }
 
@@ -32,7 +32,7 @@ public class Token {
     private final Location locationEnd;
     private final TokenType type;
 
-    public Token(String lexem, Location start, Location end, TokenType type) {
+    public Token(final String lexem, final Location start, final Location end, final TokenType type) {
         this.lexem = lexem;
         this.locationStart = start;
         this.locationEnd = end;

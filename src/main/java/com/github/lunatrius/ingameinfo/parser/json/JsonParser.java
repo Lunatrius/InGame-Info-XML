@@ -19,15 +19,15 @@ public class JsonParser implements IParser {
     private JsonElement element;
 
     @Override
-    public boolean load(InputStream inputStream) {
+    public boolean load(final InputStream inputStream) {
         try {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
-            com.google.gson.JsonParser parser = new com.google.gson.JsonParser();
+            final InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            final com.google.gson.JsonParser parser = new com.google.gson.JsonParser();
 
             this.element = parser.parse(inputStreamReader);
 
             inputStreamReader.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not read json configuration file!", e);
             return false;
         }
@@ -36,16 +36,16 @@ public class JsonParser implements IParser {
     }
 
     @Override
-    public boolean parse(Map<Alignment, List<List<Value>>> format) {
+    public boolean parse(final Map<Alignment, List<List<Value>>> format) {
         if (!this.element.isJsonObject()) {
             return false;
         }
 
-        JsonObject config = this.element.getAsJsonObject();
-        Set<Map.Entry<String, JsonElement>> entries = config.entrySet();
+        final JsonObject config = this.element.getAsJsonObject();
+        final Set<Map.Entry<String, JsonElement>> entries = config.entrySet();
 
-        for (Map.Entry<String, JsonElement> entry : entries) {
-            Alignment alignment = Alignment.parse(entry.getKey());
+        for (final Map.Entry<String, JsonElement> entry : entries) {
+            final Alignment alignment = Alignment.parse(entry.getKey());
             if (alignment != null) {
                 format.put(alignment, getLines(entry.getValue()));
             }
@@ -54,11 +54,11 @@ public class JsonParser implements IParser {
         return true;
     }
 
-    private List<List<Value>> getLines(JsonElement elementLines) {
-        List<List<Value>> listLines = new ArrayList<List<Value>>();
+    private List<List<Value>> getLines(final JsonElement elementLines) {
+        final List<List<Value>> listLines = new ArrayList<List<Value>>();
 
-        JsonArray arrayLines = elementLines.getAsJsonArray();
-        for (JsonElement elementLine : arrayLines) {
+        final JsonArray arrayLines = elementLines.getAsJsonArray();
+        for (final JsonElement elementLine : arrayLines) {
             if (elementLine != null && elementLine.isJsonArray()) {
                 listLines.add(getValues(elementLine.getAsJsonArray()));
             }
@@ -67,14 +67,14 @@ public class JsonParser implements IParser {
         return listLines;
     }
 
-    private List<Value> getValues(JsonArray arrayValues) {
-        List<Value> values = new ArrayList<Value>();
+    private List<Value> getValues(final JsonArray arrayValues) {
+        final List<Value> values = new ArrayList<Value>();
 
-        for (JsonElement elementValue : arrayValues) {
+        for (final JsonElement elementValue : arrayValues) {
             if (elementValue != null && elementValue.isJsonObject()) {
-                JsonObject object = elementValue.getAsJsonObject();
-                Set<Map.Entry<String, JsonElement>> entries = object.entrySet();
-                for (Map.Entry<String, JsonElement> entry : entries) {
+                final JsonObject object = elementValue.getAsJsonObject();
+                final Set<Map.Entry<String, JsonElement>> entries = object.entrySet();
+                for (final Map.Entry<String, JsonElement> entry : entries) {
                     final String type = entry.getKey();
                     final Value value = Value.fromString(type);
 

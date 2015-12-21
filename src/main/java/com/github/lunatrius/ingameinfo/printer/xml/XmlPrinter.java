@@ -21,39 +21,39 @@ import java.util.Map;
 
 public class XmlPrinter implements IPrinter {
     @Override
-    public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder;
+    public boolean print(final File file, final Map<Alignment, List<List<Value>>> format) {
+        final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        final DocumentBuilder dBuilder;
         try {
             dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.newDocument();
+            final Document doc = dBuilder.newDocument();
 
-            Element config = doc.createElement("config");
+            final Element config = doc.createElement("config");
             appendLines(doc, config, format);
             doc.appendChild(config);
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
+            final TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            final Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
-            DOMSource source = new DOMSource(doc);
-            StreamResult streamResult = new StreamResult(file);
+            final DOMSource source = new DOMSource(doc);
+            final StreamResult streamResult = new StreamResult(file);
             transformer.transform(source, streamResult);
 
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not save xml configuration file!", e);
         }
 
         return false;
     }
 
-    private void appendLines(Document doc, Element config, Map<Alignment, List<List<Value>>> format) {
-        for (Alignment alignment : Alignment.values()) {
-            List<List<Value>> lists = format.get(alignment);
+    private void appendLines(final Document doc, final Element config, final Map<Alignment, List<List<Value>>> format) {
+        for (final Alignment alignment : Alignment.values()) {
+            final List<List<Value>> lists = format.get(alignment);
             if (lists != null) {
-                Element elementLines = doc.createElement("lines");
+                final Element elementLines = doc.createElement("lines");
                 elementLines.setAttribute("at", alignment.toString().toLowerCase(Locale.ENGLISH));
 
                 appendLine(doc, elementLines, lists);
@@ -65,9 +65,9 @@ public class XmlPrinter implements IPrinter {
         }
     }
 
-    private void appendLine(Document doc, Element elementLines, List<List<Value>> lines) {
-        for (List<Value> line : lines) {
-            Element elementLine = doc.createElement("line");
+    private void appendLine(final Document doc, final Element elementLines, final List<List<Value>> lines) {
+        for (final List<Value> line : lines) {
+            final Element elementLine = doc.createElement("line");
 
             appendValues(doc, elementLine, line);
 
@@ -77,9 +77,9 @@ public class XmlPrinter implements IPrinter {
         }
     }
 
-    private void appendValues(Document doc, Element elementValues, List<Value> values) {
-        for (Value value : values) {
-            Element elementValue = doc.createElement(value.getType());
+    private void appendValues(final Document doc, final Element elementValues, final List<Value> values) {
+        for (final Value value : values) {
+            final Element elementValue = doc.createElement(value.getType());
 
             elementValue.setTextContent(value.getRawValue(false));
             if (value.values.size() > 0) {

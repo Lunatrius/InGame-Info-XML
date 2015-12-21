@@ -22,7 +22,7 @@ public abstract class TagTime extends Tag {
     public static class MinecraftHour extends TagTime {
         @Override
         public String getValue() {
-            long hour = (world.getWorldTime() / 1000 + 6) % 24;
+            final long hour = (world.getWorldTime() / 1000 + 6) % 24;
             return String.format(Locale.ENGLISH, "%02d", hour);
         }
     }
@@ -30,7 +30,7 @@ public abstract class TagTime extends Tag {
     public static class MinecraftMinute extends TagTime {
         @Override
         public String getValue() {
-            long minute = (world.getWorldTime() % 1000) * 60 / 1000;
+            final long minute = (world.getWorldTime() % 1000) * 60 / 1000;
             return String.format(Locale.ENGLISH, "%02d", minute);
         }
     }
@@ -38,9 +38,9 @@ public abstract class TagTime extends Tag {
     public static class Minecraft24 extends TagTime {
         @Override
         public String getValue() {
-            long time = world.getWorldTime();
-            long hour = (time / 1000 + 6) % 24;
-            long minute = (time % 1000) * 60 / 1000;
+            final long time = world.getWorldTime();
+            final long hour = (time / 1000 + 6) % 24;
+            final long minute = (time % 1000) * 60 / 1000;
             return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
         }
     }
@@ -48,9 +48,9 @@ public abstract class TagTime extends Tag {
     public static class Minecraft12 extends TagTime {
         @Override
         public String getValue() {
-            long time = world.getWorldTime();
+            final long time = world.getWorldTime();
             long hour = (time / 1000 + 6) % 24;
-            long minute = (time % 1000) * 60 / 1000;
+            final long minute = (time % 1000) * 60 / 1000;
             String ampm = "AM";
             if (hour >= 12) {
                 hour -= 12;

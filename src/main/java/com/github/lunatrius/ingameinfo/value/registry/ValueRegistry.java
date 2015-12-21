@@ -18,7 +18,7 @@ public class ValueRegistry {
     private Map<String, Class<? extends Value>> stringClassMap = new HashMap<String, Class<? extends Value>>();
     private Map<Class<? extends Value>, String> classStringMap = new HashMap<Class<? extends Value>, String>();
 
-    private void register(String name, Value value, boolean isAlias) {
+    private void register(final String name, final Value value, final boolean isAlias) {
         if (this.stringValueMap.containsKey(name)) {
             Reference.logger.error("Duplicate value key '" + name + "'!");
             return;
@@ -37,10 +37,10 @@ public class ValueRegistry {
         }
     }
 
-    public void register(Value value) {
+    public void register(final Value value) {
         register(value.getName(), value, false);
 
-        for (String name : value.getAliases()) {
+        for (final String name : value.getAliases()) {
             register(name, value, true);
         }
     }
@@ -55,7 +55,7 @@ public class ValueRegistry {
                     return value;
                 }
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.error(String.format("Failed to create an instance for %s!", name), e);
             return new ValueSimple.ValueInvalid();
         }
@@ -64,7 +64,7 @@ public class ValueRegistry {
         return new ValueSimple.ValueInvalid();
     }
 
-    public String forClass(Class<? extends Value> clazz) {
+    public String forClass(final Class<? extends Value> clazz) {
         final String str = this.classStringMap.get(clazz);
         return str != null ? str : "invalid";
     }

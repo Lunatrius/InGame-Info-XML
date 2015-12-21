@@ -2,8 +2,8 @@ package com.github.lunatrius.ingameinfo.value;
 
 import com.github.lunatrius.core.entity.EntityHelper;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
-import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
-import com.github.lunatrius.ingameinfo.client.gui.InfoItem;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoItem;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.Tag;
@@ -14,6 +14,8 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
 import net.minecraftforge.fml.common.registry.GameData;
 
 import java.io.BufferedReader;
@@ -25,6 +27,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ValueComplex extends Value {
+    public static final FMLControlledNamespacedRegistry<Block> BLOCK_REGISTRY = GameData.getBlockRegistry();
+    public static final FMLControlledNamespacedRegistry<Item> ITEM_REGISTRY = GameData.getItemRegistry();
+
     @Override
     public boolean isSimple() {
         return false;
@@ -39,9 +44,9 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                Operation operation = Operation.fromString(getValue(0));
+                final Operation operation = Operation.fromString(getValue(0));
                 return operation.getValue(this);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "";
             }
         }
@@ -56,7 +61,7 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             String str = "";
-            for (Value val : this.values) {
+            for (final Value val : this.values) {
                 str += replaceVariables(val.getValue());
             }
             return str;
@@ -72,11 +77,11 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                double arg1 = getDoubleValue(1);
-                int shift = this.values.size() - 2;
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
+                final int shift = this.values.size() - 2;
                 return arg0 < arg1 ? getValue(0 + shift) : getValue(1 + shift);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -91,11 +96,11 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                double arg1 = getDoubleValue(1);
-                int shift = this.values.size() - 2;
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
+                final int shift = this.values.size() - 2;
                 return arg0 > arg1 ? getValue(0 + shift) : getValue(1 + shift);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -113,15 +118,15 @@ public abstract class ValueComplex extends Value {
                 Item item;
                 int itemDamage = -1;
                 try {
-                    item = GameData.getItemRegistry().getObject(getValue(0));
-                } catch (Exception e3) {
-                    item = GameData.getItemRegistry().getObjectById(getIntValue(0));
+                    item = ITEM_REGISTRY.getObject(new ResourceLocation(getValue(0)));
+                } catch (final Exception e3) {
+                    item = ITEM_REGISTRY.getObjectById(getIntValue(0));
                 }
                 if (this.values.size() == 2) {
                     itemDamage = getIntValue(1);
                 }
                 return String.valueOf(EntityHelper.getItemCountInInventory(Minecraft.getMinecraft().thePlayer.inventory, item, itemDamage));
-            } catch (Exception e2) {
+            } catch (final Exception e2) {
                 return "0";
             }
         }
@@ -136,13 +141,13 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                String format = getValue(0);
-                String[] args = new String[this.values.size() - 1];
+                final String format = getValue(0);
+                final String[] args = new String[this.values.size() - 1];
                 for (int i = 0; i < args.length; i++) {
                     args[i] = getValue(i + 1);
                 }
                 return I18n.format(format, args);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -157,9 +162,9 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                String format = getValue(0);
+                final String format = getValue(0);
                 return new SimpleDateFormat(format).format(new Date());
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -199,7 +204,7 @@ public abstract class ValueComplex extends Value {
             return "";
         }
 
-        private String getLine(File file) {
+        private String getLine(final File file) {
             try {
                 final FileReader fileReader = new FileReader(file);
                 final BufferedReader reader = new BufferedReader(fileReader);
@@ -213,7 +218,7 @@ public abstract class ValueComplex extends Value {
                 }
 
                 return line;
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 Reference.logger.error("", e);
             }
 
@@ -234,31 +239,31 @@ public abstract class ValueComplex extends Value {
         @Override
         public String getValue() {
             try {
-                int size = this.values.size();
-                String what = getValue(0);
+                final int size = this.values.size();
+                final ResourceLocation what = new ResourceLocation(getValue(0));
 
                 if (size == 1 || size == 2) {
-                    InfoItem item;
+                    final InfoItem item;
                     ItemStack itemStack;
 
                     int metadata = 0;
                     if (size == 2) {
                         metadata = getIntValue(1);
                         // TODO: this needs a better workaround
-                        Block block = GameData.getBlockRegistry().getObject(what);
+                        final Block block = BLOCK_REGISTRY.getObject(what);
                         if (block == Blocks.double_plant) {
                             metadata &= 7;
                         }
                     }
 
-                    itemStack = new ItemStack(GameData.getItemRegistry().getObject(what), 1, metadata);
+                    itemStack = new ItemStack(ITEM_REGISTRY.getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
                         item = new InfoItem(itemStack);
                         info.add(item);
                         return Tag.getIconTag(item);
                     }
 
-                    itemStack = new ItemStack(GameData.getBlockRegistry().getObject(what), 1, metadata);
+                    itemStack = new ItemStack(BLOCK_REGISTRY.getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
                         item = new InfoItem(itemStack);
                         info.add(item);
@@ -266,30 +271,30 @@ public abstract class ValueComplex extends Value {
                     }
                 }
 
-                InfoIcon icon = new InfoIcon(what);
+                final InfoIcon icon = new InfoIcon(what);
                 int index = 0;
 
                 if (size == 5 || size == 11) {
-                    int displayX = getIntValue(++index);
-                    int displayY = getIntValue(++index);
-                    int displayWidth = getIntValue(++index);
-                    int displayHeight = getIntValue(++index);
+                    final int displayX = getIntValue(++index);
+                    final int displayY = getIntValue(++index);
+                    final int displayWidth = getIntValue(++index);
+                    final int displayHeight = getIntValue(++index);
                     icon.setDisplayDimensions(displayX, displayY, displayWidth, displayHeight);
                 }
 
                 if (size == 7 || size == 11) {
-                    int iconX = getIntValue(++index);
-                    int iconY = getIntValue(++index);
-                    int iconWidth = getIntValue(++index);
-                    int iconHeight = getIntValue(++index);
-                    int textureWidth = getIntValue(++index);
-                    int textureHeight = getIntValue(++index);
+                    final int iconX = getIntValue(++index);
+                    final int iconY = getIntValue(++index);
+                    final int iconWidth = getIntValue(++index);
+                    final int iconHeight = getIntValue(++index);
+                    final int textureWidth = getIntValue(++index);
+                    final int textureHeight = getIntValue(++index);
                     icon.setTextureData(iconX, iconY, iconWidth, iconHeight, textureWidth, textureHeight);
                 }
 
                 info.add(icon);
                 return Tag.getIconTag(icon);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }

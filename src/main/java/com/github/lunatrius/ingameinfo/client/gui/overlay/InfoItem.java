@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,15 +12,15 @@ public class InfoItem extends Info {
     private final boolean large;
     private final int size;
 
-    public InfoItem(ItemStack itemStack) {
+    public InfoItem(final ItemStack itemStack) {
         this(itemStack, false);
     }
 
-    public InfoItem(ItemStack itemStack, boolean large) {
+    public InfoItem(final ItemStack itemStack, final boolean large) {
         this(itemStack, large, 0, 0);
     }
 
-    public InfoItem(ItemStack itemStack, boolean large, int x, int y) {
+    public InfoItem(final ItemStack itemStack, final boolean large, final int x, final int y) {
         super(x, y);
         this.itemStack = itemStack;
         this.large = large;

@@ -18,33 +18,33 @@ import java.util.Map;
 
 public class JsonPrinter implements IPrinter {
     @Override
-    public boolean print(File file, Map<Alignment, List<List<Value>>> format) {
+    public boolean print(final File file, final Map<Alignment, List<List<Value>>> format) {
         try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fileWriter);
+            final FileWriter fileWriter = new FileWriter(file);
+            final BufferedWriter writer = new BufferedWriter(fileWriter);
 
-            JsonObject jsonConfig = new JsonObject();
+            final JsonObject jsonConfig = new JsonObject();
 
             appendLines(jsonConfig, format);
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            final Gson gson = new GsonBuilder().setPrettyPrinting().create();
             writer.write(gson.toJson(jsonConfig));
 
             writer.close();
             fileWriter.close();
             return true;
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not save json configuration file!", e);
         }
 
         return false;
     }
 
-    private void appendLines(JsonObject jsonConfig, Map<Alignment, List<List<Value>>> format) {
-        for (Alignment alignment : Alignment.values()) {
-            List<List<Value>> lists = format.get(alignment);
+    private void appendLines(final JsonObject jsonConfig, final Map<Alignment, List<List<Value>>> format) {
+        for (final Alignment alignment : Alignment.values()) {
+            final List<List<Value>> lists = format.get(alignment);
             if (lists != null) {
-                JsonArray arrayLines = new JsonArray();
+                final JsonArray arrayLines = new JsonArray();
 
                 appendLine(arrayLines, lists);
 
@@ -55,9 +55,9 @@ public class JsonPrinter implements IPrinter {
         }
     }
 
-    private void appendLine(JsonArray jsonLines, List<List<Value>> lines) {
-        for (List<Value> line : lines) {
-            JsonArray arrayLine = new JsonArray();
+    private void appendLine(final JsonArray jsonLines, final List<List<Value>> lines) {
+        for (final List<Value> line : lines) {
+            final JsonArray arrayLine = new JsonArray();
 
             appendValues(arrayLine, line);
 
@@ -67,17 +67,17 @@ public class JsonPrinter implements IPrinter {
         }
     }
 
-    private void appendValues(JsonArray jsonValues, List<Value> values) {
-        for (Value value : values) {
-            JsonObject obj = new JsonObject();
+    private void appendValues(final JsonArray jsonValues, final List<Value> values) {
+        for (final Value value : values) {
+            final JsonObject obj = new JsonObject();
 
-            String type = value.getType();
+            final String type = value.getType();
             if (value.values.size() > 0) {
-                JsonArray array = new JsonArray();
+                final JsonArray array = new JsonArray();
                 appendValues(array, value.values);
                 obj.add(type, array);
             } else {
-                String val = value.getRawValue(false);
+                final String val = value.getRawValue(false);
                 if (val.matches("^-?\\d+$")) {
                     obj.addProperty(type, Integer.valueOf(val));
                 } else if (val.matches("^-?\\d+(\\.\\d+)?$")) {

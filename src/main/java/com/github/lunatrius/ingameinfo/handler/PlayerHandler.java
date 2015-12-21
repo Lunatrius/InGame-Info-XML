@@ -9,11 +9,11 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class PlayerHandler {
     @SubscribeEvent
-    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
             try {
                 PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.worldObj.getSeed()), (EntityPlayerMP) event.player);
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 Reference.logger.error("Failed to send the seed!", ex);
             }
         }

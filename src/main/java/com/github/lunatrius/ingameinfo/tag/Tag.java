@@ -2,7 +2,7 @@ package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.core.util.MBlockPos;
 import com.github.lunatrius.core.util.vector.Vector3f;
-import com.github.lunatrius.ingameinfo.client.gui.Info;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -26,7 +26,7 @@ public abstract class Tag {
     private String name = null;
     private String[] aliases = new String[0];
 
-    public Tag setName(String name) {
+    public Tag setName(final String name) {
         this.name = name;
         return this;
     }
@@ -35,7 +35,7 @@ public abstract class Tag {
         return this.name;
     }
 
-    public Tag setAliases(String... aliases) {
+    public Tag setAliases(final String... aliases) {
         this.aliases = aliases;
         return this;
     }
@@ -72,17 +72,17 @@ public abstract class Tag {
 
     public abstract String getValue();
 
-    public static void setServer(MinecraftServer server) {
+    public static void setServer(final MinecraftServer server) {
         Tag.server = server;
 
         try {
             setSeed(Tag.server.worldServerForDimension(0).getSeed());
-        } catch (Exception e) {
+        } catch (final Exception e) {
             unsetSeed();
         }
     }
 
-    public static void setSeed(long seed) {
+    public static void setSeed(final long seed) {
         Tag.hasSeed = true;
         Tag.seed = seed;
     }
@@ -92,11 +92,11 @@ public abstract class Tag {
         Tag.seed = 0;
     }
 
-    public static void setWorld(World world) {
+    public static void setWorld(final World world) {
         Tag.world = world;
     }
 
-    public static void setPlayer(EntityPlayerSP player) {
+    public static void setPlayer(final EntityPlayerSP player) {
         Tag.player = player;
 
         if (player != null) {
@@ -105,7 +105,7 @@ public abstract class Tag {
         }
     }
 
-    public static void setInfo(List<Info> info) {
+    public static void setInfo(final List<Info> info) {
         Tag.info = info;
     }
 
@@ -116,7 +116,7 @@ public abstract class Tag {
         TagPlayerPotion.releaseResources();
     }
 
-    public static String getIconTag(Info info) {
+    public static String getIconTag(final Info info) {
         String str = "";
         for (int i = 0; i < info.getWidth() && minecraft.fontRendererObj.getStringWidth(str) < info.getWidth(); i++) {
             str += " ";

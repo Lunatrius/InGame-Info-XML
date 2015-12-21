@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.ingameinfo.client.gui.InfoIcon;
+import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.potion.Potion;
@@ -14,7 +14,7 @@ public abstract class TagPlayerPotion extends Tag {
     protected static PotionEffect[] potionEffects = null;
     protected final int index;
 
-    public TagPlayerPotion(int index) {
+    public TagPlayerPotion(final int index) {
         this.index = index;
     }
 
@@ -25,8 +25,8 @@ public abstract class TagPlayerPotion extends Tag {
 
     @Override
     public String[] getAliases() {
-        String[] aliases = super.getAliases();
-        String[] aliasesIndexed = new String[aliases.length];
+        final String[] aliases = super.getAliases();
+        final String[] aliasesIndexed = new String[aliases.length];
         for (int i = 0; i < aliases.length; i++) {
             aliasesIndexed[i] = aliases[i] + this.index;
         }
@@ -50,12 +50,12 @@ public abstract class TagPlayerPotion extends Tag {
 
     protected void updatePotionEffects() {
         if (potionEffects == null) {
-            Collection<PotionEffect> potionEffectCollection = player.getActivePotionEffects();
+            final Collection<PotionEffect> potionEffectCollection = player.getActivePotionEffects();
             potionEffects = new PotionEffect[potionEffectCollection.size()];
             if (potionEffectCollection.size() > 0) {
                 int index = 0;
 
-                for (PotionEffect potionEffect : potionEffectCollection) {
+                for (final PotionEffect potionEffect : potionEffectCollection) {
                     potionEffects[index++] = potionEffect;
                 }
             }
@@ -63,7 +63,7 @@ public abstract class TagPlayerPotion extends Tag {
     }
 
     public static class Effect extends TagPlayerPotion {
-        public Effect(int index) {
+        public Effect(final int index) {
             super(index);
         }
 
@@ -90,7 +90,7 @@ public abstract class TagPlayerPotion extends Tag {
     }
 
     public static class Duration extends TagPlayerPotion {
-        public Duration(int index) {
+        public Duration(final int index) {
             super(index);
         }
 
@@ -105,7 +105,7 @@ public abstract class TagPlayerPotion extends Tag {
     }
 
     public static class DurationTicks extends TagPlayerPotion {
-        public DurationTicks(int index) {
+        public DurationTicks(final int index) {
             super(index);
         }
 
@@ -120,7 +120,7 @@ public abstract class TagPlayerPotion extends Tag {
     }
 
     public static class Negative extends TagPlayerPotion {
-        public Negative(int index) {
+        public Negative(final int index) {
             super(index);
         }
 
@@ -138,7 +138,7 @@ public abstract class TagPlayerPotion extends Tag {
     public static class Icon extends TagPlayerPotion {
         private final boolean large;
 
-        public Icon(int index, boolean large) {
+        public Icon(final int index, final boolean large) {
             super(index);
             this.large = large;
         }
@@ -147,10 +147,10 @@ public abstract class TagPlayerPotion extends Tag {
         public String getValue() {
             updatePotionEffects();
             if (potionEffects.length > this.index) {
-                Potion potion = Potion.potionTypes[potionEffects[this.index].getPotionID()];
+                final Potion potion = Potion.potionTypes[potionEffects[this.index].getPotionID()];
                 if (potion.hasStatusIcon()) {
-                    InfoIcon icon = new InfoIcon("textures/gui/container/inventory.png");
-                    int i = potion.getStatusIconIndex();
+                    final InfoIcon icon = new InfoIcon("textures/gui/container/inventory.png");
+                    final int i = potion.getStatusIconIndex();
                     if (this.large) {
                         icon.setDisplayDimensions(1, -5, 18, 18);
                     } else {

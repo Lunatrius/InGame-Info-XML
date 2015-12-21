@@ -2,8 +2,7 @@ package com.github.lunatrius.ingameinfo.command;
 
 import com.github.lunatrius.core.handler.DelayedGuiDisplayTicker;
 import com.github.lunatrius.ingameinfo.InGameInfoCore;
-import com.github.lunatrius.ingameinfo.client.gui.GuiModConfig;
-import com.github.lunatrius.ingameinfo.client.gui.GuiTags;
+import com.github.lunatrius.ingameinfo.client.gui.tag.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
 import com.github.lunatrius.ingameinfo.reference.Names;
@@ -32,19 +31,19 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public String getCommandUsage(ICommandSender sender) {
+    public String getCommandUsage(final ICommandSender sender) {
         return Names.Command.Message.USAGE;
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
+    public boolean canCommandSenderUseCommand(final ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+    public List<String> addTabCompletionOptions(final ICommandSender sender, final String[] args, final BlockPos pos) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST, Names.Command.CONFIG);
+            return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
                 return getListOfStringsMatchingLastWord(args, getFilenames());
@@ -57,15 +56,15 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     private List<String> getFilenames() {
-        File[] files = this.core.getConfigDirectory().listFiles(new FilenameFilter() {
+        final File[] files = this.core.getConfigDirectory().listFiles(new FilenameFilter() {
             @Override
-            public boolean accept(File dir, String name) {
+            public boolean accept(final File dir, final String name) {
                 return name.startsWith(Names.Files.NAME) && (name.endsWith(Names.Files.EXT_XML) || name.endsWith(Names.Files.EXT_JSON) || name.endsWith(Names.Files.EXT_TXT));
             }
         });
 
-        List<String> filenames = new ArrayList<String>();
-        for (File file : files) {
+        final List<String> filenames = new ArrayList<String>();
+        for (final File file : files) {
             filenames.add(file.getName());
         }
 
@@ -73,7 +72,7 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(ICommandSender commandSender, String[] args) throws CommandException {
+    public void processCommand(final ICommandSender commandSender, final String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.RELOAD));
@@ -106,17 +105,9 @@ public class InGameInfoCommand extends CommandBase {
             } else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
                 DelayedGuiDisplayTicker.create(new GuiTags(), 10);
                 return;
-            } else if (args[0].equalsIgnoreCase(Names.Command.CONFIG)) {
-                DelayedGuiDisplayTicker.create(new GuiModConfig(null), 0);
-                return;
             }
         }
 
         throw new WrongUsageException(getCommandUsage(commandSender));
-    }
-
-    @Override
-    public int compareTo(Object obj) {
-        return super.compareTo(obj);
     }
 }

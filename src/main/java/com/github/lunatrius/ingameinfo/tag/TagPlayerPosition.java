@@ -189,10 +189,10 @@ public abstract class TagPlayerPosition extends Tag {
     public static class DirectionHud extends TagPlayerPosition {
         @Override
         public String getValue() {
-            int direction = MathHelper.floor_double(player.rotationYaw * 16.0f / 360.0f + 0.5) & 15;
-            String left = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length - 1) % ABRFINEDIRECTION.length];
-            String center = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length) % ABRFINEDIRECTION.length];
-            String right = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length + 1) % ABRFINEDIRECTION.length];
+            final int direction = MathHelper.floor_double(player.rotationYaw * 16.0f / 360.0f + 0.5) & 15;
+            final String left = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length - 1) % ABRFINEDIRECTION.length];
+            final String center = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length) % ABRFINEDIRECTION.length];
+            final String right = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length + 1) % ABRFINEDIRECTION.length];
             if (direction % 2 == 0) {
                 return String.format("\u00a7r%s   \u00a7c%s\u00a7r   %s", left, center, right);
             }

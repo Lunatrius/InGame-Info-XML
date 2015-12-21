@@ -25,7 +25,7 @@ public class TagRegistry {
 
     private Map<String, Tag> stringTagMap = new HashMap<String, Tag>();
 
-    private void register(String name, Tag tag) {
+    private void register(final String name, final Tag tag) {
         if (this.stringTagMap.containsKey(name)) {
             Reference.logger.error("Duplicate tag key '" + name + "'!");
             return;
@@ -39,22 +39,22 @@ public class TagRegistry {
         this.stringTagMap.put(name.toLowerCase(Locale.ENGLISH), tag);
     }
 
-    public void register(Tag tag) {
+    public void register(final Tag tag) {
         register(tag.getName(), tag);
 
-        for (String name : tag.getAliases()) {
+        for (final String name : tag.getAliases()) {
             register(name, tag);
         }
     }
 
-    public String getValue(String name) {
-        Tag tag = this.stringTagMap.get(name.toLowerCase(Locale.ENGLISH));
+    public String getValue(final String name) {
+        final Tag tag = this.stringTagMap.get(name.toLowerCase(Locale.ENGLISH));
         return tag != null ? tag.getValue() : null;
     }
 
     public List<Tag> getRegisteredTags() {
-        List<Tag> tags = new ArrayList<Tag>();
-        for (Map.Entry<String, Tag> entry : this.stringTagMap.entrySet()) {
+        final List<Tag> tags = new ArrayList<Tag>();
+        for (final Map.Entry<String, Tag> entry : this.stringTagMap.entrySet()) {
             tags.add(entry.getValue());
         }
         return tags;

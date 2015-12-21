@@ -35,7 +35,6 @@ public final class Names {
         public static final String ENABLE = "enable";
         public static final String DISABLE = "disable";
         public static final String TAGLIST = "taglist";
-        public static final String CONFIG = "config";
     }
 
     public static final class Config {

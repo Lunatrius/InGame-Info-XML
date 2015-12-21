@@ -20,13 +20,13 @@ public class XmlParser implements IParser {
     private Document document;
 
     @Override
-    public boolean load(InputStream inputStream) {
+    public boolean load(final InputStream inputStream) {
         try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            final DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            final DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             this.document = dBuilder.parse(inputStream);
             this.document.getDocumentElement().normalize();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not read xml configuration file!", e);
             return false;
         }
@@ -35,17 +35,17 @@ public class XmlParser implements IParser {
     }
 
     @Override
-    public boolean parse(Map<Alignment, List<List<Value>>> format) {
+    public boolean parse(final Map<Alignment, List<List<Value>>> format) {
         if (this.document == null) {
             return false;
         }
 
-        Element documentElement = this.document.getDocumentElement();
-        NodeList nodeListLines = documentElement.getChildNodes();
+        final Element documentElement = this.document.getDocumentElement();
+        final NodeList nodeListLines = documentElement.getChildNodes();
         for (int i = 0; i < nodeListLines.getLength(); i++) {
-            Element elementLines = getElement(nodeListLines.item(i), "lines");
+            final Element elementLines = getElement(nodeListLines.item(i), "lines");
             if (elementLines != null) {
-                Alignment alignment = Alignment.parse(elementLines.getAttribute("at"));
+                final Alignment alignment = Alignment.parse(elementLines.getAttribute("at"));
                 if (alignment != null) {
                     format.put(alignment, getLines(elementLines));
                 }
@@ -55,12 +55,12 @@ public class XmlParser implements IParser {
         return true;
     }
 
-    private List<List<Value>> getLines(Element element) {
-        List<List<Value>> listLines = new ArrayList<List<Value>>();
+    private List<List<Value>> getLines(final Element element) {
+        final List<List<Value>> listLines = new ArrayList<List<Value>>();
 
-        NodeList nodeListLine = element.getChildNodes();
+        final NodeList nodeListLine = element.getChildNodes();
         for (int i = 0; i < nodeListLine.getLength(); i++) {
-            Element elementLine = getElement(nodeListLine.item(i), "line");
+            final Element elementLine = getElement(nodeListLine.item(i), "line");
             if (elementLine != null) {
                 listLines.add(getValues(elementLine));
             }
@@ -69,12 +69,12 @@ public class XmlParser implements IParser {
         return listLines;
     }
 
-    private List<Value> getValues(Element element) {
-        List<Value> values = new ArrayList<Value>();
+    private List<Value> getValues(final Element element) {
+        final List<Value> values = new ArrayList<Value>();
 
-        NodeList nodeListValues = element.getChildNodes();
+        final NodeList nodeListValues = element.getChildNodes();
         for (int i = 0; i < nodeListValues.getLength(); i++) {
-            Element elementValue = getElement(nodeListValues.item(i));
+            final Element elementValue = getElement(nodeListValues.item(i));
             if (elementValue != null) {
                 final String type = elementValue.getNodeName().equalsIgnoreCase("value") ? elementValue.getAttribute("type") : elementValue.getNodeName();
                 final Value value = Value.fromString(type);
@@ -95,7 +95,7 @@ public class XmlParser implements IParser {
         return values;
     }
 
-    private Element getElement(Node node) {
+    private Element getElement(final Node node) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             return (Element) node;
         }
@@ -103,8 +103,8 @@ public class XmlParser implements IParser {
         return null;
     }
 
-    private Element getElement(Node node, String name) {
-        Element element = getElement(node);
+    private Element getElement(final Node node, final String name) {
+        final Element element = getElement(node);
         if (element != null && element.getNodeName().equalsIgnoreCase(name)) {
             return element;
         }

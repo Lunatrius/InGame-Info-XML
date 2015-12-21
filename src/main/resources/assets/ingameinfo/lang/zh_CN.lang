@@ -243,23 +243,6 @@ ingameinfoxml.tag.hardcore.desc=如果该游戏世界为极限模式就返回§e
 ingameinfoxml.tag.temperature.desc=生物群系温度.
 ingameinfoxml.tag.humidity.desc=生物群系湿度.
 
-# gui - tag list - integration - blood magic
-
-# gui - tag list - integration - simply jetpacks
-ingameinfoxml.tag.sjenergy.desc=喷气背包能量值.
-ingameinfoxml.tag.sjmaxenergy.desc=喷气背包最大能量值.
-ingameinfoxml.tag.sjpercent.desc=喷气背包剩余能量值(以百分比为单位).
-ingameinfoxml.tag.sjenabled.desc=若果该喷气背包可用就返回§e真§r, 否则就返回§e假§r.
-ingameinfoxml.tag.sjhover.desc=如果该喷气背包处于悬停模式就返回§e真§r, 否则就返回§e假§r.
-
-# gui - tag list - integration - terrafirmacraft
-
-# gui - tag list - integration - thaumcraft
-ingameinfoxml.tag.tcwarpperm.desc=玩家的永久扭曲.
-ingameinfoxml.tag.tcwarpsticky.desc=玩家的一般扭曲(附着性).
-ingameinfoxml.tag.tcwarptemp.desc=玩家的暂时性扭曲.
-ingameinfoxml.tag.tcwarptotal.desc=玩家的总扭曲.
-
 # keys
 
 # commands

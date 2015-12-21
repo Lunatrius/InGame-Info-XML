@@ -259,37 +259,6 @@ ingameinfoxml.tag.temperature.desc=Biome temperature.
 ingameinfoxml.tag.localtemperature.desc=Biome temperature at your current position.
 ingameinfoxml.tag.humidity.desc=Biome humidity.
 
-# gui - tag list - integration - blood magic
-ingameinfoxml.tag.bmlp.desc=Current §4Essence§r.
-ingameinfoxml.tag.bmmaxlp.desc=Maximum §4Essence§r.
-
-# gui - tag list - integration - simply jetpacks
-ingameinfoxml.tag.sjenergy.desc=Jetpack energy.
-ingameinfoxml.tag.sjmaxenergy.desc=Jetpack maximum energy.
-ingameinfoxml.tag.sjpercent.desc=Jetpack energy left in percents.
-ingameinfoxml.tag.sjenabled.desc=§etrue§r if the jetpack is enabled, §efalse§r otherwise.
-ingameinfoxml.tag.sjhover.desc=§etrue§r if the jetpack is in hover mode, §efalse§r otherwise.
-
-# gui - tag list - integration - terrafirmacraft
-ingameinfoxml.tag.tfcrainfall.desc=Rainfall at your current position.
-ingameinfoxml.tag.tfctemperature.desc=Temperature at your current position.
-ingameinfoxml.tag.tfcaveragetemperature.desc=Average yearly temperature at your current position.
-ingameinfoxml.tag.tfctemperatureheatsources.desc=Temperature with external heat sources at your current position.
-ingameinfoxml.tag.tfcseason.desc=Season.
-ingameinfoxml.tag.tfcdate.desc=Date.
-ingameinfoxml.tag.tfcday.desc=Day.
-ingameinfoxml.tag.tfcmonth.desc=Month.
-ingameinfoxml.tag.tfcyear.desc=Year.
-ingameinfoxml.tag.fmtskill.desc=%s information.
-ingameinfoxml.tag.fmtskillrank.desc=Current rank for %s.
-ingameinfoxml.tag.fmtskillprogress.desc=Current progress in %s.
-
-# gui - tag list - integration - thaumcraft
-ingameinfoxml.tag.tcwarpperm.desc=Player's permanent warp.
-ingameinfoxml.tag.tcwarpsticky.desc=Player's normal (sticky) warp.
-ingameinfoxml.tag.tcwarptemp.desc=Player's temporary warp.
-ingameinfoxml.tag.tcwarptotal.desc=Player's total warp.
-
 # keys
 ingameinfoxml.key.category=InGame Info XML
 ingameinfoxml.key.toggle=Toggle Overlay

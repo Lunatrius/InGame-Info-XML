@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.tag;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
@@ -31,14 +31,14 @@ public class GuiTags extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(GuiButton button) {
+    protected void actionPerformed(final GuiButton button) {
         if (button.id == this.btnDone.id) {
             this.mc.displayGuiScreen(null);
         }
     }
 
     @Override
-    protected void mouseClicked(int x, int y, int action) throws IOException {
+    protected void mouseClicked(final int x, final int y, final int action) throws IOException {
         this.guiTextField.mouseClicked(x, y, action);
         if (action != 0 || !this.guiTagList.mouseClicked(x, y, action)) {
             super.mouseClicked(x, y, action);
@@ -46,14 +46,14 @@ public class GuiTags extends GuiScreen {
     }
 
     @Override
-    protected void mouseReleased(int x, int y, int mouseEvent) {
+    protected void mouseReleased(final int x, final int y, final int mouseEvent) {
         if (mouseEvent != 0 || !this.guiTagList.mouseReleased(x, y, mouseEvent)) {
             super.mouseReleased(x, y, mouseEvent);
         }
     }
 
     @Override
-    protected void keyTyped(char character, int code) throws IOException {
+    protected void keyTyped(final char character, final int code) throws IOException {
         this.guiTextField.textboxKeyTyped(character, code);
         this.guiTagList.filter(this.guiTextField.getText().toLowerCase(Locale.ENGLISH));
         super.keyTyped(character, code);
@@ -66,7 +66,7 @@ public class GuiTags extends GuiScreen {
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+    public void drawScreen(final int mouseX, final int mouseY, final float partialTicks) {
         drawDefaultBackground();
 
         this.guiTagList.drawScreen(mouseX, mouseY, partialTicks);

@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
 import com.github.lunatrius.core.client.gui.FontRendererHelper;
 import net.minecraft.client.gui.FontRenderer;
@@ -7,11 +7,11 @@ public class InfoText extends Info {
     private final FontRenderer fontRenderer;
     private final String text;
 
-    public InfoText(FontRenderer fontRenderer, String text) {
+    public InfoText(final FontRenderer fontRenderer, final String text) {
         this(fontRenderer, text, 0, 0);
     }
 
-    public InfoText(FontRenderer fontRenderer, String text, int x, int y) {
+    public InfoText(final FontRenderer fontRenderer, final String text, final int x, final int y) {
         super(x, y);
         this.fontRenderer = fontRenderer;
         this.text = text;

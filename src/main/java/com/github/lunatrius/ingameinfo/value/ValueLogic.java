@@ -24,7 +24,7 @@ public abstract class ValueLogic extends ValueComplex {
                     return getValue(2);
                 }
                 return "";
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -40,7 +40,7 @@ public abstract class ValueLogic extends ValueComplex {
         public String getValue() {
             try {
                 return String.valueOf(!getBooleanValue(0));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -50,13 +50,13 @@ public abstract class ValueLogic extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                for (Value operand : this.values) {
+                for (final Value operand : this.values) {
                     if (!operand.getBooleanValue()) {
                         return String.valueOf(false);
                     }
                 }
                 return String.valueOf(true);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -66,13 +66,13 @@ public abstract class ValueLogic extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                for (Value operand : this.values) {
+                for (final Value operand : this.values) {
                     if (operand.getBooleanValue()) {
                         return String.valueOf(true);
                     }
                 }
                 return String.valueOf(false);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -83,11 +83,11 @@ public abstract class ValueLogic extends ValueComplex {
         public String getValue() {
             try {
                 boolean result = false;
-                for (Value operand : this.values) {
+                for (final Value operand : this.values) {
                     result = result ^ operand.getBooleanValue();
                 }
                 return String.valueOf(result);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -99,8 +99,8 @@ public abstract class ValueLogic extends ValueComplex {
             try {
                 double current = getDoubleValue(0);
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    double next = operand.getDoubleValue();
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final double next = operand.getDoubleValue();
                     if (current > next) {
                         current = next;
                     } else {
@@ -108,7 +108,7 @@ public abstract class ValueLogic extends ValueComplex {
                     }
                 }
                 return String.valueOf(true);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -120,8 +120,8 @@ public abstract class ValueLogic extends ValueComplex {
             try {
                 double current = getDoubleValue(0);
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    double next = operand.getDoubleValue();
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final double next = operand.getDoubleValue();
                     if (current < next) {
                         current = next;
                     } else {
@@ -129,7 +129,7 @@ public abstract class ValueLogic extends ValueComplex {
                     }
                 }
                 return String.valueOf(true);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "?";
             }
         }
@@ -139,20 +139,20 @@ public abstract class ValueLogic extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double current = getDoubleValue(0);
+                final double current = getDoubleValue(0);
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    double next = operand.getDoubleValue();
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final double next = operand.getDoubleValue();
                     if (current != next) {
                         return String.valueOf(false);
                     }
                 }
                 return String.valueOf(true);
-            } catch (Exception e) {
-                String current = replaceVariables(getValue(0));
+            } catch (final Exception e) {
+                final String current = replaceVariables(getValue(0));
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    String next = replaceVariables(operand.getValue());
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final String next = replaceVariables(operand.getValue());
                     if (!current.equals(next)) {
                         return String.valueOf(false);
                     }
@@ -166,20 +166,20 @@ public abstract class ValueLogic extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double current = getDoubleValue(0);
+                final double current = getDoubleValue(0);
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    double next = operand.getDoubleValue();
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final double next = operand.getDoubleValue();
                     if (current == next) {
                         return String.valueOf(true);
                     }
                 }
                 return String.valueOf(false);
-            } catch (Exception e) {
-                String current = replaceVariables(getValue(0));
+            } catch (final Exception e) {
+                final String current = replaceVariables(getValue(0));
 
-                for (Value operand : this.values.subList(1, this.values.size())) {
-                    String next = replaceVariables(operand.getValue());
+                for (final Value operand : this.values.subList(1, this.values.size())) {
+                    final String next = replaceVariables(operand.getValue());
                     if (current.equals(next)) {
                         return String.valueOf(true);
                     }

@@ -44,7 +44,7 @@ public class ConfigurationHandler {
 
     private ConfigurationHandler() {}
 
-    public static void init(File configFile) {
+    public static void init(final File configFile) {
         if (configuration == null) {
             configuration = new Configuration(configFile);
             loadConfiguration();
@@ -78,9 +78,9 @@ public class ConfigurationHandler {
         propFileInterval.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILE_INTERVAL);
         fileInterval = propFileInterval.getInt(FILE_INTERVAL_DEFAULT);
 
-        for (Alignment alignment : Alignment.values()) {
+        for (final Alignment alignment : Alignment.values()) {
             final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
-            Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignmentName, alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
+            final Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignmentName, alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
             property.setLanguageKey(Names.Config.LANG_PREFIX + "." + alignmentName);
             property.setValidationPattern(Pattern.compile("-?\\d+ -?\\d+"));
             propAlignments.put(alignment, property);
@@ -101,12 +101,12 @@ public class ConfigurationHandler {
         }
     }
 
-    public static void setConfigName(String name) {
+    public static void setConfigName(final String name) {
         propConfigName.set(name);
     }
 
     @SubscribeEvent
-    public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
+    public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.modID.equalsIgnoreCase(Reference.MODID)) {
             loadConfiguration();
         }

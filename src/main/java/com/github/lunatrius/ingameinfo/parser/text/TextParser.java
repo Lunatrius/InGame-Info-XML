@@ -30,10 +30,10 @@ public class TextParser implements IParser {
     }
 
     @Override
-    public boolean load(InputStream inputStream) {
+    public boolean load(final InputStream inputStream) {
         try {
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-            BufferedReader reader = new BufferedReader(inputStreamReader);
+            final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            final BufferedReader reader = new BufferedReader(inputStreamReader);
             String line, content = "";
 
             while ((line = reader.readLine()) != null) {
@@ -44,7 +44,7 @@ public class TextParser implements IParser {
             inputStreamReader.close();
 
             this.tokenizer.tokenize(content);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             Reference.logger.fatal("Could not read text configuration file!", e);
             return false;
         }
@@ -53,13 +53,13 @@ public class TextParser implements IParser {
     }
 
     @Override
-    public boolean parse(Map<Alignment, List<List<Value>>> format) {
+    public boolean parse(final Map<Alignment, List<List<Value>>> format) {
         boolean expr;
 
         try {
             nextToken();
             expr = alignments(format) && this.token.isEof();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             expr = false;
             Reference.logger.error("Parsing failed at {}!", this.token, e);
         }
@@ -67,11 +67,11 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean alignments(Map<Alignment, List<List<Value>>> format) {
+    private boolean alignments(final Map<Alignment, List<List<Value>>> format) {
         return alignment(format) && alignmentsTail(format);
     }
 
-    private boolean alignmentsTail(Map<Alignment, List<List<Value>>> format) {
+    private boolean alignmentsTail(final Map<Alignment, List<List<Value>>> format) {
         if (alignment(format)) {
             alignmentsTail(format);
         }
@@ -79,7 +79,7 @@ public class TextParser implements IParser {
         return true;
     }
 
-    private boolean alignment(Map<Alignment, List<List<Value>>> format) {
+    private boolean alignment(final Map<Alignment, List<List<Value>>> format) {
         boolean expr;
         List<List<Value>> lines = format.get(this.alignment);
 
@@ -93,7 +93,7 @@ public class TextParser implements IParser {
             if (expr) {
                 format.put(this.alignment, lines);
             }
-        } catch (AlignmentException e) {
+        } catch (final AlignmentException e) {
             format.put(this.alignment, lines);
 
             this.alignment = e.getAlignment();
@@ -103,11 +103,11 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean lines(List<List<Value>> lines) throws AlignmentException {
+    private boolean lines(final List<List<Value>> lines) throws AlignmentException {
         return line(lines) && linesTail(lines);
     }
 
-    private boolean linesTail(List<List<Value>> lines) throws AlignmentException {
+    private boolean linesTail(final List<List<Value>> lines) throws AlignmentException {
         if (line(lines)) {
             linesTail(lines);
         }
@@ -115,9 +115,9 @@ public class TextParser implements IParser {
         return true;
     }
 
-    private boolean line(List<List<Value>> lines) throws AlignmentException {
-        boolean expr;
-        List<Value> values = new ArrayList<Value>();
+    private boolean line(final List<List<Value>> lines) throws AlignmentException {
+        final boolean expr;
+        final List<Value> values = new ArrayList<Value>();
 
         expr = values(values);
 
@@ -132,11 +132,11 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean values(List<Value> values) throws AlignmentException {
+    private boolean values(final List<Value> values) throws AlignmentException {
         return value(values) && valuesTail(values);
     }
 
-    private boolean valuesTail(List<Value> values) throws AlignmentException {
+    private boolean valuesTail(final List<Value> values) throws AlignmentException {
         if (value(values)) {
             valuesTail(values);
         }
@@ -144,8 +144,8 @@ public class TextParser implements IParser {
         return true;
     }
 
-    private boolean value(List<Value> values) throws AlignmentException {
-        boolean expr;
+    private boolean value(final List<Value> values) throws AlignmentException {
+        final boolean expr;
 
         if (this.token.getType().equals(TokenType.STRING)) {
             expr = string(values, this.token.getLexem());
@@ -163,13 +163,13 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean string(List<Value> values, String lexem) {
+    private boolean string(final List<Value> values, final String lexem) {
         final Value value = Value.fromString("str").setRawValue(lexem, true);
         values.add(value);
         return true;
     }
 
-    private boolean function(List<Value> values, String lexem) throws AlignmentException {
+    private boolean function(final List<Value> values, final String lexem) throws AlignmentException {
         boolean expr;
 
         this.level++;
@@ -198,7 +198,7 @@ public class TextParser implements IParser {
 
         this.level--;
 
-        Alignment alignment = Alignment.parse(lexem);
+        final Alignment alignment = Alignment.parse(lexem);
         if (alignment != null) {
             throw new AlignmentException(alignment, expr);
         } else if (expr) {
@@ -208,7 +208,7 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean argumentGroupA(Value value) throws AlignmentException {
+    private boolean argumentGroupA(final Value value) throws AlignmentException {
         boolean expr;
 
         if (this.token.getType().equals(TokenType.ARGS_HEAD)) {
@@ -230,11 +230,11 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean argumentsA(Value value) throws AlignmentException {
+    private boolean argumentsA(final Value value) throws AlignmentException {
         return argument(value) && argumentsATail(value);
     }
 
-    private boolean argumentsATail(Value value) throws AlignmentException {
+    private boolean argumentsATail(final Value value) throws AlignmentException {
         if (this.token.getType().equals(TokenType.ARGS_SEPARATOR)) {
             nextToken();
 
@@ -246,8 +246,8 @@ public class TextParser implements IParser {
         return true;
     }
 
-    private boolean argument(Value value) throws AlignmentException {
-        boolean expr;
+    private boolean argument(final Value value) throws AlignmentException {
+        final boolean expr;
 
         if (this.token.getType().equals(TokenType.STRING)) {
             expr = string(value.values, this.token.getLexem());
@@ -262,7 +262,7 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean argumentGroupB(Value value) throws AlignmentException {
+    private boolean argumentGroupB(final Value value) throws AlignmentException {
         boolean expr;
 
         if (this.token.getType().equals(TokenType.ARGS_HEAD)) {
@@ -282,11 +282,11 @@ public class TextParser implements IParser {
         return expr;
     }
 
-    private boolean argumentsB(Value value) throws AlignmentException {
+    private boolean argumentsB(final Value value) throws AlignmentException {
         return argument(value) && argumentsBTail(value);
     }
 
-    private boolean argumentsBTail(Value value) throws AlignmentException {
+    private boolean argumentsBTail(final Value value) throws AlignmentException {
         if (this.token.getType().equals(TokenType.ARGS_SEPARATOR)) {
             nextToken();
 

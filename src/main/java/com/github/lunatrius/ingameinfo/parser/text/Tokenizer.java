@@ -16,7 +16,7 @@ public class Tokenizer {
 
     public void tokenize(String str) throws Exception {
         Location start = new Location(0, 0);
-        Location end = new Location(0, 0);
+        final Location end = new Location(0, 0);
         boolean match;
 
         this.tokens.clear();
@@ -25,15 +25,15 @@ public class Tokenizer {
 
         while (str.length() > 0) {
             match = false;
-            for (TokenType tokenType : TokenType.values()) {
-                Matcher matcher = tokenType.getPattern().matcher(str);
+            for (final TokenType tokenType : TokenType.values()) {
+                final Matcher matcher = tokenType.getPattern().matcher(str);
                 if (matcher.find()) {
                     match = true;
-                    String lexem = matcher.group();
+                    final String lexem = matcher.group();
                     str = matcher.replaceFirst("");
 
                     if (tokenType.equals(TokenType.NEWLINE)) {
-                        int lines = lexem.length() - lexem.replace("\n", "").length();
+                        final int lines = lexem.length() - lexem.replace("\n", "").length();
                         end.setRow(start.getRow() + lines);
                         end.setColumn(0);
                     } else {

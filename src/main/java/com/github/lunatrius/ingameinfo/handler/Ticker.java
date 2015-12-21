@@ -20,19 +20,19 @@ public class Ticker {
     private Ticker() {}
 
     @SubscribeEvent
-    public void onRenderGameOverlayEventPre(RenderGameOverlayEvent.Pre event) {
+    public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
         if (enabled && ConfigurationHandler.replaceDebug && event.type == RenderGameOverlayEvent.ElementType.DEBUG) {
             event.setCanceled(true);
         }
     }
 
     @SubscribeEvent
-    public void onClientTick(TickEvent.ClientTickEvent event) {
+    public void onClientTick(final TickEvent.ClientTickEvent event) {
         onTick(event);
     }
 
     @SubscribeEvent
-    public void onRenderTick(TickEvent.RenderTickEvent event) {
+    public void onRenderTick(final TickEvent.RenderTickEvent event) {
         onTick(event);
     }
 
@@ -65,7 +65,7 @@ public class Ticker {
         return false;
     }
 
-    private void onTick(TickEvent event) {
+    private void onTick(final TickEvent event) {
         if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
             this.client.mcProfiler.startSection("ingameinfo");
             if (isRunning()) {

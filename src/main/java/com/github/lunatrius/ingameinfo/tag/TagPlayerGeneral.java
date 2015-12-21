@@ -21,7 +21,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightSubtracted(playerPosition, world.calculateSkylightSubtracted(1.0f)));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -33,7 +33,7 @@ public abstract class TagPlayerGeneral extends Tag {
             try {
                 this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
                 return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightSubtracted(this.pos, world.calculateSkylightSubtracted(1.0f)));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -44,7 +44,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 return String.valueOf(world.getLightFor(EnumSkyBlock.BLOCK, playerPosition));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -56,7 +56,7 @@ public abstract class TagPlayerGeneral extends Tag {
             try {
                 this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
                 return String.valueOf(world.getLightFor(EnumSkyBlock.BLOCK, this.pos));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -67,7 +67,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, playerPosition) - world.calculateSkylightSubtracted(1.0f), 0, 15));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -79,7 +79,7 @@ public abstract class TagPlayerGeneral extends Tag {
             try {
                 this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
                 return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, this.pos) - world.calculateSkylightSubtracted(1.0f), 0, 15));
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -90,7 +90,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 return String.valueOf(player.getScore());
-            } catch (Exception var12) {
+            } catch (final Exception var12) {
                 return "0";
             }
         }

@@ -14,15 +14,15 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                int arg0 = getIntValue(0);
-                int arg1 = getIntValue(1);
+                final int arg0 = getIntValue(0);
+                final int arg1 = getIntValue(1);
                 return String.valueOf(arg0 + arg1);
-            } catch (Exception e1) {
+            } catch (final Exception e1) {
                 try {
-                    double arg0 = getDoubleValue(0);
-                    double arg1 = getDoubleValue(1);
+                    final double arg0 = getDoubleValue(0);
+                    final double arg1 = getDoubleValue(1);
                     return String.valueOf(arg0 + arg1);
-                } catch (Exception e2) {
+                } catch (final Exception e2) {
                     return "0";
                 }
             }
@@ -33,15 +33,15 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                int arg0 = getIntValue(0);
-                int arg1 = getIntValue(1);
+                final int arg0 = getIntValue(0);
+                final int arg1 = getIntValue(1);
                 return String.valueOf(arg0 - arg1);
-            } catch (Exception e1) {
+            } catch (final Exception e1) {
                 try {
-                    double arg0 = getDoubleValue(0);
-                    double arg1 = getDoubleValue(1);
+                    final double arg0 = getDoubleValue(0);
+                    final double arg1 = getDoubleValue(1);
                     return String.valueOf(arg0 - arg1);
-                } catch (Exception e2) {
+                } catch (final Exception e2) {
                     return "0";
                 }
             }
@@ -52,15 +52,15 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                int arg0 = getIntValue(0);
-                int arg1 = getIntValue(1);
+                final int arg0 = getIntValue(0);
+                final int arg1 = getIntValue(1);
                 return String.valueOf(arg0 * arg1);
-            } catch (Exception e1) {
+            } catch (final Exception e1) {
                 try {
-                    double arg0 = getDoubleValue(0);
-                    double arg1 = getDoubleValue(1);
+                    final double arg0 = getDoubleValue(0);
+                    final double arg1 = getDoubleValue(1);
                     return String.valueOf(arg0 * arg1);
-                } catch (Exception e2) {
+                } catch (final Exception e2) {
                     return "0";
                 }
             }
@@ -71,10 +71,10 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                double arg1 = getDoubleValue(1);
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
                 return String.valueOf(arg0 / arg1);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -84,14 +84,14 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                int arg1 = getIntValue(1);
-                double dec = Math.pow(10, arg1);
+                final double arg0 = getDoubleValue(0);
+                final int arg1 = getIntValue(1);
+                final double dec = Math.pow(10, arg1);
                 if (arg1 > 0) {
                     return String.format(Locale.ENGLISH, "%." + arg1 + "f", arg0);
                 }
                 return String.valueOf((int) (Math.round(arg0 * dec) / dec));
-            } catch (Exception e2) {
+            } catch (final Exception e2) {
                 return "0";
             }
         }
@@ -101,10 +101,10 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                double arg1 = getDoubleValue(1);
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
                 return String.valueOf(Math.round((arg0 % arg1) * 10e6) / 10e6);
-            } catch (Exception e2) {
+            } catch (final Exception e2) {
                 return "0";
             }
         }
@@ -114,10 +114,10 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                int arg0 = getIntValue(0);
-                int arg1 = getIntValue(1);
+                final int arg0 = getIntValue(0);
+                final int arg1 = getIntValue(1);
                 return String.valueOf(arg0 % arg1);
-            } catch (Exception e2) {
+            } catch (final Exception e2) {
                 return "0";
             }
         }
@@ -127,10 +127,10 @@ public abstract class ValueMath extends ValueComplex {
         @Override
         public String getValue() {
             try {
-                double arg0 = getDoubleValue(0);
-                double arg1 = getDoubleValue(1);
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
                 return String.valueOf(arg0 / arg1 * 100);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 return "0";
             }
         }

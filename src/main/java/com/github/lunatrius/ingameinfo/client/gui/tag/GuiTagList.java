@@ -1,4 +1,4 @@
-package com.github.lunatrius.ingameinfo.client.gui;
+package com.github.lunatrius.ingameinfo.client.gui.tag;
 
 import com.github.lunatrius.ingameinfo.tag.Tag;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
@@ -23,17 +23,17 @@ public class GuiTagList extends GuiListExtended {
     private final Map<CategoryEntry, Set<TagEntry>> map;
     private IGuiListEntry[] entries;
 
-    public GuiTagList(GuiTags guiTags, Minecraft minecraft) {
+    public GuiTagList(final GuiTags guiTags, final Minecraft minecraft) {
         super(minecraft, guiTags.width, guiTags.height, 18, guiTags.height - 30, 24);
         this.minecraft = minecraft;
 
         this.map = new TreeMap<CategoryEntry, Set<TagEntry>>();
 
-        Map<String, CategoryEntry> stringCategoryEntryMap = new HashMap<String, CategoryEntry>();
-        for (Tag tag : TagRegistry.INSTANCE.getRegisteredTags()) {
-            String category = tag.getLocalizedCategory();
-            String name = tag.getFormattedName();
-            String description = tag.getLocalizedDescription();
+        final Map<String, CategoryEntry> stringCategoryEntryMap = new HashMap<String, CategoryEntry>();
+        for (final Tag tag : TagRegistry.INSTANCE.getRegisteredTags()) {
+            final String category = tag.getLocalizedCategory();
+            final String name = tag.getFormattedName();
+            final String description = tag.getLocalizedDescription();
 
             CategoryEntry categoryEntry = stringCategoryEntryMap.get(category);
             if (categoryEntry == null) {
@@ -41,7 +41,7 @@ public class GuiTagList extends GuiListExtended {
                 stringCategoryEntryMap.put(category, categoryEntry);
                 this.map.put(categoryEntry, new TreeSet<TagEntry>());
             }
-            Set<TagEntry> tagEntries = this.map.get(categoryEntry);
+            final Set<TagEntry> tagEntries = this.map.get(categoryEntry);
             if (tagEntries != null) {
                 tagEntries.add(new TagEntry(this.minecraft.fontRendererObj, name, description));
             }
@@ -50,13 +50,13 @@ public class GuiTagList extends GuiListExtended {
         filter("");
     }
 
-    public void filter(String pattern) {
-        List<IGuiListEntry> list = new ArrayList<IGuiListEntry>();
-        for (Map.Entry<CategoryEntry, Set<TagEntry>> entry : this.map.entrySet()) {
+    public void filter(final String pattern) {
+        final List<IGuiListEntry> list = new ArrayList<IGuiListEntry>();
+        for (final Map.Entry<CategoryEntry, Set<TagEntry>> entry : this.map.entrySet()) {
             list.add(entry.getKey());
 
             boolean added = false;
-            for (TagEntry tag : entry.getValue()) {
+            for (final TagEntry tag : entry.getValue()) {
                 if (tag.getName().toLowerCase(Locale.ENGLISH).contains(pattern) || tag.getDesc().toLowerCase(Locale.ENGLISH).contains(pattern)) {
                     added = true;
                     list.add(tag);
@@ -72,7 +72,7 @@ public class GuiTagList extends GuiListExtended {
     }
 
     @Override
-    public IGuiListEntry getListEntry(int index) {
+    public IGuiListEntry getListEntry(final int index) {
         return this.entries[index];
     }
 
@@ -93,22 +93,22 @@ public class GuiTagList extends GuiListExtended {
 
     public abstract class ListEntry implements IGuiListEntry, Comparable<ListEntry> {
         @Override
-        public boolean mousePressed(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
+        public boolean mousePressed(final int index, final int x, final int y, final int mouseEvent, final int relativeX, final int relativeY) {
             return false;
         }
 
         @Override
-        public void mouseReleased(int index, int x, int y, int mouseEvent, int relativeX, int relativeY) {
+        public void mouseReleased(final int index, final int x, final int y, final int mouseEvent, final int relativeX, final int relativeY) {
         }
 
         @Override
-        public void setSelected(int index, int p_178011_2_, int p_178011_3_) {
+        public void setSelected(final int index, final int p_178011_2_, final int p_178011_3_) {
         }
 
         public abstract String getName();
 
         @Override
-        public int compareTo(ListEntry listEntry) {
+        public int compareTo(final ListEntry listEntry) {
             return getName().compareTo(listEntry.getName());
         }
     }
@@ -117,13 +117,13 @@ public class GuiTagList extends GuiListExtended {
         private final FontRenderer fontRenderer;
         private final String name;
 
-        public CategoryEntry(FontRenderer fontRenderer, String name) {
+        public CategoryEntry(final FontRenderer fontRenderer, final String name) {
             this.fontRenderer = fontRenderer;
             this.name = name;
         }
 
         @Override
-        public void drawEntry(int index, int x, int y, int width, int height, int mouseX, int mouseY, boolean isSelected) {
+        public void drawEntry(final int index, final int x, final int y, final int width, final int height, final int mouseX, final int mouseY, final boolean isSelected) {
             this.fontRenderer.drawString(this.name, x + (width - this.fontRenderer.getStringWidth(this.name)) / 2, y + (height - this.fontRenderer.FONT_HEIGHT + 1) / 2, 0xFFFFFF);
         }
 
@@ -139,7 +139,7 @@ public class GuiTagList extends GuiListExtended {
         private final String desc;
         private final String[] descArray;
 
-        public TagEntry(FontRenderer fontRenderer, String name, String desc) {
+        public TagEntry(final FontRenderer fontRenderer, final String name, final String desc) {
             this.fontRenderer = fontRenderer;
             this.name = name;
             this.desc = desc;
@@ -147,15 +147,15 @@ public class GuiTagList extends GuiListExtended {
         }
 
         private String[] getDescArray(String desc) {
-            List<String> list = new ArrayList<String>();
+            final List<String> list = new ArrayList<String>();
 
-            int width = getListWidth() - OFFSET_X - SCROLLBAR_WIDTH;
+            final int width = getListWidth() - OFFSET_X - SCROLLBAR_WIDTH;
             if (this.fontRenderer.getStringWidth(desc) < width) {
                 list.add(desc);
             } else {
                 while (this.fontRenderer.getStringWidth(desc) > width) {
-                    String trimmed = this.fontRenderer.trimStringToWidth(desc, width);
-                    int index = trimmed.lastIndexOf(" ");
+                    final String trimmed = this.fontRenderer.trimStringToWidth(desc, width);
+                    final int index = trimmed.lastIndexOf(" ");
                     if (index < 1) {
                         break;
                     }
@@ -169,10 +169,10 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void drawEntry(int index, int x, int y, int width, int height, int mouseX, int mouseY, boolean isSelected) {
+        public void drawEntry(final int index, final int x, final int y, final int width, final int height, final int mouseX, final int mouseY, final boolean isSelected) {
             this.fontRenderer.drawString(this.name, x, y + height / 2 - this.fontRenderer.FONT_HEIGHT / 2, 0xFFFFFF);
 
-            int lineHeight = this.fontRenderer.FONT_HEIGHT + 1;
+            final int lineHeight = this.fontRenderer.FONT_HEIGHT + 1;
             for (int i = 0; i < this.descArray.length; i++) {
                 this.fontRenderer.drawString(this.descArray[i], x + OFFSET_X, y + (height - lineHeight * this.descArray.length) / 2 + lineHeight * i, 0xFFFFFF);
             }
