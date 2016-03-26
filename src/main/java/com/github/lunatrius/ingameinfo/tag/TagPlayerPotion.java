@@ -9,7 +9,8 @@ import net.minecraft.potion.PotionEffect;
 import java.util.Collection;
 
 public abstract class TagPlayerPotion extends Tag {
-    public static final int MAXIMUM_INDEX = Potion.potionTypes.length;
+    // TODO: this shouldn't be hardcoded...
+    public static final int MAXIMUM_INDEX = 32 /* Potion.potionTypes.length */;
 
     protected static PotionEffect[] potionEffects = null;
     protected final int index;
@@ -98,7 +99,7 @@ public abstract class TagPlayerPotion extends Tag {
         public String getValue() {
             updatePotionEffects();
             if (potionEffects.length > this.index) {
-                return Potion.getDurationString(potionEffects[this.index]);
+                return Potion.getPotionDurationString(potionEffects[this.index], 1);
             }
             return "0:00";
         }
@@ -128,7 +129,7 @@ public abstract class TagPlayerPotion extends Tag {
         public String getValue() {
             updatePotionEffects();
             if (potionEffects.length > this.index) {
-                final Potion potion = Potion.potionTypes[potionEffects[this.index].getPotionID()];
+                final Potion potion = potionEffects[this.index].getPotion();
                 return String.valueOf(potion.isBadEffect());
             }
             return "false";
@@ -147,7 +148,7 @@ public abstract class TagPlayerPotion extends Tag {
         public String getValue() {
             updatePotionEffects();
             if (potionEffects.length > this.index) {
-                final Potion potion = Potion.potionTypes[potionEffects[this.index].getPotionID()];
+                final Potion potion = potionEffects[this.index].getPotion();
                 if (potion.hasStatusIcon()) {
                     final InfoIcon icon = new InfoIcon("textures/gui/container/inventory.png");
                     final int i = potion.getStatusIconIndex();

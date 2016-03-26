@@ -11,8 +11,12 @@ import net.minecraftforge.fml.common.registry.GameData;
 
 public abstract class TagPlayerEquipment extends Tag {
     public static final FMLControlledNamespacedRegistry<Item> ITEM_REGISTRY = GameData.getItemRegistry();
-    public static final String[] TYPES = new String[] { "equipped", "helmet", "chestplate", "leggings", "boots" };
-    public static final int[] SLOTS = new int[] { -1, 3, 2, 1, 0 };
+    public static final String[] TYPES = new String[] {
+            "equipped", "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots"
+    };
+    public static final int[] SLOTS = new int[] {
+            -3, -2, -1, 3, 2, 1, 0
+    };
     protected final int slot;
 
     public TagPlayerEquipment(final int slot) {
@@ -25,9 +29,14 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     protected ItemStack getItemStack(final int slot) {
-        if (slot == -1) {
-            return player.getCurrentEquippedItem();
+        if (slot == -2) {
+            return player.getHeldItemOffhand();
         }
+
+        if (slot == -1 || slot == -3) {
+            return player.getHeldItemMainhand();
+        }
+
         return player.inventory.armorItemInSlot(slot);
     }
 

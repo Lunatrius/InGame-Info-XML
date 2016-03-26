@@ -79,7 +79,9 @@ public abstract class TagMisc extends Tag {
     public static class LoadedChunks extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(world.getChunkProvider().getLoadedChunkCount());
+            // TODO: no longer exists on the client side; remove or fix
+            // return String.valueOf(world.getChunkProvider().getLoadedChunkCount());
+            return String.valueOf(-1);
         }
     }
 

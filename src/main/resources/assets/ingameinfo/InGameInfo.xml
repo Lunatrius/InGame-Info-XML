@@ -73,13 +73,13 @@
     </lines>
     <lines at="bottomleft">
         <line>
-            <var>equippedicon</var>
+            <var>mainhandicon</var>
             <str> </str>
             <operation>
                 <str>ge</str>
                 <pct>
-                    <var>equippeddamageleft</var>
-                    <var>equippedmaxdamage</var>
+                    <var>mainhanddamageleft</var>
+                    <var>mainhandmaxdamage</var>
                 </pct>
                 <num>50</num>
                 <num>20</num>
@@ -92,10 +92,10 @@
                 <str/>
             </operation>
             <max>
-                <var>equippeddamageleft</var>
+                <var>mainhanddamageleft</var>
                 <num>0.5</num>
-                <str>{equippeddamageleft}$f / $e{equippedmaxdamage}</str>
-                <var>equippedname</var>
+                <str>{mainhanddamageleft}$f / $e{mainhandmaxdamage}</str>
+                <var>mainhandname</var>
             </max>
         </line>
         <line>

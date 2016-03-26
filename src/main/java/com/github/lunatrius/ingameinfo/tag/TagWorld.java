@@ -1,14 +1,17 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.core.util.MBlockPos;
+import com.github.lunatrius.core.util.math.MBlockPos;
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import java.util.Locale;
 
@@ -109,7 +112,7 @@ public abstract class TagWorld extends Tag {
     public static class Dimension extends TagWorld {
         @Override
         public String getValue() {
-            return world.provider.getDimensionName();
+            return DimensionType.getById(player.dimension).getName();
         }
     }
 
@@ -123,14 +126,14 @@ public abstract class TagWorld extends Tag {
     public static class Biome extends TagWorld {
         @Override
         public String getValue() {
-            return world.getBiomeGenForCoords(playerPosition).biomeName;
+            return world.getBiomeGenForCoords(playerPosition).getBiomeName();
         }
     }
 
     public static class BiomeId extends TagWorld {
         @Override
         public String getValue() {
-            return String.valueOf(world.getBiomeGenForCoords(playerPosition).biomeID);
+            return String.valueOf(BiomeGenBase.getIdForBiome(world.getBiomeGenForCoords(playerPosition)));
         }
     }
 
@@ -144,14 +147,14 @@ public abstract class TagWorld extends Tag {
     public static class Raining extends TagWorld {
         @Override
         public String getValue() {
-            return String.valueOf(world.isRaining() && world.getBiomeGenForCoords(playerPosition).canSpawnLightningBolt());
+            return String.valueOf(world.isRaining() && world.getBiomeGenForCoords(playerPosition).canRain());
         }
     }
 
     public static class Thundering extends TagWorld {
         @Override
         public String getValue() {
-            return String.valueOf(world.isThundering() && world.getBiomeGenForCoords(playerPosition).canSpawnLightningBolt());
+            return String.valueOf(world.isThundering() && world.getBiomeGenForCoords(playerPosition).canRain());
         }
     }
 
@@ -182,9 +185,11 @@ public abstract class TagWorld extends Tag {
     }
 
     public static class Slimes extends TagWorld {
+        private BiomeGenBase swampland = GameData.getBiomeRegistry().getObject(new ResourceLocation("swampland"));
+
         @Override
         public String getValue() {
-            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition).biomeID == BiomeGenBase.swampland.biomeID);
+            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition) == this.swampland);
         }
     }
 
@@ -198,7 +203,7 @@ public abstract class TagWorld extends Tag {
     public static class Temperature extends TagWorld {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition).temperature * 100);
+            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition).getTemperature() * 100);
         }
     }
 
@@ -212,7 +217,7 @@ public abstract class TagWorld extends Tag {
     public static class Humidity extends TagWorld {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition).rainfall * 100);
+            return String.format(Locale.ENGLISH, "%.0f", world.getBiomeGenForCoords(playerPosition).getRainfall() * 100);
         }
     }
 

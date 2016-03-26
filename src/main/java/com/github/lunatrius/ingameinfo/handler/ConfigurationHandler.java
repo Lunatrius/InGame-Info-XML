@@ -20,7 +20,6 @@ public class ConfigurationHandler {
     public static Configuration configuration;
 
     public static final String CONFIG_NAME_DEFAULT = Names.Files.FILE_XML;
-    // TODO: 1.8 - flip the default to true
     public static final boolean REPLACE_DEBUG_DEFAULT = false;
     public static final boolean SHOW_IN_CHAT_DEFAULT = true;
     public static final boolean SHOW_ON_PLAYER_LIST_DEFAULT = true;
@@ -107,7 +106,7 @@ public class ConfigurationHandler {
 
     @SubscribeEvent
     public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.modID.equalsIgnoreCase(Reference.MODID)) {
+        if (event.getModID().equalsIgnoreCase(Reference.MODID)) {
             loadConfiguration();
         }
     }

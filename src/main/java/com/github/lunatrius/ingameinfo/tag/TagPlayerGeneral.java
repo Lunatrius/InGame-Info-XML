@@ -1,9 +1,9 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.core.util.MBlockPos;
+import com.github.lunatrius.core.util.math.MBlockPos;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 
 import java.util.Locale;
@@ -268,7 +268,9 @@ public abstract class TagPlayerGeneral extends Tag {
     public static class Eating extends TagPlayerGeneral {
         @Override
         public String getValue() {
-            return String.valueOf(player.isEating());
+            // TODO: remove or fix
+            // return String.valueOf(player.isEating());
+            return String.valueOf(false);
         }
     }
 

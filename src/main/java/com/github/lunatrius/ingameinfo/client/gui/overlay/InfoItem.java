@@ -3,7 +3,7 @@ package com.github.lunatrius.ingameinfo.client.gui.overlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 
 public class InfoItem extends Info {

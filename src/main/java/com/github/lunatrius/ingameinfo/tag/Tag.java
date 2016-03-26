@@ -1,6 +1,6 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.core.util.MBlockPos;
+import com.github.lunatrius.core.util.math.MBlockPos;
 import com.github.lunatrius.core.util.vector.Vector3f;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
 import com.github.lunatrius.ingameinfo.reference.Reference;

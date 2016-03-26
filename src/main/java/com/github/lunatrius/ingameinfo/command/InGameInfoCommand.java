@@ -10,8 +10,9 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
-import net.minecraft.util.BlockPos;
-import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -36,12 +37,12 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(final ICommandSender sender) {
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List<String> addTabCompletionOptions(final ICommandSender sender, final String[] args, final BlockPos pos) {
+    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
         } else if (args.length == 2) {
@@ -72,34 +73,34 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public void processCommand(final ICommandSender commandSender, final String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
-                commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.RELOAD));
+                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
                 ConfigurationHandler.reload();
                 final boolean success = this.core.reloadConfig();
-                commandSender.addChatMessage(new ChatComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
-                commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.LOAD, args[1]));
+                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
                 final boolean success = this.core.loadConfig(args[1]);
-                commandSender.addChatMessage(new ChatComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 if (success) {
                     ConfigurationHandler.setConfigName(args[1]);
                     ConfigurationHandler.save();
                 }
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.SAVE)) {
-                commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.SAVE, args[1]));
+                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.SAVE, args[1]));
                 final boolean success = this.core.saveConfig(args[1]);
-                commandSender.addChatMessage(new ChatComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.ENABLE)) {
-                commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.ENABLE));
+                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.ENABLE));
                 Ticker.enabled = true;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.DISABLE)) {
-                commandSender.addChatMessage(new ChatComponentTranslation(Names.Command.Message.DISABLE));
+                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.DISABLE));
                 Ticker.enabled = false;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
@@ -108,6 +109,6 @@ public class InGameInfoCommand extends CommandBase {
             }
         }
 
-        throw new WrongUsageException(getCommandUsage(commandSender));
+        throw new WrongUsageException(getCommandUsage(sender));
     }
 }
