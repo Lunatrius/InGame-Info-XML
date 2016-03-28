@@ -4,14 +4,13 @@ import com.github.lunatrius.core.util.math.MBlockPos;
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.init.Biomes;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import java.util.Locale;
 
@@ -185,11 +184,9 @@ public abstract class TagWorld extends Tag {
     }
 
     public static class Slimes extends TagWorld {
-        private BiomeGenBase swampland = GameData.getBiomeRegistry().getObject(new ResourceLocation("swampland"));
-
         @Override
         public String getValue() {
-            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition) == this.swampland);
+            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition) == Biomes.swampland);
         }
     }
 
