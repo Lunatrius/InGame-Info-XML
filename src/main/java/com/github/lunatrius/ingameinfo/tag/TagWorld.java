@@ -186,7 +186,7 @@ public abstract class TagWorld extends Tag {
     public static class Slimes extends TagWorld {
         @Override
         public String getValue() {
-            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition) == Biomes.swampland);
+            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiomeGenForCoords(playerPosition) == Biomes.SWAMPLAND);
         }
     }
 

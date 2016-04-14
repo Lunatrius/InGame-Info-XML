@@ -251,7 +251,7 @@ public abstract class ValueComplex extends Value {
                         metadata = getIntValue(1);
                         // TODO: this needs a better workaround
                         final Block block = BLOCK_REGISTRY.getObject(what);
-                        if (block == Blocks.double_plant) {
+                        if (block == Blocks.DOUBLE_PLANT) {
                             metadata &= 7;
                         }
                     }

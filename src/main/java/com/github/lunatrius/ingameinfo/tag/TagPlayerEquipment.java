@@ -48,7 +48,7 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            final String arrows = itemStack != null && itemStack.getItem() == Items.bow ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.arrow) + ")" : "";
+            final String arrows = itemStack != null && itemStack.getItem() == Items.BOW ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW) + ")" : "";
             return itemStack != null ? itemStack.getDisplayName() + arrows : "";
         }
     }
