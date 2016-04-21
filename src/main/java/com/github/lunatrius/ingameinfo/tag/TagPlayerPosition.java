@@ -145,6 +145,13 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
+    public static class Pitch extends TagPlayerPosition {
+        @Override
+        public String getValue() {
+            return String.format(Locale.ENGLISH, "%.2f", player.rotationPitch);
+        }
+    }
+
     public static class Direction extends TagPlayerPosition {
         @Override
         public String getValue() {
@@ -218,6 +225,7 @@ public abstract class TagPlayerPosition extends Tag {
         TagRegistry.INSTANCE.register(new SpeedY().setName("speedy"));
         TagRegistry.INSTANCE.register(new SpeedZ().setName("speedz"));
         TagRegistry.INSTANCE.register(new SpeedXZ().setName("speedxz"));
+        TagRegistry.INSTANCE.register(new Pitch().setName("pitch"));
         TagRegistry.INSTANCE.register(new Direction().setName("direction"));
         TagRegistry.INSTANCE.register(new RoughDirection().setName("roughdirection"));
         TagRegistry.INSTANCE.register(new FineDirection().setName("finedirection"));

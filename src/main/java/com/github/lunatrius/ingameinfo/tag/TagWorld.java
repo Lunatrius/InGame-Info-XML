@@ -143,6 +143,13 @@ public abstract class TagWorld extends Tag {
         }
     }
 
+    public static class MoonPhase extends TagWorld {
+        @Override
+        public String getValue() {
+            return String.valueOf(world.getMoonPhase());
+        }
+    }
+
     public static class Raining extends TagWorld {
         @Override
         public String getValue() {
@@ -231,6 +238,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Biome().setName("biome"));
         TagRegistry.INSTANCE.register(new BiomeId().setName("biomeid"));
         TagRegistry.INSTANCE.register(new Daytime().setName("daytime"));
+        TagRegistry.INSTANCE.register(new MoonPhase().setName("moonphase"));
         TagRegistry.INSTANCE.register(new Raining().setName("raining"));
         TagRegistry.INSTANCE.register(new Thundering().setName("thundering"));
         TagRegistry.INSTANCE.register(new Snowing().setName("snowing"));
