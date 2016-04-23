@@ -17,6 +17,8 @@ ingameinfoxml.config.scale=Scale
 ingameinfoxml.config.scale.tooltip=The overlay will be scaled by this amount.
 ingameinfoxml.config.fileInterval=File Tag Interval
 ingameinfoxml.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+ingameinfoxml.config.showOverlayPotions=Show Potion Effects
+ingameinfoxml.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left

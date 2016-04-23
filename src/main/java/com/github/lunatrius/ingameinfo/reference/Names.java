@@ -56,6 +56,9 @@ public final class Names {
         public static final String FILE_INTERVAL = "fileInterval";
         public static final String FILE_INTERVAL_DESC = "The interval between file reads for the 'file' tag (in seconds).";
 
+        public static final String SHOW_OVERLAY_POTIONS = "showOverlayPotions";
+        public static final String SHOW_OVERLAY_POTIONS_DESC = "Display the vanilla potion overlay.";
+
         public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
         public static final String LANG_PREFIX = Reference.MODID_LOWER + ".config";

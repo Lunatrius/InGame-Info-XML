@@ -24,6 +24,10 @@ public class Ticker {
         if (enabled && ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
             event.setCanceled(true);
         }
+
+        if (!ConfigurationHandler.showOverlayPotions && event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
+            event.setCanceled(true);
+        }
     }
 
     @SubscribeEvent

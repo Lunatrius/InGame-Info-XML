@@ -25,6 +25,7 @@ public class ConfigurationHandler {
     public static final boolean SHOW_ON_PLAYER_LIST_DEFAULT = true;
     public static final double SCALE_DEFAULT = 1.0;
     public static final int FILE_INTERVAL_DEFAULT = 5;
+    public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
 
     public static String configName = CONFIG_NAME_DEFAULT;
     public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
@@ -32,6 +33,7 @@ public class ConfigurationHandler {
     public static boolean showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT;
     public static float scale = (float) SCALE_DEFAULT;
     public static int fileInterval = FILE_INTERVAL_DEFAULT;
+    public static boolean showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT;
 
     public static Property propConfigName = null;
     public static Property propReplaceDebug = null;
@@ -39,6 +41,7 @@ public class ConfigurationHandler {
     public static Property propShowOnPlayerList = null;
     public static Property propScale = null;
     public static Property propFileInterval = null;
+    public static Property propShowOverlayPotions = null;
     public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
     private ConfigurationHandler() {}
@@ -76,6 +79,10 @@ public class ConfigurationHandler {
         propFileInterval = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILE_INTERVAL, FILE_INTERVAL_DEFAULT, Names.Config.FILE_INTERVAL_DESC, 1, 60);
         propFileInterval.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILE_INTERVAL);
         fileInterval = propFileInterval.getInt(FILE_INTERVAL_DEFAULT);
+
+        propShowOverlayPotions = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_POTIONS, SHOW_OVERLAY_POTIONS_DEFAULT, Names.Config.SHOW_OVERLAY_POTIONS_DESC);
+        propShowOverlayPotions.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_POTIONS);
+        showOverlayPotions = propShowOverlayPotions.getBoolean(SHOW_OVERLAY_POTIONS_DEFAULT);
 
         for (final Alignment alignment : Alignment.values()) {
             final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
