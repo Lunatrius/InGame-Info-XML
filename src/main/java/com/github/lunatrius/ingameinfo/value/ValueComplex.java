@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.registry.GameData;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -170,6 +171,23 @@ public abstract class ValueComplex extends Value {
         }
     }
 
+    public static class ValueFormattedNumber extends ValueComplex {
+        @Override
+        public boolean isValidSize() {
+            return this.values.size() == 2;
+        }
+
+        @Override
+        public String getValue() {
+            try {
+                final String format = getValue(0);
+                return new DecimalFormat(format).format(getDoubleValue(1));
+            } catch (final Exception e) {
+                return "?";
+            }
+        }
+    }
+
     public static class ValueFile extends ValueComplex {
         private static int ticks = 0;
 
@@ -308,6 +326,7 @@ public abstract class ValueComplex extends Value {
         ValueRegistry.INSTANCE.register(new ValueItemQuantity().setName("itemquantity"));
         ValueRegistry.INSTANCE.register(new ValueTranslate().setName("trans").setAliases("translate"));
         ValueRegistry.INSTANCE.register(new ValueFormattedTime().setName("formattedtime").setAliases("rltimef"));
+        ValueRegistry.INSTANCE.register(new ValueFormattedNumber().setName("formattednumber"));
         ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
         ValueRegistry.INSTANCE.register(new ValueFile().setName("file"));
     }
