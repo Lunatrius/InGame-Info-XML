@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 
 public class InfoItem extends Info {
-    private final static RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+    private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
     private final ItemStack itemStack;
     private final boolean large;
     private final int size;
@@ -42,9 +42,11 @@ public class InfoItem extends Info {
                 GlStateManager.scale(0.5f, 0.5f, 0.5f);
             }
 
+            final RenderItem renderItem = MINECRAFT.getRenderItem();
             final float zLevel = renderItem.zLevel;
             renderItem.zLevel = 300;
             renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
+            renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRendererObj, this.itemStack, 0, 0, "");
             renderItem.zLevel = zLevel;
 
             if (!this.large) {
