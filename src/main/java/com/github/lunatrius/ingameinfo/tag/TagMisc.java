@@ -88,7 +88,7 @@ public abstract class TagMisc extends Tag {
     public static class Server extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             final int j = str.indexOf(":");
             if (i < 0) {
@@ -104,7 +104,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerName extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "localhost";
@@ -118,7 +118,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerIP extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "127.0.0.1";
@@ -130,7 +130,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerPort extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.sendQueue.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "-1";
@@ -143,7 +143,7 @@ public abstract class TagMisc extends Tag {
         @Override
         public String getValue() {
             try {
-                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(player.getUniqueID());
+                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUniqueID());
                 return String.valueOf(playerInfo.getResponseTime());
             } catch (final Exception e) {
             }
@@ -155,7 +155,7 @@ public abstract class TagMisc extends Tag {
         @Override
         public String getValue() {
             try {
-                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(player.getUniqueID());
+                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUniqueID());
                 final int responseTime = playerInfo.getResponseTime();
                 int pingIndex = 4;
                 if (responseTime < 0) {

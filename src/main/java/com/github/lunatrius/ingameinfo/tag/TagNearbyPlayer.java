@@ -121,7 +121,7 @@ public abstract class TagNearbyPlayer extends Tag {
         public String getValue() {
             updateNearbyPlayers();
             if (nearbyPlayers.length > this.index) {
-                final NetworkPlayerInfo playerInfo = minecraft.getNetHandler().getPlayerInfo(nearbyPlayers[this.index].getUniqueID());
+                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(nearbyPlayers[this.index].getUniqueID());
                 final InfoIcon icon = new InfoIcon(playerInfo.getLocationSkin());
                 icon.setTextureData(8, 8, 8, 8, 64, 64);
                 icon.setDisplayDimensions(0, 0, 8, 8);
