@@ -192,7 +192,14 @@ public abstract class TagWorld extends Tag {
     public static class Slimes extends TagWorld {
         @Override
         public String getValue() {
-            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiome(playerPosition) == Biomes.SWAMPLAND);
+            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition) || world.getBiome(playerPosition) == Biomes.SWAMPLAND && playerPosition.y > 50 && playerPosition.y < 70);
+        }
+    }
+
+    public static class SlimeChunk extends TagWorld {
+        @Override
+        public String getValue() {
+            return String.valueOf(hasSeed && ChunkHelper.isSlimeChunk(seed, playerPosition));
         }
     }
 
@@ -243,6 +250,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Snowing().setName("snowing"));
         TagRegistry.INSTANCE.register(new NextWeatherChange().setName("nextweatherchange").setAliases("nextrain"));
         TagRegistry.INSTANCE.register(new Slimes().setName("slimes"));
+        TagRegistry.INSTANCE.register(new SlimeChunk().setName("slimechunk"));
         TagRegistry.INSTANCE.register(new Hardcore().setName("hardcore"));
         TagRegistry.INSTANCE.register(new Temperature().setName("temperature"));
         TagRegistry.INSTANCE.register(new LocalTemperature().setName("localtemperature"));
