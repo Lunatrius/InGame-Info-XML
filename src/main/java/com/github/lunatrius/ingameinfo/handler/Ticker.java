@@ -22,8 +22,14 @@ public class Ticker {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
-        if (enabled && ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
-            event.setCanceled(true);
+        if (isRunning()) {
+            if (ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
+                event.setCanceled(true);
+            }
+
+            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+                event.setCanceled(true);
+            }
         }
 
         if (!ConfigurationHandler.showOverlayPotions && event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
