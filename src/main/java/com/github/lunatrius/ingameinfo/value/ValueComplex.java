@@ -81,7 +81,7 @@ public abstract class ValueComplex extends Value {
                 final double arg0 = getDoubleValue(0);
                 final double arg1 = getDoubleValue(1);
                 final int shift = this.values.size() - 2;
-                return arg0 < arg1 ? getValue(0 + shift) : getValue(1 + shift);
+                return arg0 <= arg1 ? getValue(0 + shift) : getValue(1 + shift);
             } catch (final Exception e) {
                 return "0";
             }
@@ -100,7 +100,7 @@ public abstract class ValueComplex extends Value {
                 final double arg0 = getDoubleValue(0);
                 final double arg1 = getDoubleValue(1);
                 final int shift = this.values.size() - 2;
-                return arg0 > arg1 ? getValue(0 + shift) : getValue(1 + shift);
+                return arg0 >= arg1 ? getValue(0 + shift) : getValue(1 + shift);
             } catch (final Exception e) {
                 return "0";
             }
