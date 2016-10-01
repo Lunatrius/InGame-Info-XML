@@ -22,7 +22,7 @@ public class Ticker {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
-        if (isRunning()) {
+        if (canRun()) {
             if (ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
                 event.setCanceled(true);
             }
@@ -47,29 +47,48 @@ public class Ticker {
         onTick(event);
     }
 
+    // TODO: this requires a bit of optimization... it's just boolean checks mostly but still
+    private boolean canRun() {
+        if (!enabled) {
+            return false;
+        }
+
+        if (this.client.mcProfiler.profilingEnabled) {
+            return true;
+        }
+
+        if (ConfigurationHandler.replaceDebug || ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
+            return true;
+        }
+
+        return false;
+    }
+
     private boolean isRunning() {
-        if (enabled) {
-            if (this.client.mcProfiler.profilingEnabled) {
+        if (!canRun()) {
+            return false;
+        }
+
+        if (this.client.mcProfiler.profilingEnabled) {
+            return true;
+        }
+
+        // a && b || !a && !b  -->  a == b
+        if (this.client.gameSettings != null && ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
+            if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown()) {
+                return false;
+            }
+
+            if (this.client.gameSettings.hideGUI) {
+                return false;
+            }
+
+            if (this.client.currentScreen == null) {
                 return true;
             }
 
-            // a && b || !a && !b  -->  a == b
-            if (this.client.gameSettings != null && ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
-                if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown()) {
-                    return false;
-                }
-
-                if (this.client.gameSettings.hideGUI) {
-                    return false;
-                }
-
-                if (this.client.currentScreen == null) {
-                    return true;
-                }
-
-                if (ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat) {
-                    return true;
-                }
+            if (ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat) {
+                return true;
             }
         }
 
