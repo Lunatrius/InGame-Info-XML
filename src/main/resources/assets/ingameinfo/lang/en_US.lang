@@ -19,6 +19,8 @@ ingameinfoxml.config.fileInterval=File Tag Interval
 ingameinfoxml.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
 ingameinfoxml.config.showOverlayPotions=Show Potion Effects
 ingameinfoxml.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+ingameinfoxml.config.showOverlayItemIcons=Show Item Overlay
+ingameinfoxml.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
 ingameinfoxml.config.topleft=Top Left

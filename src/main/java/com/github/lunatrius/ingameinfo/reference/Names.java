@@ -59,6 +59,9 @@ public final class Names {
         public static final String SHOW_OVERLAY_POTIONS = "showOverlayPotions";
         public static final String SHOW_OVERLAY_POTIONS_DESC = "Display the vanilla potion overlay.";
 
+        public static final String SHOW_OVERLAY_ITEM_ICONS = "showOverlayItemIcons";
+        public static final String SHOW_OVERLAY_ITEM_ICONS_DESC = "Display the item overlay on icon (durability, stack size).";
+
         public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
         public static final String LANG_PREFIX = Reference.MODID_LOWER + ".config";

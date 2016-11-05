@@ -1,5 +1,6 @@
 package com.github.lunatrius.ingameinfo.client.gui.overlay;
 
+import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -46,7 +47,11 @@ public class InfoItem extends Info {
             final float zLevel = renderItem.zLevel;
             renderItem.zLevel = 300;
             renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
-            renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRendererObj, this.itemStack, 0, 0, "");
+
+            if (ConfigurationHandler.showOverlayItemIcons) {
+                renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRendererObj, this.itemStack, 0, 0, "");
+            }
+
             renderItem.zLevel = zLevel;
 
             if (!this.large) {

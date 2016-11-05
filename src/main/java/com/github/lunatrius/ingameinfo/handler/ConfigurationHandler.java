@@ -26,6 +26,7 @@ public class ConfigurationHandler {
     public static final double SCALE_DEFAULT = 1.0;
     public static final int FILE_INTERVAL_DEFAULT = 5;
     public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
+    public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
 
     public static String configName = CONFIG_NAME_DEFAULT;
     public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
@@ -34,6 +35,7 @@ public class ConfigurationHandler {
     public static float scale = (float) SCALE_DEFAULT;
     public static int fileInterval = FILE_INTERVAL_DEFAULT;
     public static boolean showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT;
+    public static boolean showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
 
     public static Property propConfigName = null;
     public static Property propReplaceDebug = null;
@@ -42,6 +44,7 @@ public class ConfigurationHandler {
     public static Property propScale = null;
     public static Property propFileInterval = null;
     public static Property propShowOverlayPotions = null;
+    public static Property propShowOverlayItemIcons= null;
     public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
 
     private ConfigurationHandler() {}
@@ -83,6 +86,10 @@ public class ConfigurationHandler {
         propShowOverlayPotions = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_POTIONS, SHOW_OVERLAY_POTIONS_DEFAULT, Names.Config.SHOW_OVERLAY_POTIONS_DESC);
         propShowOverlayPotions.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_POTIONS);
         showOverlayPotions = propShowOverlayPotions.getBoolean(SHOW_OVERLAY_POTIONS_DEFAULT);
+
+        propShowOverlayItemIcons = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_ITEM_ICONS, SHOW_OVERLAY_ITEM_ICONS_DEFAULT, Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC);
+        propShowOverlayItemIcons.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_ITEM_ICONS);
+        showOverlayItemIcons = propShowOverlayItemIcons.getBoolean(SHOW_OVERLAY_ITEM_ICONS_DEFAULT);
 
         for (final Alignment alignment : Alignment.values()) {
             final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
