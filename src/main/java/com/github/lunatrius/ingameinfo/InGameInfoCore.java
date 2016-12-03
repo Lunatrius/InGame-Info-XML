@@ -94,13 +94,13 @@ public class InGameInfoCore {
         final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
         final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
 
-        final World world = this.minecraft.theWorld;
+        final World world = this.minecraft.world;
         if (world == null) {
             return;
         }
         Tag.setWorld(world);
 
-        final EntityPlayerSP player = this.minecraft.thePlayer;
+        final EntityPlayerSP player = this.minecraft.player;
         if (player == null) {
             return;
         }

@@ -126,7 +126,7 @@ public abstract class ValueComplex extends Value {
                 if (this.values.size() == 2) {
                     itemDamage = getIntValue(1);
                 }
-                return String.valueOf(EntityHelper.getItemCountInInventory(Minecraft.getMinecraft().thePlayer.inventory, item, itemDamage));
+                return String.valueOf(EntityHelper.getItemCountInInventory(Minecraft.getMinecraft().player.inventory, item, itemDamage));
             } catch (final Exception e2) {
                 return "0";
             }

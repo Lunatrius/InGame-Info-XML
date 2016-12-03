@@ -64,7 +64,7 @@ public final class Names {
 
         public static final String ALIGNMENT_DESC = "Offsets for %s (X<space>Y).";
 
-        public static final String LANG_PREFIX = Reference.MODID_LOWER + ".config";
+        public static final String LANG_PREFIX = Reference.MODID + ".config";
     }
 
     public static final class Files {

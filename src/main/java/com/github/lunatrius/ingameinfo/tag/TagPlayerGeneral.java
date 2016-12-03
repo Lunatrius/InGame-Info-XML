@@ -66,7 +66,7 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, playerPosition) - world.calculateSkylightSubtracted(1.0f), 0, 15));
+                return String.valueOf(MathHelper.clamp(world.getLightFor(EnumSkyBlock.SKY, playerPosition) - world.calculateSkylightSubtracted(1.0f), 0, 15));
             } catch (final Exception e) {
                 return "0";
             }
@@ -78,7 +78,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
-                return String.valueOf(MathHelper.clamp_int(world.getLightFor(EnumSkyBlock.SKY, this.pos) - world.calculateSkylightSubtracted(1.0f), 0, 15));
+                return String.valueOf(MathHelper.clamp(world.getLightFor(EnumSkyBlock.SKY, this.pos) - world.calculateSkylightSubtracted(1.0f), 0, 15));
             } catch (final Exception e) {
                 return "0";
             }

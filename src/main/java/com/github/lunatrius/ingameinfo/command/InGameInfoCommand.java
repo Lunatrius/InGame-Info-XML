@@ -27,12 +27,12 @@ public class InGameInfoCommand extends CommandBase {
     private InGameInfoCommand() {}
 
     @Override
-    public String getCommandName() {
+    public String getName() {
         return Names.Command.NAME;
     }
 
     @Override
-    public String getCommandUsage(final ICommandSender sender) {
+    public String getUsage(final ICommandSender sender) {
         return Names.Command.Message.USAGE;
     }
 
@@ -42,7 +42,7 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
         } else if (args.length == 2) {
@@ -76,31 +76,31 @@ public class InGameInfoCommand extends CommandBase {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
-                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
+                sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
                 ConfigurationHandler.reload();
                 final boolean success = this.core.reloadConfig();
-                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
-                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
+                sender.sendMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
                 final boolean success = this.core.loadConfig(args[1]);
-                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 if (success) {
                     ConfigurationHandler.setConfigName(args[1]);
                     ConfigurationHandler.save();
                 }
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.SAVE)) {
-                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.SAVE, args[1]));
+                sender.sendMessage(new TextComponentTranslation(Names.Command.Message.SAVE, args[1]));
                 final boolean success = this.core.saveConfig(args[1]);
-                sender.addChatMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
+                sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.ENABLE)) {
-                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.ENABLE));
+                sender.sendMessage(new TextComponentTranslation(Names.Command.Message.ENABLE));
                 Ticker.enabled = true;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.DISABLE)) {
-                sender.addChatMessage(new TextComponentTranslation(Names.Command.Message.DISABLE));
+                sender.sendMessage(new TextComponentTranslation(Names.Command.Message.DISABLE));
                 Ticker.enabled = false;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
@@ -109,6 +109,6 @@ public class InGameInfoCommand extends CommandBase {
             }
         }
 
-        throw new WrongUsageException(getCommandUsage(sender));
+        throw new WrongUsageException(getUsage(sender));
     }
 }

@@ -12,7 +12,7 @@ public class PlayerHandler {
     public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
             try {
-                PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.worldObj.getSeed()), (EntityPlayerMP) event.player);
+                PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.world.getSeed()), (EntityPlayerMP) event.player);
             } catch (final Exception ex) {
                 Reference.logger.error("Failed to send the seed!", ex);
             }

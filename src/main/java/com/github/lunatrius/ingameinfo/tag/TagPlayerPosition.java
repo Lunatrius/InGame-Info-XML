@@ -99,7 +99,7 @@ public abstract class TagPlayerPosition extends Tag {
     public static class YEyei extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.valueOf(MathHelper.floor_double(player.posY + player.getEyeHeight()));
+            return String.valueOf(MathHelper.floor(player.posY + player.getEyeHeight()));
         }
     }
 
@@ -168,35 +168,35 @@ public abstract class TagPlayerPosition extends Tag {
     public static class RoughDirection extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return ROUGHDIRECTION[MathHelper.floor_double(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
+            return ROUGHDIRECTION[MathHelper.floor(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
         }
     }
 
     public static class FineDirection extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return FINEDIRECTION[MathHelper.floor_double(player.rotationYaw * 8.0 / 360.0 + 0.5) & 7];
+            return FINEDIRECTION[MathHelper.floor(player.rotationYaw * 8.0 / 360.0 + 0.5) & 7];
         }
     }
 
     public static class AbbreviatedRoughDirection extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return ABRROUGHDIRECTION[MathHelper.floor_double(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
+            return ABRROUGHDIRECTION[MathHelper.floor(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
         }
     }
 
     public static class AbbreviatedFineDirection extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return ABRFINEDIRECTION[MathHelper.floor_double(player.rotationYaw * 8.0 / 360.0 + 0.5) & 7];
+            return ABRFINEDIRECTION[MathHelper.floor(player.rotationYaw * 8.0 / 360.0 + 0.5) & 7];
         }
     }
 
     public static class DirectionHud extends TagPlayerPosition {
         @Override
         public String getValue() {
-            final int direction = MathHelper.floor_double(player.rotationYaw * 16.0f / 360.0f + 0.5) & 15;
+            final int direction = MathHelper.floor(player.rotationYaw * 16.0f / 360.0f + 0.5) & 15;
             final String left = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length - 1) % ABRFINEDIRECTION.length];
             final String center = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length) % ABRFINEDIRECTION.length];
             final String right = ABRFINEDIRECTION[(direction / 2 + ABRFINEDIRECTION.length + 1) % ABRFINEDIRECTION.length];
