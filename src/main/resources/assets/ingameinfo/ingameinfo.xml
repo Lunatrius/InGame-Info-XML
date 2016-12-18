@@ -99,6 +99,32 @@
             </max>
         </line>
         <line>
+            <var>offhandicon</var>
+            <str> </str>
+            <operation>
+                <str>ge</str>
+                <pct>
+                    <var>offhanddamageleft</var>
+                    <var>offhandmaxdamage</var>
+                </pct>
+                <num>50</num>
+                <num>20</num>
+                <num>10</num>
+                <num>0</num>
+                <str>$e</str>
+                <str>$6</str>
+                <str>$c</str>
+                <str>$4</str>
+                <str/>
+            </operation>
+            <max>
+                <var>offhanddamageleft</var>
+                <num>0.5</num>
+                <str>{offhanddamageleft}$f / $e{offhandmaxdamage}</str>
+                <var>offhandname</var>
+            </max>
+        </line>
+        <line>
             <str> </str>
         </line>
     </lines>
