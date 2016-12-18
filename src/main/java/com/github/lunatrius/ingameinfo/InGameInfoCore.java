@@ -238,6 +238,8 @@ public class InGameInfoCore {
             printer = new JsonPrinter();
         } else if (filename.endsWith(Names.Files.EXT_TXT)) {
             printer = new TextPrinter();
+        } else {
+            Reference.logger.warn("'{}' is an invalid file name");
         }
 
         return printer != null && printer.print(file, this.format);
