@@ -4,7 +4,7 @@ import com.github.lunatrius.ingameinfo.reference.Reference;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.passive.EntityHorse;
+import net.minecraft.entity.passive.AbstractHorse;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -22,7 +22,7 @@ public abstract class TagRiding extends Tag {
     public static class IsHorse extends TagRiding {
         @Override
         public String getValue() {
-            return String.valueOf(player.getRidingEntity() instanceof EntityHorse);
+            return String.valueOf(player.getRidingEntity() instanceof AbstractHorse);
         }
     }
 
@@ -30,8 +30,8 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             final Entity ridingEntity = player.getRidingEntity();
-            if (ridingEntity instanceof EntityHorse) {
-                return String.valueOf(((EntityHorse) ridingEntity).getHealth());
+            if (ridingEntity instanceof AbstractHorse) {
+                return String.valueOf(((AbstractHorse) ridingEntity).getHealth());
             }
             return "-1";
         }
@@ -41,8 +41,8 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             final Entity ridingEntity = player.getRidingEntity();
-            if (ridingEntity instanceof EntityHorse) {
-                return String.valueOf(((EntityHorse) ridingEntity).getMaxHealth());
+            if (ridingEntity instanceof AbstractHorse) {
+                return String.valueOf(((AbstractHorse) ridingEntity).getMaxHealth());
             }
             return "-1";
         }
@@ -52,8 +52,8 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             final Entity ridingEntity = player.getRidingEntity();
-            if (ridingEntity instanceof EntityHorse) {
-                return String.format(Locale.ENGLISH, "%.3f", TICKS * CONSTANT * ((EntityHorse) ridingEntity).getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
+            if (ridingEntity instanceof AbstractHorse) {
+                return String.format(Locale.ENGLISH, "%.3f", TICKS * CONSTANT * ((AbstractHorse) ridingEntity).getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue());
             }
             return "-1";
         }
@@ -62,7 +62,7 @@ public abstract class TagRiding extends Tag {
     public static class HorseJump extends TagRiding {
         private final Map<Double, Double> jumpHeightCache = new HashMap<Double, Double>();
 
-        private double getJumpHeight(final EntityHorse horse) {
+        private double getJumpHeight(final AbstractHorse horse) {
             final double jumpStrength = horse.getHorseJumpStrength();
 
             final Double height = this.jumpHeightCache.get(jumpStrength);
@@ -90,8 +90,8 @@ public abstract class TagRiding extends Tag {
         @Override
         public String getValue() {
             final Entity ridingEntity = player.getRidingEntity();
-            if (ridingEntity instanceof EntityHorse) {
-                return String.format(Locale.ENGLISH, "%.3f", getJumpHeight((EntityHorse) ridingEntity));
+            if (ridingEntity instanceof AbstractHorse) {
+                return String.format(Locale.ENGLISH, "%.3f", getJumpHeight((AbstractHorse) ridingEntity));
             }
             return "-1";
         }
