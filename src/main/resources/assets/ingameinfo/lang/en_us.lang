@@ -233,6 +233,7 @@ ingameinfoxml.tag.roughdirection.desc=Rough direction the player is currently fa
 ingameinfoxml.tag.finedirection.desc=Fine direction the player is currently facing (South, South West, West, North West, ...).
 ingameinfoxml.tag.abrroughdirection.desc=Abbreviated rough direction the player is currently facing (S, W, N, E).
 ingameinfoxml.tag.abrfinedirection.desc=Abbreviated fine direction the player is currently facing (S, SW, W, NW, ...).
+ingameinfoxml.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
 ingameinfoxml.tag.directionhud.desc=A small textual direction HUD.
 
 # gui - tag list - player potion

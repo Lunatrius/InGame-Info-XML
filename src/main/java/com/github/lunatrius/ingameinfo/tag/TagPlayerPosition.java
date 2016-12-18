@@ -20,6 +20,9 @@ public abstract class TagPlayerPosition extends Tag {
     protected static final String[] ABRFINEDIRECTION = {
             "S", "SW", "W", "NW", "N", "NE", "E", "SE"
     };
+    protected static final String[] AXISDIRECTION = {
+            "+Z", "-X", "-Z", "+X"
+    };
 
     @Override
     public String getCategory() {
@@ -193,6 +196,13 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
+    public static class AxisDirection extends TagPlayerPosition {
+        @Override
+        public String getValue() {
+            return AXISDIRECTION[MathHelper.floor(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
+        }
+    }
+
     public static class DirectionHud extends TagPlayerPosition {
         @Override
         public String getValue() {
@@ -231,6 +241,7 @@ public abstract class TagPlayerPosition extends Tag {
         TagRegistry.INSTANCE.register(new FineDirection().setName("finedirection"));
         TagRegistry.INSTANCE.register(new AbbreviatedRoughDirection().setName("abrroughdirection"));
         TagRegistry.INSTANCE.register(new AbbreviatedFineDirection().setName("abrfinedirection"));
+        TagRegistry.INSTANCE.register(new AxisDirection().setName("axisdirection"));
         TagRegistry.INSTANCE.register(new DirectionHud().setName("directionhud"));
     }
 }
