@@ -5,6 +5,7 @@ import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoItem;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
 import net.minecraftforge.fml.common.registry.GameData;
@@ -49,8 +50,12 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            final String arrows = itemStack != null && itemStack.getItem() == Items.BOW ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW) + ")" : "";
-            return itemStack != null ? itemStack.getDisplayName() + arrows : "";
+            if (itemStack == ItemStack.EMPTY) {
+                return "";
+            }
+
+            final String arrows = itemStack.getItem() instanceof ItemBow ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW) + ")" : "";
+            return itemStack.getDisplayName() + arrows;
         }
     }
 
@@ -62,8 +67,11 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            final Item item = itemStack != null ? itemStack.getItem() : null;
-            return item != null ? String.valueOf(ITEM_REGISTRY.getNameForObject(item)) : "";
+            if (itemStack == ItemStack.EMPTY) {
+                return "";
+            }
+
+            return String.valueOf(ITEM_REGISTRY.getNameForObject(itemStack.getItem()));
         }
     }
 
@@ -75,7 +83,11 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
+            if (itemStack == ItemStack.EMPTY) {
+                return String.valueOf(0);
+            }
+
+            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
         }
     }
 
@@ -87,7 +99,11 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
+            if (itemStack == ItemStack.EMPTY) {
+                return String.valueOf(0);
+            }
+
+            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
         }
     }
 
@@ -99,7 +115,11 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null && itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamage() : 0);
+            if (itemStack == ItemStack.EMPTY) {
+                return String.valueOf(0);
+            }
+
+            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamage() : 0);
         }
     }
 
@@ -111,7 +131,11 @@ public abstract class TagPlayerEquipment extends Tag {
         @Override
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
-            return String.valueOf(itemStack != null ? EntityHelper.getItemCountInInventory(player.inventory, itemStack.getItem(), itemStack.getItemDamage()) : 0);
+            if (itemStack == ItemStack.EMPTY) {
+                return String.valueOf(0);
+            }
+
+            return String.valueOf(EntityHelper.getItemCountInInventory(player.inventory, itemStack.getItem(), itemStack.getItemDamage()));
         }
     }
 

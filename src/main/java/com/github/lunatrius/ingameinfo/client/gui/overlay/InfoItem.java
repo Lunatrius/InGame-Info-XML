@@ -33,7 +33,7 @@ public class InfoItem extends Info {
 
     @Override
     public void drawInfo() {
-        if (this.itemStack != null && this.itemStack.getItem() != null) {
+        if (this.itemStack != ItemStack.EMPTY) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.enableRescaleNormal();
             RenderHelper.enableGUIStandardItemLighting();
@@ -67,12 +67,12 @@ public class InfoItem extends Info {
 
     @Override
     public int getWidth() {
-        return this.itemStack != null && this.itemStack.getItem() != null ? this.size : 0;
+        return this.itemStack != ItemStack.EMPTY ? this.size : 0;
     }
 
     @Override
     public int getHeight() {
-        return this.itemStack != null && this.itemStack.getItem() != null ? this.size : 0;
+        return this.itemStack != ItemStack.EMPTY ? this.size : 0;
     }
 
     @Override
