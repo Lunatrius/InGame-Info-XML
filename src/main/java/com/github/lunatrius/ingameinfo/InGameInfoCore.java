@@ -217,7 +217,7 @@ public class InGameInfoCore {
                 inputStream = new FileInputStream(this.configFile);
             } else {
                 Reference.logger.debug("Loading default config...");
-                final ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", Names.Files.FILE_XML);
+                final ResourceLocation resourceLocation = new ResourceLocation("ingameinfo", Names.Files.FILE_XML.toLowerCase(Locale.ENGLISH));
                 final IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
                 inputStream = resource.getInputStream();
             }
