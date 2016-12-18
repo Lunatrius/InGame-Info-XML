@@ -65,6 +65,7 @@ public class InGameInfoCommand extends CommandBase {
         });
 
         final List<String> filenames = new ArrayList<String>();
+        filenames.add("default");
         for (final File file : files) {
             filenames.add(file.getName());
         }

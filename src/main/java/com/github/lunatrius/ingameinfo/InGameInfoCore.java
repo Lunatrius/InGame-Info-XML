@@ -84,9 +84,10 @@ public class InGameInfoCore {
             }
         }
 
+        Reference.logger.warn("The config '{}' does not exist", filename);
         this.configFile = null;
         this.parser = new XmlParser();
-        return false;
+        return filename.equalsIgnoreCase("default");
     }
 
     public void onTickClient() {
