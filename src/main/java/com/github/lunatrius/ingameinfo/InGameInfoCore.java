@@ -120,7 +120,7 @@ public class InGameInfoCore {
                 continue;
             }
 
-            final FontRenderer fontRenderer = this.minecraft.fontRendererObj;
+            final FontRenderer fontRenderer = this.minecraft.fontRenderer;
             final List<Info> queue = new ArrayList<Info>();
 
             for (final List<Value> line : lines) {
