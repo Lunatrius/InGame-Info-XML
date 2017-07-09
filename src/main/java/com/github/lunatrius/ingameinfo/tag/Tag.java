@@ -5,6 +5,7 @@ import com.github.lunatrius.core.util.vector.Vector3f;
 import com.github.lunatrius.ingameinfo.client.gui.overlay.Info;
 import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
+import net.minecraftforge.client.IRenderHandler;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.server.MinecraftServer;
@@ -13,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public abstract class Tag {
-    protected static final Minecraft minecraft = Minecraft.getMinecraft();
+    public static final Minecraft minecraft = Minecraft.getMinecraft();
     protected static final MBlockPos playerPosition = new MBlockPos();
     protected static final Vector3f playerMotion = new Vector3f();
     protected static MinecraftServer server;
@@ -74,12 +75,12 @@ public abstract class Tag {
 
     public static void setServer(final MinecraftServer server) {
         Tag.server = server;
-
+/*
         try {
             setSeed(Tag.server.worldServerForDimension(0).getSeed());
         } catch (final Exception e) {
             unsetSeed();
-        }
+        }*/
     }
 
     public static void setSeed(final long seed) {
@@ -118,7 +119,7 @@ public abstract class Tag {
 
     public static String getIconTag(final Info info) {
         String str = "";
-        for (int i = 0; i < info.getWidth() && minecraft.fontRendererObj.getStringWidth(str) < info.getWidth(); i++) {
+        for (int i = 0; i < info.getWidth() && minecraft.fontRenderer.getStringWidth(str) < info.getWidth(); i++) {
             str += " ";
         }
         return String.format("{ICON|%s}", str);

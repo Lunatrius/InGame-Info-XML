@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.resources.ResourcePackRepository;
 
+
 import java.util.List;
 
 public abstract class TagMisc extends Tag {
@@ -61,6 +62,7 @@ public abstract class TagMisc extends Tag {
             return resourcePackRepository.rprDefaultResourcePack.getPackName();
         }
     }
+
 
     public static class EntitiesRendered extends TagMisc {
         @Override
