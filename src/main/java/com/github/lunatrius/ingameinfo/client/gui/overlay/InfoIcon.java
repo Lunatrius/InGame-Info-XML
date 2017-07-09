@@ -6,7 +6,7 @@ import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -63,7 +63,7 @@ public class InfoIcon extends Info {
             GlStateManager.translate(getX(), getY(), 0);
 
             final Tessellator tessellator = Tessellator.getInstance();
-            final VertexBuffer buffer = tessellator.getBuffer();
+            final BufferBuilder buffer = tessellator.getBuffer();
 
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             GuiHelper.drawTexturedRectangle(buffer, this.xy0.x, this.xy0.y, this.xy1.x, this.xy1.y, this.zLevel, this.uv0.x, this.uv0.y, this.uv1.x, this.uv1.y);
