@@ -177,15 +177,16 @@ public abstract class TagWorld extends Tag {
                 return "?";
             }
 
-            final WorldInfo worldInfo = server.worldServerForDimension(0).getWorldInfo();
-            final int clearTime = worldInfo.getCleanWeatherTime();
+            /*final WorldInfo worldInfo = server.worldServerForDimension(0).getWorldInfo();*/
+            /*final int clearTime = worldInfo.getCleanWeatherTime();
             final float seconds = (clearTime > 0 ? clearTime : worldInfo.getRainTime()) / 20f;
             if (seconds < 60) {
                 return String.format(Locale.ENGLISH, "%.1fs", seconds);
             } else if (seconds < 3600) {
                 return String.format(Locale.ENGLISH, "%.1fm", seconds / 60);
             }
-            return String.format(Locale.ENGLISH, "%.1fh", seconds / 3600);
+            return String.format(Locale.ENGLISH, "%.1fh", seconds / 3600);*/
+            return "";
         }
     }
 

@@ -7,12 +7,11 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
-import net.minecraftforge.fml.common.registry.GameData;
+
 
 // TODO: remove "equipped" in the next major version
 public abstract class TagPlayerEquipment extends Tag {
-    public static final FMLControlledNamespacedRegistry<Item> ITEM_REGISTRY = GameData.getItemRegistry();
+    
     public static final String[] TYPES = new String[] {
             "equipped", "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots"
     };
@@ -71,7 +70,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 return "";
             }
 
-            return String.valueOf(ITEM_REGISTRY.getNameForObject(itemStack.getItem()));
+            return String.valueOf(Item.REGISTRY.getNameForObject(itemStack.getItem()));
         }
     }
 
