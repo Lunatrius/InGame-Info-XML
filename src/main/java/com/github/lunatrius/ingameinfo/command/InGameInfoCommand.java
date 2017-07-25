@@ -6,6 +6,7 @@ import com.github.lunatrius.ingameinfo.client.gui.tag.GuiTags;
 import com.github.lunatrius.ingameinfo.handler.ConfigurationHandler;
 import com.github.lunatrius.ingameinfo.handler.Ticker;
 import com.github.lunatrius.ingameinfo.reference.Names;
+import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -14,11 +15,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.File;
-import java.io.FilenameFilter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+@MethodsReturnNonnullByDefault
+@ParametersAreNonnullByDefault
 public class InGameInfoCommand extends CommandBase {
     public static final InGameInfoCommand INSTANCE = new InGameInfoCommand();
 
@@ -37,12 +42,12 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
+    public boolean checkPermission(final MinecraftServer server, final ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+    public List<String> getTabCompletions(final MinecraftServer server, final ICommandSender sender, final String[] args, final @Nullable BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
         } else if (args.length == 2) {
@@ -53,15 +58,12 @@ public class InGameInfoCommand extends CommandBase {
             }
         }
 
-        return null;
+        return Collections.emptyList();
     }
 
     private List<String> getFilenames() {
-        final File[] files = this.core.getConfigDirectory().listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(final File dir, final String name) {
-                return name.startsWith(Names.Files.NAME) && (name.endsWith(Names.Files.EXT_XML) || name.endsWith(Names.Files.EXT_JSON) || name.endsWith(Names.Files.EXT_TXT));
-            }
+        final File[] files = this.core.getConfigDirectory().listFiles((File dir, String name) -> {
+            return name.startsWith(Names.Files.NAME) && (name.endsWith(Names.Files.EXT_XML) || name.endsWith(Names.Files.EXT_JSON) || name.endsWith(Names.Files.EXT_TXT));
         });
 
         final List<String> filenames = new ArrayList<String>();
@@ -74,7 +76,7 @@ public class InGameInfoCommand extends CommandBase {
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(final MinecraftServer server, final ICommandSender sender, final String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));

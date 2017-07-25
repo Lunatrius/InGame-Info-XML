@@ -2,6 +2,7 @@ package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -14,22 +15,19 @@ import java.util.Locale;
 public abstract class TagNearbyPlayer extends Tag {
     public static final int MAXIMUM_INDEX = 16;
 
-    private static final Comparator<EntityPlayer> PLAYER_DISTANCE_COMPARATOR = new Comparator<EntityPlayer>() {
-        @Override
-        public int compare(final EntityPlayer playerA, final EntityPlayer playerB) {
-            if (Tag.player == null) {
-                return 0;
-            }
-
-            final double distanceA = Tag.player.getDistanceSqToEntity(playerA);
-            final double distanceB = Tag.player.getDistanceSqToEntity(playerB);
-            if (distanceA > distanceB) {
-                return 1;
-            } else if (distanceA < distanceB) {
-                return -1;
-            }
+    private static final Comparator<EntityPlayer> PLAYER_DISTANCE_COMPARATOR = (EntityPlayer playerA, EntityPlayer playerB) -> {
+        if (Tag.player == null) {
             return 0;
         }
+
+        final double distanceA = Tag.player.getDistanceSqToEntity(playerA);
+        final double distanceB = Tag.player.getDistanceSqToEntity(playerB);
+        if (distanceA > distanceB) {
+            return 1;
+        } else if (distanceA < distanceB) {
+            return -1;
+        }
+        return 0;
     };
     protected static EntityPlayer[] nearbyPlayers = null;
     protected final int index;
@@ -121,7 +119,12 @@ public abstract class TagNearbyPlayer extends Tag {
         public String getValue() {
             updateNearbyPlayers();
             if (nearbyPlayers.length > this.index) {
-                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(nearbyPlayers[this.index].getUniqueID());
+                final NetHandlerPlayClient connection = minecraft.getConnection();
+                if (connection == null) {
+                    return "";
+                }
+
+                final NetworkPlayerInfo playerInfo = connection.getPlayerInfo(nearbyPlayers[this.index].getUniqueID());
                 final InfoIcon icon = new InfoIcon(playerInfo.getLocationSkin());
                 icon.setTextureData(8, 8, 8, 8, 64, 64);
                 icon.setDisplayDimensions(0, 0, 8, 8);

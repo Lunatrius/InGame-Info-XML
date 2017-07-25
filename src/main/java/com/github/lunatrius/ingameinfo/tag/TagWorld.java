@@ -1,6 +1,5 @@
 package com.github.lunatrius.ingameinfo.tag;
 
-import com.github.lunatrius.core.util.math.MBlockPos;
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.resources.I18n;
@@ -14,8 +13,6 @@ import net.minecraftforge.common.DimensionManager;
 import java.util.Locale;
 
 public abstract class TagWorld extends Tag {
-    protected final MBlockPos pos = new MBlockPos();
-
     @Override
     public String getCategory() {
         return "world";
@@ -177,7 +174,7 @@ public abstract class TagWorld extends Tag {
                 return "?";
             }
 
-            final WorldInfo worldInfo = server.worldServerForDimension(0).getWorldInfo();
+            final WorldInfo worldInfo = server.getWorld(0).getWorldInfo();
             final int clearTime = worldInfo.getCleanWeatherTime();
             final float seconds = (clearTime > 0 ? clearTime : worldInfo.getRainTime()) / 20f;
             if (seconds < 60) {

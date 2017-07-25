@@ -15,8 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,9 +26,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ValueComplex extends Value {
-    public static final FMLControlledNamespacedRegistry<Block> BLOCK_REGISTRY = GameData.getBlockRegistry();
-    public static final FMLControlledNamespacedRegistry<Item> ITEM_REGISTRY = GameData.getItemRegistry();
-
     @Override
     public boolean isSimple() {
         return false;
@@ -119,9 +114,9 @@ public abstract class ValueComplex extends Value {
                 Item item;
                 int itemDamage = -1;
                 try {
-                    item = ITEM_REGISTRY.getObject(new ResourceLocation(getValue(0)));
+                    item = Item.REGISTRY.getObject(new ResourceLocation(getValue(0)));
                 } catch (final Exception e3) {
-                    item = ITEM_REGISTRY.getObjectById(getIntValue(0));
+                    item = Item.REGISTRY.getObjectById(getIntValue(0));
                 }
                 if (this.values.size() == 2) {
                     itemDamage = getIntValue(1);
@@ -268,20 +263,20 @@ public abstract class ValueComplex extends Value {
                     if (size == 2) {
                         metadata = getIntValue(1);
                         // TODO: this needs a better workaround
-                        final Block block = BLOCK_REGISTRY.getObject(what);
+                        final Block block = Block.REGISTRY.getObject(what);
                         if (block == Blocks.DOUBLE_PLANT) {
                             metadata &= 7;
                         }
                     }
 
-                    itemStack = new ItemStack(ITEM_REGISTRY.getObject(what), 1, metadata);
+                    itemStack = new ItemStack(Item.REGISTRY.getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
                         item = new InfoItem(itemStack);
                         info.add(item);
                         return Tag.getIconTag(item);
                     }
 
-                    itemStack = new ItemStack(BLOCK_REGISTRY.getObject(what), 1, metadata);
+                    itemStack = new ItemStack(Block.REGISTRY.getObject(what), 1, metadata);
                     if (itemStack.getItem() != null) {
                         item = new InfoItem(itemStack);
                         info.add(item);

@@ -37,13 +37,13 @@ public class GuiTagList extends GuiListExtended {
 
             CategoryEntry categoryEntry = stringCategoryEntryMap.get(category);
             if (categoryEntry == null) {
-                categoryEntry = new CategoryEntry(this.minecraft.fontRendererObj, category);
+                categoryEntry = new CategoryEntry(this.minecraft.fontRenderer, category);
                 stringCategoryEntryMap.put(category, categoryEntry);
                 this.map.put(categoryEntry, new TreeSet<TagEntry>());
             }
             final Set<TagEntry> tagEntries = this.map.get(categoryEntry);
             if (tagEntries != null) {
-                tagEntries.add(new TagEntry(this.minecraft.fontRendererObj, name, description));
+                tagEntries.add(new TagEntry(this.minecraft.fontRenderer, name, description));
             }
         }
 
@@ -102,7 +102,7 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void setSelected(final int index, final int p_178011_2_, final int p_178011_3_) {
+        public void updatePosition(final int p_192633_1_, final int p_192633_2_, final int p_192633_3_, final float p_192633_4_) {
         }
 
         public abstract String getName();
@@ -123,8 +123,8 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void drawEntry(final int index, final int x, final int y, final int width, final int height, final int mouseX, final int mouseY, final boolean isSelected) {
-            this.fontRenderer.drawString(this.name, x + (width - this.fontRenderer.getStringWidth(this.name)) / 2, y + (height - this.fontRenderer.FONT_HEIGHT + 1) / 2, 0xFFFFFF);
+        public void drawEntry(final int slotIndex, final int x, final int y, final int listWidth, final int slotHeight, final int mouseX, final int mouseY, final boolean isSelected, final float partialTicks) {
+            this.fontRenderer.drawString(this.name, x + (listWidth - this.fontRenderer.getStringWidth(this.name)) / 2, y + (slotHeight - this.fontRenderer.FONT_HEIGHT + 1) / 2, 0xFFFFFF);
         }
 
         @Override
@@ -169,12 +169,12 @@ public class GuiTagList extends GuiListExtended {
         }
 
         @Override
-        public void drawEntry(final int index, final int x, final int y, final int width, final int height, final int mouseX, final int mouseY, final boolean isSelected) {
-            this.fontRenderer.drawString(this.name, x, y + height / 2 - this.fontRenderer.FONT_HEIGHT / 2, 0xFFFFFF);
+        public void drawEntry(final int slotIndex, final int x, final int y, final int listWidth, final int slotHeight, final int mouseX, final int mouseY, final boolean isSelected, final float partialTicks) {
+            this.fontRenderer.drawString(this.name, x, y + slotHeight / 2 - this.fontRenderer.FONT_HEIGHT / 2, 0xFFFFFF);
 
             final int lineHeight = this.fontRenderer.FONT_HEIGHT + 1;
             for (int i = 0; i < this.descArray.length; i++) {
-                this.fontRenderer.drawString(this.descArray[i], x + OFFSET_X, y + (height - lineHeight * this.descArray.length) / 2 + lineHeight * i, 0xFFFFFF);
+                this.fontRenderer.drawString(this.descArray[i], x + OFFSET_X, y + (slotHeight - lineHeight * this.descArray.length) / 2 + lineHeight * i, 0xFFFFFF);
             }
         }
 

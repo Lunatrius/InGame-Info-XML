@@ -8,12 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraftforge.fml.common.registry.FMLControlledNamespacedRegistry;
-import net.minecraftforge.fml.common.registry.GameData;
 
 public abstract class TagMouseOver extends Tag {
-    public static final FMLControlledNamespacedRegistry<Block> BLOCK_REGISTRY = GameData.getBlockRegistry();
-
     @Override
     public String getCategory() {
         return "mouseover";
@@ -29,13 +25,8 @@ public abstract class TagMouseOver extends Tag {
                 } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
                     final IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
                     final Block block = blockState.getBlock();
-                    if (block != null) {
-                        final ItemStack pickBlock = block.getPickBlock(blockState, objectMouseOver, world, objectMouseOver.getBlockPos(), player);
-                        if (pickBlock != null) {
-                            return pickBlock.getDisplayName();
-                        }
-                        return block.getLocalizedName();
-                    }
+                    final ItemStack pickBlock = block.getPickBlock(blockState, objectMouseOver, world, objectMouseOver.getBlockPos(), player);
+                    return pickBlock.getDisplayName();
                 }
             }
             return "";
@@ -54,9 +45,7 @@ public abstract class TagMouseOver extends Tag {
                     }
                 } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
                     final Block block = world.getBlockState(objectMouseOver.getBlockPos()).getBlock();
-                    if (block != null) {
-                        return String.valueOf(BLOCK_REGISTRY.getNameForObject(block));
-                    }
+                    return String.valueOf(Block.REGISTRY.getNameForObject(block));
                 }
             }
             return "";
@@ -72,9 +61,7 @@ public abstract class TagMouseOver extends Tag {
                     return String.valueOf(objectMouseOver.entityHit.getEntityId());
                 } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
                     final Block block = world.getBlockState(objectMouseOver.getBlockPos()).getBlock();
-                    if (block != null) {
-                        return String.valueOf(BLOCK_REGISTRY.getId(block));
-                    }
+                    return String.valueOf(Block.REGISTRY.getIDForObject(block));
                 }
             }
             return "0";

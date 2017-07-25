@@ -33,7 +33,7 @@ public class InfoItem extends Info {
 
     @Override
     public void drawInfo() {
-        if (this.itemStack != ItemStack.EMPTY) {
+        if (!this.itemStack.isEmpty()) {
             GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
             GlStateManager.enableRescaleNormal();
             RenderHelper.enableGUIStandardItemLighting();
@@ -49,7 +49,7 @@ public class InfoItem extends Info {
             renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
 
             if (ConfigurationHandler.showOverlayItemIcons) {
-                renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRendererObj, this.itemStack, 0, 0, "");
+                renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRenderer, this.itemStack, 0, 0, "");
             }
 
             renderItem.zLevel = zLevel;
@@ -67,12 +67,12 @@ public class InfoItem extends Info {
 
     @Override
     public int getWidth() {
-        return this.itemStack != ItemStack.EMPTY ? this.size : 0;
+        return !this.itemStack.isEmpty() ? this.size : 0;
     }
 
     @Override
     public int getHeight() {
-        return this.itemStack != ItemStack.EMPTY ? this.size : 0;
+        return !this.itemStack.isEmpty() ? this.size : 0;
     }
 
     @Override

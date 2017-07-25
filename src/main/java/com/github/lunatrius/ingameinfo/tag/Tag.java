@@ -76,7 +76,7 @@ public abstract class Tag {
         Tag.server = server;
 
         try {
-            setSeed(Tag.server.worldServerForDimension(0).getSeed());
+            setSeed(Tag.server.getWorld(0).getSeed());
         } catch (final Exception e) {
             unsetSeed();
         }
@@ -118,7 +118,7 @@ public abstract class Tag {
 
     public static String getIconTag(final Info info) {
         String str = "";
-        for (int i = 0; i < info.getWidth() && minecraft.fontRendererObj.getStringWidth(str) < info.getWidth(); i++) {
+        for (int i = 0; i < info.getWidth() && minecraft.fontRenderer.getStringWidth(str) < info.getWidth(); i++) {
             str += " ";
         }
         return String.format("{ICON|%s}", str);

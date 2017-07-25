@@ -19,7 +19,7 @@ public class GuiTags extends GuiScreen {
     @Override
     public void initGui() {
         this.guiTagList = new GuiTagList(this, Minecraft.getMinecraft());
-        this.guiTextField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 155, this.height - 24, 150, 18);
+        this.guiTextField = new GuiTextField(0, this.fontRenderer, this.width / 2 - 155, this.height - 24, 150, 18);
         this.btnDone = new GuiButton(1, this.width / 2 + 5, this.height - 25, 150, 20, I18n.format("gui.done"));
         this.buttonList.add(this.btnDone);
     }
@@ -70,7 +70,7 @@ public class GuiTags extends GuiScreen {
         drawDefaultBackground();
 
         this.guiTagList.drawScreen(mouseX, mouseY, partialTicks);
-        drawCenteredString(this.fontRendererObj, this.strTagList, this.width / 2, 5, 0xFFFFFF);
+        drawCenteredString(this.fontRenderer, this.strTagList, this.width / 2, 5, 0xFFFFFF);
         this.guiTextField.drawTextBox();
 
         super.drawScreen(mouseX, mouseY, partialTicks);
