@@ -92,7 +92,7 @@ public abstract class TagMouseOver extends Tag {
                     for (final EnumFacing side : EnumFacing.VALUES) {
                         final BlockPos pos = objectMouseOver.getBlockPos().offset(side);
                         final IBlockState blockState = world.getBlockState(pos);
-                        power = Math.max(power, blockState.getBlock().getWeakPower(blockState, world, pos, side));
+                        power = Math.max(power, blockState.getWeakPower(world, pos, side));
 
                         if (power >= 15) {
                             break;
@@ -111,11 +111,11 @@ public abstract class TagMouseOver extends Tag {
             final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final IBlockState blockState = world.getBlockState(objectMouseOver.getBlockPos());
-                    final Block block = blockState.getBlock();
+                    final BlockPos pos = objectMouseOver.getBlockPos();
+                    final IBlockState blockState = world.getBlockState(pos);
                     int power = -1;
                     for (final EnumFacing side : EnumFacing.VALUES) {
-                        power = Math.max(power, block.getStrongPower(blockState, world, objectMouseOver.getBlockPos(), side));
+                        power = Math.max(power, blockState.getStrongPower(world, pos, side));
 
                         if (power >= 15) {
                             break;
