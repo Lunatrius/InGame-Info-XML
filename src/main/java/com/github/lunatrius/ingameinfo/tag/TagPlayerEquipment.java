@@ -8,13 +8,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 
-// TODO: remove "equipped" in the next major version
 public abstract class TagPlayerEquipment extends Tag {
     public static final String[] TYPES = new String[] {
-            "equipped", "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots"
+            "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots"
     };
     public static final int[] SLOTS = new int[] {
-            -3, -2, -1, 3, 2, 1, 0
+            -2, -1, 3, 2, 1, 0
     };
     protected final int slot;
 
@@ -32,7 +31,7 @@ public abstract class TagPlayerEquipment extends Tag {
             return player.getHeldItemOffhand();
         }
 
-        if (slot == -1 || slot == -3) {
+        if (slot == -1) {
             return player.getHeldItemMainhand();
         }
 
