@@ -80,7 +80,7 @@ public abstract class TagPlayerEquipment extends Tag {
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
             if (itemStack.isEmpty()) {
-                return String.valueOf(0);
+                return String.valueOf(-1);
             }
 
             return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
@@ -96,10 +96,10 @@ public abstract class TagPlayerEquipment extends Tag {
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
             if (itemStack.isEmpty()) {
-                return String.valueOf(0);
+                return String.valueOf(-1);
             }
 
-            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 : 0);
+            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() : 0);
         }
     }
 
@@ -112,10 +112,10 @@ public abstract class TagPlayerEquipment extends Tag {
         public String getValue() {
             final ItemStack itemStack = getItemStack(this.slot);
             if (itemStack.isEmpty()) {
-                return String.valueOf(0);
+                return String.valueOf(-1);
             }
 
-            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() + 1 - itemStack.getItemDamage() : 0);
+            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() - itemStack.getItemDamage() : 0);
         }
     }
 

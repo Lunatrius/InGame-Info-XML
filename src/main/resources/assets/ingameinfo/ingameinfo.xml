@@ -93,7 +93,7 @@
             </operation>
             <max>
                 <var>mainhanddamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{mainhanddamageleft}$f / $e{mainhandmaxdamage}</str>
                 <var>mainhandname</var>
             </max>
@@ -119,7 +119,7 @@
             </operation>
             <max>
                 <var>offhanddamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{offhanddamageleft}$f / $e{offhandmaxdamage}</str>
                 <var>offhandname</var>
             </max>
@@ -221,7 +221,7 @@
             </operation>
             <max>
                 <var>helmetdamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{helmetdamageleft}$f / $e{helmetmaxdamage}</str>
                 <str/>
             </max>
@@ -245,7 +245,7 @@
             </operation>
             <max>
                 <var>chestplatedamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{chestplatedamageleft}$f / $e{chestplatemaxdamage}</str>
                 <str/>
             </max>
@@ -269,7 +269,7 @@
             </operation>
             <max>
                 <var>leggingsdamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{leggingsdamageleft}$f / $e{leggingsmaxdamage}</str>
                 <str/>
             </max>
@@ -293,7 +293,7 @@
             </operation>
             <max>
                 <var>bootsdamageleft</var>
-                <num>0.5</num>
+                <num>0</num>
                 <str>{bootsdamageleft}$f / $e{bootsmaxdamage}</str>
                 <str/>
             </max>
