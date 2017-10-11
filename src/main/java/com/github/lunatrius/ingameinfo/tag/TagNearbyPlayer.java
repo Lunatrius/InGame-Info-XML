@@ -20,8 +20,8 @@ public abstract class TagNearbyPlayer extends Tag {
             return 0;
         }
 
-        final double distanceA = Tag.player.getDistanceSqToEntity(playerA);
-        final double distanceB = Tag.player.getDistanceSqToEntity(playerB);
+        final double distanceA = Tag.player.getDistanceSq(playerA);
+        final double distanceB = Tag.player.getDistanceSq(playerB);
         if (distanceA > distanceB) {
             return 1;
         } else if (distanceA < distanceB) {
@@ -104,7 +104,7 @@ public abstract class TagNearbyPlayer extends Tag {
         public String getValue() {
             updateNearbyPlayers();
             if (nearbyPlayers.length > this.index) {
-                return String.format(Locale.ENGLISH, "%.2f", nearbyPlayers[this.index].getDistanceToEntity(player));
+                return String.format(Locale.ENGLISH, "%.2f", nearbyPlayers[this.index].getDistance(player));
             }
             return "-1";
         }
