@@ -48,9 +48,9 @@ public class InGameInfoCore {
     private final Profiler profiler = this.minecraft.mcProfiler;
     private File configDirectory = null;
     private File configFile = null;
-    private final Map<Alignment, List<List<Value>>> format = new HashMap<Alignment, List<List<Value>>>();
-    private final List<Info> info = new ArrayList<Info>();
-    private final List<Info> infoItemQueue = new ArrayList<Info>();
+    private final Map<Alignment, List<List<Value>>> format = new HashMap<>();
+    private final List<Info> info = new ArrayList<>();
+    private final List<Info> infoItemQueue = new ArrayList<>();
 
     private InGameInfoCore() {
         Tag.setInfo(this.infoItemQueue);
@@ -121,34 +121,34 @@ public class InGameInfoCore {
             }
 
             final FontRenderer fontRenderer = this.minecraft.fontRenderer;
-            final List<Info> queue = new ArrayList<Info>();
+            final List<Info> queue = new ArrayList<>();
 
             for (final List<Value> line : lines) {
-                String str = "";
+                StringBuilder str = new StringBuilder();
 
                 this.infoItemQueue.clear();
                 this.profiler.startSection("taggathering");
                 for (final Value value : line) {
-                    str += getValue(value);
+                    str.append(getValue(value));
                 }
                 this.profiler.endSection();
 
-                if (!str.isEmpty()) {
-                    final String processed = str.replaceAll("\\{ICON\\|( *)\\}", "$1");
+                if (str.length() > 0) {
+                    final String processed = str.toString().replaceAll("\\{ICON\\|( *)\\}", "$1");
 
                     x = alignment.getX(scaledWidth, fontRenderer.getStringWidth(processed));
                     final InfoText text = new InfoText(fontRenderer, processed, x, 0);
 
                     if (this.infoItemQueue.size() > 0) {
-                        MATCHER.reset(str);
+                        MATCHER.reset(str.toString());
 
                         for (int i = 0; i < this.infoItemQueue.size() && MATCHER.find(); i++) {
                             final Info item = this.infoItemQueue.get(i);
                             item.x = fontRenderer.getStringWidth(str.substring(0, MATCHER.start()));
                             text.children.add(item);
 
-                            str = str.replaceFirst(Pattern.quote(MATCHER.group(0)), MATCHER.group(1));
-                            MATCHER.reset(str);
+                            str = new StringBuilder(str.toString().replaceFirst(Pattern.quote(MATCHER.group(0)), MATCHER.group(1)));
+                            MATCHER.reset(str.toString());
                         }
                     }
                     queue.add(text);

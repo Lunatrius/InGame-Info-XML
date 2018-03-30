@@ -55,7 +55,7 @@ public class JsonParser implements IParser {
     }
 
     private List<List<Value>> getLines(final JsonElement elementLines) {
-        final List<List<Value>> listLines = new ArrayList<List<Value>>();
+        final List<List<Value>> listLines = new ArrayList<>();
 
         final JsonArray arrayLines = elementLines.getAsJsonArray();
         for (final JsonElement elementLine : arrayLines) {
@@ -68,7 +68,7 @@ public class JsonParser implements IParser {
     }
 
     private List<Value> getValues(final JsonArray arrayValues) {
-        final List<Value> values = new ArrayList<Value>();
+        final List<Value> values = new ArrayList<>();
 
         for (final JsonElement elementValue : arrayValues) {
             if (elementValue != null && elementValue.isJsonObject()) {

@@ -50,7 +50,22 @@ public abstract class TagPlayerEquipment extends Tag {
                 return "";
             }
 
-            final String arrows = itemStack.getItem() instanceof ItemBow ? " (" + EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW) + ")" : "";
+            final String arrows;
+            if (itemStack.getItem() instanceof ItemBow) {
+                final StringBuilder arrowBuilder = new StringBuilder();
+                final int regularArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW);
+                final int spectralArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.SPECTRAL_ARROW);
+                final int tippedArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.TIPPED_ARROW);
+
+                arrowBuilder.append(" (")
+                        .append(Integer.toString(regularArrows + spectralArrows + tippedArrows))
+                        .append(")");
+
+                arrows = arrowBuilder.toString();
+            } else {
+                arrows = "";
+            }
+
             return itemStack.getDisplayName() + arrows;
         }
     }

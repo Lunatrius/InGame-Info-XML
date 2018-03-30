@@ -258,6 +258,13 @@ public abstract class TagPlayerGeneral extends Tag {
         }
     }
 
+    public static class Flying extends TagPlayerGeneral {
+        @Override
+        public String getValue() {
+            return String.valueOf(player.isElytraFlying());
+        }
+    }
+
     public static class Invisible extends TagPlayerGeneral {
         @Override
         public String getValue() {
@@ -305,6 +312,7 @@ public abstract class TagPlayerGeneral extends Tag {
         TagRegistry.INSTANCE.register(new Riding().setName("riding"));
         TagRegistry.INSTANCE.register(new Sneaking().setName("sneaking"));
         TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
+        TagRegistry.INSTANCE.register(new Flying().setName("flying"));
         TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
         TagRegistry.INSTANCE.register(new Eating().setName("eating"));
     }

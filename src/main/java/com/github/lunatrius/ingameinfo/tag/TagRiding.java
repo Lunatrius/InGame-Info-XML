@@ -60,7 +60,7 @@ public abstract class TagRiding extends Tag {
     }
 
     public static class HorseJump extends TagRiding {
-        private final Map<Double, Double> jumpHeightCache = new HashMap<Double, Double>();
+        private final Map<Double, Double> jumpHeightCache = new HashMap<>();
 
         private double getJumpHeight(final AbstractHorse horse) {
             final double jumpStrength = horse.getHorseJumpStrength();

@@ -157,7 +157,7 @@ public abstract class TagPlayerPotion extends Tag {
                     } else {
                         icon.setDisplayDimensions(1, -1, 18 / 2, 18 / 2);
                     }
-                    icon.setTextureData(0 + (i % 8) * 18, 198 + (i / 8) * 18, 18, 18, 256, 256);
+                    icon.setTextureData((i % 8) * 18, 198 + (i / 8) * 18, 18, 18, 256, 256);
                     info.add(icon);
                     return getIconTag(icon);
                 }

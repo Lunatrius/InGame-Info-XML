@@ -76,15 +76,6 @@ public abstract class TagMisc extends Tag {
         }
     }
 
-    public static class LoadedChunks extends TagMisc {
-        @Override
-        public String getValue() {
-            // TODO: no longer exists on the client side; remove or fix
-            // return String.valueOf(world.getChunkProvider().getLoadedChunkCount());
-            return String.valueOf(-1);
-        }
-    }
-
     public static class Server extends TagMisc {
         @Override
         public String getValue() {
@@ -190,7 +181,6 @@ public abstract class TagMisc extends Tag {
         TagRegistry.INSTANCE.register(new ResourcePack().setName("resourcepack"));
         TagRegistry.INSTANCE.register(new EntitiesRendered().setName("entitiesrendered"));
         TagRegistry.INSTANCE.register(new EntitiesTotal().setName("entitiestotal"));
-        TagRegistry.INSTANCE.register(new LoadedChunks().setName("loadedchunks"));
         TagRegistry.INSTANCE.register(new Server().setName("server"));
         TagRegistry.INSTANCE.register(new ServerName().setName("servername"));
         TagRegistry.INSTANCE.register(new ServerIP().setName("serverip"));

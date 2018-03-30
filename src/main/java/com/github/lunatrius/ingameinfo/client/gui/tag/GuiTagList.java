@@ -27,9 +27,9 @@ public class GuiTagList extends GuiListExtended {
         super(minecraft, guiTags.width, guiTags.height, 18, guiTags.height - 30, 24);
         this.minecraft = minecraft;
 
-        this.map = new TreeMap<CategoryEntry, Set<TagEntry>>();
+        this.map = new TreeMap<>();
 
-        final Map<String, CategoryEntry> stringCategoryEntryMap = new HashMap<String, CategoryEntry>();
+        final Map<String, CategoryEntry> stringCategoryEntryMap = new HashMap<>();
         for (final Tag tag : TagRegistry.INSTANCE.getRegisteredTags()) {
             final String category = tag.getLocalizedCategory();
             final String name = tag.getFormattedName();
@@ -39,7 +39,7 @@ public class GuiTagList extends GuiListExtended {
             if (categoryEntry == null) {
                 categoryEntry = new CategoryEntry(this.minecraft.fontRenderer, category);
                 stringCategoryEntryMap.put(category, categoryEntry);
-                this.map.put(categoryEntry, new TreeSet<TagEntry>());
+                this.map.put(categoryEntry, new TreeSet<>());
             }
             final Set<TagEntry> tagEntries = this.map.get(categoryEntry);
             if (tagEntries != null) {
@@ -51,7 +51,7 @@ public class GuiTagList extends GuiListExtended {
     }
 
     public void filter(final String pattern) {
-        final List<IGuiListEntry> list = new ArrayList<IGuiListEntry>();
+        final List<IGuiListEntry> list = new ArrayList<>();
         for (final Map.Entry<CategoryEntry, Set<TagEntry>> entry : this.map.entrySet()) {
             list.add(entry.getKey());
 
@@ -147,7 +147,7 @@ public class GuiTagList extends GuiListExtended {
         }
 
         private String[] getDescArray(String desc) {
-            final List<String> list = new ArrayList<String>();
+            final List<String> list = new ArrayList<>();
 
             final int width = getListWidth() - OFFSET_X - SCROLLBAR_WIDTH;
             if (this.fontRenderer.getStringWidth(desc) < width) {

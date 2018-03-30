@@ -56,7 +56,7 @@ public class XmlParser implements IParser {
     }
 
     private List<List<Value>> getLines(final Element element) {
-        final List<List<Value>> listLines = new ArrayList<List<Value>>();
+        final List<List<Value>> listLines = new ArrayList<>();
 
         final NodeList nodeListLine = element.getChildNodes();
         for (int i = 0; i < nodeListLine.getLength(); i++) {
@@ -70,7 +70,7 @@ public class XmlParser implements IParser {
     }
 
     private List<Value> getValues(final Element element) {
-        final List<Value> values = new ArrayList<Value>();
+        final List<Value> values = new ArrayList<>();
 
         final NodeList nodeListValues = element.getChildNodes();
         for (int i = 0; i < nodeListValues.getLength(); i++) {

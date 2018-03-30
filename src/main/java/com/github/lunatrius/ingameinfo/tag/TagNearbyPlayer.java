@@ -4,10 +4,10 @@ import com.github.lunatrius.ingameinfo.client.gui.overlay.InfoIcon;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.network.NetworkPlayerInfo;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -68,14 +68,19 @@ public abstract class TagNearbyPlayer extends Tag {
 
     protected static void updateNearbyPlayers() {
         if (nearbyPlayers == null) {
-            final List<EntityPlayer> playerList = new ArrayList<EntityPlayer>();
+            final List<EntityPlayer> playerList = new ArrayList<>();
             for (final EntityPlayer player : world.playerEntities) {
                 if (player != Tag.player && !player.isSneaking()) {
+                    if (player.isRiding()) {
+                        if (player.getRidingEntity() instanceof EntityMinecart) {
+                            if (player.getDistance(Tag.player) > 64) continue;
+                        }
+                    }
                     playerList.add(player);
                 }
             }
 
-            Collections.sort(playerList, PLAYER_DISTANCE_COMPARATOR);
+            playerList.sort(PLAYER_DISTANCE_COMPARATOR);
             nearbyPlayers = playerList.toArray(new EntityPlayer[playerList.size()]);
         }
     }

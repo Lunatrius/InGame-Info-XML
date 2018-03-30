@@ -19,7 +19,7 @@ public abstract class Value {
     private String name = null;
     private String[] aliases = new String[0];
     protected String value = "";
-    public final List<Value> values = new ArrayList<Value>();
+    public final List<Value> values = new ArrayList<>();
 
     public Value setName(final String name) {
         this.name = name;

@@ -129,7 +129,7 @@ task signJars(dependsOn: ['reobfJar', 'sourceJar']) {
     doLast {
         jar.destinationDir.eachFile { file ->
             if (!file.getPath().endsWith('.jar'))
-                return;
+                return
 
             logger.lifecycle "signing ${file}"
             ant.signjar(

@@ -14,9 +14,9 @@ import java.util.Map;
 public class ValueRegistry {
     public static final ValueRegistry INSTANCE = new ValueRegistry();
 
-    private Map<String, Value> stringValueMap = new HashMap<String, Value>();
-    private Map<String, Class<? extends Value>> stringClassMap = new HashMap<String, Class<? extends Value>>();
-    private Map<Class<? extends Value>, String> classStringMap = new HashMap<Class<? extends Value>, String>();
+    private Map<String, Value> stringValueMap = new HashMap<>();
+    private Map<String, Class<? extends Value>> stringClassMap = new HashMap<>();
+    private Map<Class<? extends Value>, String> classStringMap = new HashMap<>();
 
     private void register(final String name, final Value value, final boolean isAlias) {
         if (this.stringValueMap.containsKey(name)) {

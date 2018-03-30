@@ -34,16 +34,16 @@ public class TextParser implements IParser {
         try {
             final InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             final BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line, content = "";
+            String line;StringBuilder content = new StringBuilder();
 
             while ((line = reader.readLine()) != null) {
-                content += line + "\n";
+                content.append(line).append("\n");
             }
 
             reader.close();
             inputStreamReader.close();
 
-            this.tokenizer.tokenize(content);
+            this.tokenizer.tokenize(content.toString());
         } catch (final Exception e) {
             Reference.logger.fatal("Could not read text configuration file!", e);
             return false;
@@ -84,7 +84,7 @@ public class TextParser implements IParser {
         List<List<Value>> lines = format.get(this.alignment);
 
         if (lines == null) {
-            lines = new ArrayList<List<Value>>();
+            lines = new ArrayList<>();
         }
 
         try {
@@ -117,7 +117,7 @@ public class TextParser implements IParser {
 
     private boolean line(final List<List<Value>> lines) throws AlignmentException {
         final boolean expr;
-        final List<Value> values = new ArrayList<Value>();
+        final List<Value> values = new ArrayList<>();
 
         expr = values(values);
 

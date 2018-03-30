@@ -11,7 +11,7 @@ public class Tokenizer {
     private final Queue<Token> tokens;
 
     public Tokenizer() {
-        this.tokens = new LinkedList<Token>();
+        this.tokens = new LinkedList<>();
     }
 
     public void tokenize(String str) throws Exception {

@@ -45,7 +45,7 @@ public class ConfigurationHandler {
     public static Property propFileInterval = null;
     public static Property propShowOverlayPotions = null;
     public static Property propShowOverlayItemIcons= null;
-    public static final Map<Alignment, Property> propAlignments = new HashMap<Alignment, Property>();
+    public static final Map<Alignment, Property> propAlignments = new HashMap<>();
 
     private ConfigurationHandler() {}
 

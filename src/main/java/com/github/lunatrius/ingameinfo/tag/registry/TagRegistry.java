@@ -23,7 +23,7 @@ import java.util.Map;
 public class TagRegistry {
     public static final TagRegistry INSTANCE = new TagRegistry();
 
-    private Map<String, Tag> stringTagMap = new HashMap<String, Tag>();
+    private Map<String, Tag> stringTagMap = new HashMap<>();
 
     private void register(final String name, final Tag tag) {
         if (this.stringTagMap.containsKey(name)) {
@@ -53,7 +53,7 @@ public class TagRegistry {
     }
 
     public List<Tag> getRegisteredTags() {
-        final List<Tag> tags = new ArrayList<Tag>();
+        final List<Tag> tags = new ArrayList<>();
         for (final Map.Entry<String, Tag> entry : this.stringTagMap.entrySet()) {
             tags.add(entry.getValue());
         }

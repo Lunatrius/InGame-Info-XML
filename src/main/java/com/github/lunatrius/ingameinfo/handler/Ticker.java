@@ -53,15 +53,8 @@ public class Ticker {
             return false;
         }
 
-        if (this.client.mcProfiler.profilingEnabled) {
-            return true;
-        }
+        return this.client.mcProfiler.profilingEnabled || ConfigurationHandler.replaceDebug || ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo;
 
-        if (ConfigurationHandler.replaceDebug || ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
-            return true;
-        }
-
-        return false;
     }
 
     private boolean isRunning() {
@@ -83,13 +76,8 @@ public class Ticker {
                 return false;
             }
 
-            if (this.client.currentScreen == null) {
-                return true;
-            }
+            return this.client.currentScreen == null || ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat;
 
-            if (ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat) {
-                return true;
-            }
         }
 
         return false;
