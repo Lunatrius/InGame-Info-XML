@@ -982,9 +982,9 @@ if (customMaven) {
 
                 pom {
                     name = project.modName
-                    description = "Display various information directly on the in-game GUI.."
+                    description = "Display various information directly on the in-game GUI."
                     inceptionYear = "2020"
-                    url = "https://github.com/ArikHn/LunatriusCore/"
+                    url = "https://github.com/ArikHn/InGame-Info-XML/"
                     licenses {
                         license {
                             name = "MIT License"
@@ -1005,9 +1005,9 @@ if (customMaven) {
                         }
                     }
                     scm {
-                        url = "https://github.com/ArikHn/LunatriusCore"
-                        connection = "scm:git:git://github.com/ArikHn/LunatriusCore.git"
-                        developerConnection = "scm:git:ssh://git@github.com/ArikHn/LunatriusCore.git"
+                        url = "https://github.com/ArikHn/InGame-Info-XML"
+                        connection = "scm:git:git://github.com/ArikHn/InGame-Info-XML.git"
+                        developerConnection = "scm:git:ssh://git@github.com/ArikHn/InGame-Info-XML.git"
                     }
                 }
             }
@@ -1016,7 +1016,7 @@ if (customMaven) {
         repositories {
             maven {
                 name = "GitHubPackages"
-                url = project.LunatriusCore
+                url = project.InGameInfoXML
                 credentials {
                     username = project.GitHubPackagesUsername
                     password = project.GitHubPackagesPassword
