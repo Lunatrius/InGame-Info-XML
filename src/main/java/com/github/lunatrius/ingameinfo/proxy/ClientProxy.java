@@ -33,6 +33,7 @@ public class ClientProxy extends CommonProxy {
         this.core.reloadConfig();
 
         ConfigurationHandler.propFileInterval.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
+        ConfigurationHandler.propScale.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
 
         for (final KeyBinding keyBinding : KeyInputHandler.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);

@@ -92,8 +92,9 @@ public class InGameInfoCore {
 
     public void onTickClient() {
         final ScaledResolution scaledResolution = new ScaledResolution(this.minecraft);
-        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
-        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
+        float scale = ConfigurationHandler.scale / 10;
+        int scaledWidth = (int) (scaledResolution.getScaledWidth() / scale);
+        int scaledHeight = (int) (scaledResolution.getScaledHeight() / scale);
 
         final World world = this.minecraft.world;
         if (world == null) {
@@ -172,14 +173,15 @@ public class InGameInfoCore {
     }
 
     public void onTickRender() {
+        float scale = ConfigurationHandler.scale / 10;
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.scale(ConfigurationHandler.scale, ConfigurationHandler.scale, ConfigurationHandler.scale);
+        GlStateManager.scale(scale, scale, scale);
 
         for (final Info info : this.info) {
             info.draw();
         }
 
-        GlStateManager.scale(1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale);
+        GlStateManager.scale(1.0f / scale, 1.0f / scale, 1.0f / scale);
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 

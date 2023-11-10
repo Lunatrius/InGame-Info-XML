@@ -23,7 +23,7 @@ public class ConfigurationHandler {
     public static final boolean REPLACE_DEBUG_DEFAULT = false;
     public static final boolean SHOW_IN_CHAT_DEFAULT = true;
     public static final boolean SHOW_ON_PLAYER_LIST_DEFAULT = true;
-    public static final double SCALE_DEFAULT = 1.0;
+    public static final int SCALE_DEFAULT = 5;
     public static final int FILE_INTERVAL_DEFAULT = 5;
     public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
     public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
@@ -74,10 +74,9 @@ public class ConfigurationHandler {
         propShowOnPlayerList.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_ON_PLAYER_LIST);
         showOnPlayerList = propShowOnPlayerList.getBoolean(SHOW_ON_PLAYER_LIST_DEFAULT);
 
-        propScale = configuration.get(Names.Config.Category.GENERAL, Names.Config.SCALE, String.valueOf(SCALE_DEFAULT), Names.Config.SCALE_DESC);
+        propScale = configuration.get(Names.Config.Category.GENERAL, Names.Config.SCALE, SCALE_DEFAULT, Names.Config.SCALE_DESC, 5, 20);
         propScale.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SCALE);
-        propScale.setValidValues(new String[] { "0.5", "1.0", "1.5", "2.0" });
-        scale = (float) propScale.getDouble(SCALE_DEFAULT);
+        scale = (float) propScale.getInt(SCALE_DEFAULT);
 
         propFileInterval = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILE_INTERVAL, FILE_INTERVAL_DEFAULT, Names.Config.FILE_INTERVAL_DESC, 1, 60);
         propFileInterval.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILE_INTERVAL);
