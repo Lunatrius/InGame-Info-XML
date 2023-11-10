@@ -134,7 +134,7 @@ public abstract class TagMouseOver extends Tag {
             final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    return String.valueOf(world.isBlockIndirectlyGettingPowered(objectMouseOver.getBlockPos()));
+                    return String.valueOf(world.getRedstonePowerFromNeighbors(objectMouseOver.getBlockPos()));
                 }
             }
             return "-1";

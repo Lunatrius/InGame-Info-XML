@@ -45,7 +45,7 @@ public class InGameInfoCore {
     private IParser parser;
 
     private final Minecraft minecraft = Minecraft.getMinecraft();
-    private final Profiler profiler = this.minecraft.mcProfiler;
+    private final Profiler profiler = this.minecraft.profiler;
     private File configDirectory = null;
     private File configFile = null;
     private final Map<Alignment, List<List<Value>>> format = new HashMap<Alignment, List<List<Value>>>();

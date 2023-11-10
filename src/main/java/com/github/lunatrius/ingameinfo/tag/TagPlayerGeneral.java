@@ -20,7 +20,7 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             try {
-                return String.valueOf(world.getChunkFromBlockCoords(playerPosition).getLightSubtracted(playerPosition, world.calculateSkylightSubtracted(1.0f)));
+                return String.valueOf(world.getChunk(playerPosition).getLightSubtracted(playerPosition, world.calculateSkylightSubtracted(1.0f)));
             } catch (final Exception e) {
                 return "0";
             }
@@ -32,7 +32,7 @@ public abstract class TagPlayerGeneral extends Tag {
         public String getValue() {
             try {
                 this.pos.set(playerPosition.getX(), player.posY + player.getEyeHeight(), playerPosition.getZ());
-                return String.valueOf(world.getChunkFromBlockCoords(this.pos).getLightSubtracted(this.pos, world.calculateSkylightSubtracted(1.0f)));
+                return String.valueOf(world.getChunk(this.pos).getLightSubtracted(this.pos, world.calculateSkylightSubtracted(1.0f)));
             } catch (final Exception e) {
                 return "0";
             }

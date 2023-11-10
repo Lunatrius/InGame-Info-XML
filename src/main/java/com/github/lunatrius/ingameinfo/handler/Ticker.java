@@ -53,7 +53,7 @@ public class Ticker {
             return false;
         }
 
-        if (this.client.mcProfiler.profilingEnabled) {
+        if (this.client.profiler.profilingEnabled) {
             return true;
         }
 
@@ -69,7 +69,7 @@ public class Ticker {
             return false;
         }
 
-        if (this.client.mcProfiler.profilingEnabled) {
+        if (this.client.profiler.profilingEnabled) {
             return true;
         }
 
@@ -97,7 +97,7 @@ public class Ticker {
 
     private void onTick(final TickEvent event) {
         if (event.side == Side.CLIENT && event.phase == TickEvent.Phase.END) {
-            this.client.mcProfiler.startSection("ingameinfo");
+            this.client.profiler.startSection("ingameinfo");
             if (isRunning()) {
                 if (event.type == TickEvent.Type.CLIENT) {
                     this.core.onTickClient();
@@ -110,7 +110,7 @@ public class Ticker {
                 Tag.setServer(null);
                 Tag.releaseResources();
             }
-            this.client.mcProfiler.endSection();
+            this.client.profiler.endSection();
         }
     }
 }

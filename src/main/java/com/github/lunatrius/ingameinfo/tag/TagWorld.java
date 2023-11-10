@@ -70,10 +70,10 @@ public abstract class TagWorld extends Tag {
             if (server != null) {
                 final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    return I18n.format(worldServer.getDifficulty().getDifficultyResourceKey());
+                    return I18n.format(worldServer.getDifficulty().getTranslationKey());
                 }
             }
-            return I18n.format(minecraft.gameSettings.difficulty.getDifficultyResourceKey());
+            return I18n.format(minecraft.gameSettings.difficulty.getTranslationKey());
         }
     }
 
@@ -83,10 +83,10 @@ public abstract class TagWorld extends Tag {
             if (server != null) {
                 final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    return String.valueOf(worldServer.getDifficulty().getDifficultyId());
+                    return String.valueOf(worldServer.getDifficulty().getId());
                 }
             }
-            return String.valueOf(minecraft.gameSettings.difficulty.getDifficultyId());
+            return String.valueOf(minecraft.gameSettings.difficulty.getId());
         }
     }
 
